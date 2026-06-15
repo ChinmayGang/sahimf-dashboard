@@ -141,7 +141,7 @@ export function OverlapLens() {
               <div key={stock.name} className="grid px-5 py-3 items-center border-b border-[#1E1E1E] hover:bg-[#1A1A1A] transition-colors" style={{ gridTemplateColumns: '1fr repeat(4, 90px)', borderBottomColor: i === COMMON_STOCKS.length - 1 ? 'transparent' : undefined }}>
                 <span className="text-sm font-medium text-white">{stock.name}</span>
                 {SELECTED_FUNDS.map((fid) => {
-                  const val = (stock as Record<string, number>)[fid] ?? 0
+                  const val = ((stock as unknown) as Record<string, number>)[fid] ?? 0
                   return (
                     <div key={fid} className="text-center">
                       {val > 0 ? (

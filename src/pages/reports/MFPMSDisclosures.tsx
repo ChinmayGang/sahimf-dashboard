@@ -90,7 +90,7 @@ export function MFPMSDisclosures() {
               <h2 className="text-sm font-semibold text-white">{section.category}</h2>
             </div>
             <div>
-              {section.docs.map((doc, i) => (
+              {section.docs.map((doc) => (
                 <div
                   key={doc.title}
                   className="flex items-center justify-between px-5 py-4 border-b border-[#1E1E1E] last:border-0 hover:bg-[#1A1A1A] transition-colors group"

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import DiamondIcon from '@mui/icons-material/Diamond'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import AddIcon from '@mui/icons-material/Add'
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 
@@ -19,7 +19,6 @@ export function MySahiFunds() {
   const myFunds = mockSahiFunds.filter((f) => MY_FUNDS.includes(f.id))
 
   const [activeIdx, setActiveIdx] = useState(0)
-  const activeFund = myFunds[activeIdx]
 
   const mockInvested = [38000, 55000]
   const mockCurrent = [44820, 72450]

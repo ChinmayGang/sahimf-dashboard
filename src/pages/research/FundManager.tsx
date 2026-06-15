@@ -88,7 +88,7 @@ export function FundManager() {
                 <div key={amc.id} className="flex items-center gap-3">
                   <span className="text-xs text-[#A0A0A0] w-40 truncate" style={{ color: isActive ? '#C5F135' : undefined }}>{amc.name.split(' ').slice(0, 3).join(' ')}</span>
                   <div className="flex-1 bg-[#2A2A2A] rounded-full h-2">
-                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? '#C5F135' : '#2A2A2A', border: isActive ? 'none' : '1px solid #3A3A3A', background: isActive ? '#C5F135' : '#3A3A3A' }} />
+                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? '#C5F135' : '#3A3A3A', border: isActive ? 'none' : '1px solid #3A3A3A' }} />
                   </div>
                   <span className="text-xs font-medium text-[#A0A0A0] w-20 text-right">{formatAUM(amc.aum)}</span>
                 </div>

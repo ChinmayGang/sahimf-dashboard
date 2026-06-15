@@ -30,7 +30,7 @@ const METRICS = [
 
 function getFundVal(fund: typeof mockFunds[0], key: string): number {
   if (key in fund.returns) return (fund.returns as Record<string, number>)[key] ?? 0
-  return (fund as Record<string, unknown>)[key] as number ?? 0
+  return ((fund as unknown) as Record<string, number>)[key] ?? 0
 }
 
 export function FundComparison() {
@@ -166,7 +166,7 @@ export function FundComparison() {
           ))}
         </div>
 
-        {METRICS.map((m, mi) => (
+        {METRICS.map((m) => (
           <div key={m.key} className="border-b border-[#1E1E1E] last:border-0 hover:bg-[#1A1A1A] transition-colors" style={{ display: 'grid', gridTemplateColumns: `200px repeat(${selectedFunds.length}, 1fr)` }}>
             <div className="px-5 py-3 text-sm text-[#A0A0A0]">{m.label}</div>
             {selectedFunds.map((fund, idx) => {
