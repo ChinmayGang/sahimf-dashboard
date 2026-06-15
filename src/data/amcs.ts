@@ -1,0 +1,108 @@
+import type { AMC } from '../types'
+
+export const mockAMCs: AMC[] = [
+  {
+    id: 'amc001',
+    name: 'Mirae Asset Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/01/2008',
+    fundsManaged: 28,
+    aum: 174820,
+    description: 'Mirae Asset is a leading global asset management firm with presence in 14 countries. In India, Mirae Asset Mutual Fund has established itself as one of the fastest-growing AMCs, known for consistent alpha generation across equity categories.',
+    website: 'https://www.miraeassetmf.co.in',
+    managers: [
+      { name: 'Neelesh Surana', designation: 'CIO – Equity', experience: '25+ years', fundsManaged: 8 },
+      { name: 'Vrijesh Kasera', designation: 'Fund Manager', experience: '12 years', fundsManaged: 6 },
+    ],
+  },
+  {
+    id: 'amc002',
+    name: 'PPFAS Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/06/2013',
+    fundsManaged: 5,
+    aum: 98240,
+    description: 'PPFAS (Parag Parikh Financial Advisory Services) is a boutique AMC known for its long-term, value-oriented approach. The AMC runs a concentrated, high-conviction portfolio with global diversification through international stocks.',
+    website: 'https://www.ppfas.com',
+    managers: [
+      { name: 'Rajeev Thakkar', designation: 'CIO', experience: '30+ years', fundsManaged: 3 },
+      { name: 'Raunak Onkar', designation: 'Fund Manager', experience: '14 years', fundsManaged: 2 },
+    ],
+  },
+  {
+    id: 'amc003',
+    name: 'DSP Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/08/1996',
+    fundsManaged: 41,
+    aum: 132650,
+    description: 'DSP Mutual Fund is one of India\'s oldest AMCs with a rich heritage spanning over 25 years. DSP is known for its strong research capability and has delivered consistent performance across market cycles.',
+    website: 'https://www.dspim.com',
+    managers: [
+      { name: 'Kalpen Parekh', designation: 'MD & CEO', experience: '25 years', fundsManaged: 0 },
+      { name: 'Rohit Singhania', designation: 'Fund Manager – Equity', experience: '18 years', fundsManaged: 7 },
+    ],
+  },
+  {
+    id: 'amc004',
+    name: 'Nippon India Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/03/1994',
+    fundsManaged: 54,
+    aum: 498760,
+    description: 'Nippon India Mutual Fund (formerly Reliance Mutual Fund) is one of India\'s largest AMCs with a broad product range and deep distribution network. Known for strong performance in mid and small cap segments.',
+    website: 'https://www.nipponindiamf.com',
+    managers: [
+      { name: 'Sailesh Raj Bhan', designation: 'ED & CIO – Equity', experience: '27 years', fundsManaged: 5 },
+      { name: 'Mehul Dama', designation: 'Fund Manager – Small Cap', experience: '15 years', fundsManaged: 6 },
+    ],
+  },
+  {
+    id: 'amc005',
+    name: 'HDFC Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/04/1999',
+    fundsManaged: 62,
+    aum: 714280,
+    description: 'HDFC Mutual Fund is India\'s largest AMC by AUM, backed by the HDFC Group. It offers a comprehensive suite of products across equity, debt, and hybrid categories, with a proven track record of long-term wealth creation.',
+    website: 'https://www.hdfcfund.com',
+    managers: [
+      { name: 'Chirag Setalvad', designation: 'Head of Equities', experience: '24 years', fundsManaged: 4 },
+      { name: 'Gopal Agrawal', designation: 'Fund Manager – Equity', experience: '22 years', fundsManaged: 8 },
+    ],
+  },
+  {
+    id: 'amc006',
+    name: 'SBI Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/02/1987',
+    fundsManaged: 58,
+    aum: 1124500,
+    description: 'SBI Mutual Fund, backed by State Bank of India, is India\'s largest asset manager by AUM. With over 36 years of experience, it enjoys unparalleled trust and reach across both urban and semi-urban investors.',
+    website: 'https://www.sbimf.com',
+    managers: [
+      { name: 'R. Srinivasan', designation: 'CIO – Equity', experience: '30+ years', fundsManaged: 6 },
+      { name: 'Dinesh Ahuja', designation: 'Fund Manager – Debt', experience: '20 years', fundsManaged: 10 },
+    ],
+  },
+  {
+    id: 'amc007',
+    name: 'ICICI Prudential Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/05/1998',
+    fundsManaged: 72,
+    aum: 832340,
+    description: 'ICICI Prudential Mutual Fund, a joint venture between ICICI Bank and Prudential plc, is India\'s second-largest AMC. It is known for its dynamic asset allocation capabilities and balanced advantage strategies.',
+    website: 'https://www.iciciprumf.com',
+    managers: [
+      { name: 'S. Naren', designation: 'ED & CIO', experience: '32 years', fundsManaged: 5 },
+      { name: 'Ihab Dalwai', designation: 'Fund Manager – Equity', experience: '16 years', fundsManaged: 9 },
+    ],
+  },
+  {
+    id: 'amc008',
+    name: 'Kotak Mutual Fund',
+    sebiRegNo: 'SEBI/IMD/AMC/MF/AMF/07/1998',
+    fundsManaged: 44,
+    aum: 362190,
+    description: 'Kotak Mutual Fund is among the top 5 AMCs in India, known for its strong credit research and debt fund management. The equity team has consistently demonstrated strong risk-adjusted returns.',
+    website: 'https://www.kotakmf.com',
+    managers: [
+      { name: 'Harsha Upadhyaya', designation: 'CIO – Equity', experience: '28 years', fundsManaged: 7 },
+      { name: 'Deepak Agrawal', designation: 'CIO – Debt', experience: '22 years', fundsManaged: 12 },
+    ],
+  },
+]

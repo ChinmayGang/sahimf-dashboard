@@ -1,0 +1,103 @@
+import SyncIcon from '@mui/icons-material/Sync'
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import { PlanBadge } from '../ui/PlanBadge'
+import { useAuthStore } from '../../stores/authStore'
+import { useUIStore } from '../../stores/uiStore'
+import { format } from 'date-fns'
+
+export function Topbar() {
+  const user = useAuthStore((s) => s.user)
+  const { lightMode, toggleLightMode } = useUIStore()
+  const today = new Date()
+
+  const border = lightMode ? '#E5E7EB' : '#1E1E1E'
+  const bg = lightMode ? '#FFFFFF' : 'transparent'
+  const textPrimary = lightMode ? '#18181B' : '#FFFFFF'
+  const textSecondary = lightMode ? '#52525B' : '#A0A0A0'
+  const btnBorder = lightMode ? '#E5E7EB' : '#2A2A2A'
+  const btnHoverBg = lightMode ? '#F4F4F5' : '#1A1A1A'
+
+  return (
+    <header
+      className="h-14 flex items-center justify-between px-6 flex-shrink-0 border-b transition-colors"
+      style={{ background: bg, borderBottomColor: border }}
+    >
+      <div className="flex items-center gap-3">
+        <div>
+          <span className="text-sm font-semibold transition-colors" style={{ color: textPrimary }}>
+            Hi, {user?.name?.split(' ')[0]}
+          </span>
+          <span className="ml-3 text-xs transition-colors" style={{ color: textSecondary }}>
+            {format(today, 'EEE').toUpperCase()} · {format(today, 'd MMM yyyy').toUpperCase()}
+          </span>
+          {user?.plan && (
+            <span className="ml-2">
+              <PlanBadge tier={user.plan} />
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        {/* Sync CAS */}
+        <button
+          className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all"
+          style={{ color: textSecondary, borderColor: btnBorder }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
+        >
+          <SyncIcon sx={{ fontSize: 14 }} />
+          Sync Active CAS
+        </button>
+
+        {/* Notifications */}
+        <button
+          className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors relative"
+          style={{ color: textSecondary }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
+        >
+          <NotificationsNoneIcon sx={{ fontSize: 18 }} />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#C5F135] rounded-full" />
+        </button>
+
+        {/* Light/Dark toggle */}
+        <button
+          onClick={toggleLightMode}
+          className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+          style={{ color: lightMode ? '#F59E0B' : '#A0A0A0', background: lightMode ? '#FEF3C7' : 'transparent' }}
+          title={lightMode ? 'Switch to dark mode' : 'Switch to light mode'}
+          onMouseEnter={(e) => { if (!lightMode) e.currentTarget.style.background = btnHoverBg }}
+          onMouseLeave={(e) => { if (!lightMode) e.currentTarget.style.background = 'transparent' }}
+        >
+          {lightMode
+            ? <DarkModeIcon sx={{ fontSize: 16 }} />
+            : <LightModeIcon sx={{ fontSize: 16 }} />}
+        </button>
+
+        {/* Language toggle */}
+        <div
+          className="flex items-center gap-1 rounded-lg overflow-hidden border"
+          style={{ borderColor: btnBorder }}
+        >
+          <button
+            className="px-2.5 py-1.5 text-xs font-medium transition-colors"
+            style={{ background: lightMode ? '#18181B' : '#2A2A2A', color: '#FFFFFF' }}
+          >
+            En
+          </button>
+          <button
+            className="px-2.5 py-1.5 text-xs font-medium transition-colors"
+            style={{ color: textSecondary }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = textPrimary }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = textSecondary }}
+          >
+            हि
+          </button>
+        </div>
+      </div>
+    </header>
+  )
+}

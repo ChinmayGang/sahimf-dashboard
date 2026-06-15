@@ -1,0 +1,116 @@
+@import "tailwindcss";
+@import "@fontsource/geist/400.css";
+@import "@fontsource/geist/500.css";
+@import "@fontsource/geist/600.css";
+@import "@fontsource/geist/700.css";
+
+@theme {
+  --color-bg-primary: #0A0A0A;
+  --color-bg-sidebar: #111111;
+  --color-bg-card: #1A1A1A;
+  --color-bg-card-hover: #222222;
+  --color-border: #2A2A2A;
+  --color-border-subtle: #1E1E1E;
+
+  --color-accent: #C5F135;
+  --color-accent-dim: #A8D020;
+
+  --color-pro: #7B2FBE;
+  --color-pro-light: #9B59D6;
+
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #606060;
+
+  --font-family-sans: "Geist", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: "Geist", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+/* ─── Light mode overrides (right panel only via [data-theme="light"]) ─── */
+
+/* Surfaces */
+[data-theme="light"] [class~="bg-[#0A0A0A]"] { background: radial-gradient(ellipse at 75% -5%, #DDD6FE 0%, #EDE9FE 28%, #F5F3FF 55%, #FAFAFA 100%) !important; }
+[data-theme="light"] [class~="bg-[#1A1A1A]"] { background-color: #FFFFFF !important; }
+[data-theme="light"] [class~="bg-[#1E1E1E]"] { background-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="bg-[#2A2A2A]"] { background-color: #EBEBEB !important; }
+[data-theme="light"] [class~="bg-[#222222]"] { background-color: #F5F5F5 !important; }
+[data-theme="light"] [class~="bg-[#111111]"] { background-color: #FAFAFA !important; }
+
+/* Borders */
+[data-theme="light"] [class~="border-[#2A2A2A]"] { border-color: #E4E4E7 !important; }
+[data-theme="light"] [class~="border-[#1E1E1E]"] { border-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="border-[#1A1A1A]"] { border-color: #F0F0F0 !important; }
+
+/* Primary text — white becomes near-black */
+[data-theme="light"] .text-white { color: #18181B !important; }
+
+/* Keep white text on intentionally colored backgrounds */
+[data-theme="light"] [class~="bg-[#7B2FBE]"] .text-white,
+[data-theme="light"] [class~="bg-[#7B2FBE]"][class~="text-white"] { color: #FFFFFF !important; }
+[data-theme="light"] .bg-black\/40 .text-white { color: #FFFFFF !important; }
+
+/* Secondary / muted text */
+[data-theme="light"] [class~="text-[#A0A0A0]"] { color: #52525B !important; }
+[data-theme="light"] [class~="text-[#606060]"] { color: #71717A !important; }
+[data-theme="light"] [class~="text-[#404040]"] { color: #A1A1AA !important; }
+
+/* Hover backgrounds */
+[data-theme="light"] [class~="hover:bg-[#1E1E1E]"]:hover { background-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="hover:bg-[#1A1A1A]"]:hover { background-color: #F5F5F5 !important; }
+[data-theme="light"] [class~="hover:bg-[#2A2A2A]"]:hover { background-color: #EBEBEB !important; }
+
+/* Hover text — prevent white-on-white */
+[data-theme="light"] [class~="hover:text-white"]:hover { color: #18181B !important; }
+
+/* Hover borders */
+[data-theme="light"] [class~="hover:border-[#3A3A3A]"]:hover { border-color: #D1D5DB !important; }
+
+/* Inputs & selects */
+[data-theme="light"] input,
+[data-theme="light"] select {
+  background-color: #FFFFFF !important;
+  color: #18181B !important;
+}
+[data-theme="light"] input::placeholder { color: #A1A1AA !important; }
+
+/* Range slider track */
+[data-theme="light"] input[type="range"] { background-color: transparent !important; }
+
+/* Scrollbars within light panel */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #F4F4F5; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 2px; }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #A1A1AA; }

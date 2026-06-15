@@ -1,0 +1,220 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import logoWhite from '../../assets/logo/sahi_logo-white.svg'
+import heroGraphic from '../../assets/loginpage-graphic.jpg'
+import checkerBg from '../../assets/black_checker-background-1.jpg'
+
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
+const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
+
+export function Login() {
+  const navigate = useNavigate()
+  const [phone, setPhone] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+  const [focused, setFocused] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const digits = phone.replace(/\D/g, '')
+    if (digits.length !== 10) {
+      setError('Enter a valid 10-digit mobile number')
+      return
+    }
+    setError('')
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      setSent(true)
+      setTimeout(() => navigate('/auth/otp', { state: { phone: digits } }), 600)
+    }, 900)
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center"
+      style={{ background: '#F4F4F5' }}>
+
+      {/* ── Outer white card ──────────────────────────────────── */}
+      <div className="flex w-full max-w-5xl min-h-[600px] rounded-3xl overflow-hidden shadow-2xl mx-4"
+        style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.18)' }}>
+
+        {/* ── Left panel — dark + checker ──────────────────────── */}
+        <div
+          className="hidden lg:flex flex-col justify-between w-[52%] flex-shrink-0 p-8 relative"
+          style={{
+            backgroundImage: `url(${checkerBg})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+          {/* Logo */}
+          <div>
+            <img src={logoWhite} alt="SahiMF" style={{ height: 26 }} />
+          </div>
+
+          {/* White inner content card */}
+          <div className="flex-1 flex items-center justify-center py-8">
+            <div
+              className="w-full rounded-2xl p-8 text-center"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.10)',
+                backdropFilter: 'blur(4px)',
+              }}
+            >
+              <p className="text-xs font-semibold tracking-widest mb-5" style={{ color: '#606060' }}>
+                — ZERO COMMISSIONS · SEBI PA DIRECT PLAN —
+              </p>
+              <h1 className="text-3xl font-bold leading-tight mb-4" style={{ color: '#FFFFFF' }}>
+                Kaunsa{' '}
+                <span style={{ color: '#7B2FBE', textDecoration: 'underline', textUnderlineOffset: 4 }}>
+                  mutual fund
+                </span>
+                {' '}sahi hai
+                <br />— for{' '}
+                <span style={{ color: '#D6FD70' }}>your</span>
+                {' '}portfolio?
+              </h1>
+              <p className="text-sm leading-relaxed mb-8" style={{ color: '#606060' }}>
+                We accept ₹0 in fund sponsorship, charge no affiliate
+                commissions, and focus strictly on portfolio-level diagnostics.
+              </p>
+              <img src={heroGraphic} alt="" className="w-56 mx-auto" />
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="text-center">
+            <p className="text-[10px]" style={{ color: '#404040' }}>{FOOTER}</p>
+            <p className="text-[10px] mt-0.5" style={{ color: '#404040' }}>{DISCLAIMER}</p>
+          </div>
+        </div>
+
+        {/* ── Right panel — white form ──────────────────────────── */}
+        <div className="flex-1 flex flex-col bg-white">
+          {/* Topbar */}
+          <div className="flex items-center justify-between px-8 py-5">
+            <img src={logoWhite} alt="SahiMF" className="lg:hidden" style={{ height: 22, filter: 'invert(1)' }} />
+            <span />
+            <div className="flex items-center gap-1 text-xs font-medium">
+              <button
+                className="px-2.5 py-1 rounded-md transition-colors"
+                style={{ background: '#18181B', color: '#fff' }}
+              >En</button>
+              <button
+                className="px-2.5 py-1 rounded-md transition-colors"
+                style={{ color: '#71717A' }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#F4F4F5')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >हि</button>
+            </div>
+          </div>
+
+          {/* Centered form */}
+          <div className="flex-1 flex items-center justify-center px-8 py-6">
+            <div className="w-full max-w-xs">
+
+              {/* Icon */}
+              <div className="flex justify-center mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{ background: '#D6FD70' }}>
+                  <img src={logoWhite} alt="" style={{ height: 20, filter: 'invert(1) brightness(0)' }} />
+                </div>
+              </div>
+
+              <p className="text-center text-[10px] font-bold tracking-widest uppercase mb-4" style={{ color: '#A1A1AA' }}>
+                Sahi MF Journey
+              </p>
+
+              <h2 className="text-2xl font-bold text-center leading-snug mb-1" style={{ color: '#18181B' }}>
+                Access your<br />SAHI MF Portfolio
+              </h2>
+              <p className="text-sm text-center mb-7" style={{ color: '#71717A' }}>
+                Start your journey with just a phone no. &amp; FREE plan.
+              </p>
+
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div>
+                  <label className="block text-xs font-medium mb-1.5" style={{ color: '#52525B' }}>
+                    Enter your phone number
+                  </label>
+                  <div
+                    className="flex rounded-xl overflow-hidden transition-all"
+                    style={{
+                      border: `1.5px solid ${error ? '#EF4444' : focused ? '#18181B' : '#E4E4E7'}`,
+                    }}
+                  >
+                    <div className="flex items-center gap-1.5 px-3 py-3 border-r flex-shrink-0 text-sm font-medium select-none"
+                      style={{ borderColor: error ? '#EF4444' : focused ? '#D4D4D8' : '#E4E4E7', color: '#18181B', background: '#F9FAFB' }}>
+                      <span>🇮🇳</span>
+                      <span>+91</span>
+                    </div>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={e => { setError(''); setSent(false); setPhone(e.target.value.replace(/[^\d]/g, '').slice(0, 10)) }}
+                      onFocus={() => setFocused(true)}
+                      onBlur={() => setFocused(false)}
+                      placeholder="98765 43210"
+                      autoFocus
+                      className="flex-1 px-3 py-3 text-sm outline-none"
+                      style={{ color: '#18181B', background: '#FFFFFF' }}
+                    />
+                  </div>
+                  {error && (
+                    <p className="text-xs mt-1.5 flex items-center gap-1" style={{ color: '#EF4444' }}>
+                      ⚠ {error}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || sent}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all"
+                  style={{
+                    background: sent ? '#22C55E' : '#18181B',
+                    color: '#FFFFFF',
+                    opacity: (loading || sent) ? 0.9 : 1,
+                    cursor: (loading || sent) ? 'default' : 'pointer',
+                  }}
+                  onMouseEnter={e => { if (!loading && !sent) e.currentTarget.style.background = '#27272A' }}
+                  onMouseLeave={e => { if (!loading && !sent) e.currentTarget.style.background = sent ? '#22C55E' : '#18181B' }}
+                >
+                  {loading ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending OTP...
+                    </>
+                  ) : sent ? (
+                    <>
+                      <CheckCircleIcon sx={{ fontSize: 16 }} />
+                      OTP Sent
+                    </>
+                  ) : (
+                    <>
+                      Get OTP
+                      <ArrowForwardIcon sx={{ fontSize: 16 }} />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="px-8 py-5 text-center border-t" style={{ borderColor: '#F4F4F5' }}>
+            <p className="text-[10px]" style={{ color: '#A1A1AA' }}>{FOOTER}</p>
+            <p className="text-[10px] mt-0.5" style={{ color: '#A1A1AA' }}>{DISCLAIMER}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
