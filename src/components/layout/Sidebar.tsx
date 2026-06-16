@@ -16,10 +16,11 @@ import AssessmentIcon from '@mui/icons-material/Assessment'
 import ArticleIcon from '@mui/icons-material/Article'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import LockIcon from '@mui/icons-material/Lock'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
 
 interface NavItem {
   key: string
@@ -61,17 +62,17 @@ const mfChildren: NavItem[] = [
 ]
 
 const topNavItems: NavItem[] = [
-  { key: 'home', label: 'Home', icon: <HomeIcon sx={{ fontSize: 18 }} />, path: '/', badge: 2 },
-  { key: 'investments', label: 'Investments', icon: <AccountBalanceWalletIcon sx={{ fontSize: 18 }} />, path: '/investments' },
+  { key: 'home', label: 'Home', icon: <HomeIcon sx={{ fontSize: 17 }} />, path: '/' },
+  { key: 'investments', label: 'Investments', icon: <AccountBalanceWalletIcon sx={{ fontSize: 17 }} />, path: '/investments' },
 ]
 
 const productItems: NavItem[] = [
-  { key: 'mutual-funds', label: 'Mutual Funds', icon: <DashboardIcon sx={{ fontSize: 18 }} />, children: mfChildren },
-  { key: 'numera', label: 'Numera', icon: <AssessmentIcon sx={{ fontSize: 18 }} />, comingSoon: true },
-  { key: 'thematic', label: 'Thematic Baskets', icon: <BubbleChartIcon sx={{ fontSize: 18 }} />, comingSoon: true },
-  { key: 'arqed', label: 'ArqEd Learning', icon: <ExploreIcon sx={{ fontSize: 18 }} />, comingSoon: true },
-  { key: 'fo', label: 'F&O', icon: <CompareArrowsIcon sx={{ fontSize: 18 }} />, comingSoon: true },
-  { key: 'credit', label: 'Credit', icon: <AccountBalanceWalletIcon sx={{ fontSize: 18 }} />, comingSoon: true },
+  { key: 'mutual-funds', label: 'Mutual Funds', icon: <DashboardIcon sx={{ fontSize: 17 }} />, children: mfChildren },
+  { key: 'numera', label: 'Numera', icon: <AssessmentIcon sx={{ fontSize: 17 }} />, comingSoon: true },
+  { key: 'thematic', label: 'Thematic Baskets', icon: <BubbleChartIcon sx={{ fontSize: 17 }} />, comingSoon: true },
+  { key: 'arqed', label: 'ArqEd Learning', icon: <ExploreIcon sx={{ fontSize: 17 }} />, comingSoon: true },
+  { key: 'fo', label: 'F&O', icon: <CompareArrowsIcon sx={{ fontSize: 17 }} />, comingSoon: true },
+  { key: 'credit', label: 'Credit', icon: <AccountBalanceWalletIcon sx={{ fontSize: 17 }} />, comingSoon: true },
 ]
 
 function NavItemRow({
@@ -90,141 +91,73 @@ function NavItemRow({
   const isActive = item.path ? location.pathname === item.path : false
   const hasChildren = item.children && item.children.length > 0
 
-  const handleClick = () => {
-    if (hasChildren) setSubmenuOpen((p) => !p)
-  }
+  const iconEl = item.comingSoon
+    ? <LockIcon sx={{ fontSize: depth > 0 ? 13 : 15, color: '#3A3A3A' }} />
+    : item.icon
 
-  const content = (
-    <div>
+  /* ── Collapsed: icon-only ── */
+  if (!expanded) {
+    const iconBtn = (
       <div
-        onClick={handleClick}
-        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg cursor-pointer transition-all select-none
-          ${depth > 0 ? 'ml-3 text-[13px]' : 'text-sm'}
-          ${
-            isActive
-              ? 'bg-[#C5F135]/10 text-[#C5F135]'
-              : item.comingSoon
-              ? 'text-[#444444] cursor-not-allowed'
-              : 'text-[#A0A0A0] hover:text-white hover:bg-[#1E1E1E]'
-          }
-        `}
+        onClick={() => hasChildren && setSubmenuOpen((p) => !p)}
+        className={`flex items-center justify-center w-8 h-8 rounded-xl cursor-pointer transition-all
+          ${isActive
+            ? 'bg-[#C5F135]/15 text-[#C5F135]'
+            : item.comingSoon
+            ? 'text-[#3A3A3A] cursor-not-allowed'
+            : 'text-[#555] hover:text-white hover:bg-[#1E1E1E]'
+          }`}
       >
-        <span className={`flex-shrink-0 ${isActive ? 'text-[#C5F135]' : ''}`}>
-          {item.comingSoon ? <LockIcon sx={{ fontSize: depth > 0 ? 13 : 16, color: '#444444' }} /> : item.icon}
-        </span>
-        {expanded && (
-          <>
-            <span className="flex-1 truncate font-medium">{item.label}</span>
-            {item.badge && (
-              <span className="bg-[#7B2FBE] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                {item.badge}
-              </span>
-            )}
-            {item.comingSoon && (
-              <span className="text-[10px] text-[#444444] font-medium">Soon</span>
-            )}
-            {hasChildren && !item.comingSoon && (
-              <span className="text-[#606060]">
-                {submenuOpen ? (
-                  <ExpandMoreIcon sx={{ fontSize: 14 }} />
-                ) : (
-                  <ChevronRightIcon sx={{ fontSize: 14 }} />
-                )}
-              </span>
-            )}
-          </>
-        )}
+        {iconEl}
       </div>
-
-      {hasChildren && expanded && submenuOpen && !item.comingSoon && (
-        <div className="mt-0.5 space-y-0.5 border-l border-[#2A2A2A] ml-5">
-          {item.children!.map((child) => (
-            <NavItemRow
-              key={child.key}
-              item={child}
-              depth={depth + 1}
-              expanded={expanded}
-              onToggle={onToggle}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-
-  if (!expanded && !hasChildren && item.path) {
-    return (
-      <Tooltip.Provider delayDuration={100}>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <Link to={item.path}>
-              <div
-                className={`flex items-center justify-center w-9 h-9 rounded-lg mx-auto cursor-pointer transition-all
-                  ${isActive ? 'bg-[#C5F135]/10 text-[#C5F135]' : 'text-[#606060] hover:text-white hover:bg-[#1E1E1E]'}
-                `}
-              >
-                {item.icon}
-              </div>
-            </Link>
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content
-              side="right"
-              className="bg-[#1A1A1A] border border-[#2A2A2A] text-white text-xs px-2.5 py-1.5 rounded-lg z-50"
-            >
-              {item.label}
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
     )
-  }
 
-  if (!expanded && hasChildren) {
+    if (item.comingSoon) return iconBtn
+
     return (
-      <Tooltip.Provider delayDuration={100}>
+      <Tooltip.Provider delayDuration={80}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
-            <div
-              className={`flex items-center justify-center w-9 h-9 rounded-lg mx-auto cursor-pointer transition-all
-                ${isActive ? 'bg-[#C5F135]/10 text-[#C5F135]' : 'text-[#606060] hover:text-white hover:bg-[#1E1E1E]'}
-              `}
-            >
-              {item.icon}
-            </div>
+            {item.path ? <Link to={item.path}>{iconBtn}</Link> : iconBtn}
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Content
               side="right"
-              sideOffset={8}
-              className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-2 z-50 min-w-[200px] max-h-[80vh] overflow-y-auto"
+              sideOffset={10}
+              className="z-50 rounded-xl overflow-hidden"
             >
-              <p className="text-xs font-semibold text-[#A0A0A0] px-2 py-1 mb-1">{item.label}</p>
-              {item.children?.map((child) =>
-                child.children ? (
-                  /* nested group — e.g. Sahi MF Funds, Tools, Reports */
-                  <div key={child.key} className="mt-1 pt-1 border-t border-[#2A2A2A]">
-                    <p className="flex items-center gap-1.5 text-[10px] font-semibold text-[#606060] uppercase tracking-wider px-2 pt-1 pb-0.5">
-                      <span className="opacity-60">{child.icon}</span>
-                      {child.label}
-                    </p>
-                    {child.children.map((gc) => (
-                      <Link key={gc.key} to={gc.path ?? '#'}>
-                        <div className="flex items-center gap-2 pl-5 pr-2 py-1.5 rounded-lg hover:bg-[#2A2A2A] transition-colors">
-                          <span className="text-[#606060]">{gc.icon}</span>
-                          <span className="text-xs text-white">{gc.label}</span>
+              {hasChildren ? (
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-2 min-w-[200px] max-h-[70vh] overflow-y-auto">
+                  <p className="text-[10px] font-bold text-[#606060] uppercase tracking-wider px-2 py-1">{item.label}</p>
+                  {item.children?.map((child) =>
+                    child.children ? (
+                      <div key={child.key} className="mt-1 pt-1 border-t border-[#2A2A2A]">
+                        <p className="flex items-center gap-1.5 text-[10px] font-semibold text-[#606060] uppercase tracking-wider px-2 pt-1 pb-0.5">
+                          <span className="opacity-60">{child.icon}</span>{child.label}
+                        </p>
+                        {child.children.map((gc) => (
+                          <Link key={gc.key} to={gc.path ?? '#'}>
+                            <div className="flex items-center gap-2 pl-5 pr-2 py-1.5 rounded-lg hover:bg-[#2A2A2A] transition-colors">
+                              <span className="text-[#606060]">{gc.icon}</span>
+                              <span className="text-xs text-white">{gc.label}</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <Link key={child.key} to={child.path ?? '#'}>
+                        <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-[#2A2A2A] transition-colors">
+                          <span className="text-[#606060]">{child.icon}</span>
+                          <span className="text-xs text-white">{child.label}</span>
                         </div>
                       </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <Link key={child.key} to={child.path ?? '#'}>
-                    <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-[#2A2A2A] transition-colors">
-                      <span className="text-[#606060]">{child.icon}</span>
-                      <span className="text-xs text-white">{child.label}</span>
-                    </div>
-                  </Link>
-                )
+                    )
+                  )}
+                </div>
+              ) : (
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] text-white text-xs px-2.5 py-1.5 rounded-lg">
+                  {item.label}
+                </div>
               )}
             </Tooltip.Content>
           </Tooltip.Portal>
@@ -233,87 +166,129 @@ function NavItemRow({
     )
   }
 
-  if (item.path) {
-    return <Link to={item.path}>{content}</Link>
-  }
+  /* ── Expanded: full row ── */
+  const content = (
+    <div>
+      <div
+        onClick={() => hasChildren && setSubmenuOpen((p) => !p)}
+        className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl cursor-pointer transition-all select-none
+          ${depth > 0 ? 'ml-2 text-[12px]' : 'text-[13px]'}
+          ${isActive
+            ? 'bg-[#C5F135]/10 text-[#C5F135]'
+            : item.comingSoon
+            ? 'text-[#3A3A3A] cursor-not-allowed'
+            : 'text-[#888] hover:text-white hover:bg-[#1E1E1E]'
+          }`}
+      >
+        <span className={`flex-shrink-0 ${isActive ? 'text-[#C5F135]' : ''}`}>{iconEl}</span>
+        <span className="flex-1 truncate font-medium">{item.label}</span>
+        {item.badge && (
+          <span className="bg-[#7B2FBE] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{item.badge}</span>
+        )}
+        {item.comingSoon && (
+          <span className="text-[10px] text-[#3A3A3A] font-medium">Soon</span>
+        )}
+        {hasChildren && !item.comingSoon && (
+          <span className="text-[#555]">
+            {submenuOpen ? <ExpandMoreIcon sx={{ fontSize: 13 }} /> : <ChevronRightIcon sx={{ fontSize: 13 }} />}
+          </span>
+        )}
+      </div>
 
-  return content
+      {hasChildren && submenuOpen && !item.comingSoon && (
+        <div className="mt-0.5 space-y-0.5 border-l border-[#272727] ml-4">
+          {item.children!.map((child) => (
+            <NavItemRow key={child.key} item={child} depth={depth + 1} expanded={expanded} onToggle={onToggle} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+
+  return item.path ? <Link to={item.path}>{content}</Link> : content
 }
 
 export function Sidebar() {
   const { sidebarExpanded, toggleSidebar, toggleSubmenu } = useUIStore()
+  const user = useAuthStore((s) => s.user)
+
+  const initials = user?.name
+    ? user.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+    : 'ER'
 
   return (
+    /* 4px floating gap on all sides via m-1 */
     <aside
-      className={`flex flex-col h-screen bg-[#111111] border-r border-[#1E1E1E] transition-all duration-200 flex-shrink-0 ${
-        sidebarExpanded ? 'w-56' : 'w-14'
+      className={`flex flex-col m-1 rounded-2xl bg-[#111111] transition-all duration-200 flex-shrink-0 overflow-hidden ${
+        sidebarExpanded ? 'w-52' : 'w-[52px]'
       }`}
+      style={{ height: 'calc(100vh - 8px)' }}
     >
-      {/* Header */}
-      <div className="flex items-center gap-2 px-3 py-4 border-b border-[#1E1E1E]">
+      {/* ── TOP: Profile card ── */}
+      <div className="flex-shrink-0 p-2 pt-2.5">
         {sidebarExpanded ? (
-          <>
-            <div className="w-7 h-7 rounded-lg bg-[#C5F135] flex items-center justify-center flex-shrink-0">
-              <span className="text-black text-xs font-black">✳</span>
+          <div className="flex items-center gap-2.5 px-2 py-2 rounded-xl bg-[#1A1A1A]">
+            <div className="w-7 h-7 rounded-full bg-[#7B2FBE] flex items-center justify-center text-[11px] font-bold text-white flex-shrink-0">
+              {initials}
             </div>
-            <span className="text-sm font-bold text-white flex-1">SahiMF</span>
-            <button
-              onClick={toggleSidebar}
-              className="text-[#606060] hover:text-white transition-colors"
-            >
-              <MenuIcon sx={{ fontSize: 18 }} />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-white truncate leading-tight">{user?.name ?? 'Emily Rose'}</p>
+              <p className="text-[10px] text-[#555] truncate">Sahi PRO</p>
+            </div>
+            {/* collapse toggle */}
+            <button onClick={toggleSidebar} className="text-[#555] hover:text-white transition-colors flex-shrink-0">
+              <ChevronLeftIcon sx={{ fontSize: 15 }} />
             </button>
-          </>
+          </div>
         ) : (
           <button
             onClick={toggleSidebar}
-            className="w-9 h-9 rounded-lg bg-[#C5F135] flex items-center justify-center mx-auto"
+            className="w-9 h-9 rounded-full bg-[#7B2FBE] flex items-center justify-center text-[11px] font-bold text-white mx-auto"
+            title="Expand sidebar"
           >
-            <span className="text-black text-xs font-black">✳</span>
+            {initials}
           </button>
         )}
       </div>
 
-      {/* Nav */}
-      <div className="flex-1 overflow-y-auto py-3 px-2 space-y-1 scrollbar-hide">
-        {/* Top items */}
-        {topNavItems.map((item) => (
-          <NavItemRow
-            key={item.key}
-            item={item}
-            expanded={sidebarExpanded}
-            onToggle={toggleSubmenu}
-          />
-        ))}
+      {/* ── MIDDLE: Nav ── */}
+      {sidebarExpanded ? (
+        /* Expanded — list from top, scrollable */
+        <div className="flex-1 overflow-y-auto py-1 px-2 space-y-0.5 scrollbar-hide">
+          {topNavItems.map((item) => (
+            <NavItemRow key={item.key} item={item} expanded={true} onToggle={toggleSubmenu} />
+          ))}
+          <div className="my-1.5 border-t border-[#1E1E1E]" />
+          {productItems.map((item) => (
+            <NavItemRow key={item.key} item={item} expanded={true} onToggle={toggleSubmenu} />
+          ))}
+        </div>
+      ) : (
+        /* Collapsed — icons centered vertically */
+        <div className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2">
+          {topNavItems.map((item) => (
+            <NavItemRow key={item.key} item={item} expanded={false} onToggle={toggleSubmenu} />
+          ))}
+          <div className="w-5 border-t border-[#1E1E1E] my-1.5" />
+          {productItems.map((item) => (
+            <NavItemRow key={item.key} item={item} expanded={false} onToggle={toggleSubmenu} />
+          ))}
+        </div>
+      )}
 
-        <div className="my-2 border-t border-[#1E1E1E]" />
-
-        {/* Products */}
-        {productItems.map((item) => (
-          <NavItemRow
-            key={item.key}
-            item={item}
-            expanded={sidebarExpanded}
-            onToggle={toggleSubmenu}
-          />
-        ))}
-      </div>
-
-      {/* Footer */}
-      <div className="p-3 border-t border-[#1E1E1E]">
+      {/* ── BOTTOM: Logo mark ── */}
+      <div className="flex-shrink-0 p-2 pb-2.5">
         {sidebarExpanded ? (
-          <div className="flex items-center gap-2 px-2 py-2 rounded-lg bg-[#1A1A1A]">
-            <div className="w-7 h-7 rounded-full bg-[#7B2FBE] flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-              ER
+          <div className="flex items-center gap-2 px-2 py-1.5">
+            <div className="w-6 h-6 rounded-lg bg-[#C5F135] flex items-center justify-center flex-shrink-0">
+              <span className="text-black text-[11px] font-black leading-none">✳</span>
             </div>
-            <div className="min-w-0">
-              <p className="text-xs font-semibold text-white truncate">Emily Rose</p>
-              <p className="text-[10px] text-[#A0A0A0] truncate">+91 9876543210</p>
-            </div>
+            <span className="text-xs font-bold text-white">SahiMF</span>
+            <span className="ml-auto text-[10px] text-[#444] font-medium">v1.0</span>
           </div>
         ) : (
-          <div className="w-9 h-9 rounded-full bg-[#7B2FBE] flex items-center justify-center text-xs font-bold text-white mx-auto">
-            ER
+          <div className="w-8 h-8 rounded-xl bg-[#C5F135] flex items-center justify-center mx-auto">
+            <span className="text-black text-sm font-black leading-none">✳</span>
           </div>
         )}
       </div>
