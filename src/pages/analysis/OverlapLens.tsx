@@ -2,6 +2,7 @@ import { useState } from 'react'
 import BlurOnIcon from '@mui/icons-material/BlurOn'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockFunds } from '../../data/funds'
+import { useUIStore } from '../../stores/uiStore'
 
 const SELECTED_FUNDS = ['f001', 'f002', 'f005', 'f006']
 
@@ -28,34 +29,44 @@ function getColor(val: number) {
   if (val >= 20) return { bg: '#EF4444', text: '#fff' }
   if (val >= 10) return { bg: '#F59E0B', text: '#000' }
   if (val > 0) return { bg: '#22C55E33', text: '#22C55E' }
-  return { bg: '#1A1A1A', text: '#606060' }
+  return null
 }
 
 export function OverlapLens() {
   const [activeTab, setActiveTab] = useState<'matrix' | 'stocks'>('matrix')
   const funds = mockFunds.filter((f) => SELECTED_FUNDS.includes(f.id))
+  const lm = useUIStore((s) => s.lightMode)
+
+  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
+  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const emptyCell = lm ? 'text-[#D1D5DB]' : 'text-[#2A2A2A]'
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center">
+        <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
           <BlurOnIcon sx={{ fontSize: 18, color: '#C5F135' }} />
         </div>
         <div>
-          <h1 className="text-lg font-bold text-white">Overlap Lens</h1>
-          <p className="text-xs text-[#606060]">Portfolio overlap analysis across your funds</p>
+          <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
+          <p className={`text-xs ${textMuted}`}>Portfolio overlap analysis across your funds</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 bg-[#141414] border border-[#2A2A2A] rounded-xl p-1 w-fit">
+      <div className={`flex gap-0 ${lm ? 'bg-[#F3F4F6] border border-[#E8E8F0]' : 'bg-[#141414] border border-[#2A2A2A]'} rounded-xl p-1 w-fit`}>
         {(['matrix', 'stocks'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setActiveTab(t)}
             className="px-5 py-2 rounded-lg text-sm font-medium transition-all"
-            style={{ background: activeTab === t ? '#C5F135' : 'transparent', color: activeTab === t ? '#000' : '#A0A0A0' }}
+            style={{ background: activeTab === t ? '#C5F135' : 'transparent', color: activeTab === t ? '#000' : lm ? '#6B7280' : '#A0A0A0' }}
           >
             {t === 'matrix' ? 'Overlap Matrix' : 'Common Stocks'}
           </button>
@@ -75,38 +86,40 @@ export function OverlapLens() {
               ].map((l) => (
                 <div key={l.label} className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded" style={{ background: l.color }} />
-                  <span className="text-[#A0A0A0]">{l.label}</span>
+                  <span className={textSub}>{l.label}</span>
                 </div>
               ))}
             </div>
 
             {/* Matrix table */}
-            <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl overflow-hidden">
+            <div className={`${card} rounded-2xl overflow-hidden`}>
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-[#2A2A2A]">
-                    <th className="text-left px-5 py-3 text-[11px] font-semibold text-[#606060] uppercase tracking-wider w-52">Fund</th>
+                  <tr className={`border-b ${dividerColor}`}>
+                    <th className={`text-left px-5 py-3 text-[11px] font-semibold ${textMuted} uppercase tracking-wider w-52`}>Fund</th>
                     {funds.map((f) => (
                       <th key={f.id} className="px-3 py-3 text-center">
-                        <p className="text-[11px] font-medium text-white truncate max-w-28">{f.name.split(' ').slice(0, 2).join(' ')}</p>
-                        <p className="text-[10px] text-[#606060]">{f.subCategory}</p>
+                        <p className={`text-[11px] font-medium ${text} truncate max-w-28`}>{f.name.split(' ').slice(0, 2).join(' ')}</p>
+                        <p className={`text-[10px] ${textMuted}`}>{f.subCategory}</p>
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {funds.map((rowFund) => (
-                    <tr key={rowFund.id} className="border-b border-[#1E1E1E] last:border-0 hover:bg-[#1A1A1A] transition-colors">
+                    <tr key={rowFund.id} className={`border-b ${rowBorder} last:border-0 ${rowHover} transition-colors`}>
                       <td className="px-5 py-3">
-                        <p className="text-sm font-medium text-white">{rowFund.name.split(' ').slice(0, 3).join(' ')}</p>
-                        <p className="text-[11px] text-[#606060]">{rowFund.subCategory}</p>
+                        <p className={`text-sm font-medium ${text}`}>{rowFund.name.split(' ').slice(0, 3).join(' ')}</p>
+                        <p className={`text-[11px] ${textMuted}`}>{rowFund.subCategory}</p>
                       </td>
                       {funds.map((colFund) => {
                         const val = OVERLAP_MATRIX[rowFund.id]?.[colFund.id] ?? 0
-                        const { bg, text } = getColor(val)
+                        const colors = getColor(val)
+                        const bgColor = colors ? colors.bg : (lm ? '#F3F4F6' : '#1A1A1A')
+                        const textColor = colors ? colors.text : (lm ? '#9CA3AF' : '#606060')
                         return (
                           <td key={colFund.id} className="px-3 py-3 text-center">
-                            <div className="inline-flex items-center justify-center w-14 h-10 rounded-lg text-sm font-bold" style={{ background: bg, color: text }}>
+                            <div className="inline-flex items-center justify-center w-14 h-10 rounded-lg text-sm font-bold" style={{ background: bgColor, color: textColor }}>
                               {val}%
                             </div>
                           </td>
@@ -120,7 +133,7 @@ export function OverlapLens() {
 
             {/* Insight */}
             <div className="bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-xl px-4 py-3">
-              <p className="text-xs text-[#A0A0A0]">
+              <p className={`text-xs ${textSub}`}>
                 <span className="text-[#F59E0B] font-semibold">Moderate overlap detected</span> — HDFC Mid-Cap Opportunities and SBI Small Cap share 22% overlap, indicating similar mid/small cap stock picks. Consider this when rebalancing.
               </p>
             </div>
@@ -128,18 +141,18 @@ export function OverlapLens() {
         )}
 
         {activeTab === 'stocks' && (
-          <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl overflow-hidden">
-            <div className="grid px-5 py-3 border-b border-[#2A2A2A]" style={{ gridTemplateColumns: '1fr repeat(4, 90px)' }}>
-              <span className="text-[11px] font-semibold text-[#606060] uppercase tracking-wider">Stock</span>
+          <div className={`${card} rounded-2xl overflow-hidden`}>
+            <div className={`grid px-5 py-3 border-b ${dividerColor}`} style={{ gridTemplateColumns: '1fr repeat(4, 90px)' }}>
+              <span className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider`}>Stock</span>
               {funds.map((f) => (
-                <span key={f.id} className="text-[11px] font-semibold text-[#606060] uppercase tracking-wider text-center truncate">
+                <span key={f.id} className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider text-center truncate`}>
                   {f.name.split(' ')[0]}
                 </span>
               ))}
             </div>
             {COMMON_STOCKS.map((stock, i) => (
-              <div key={stock.name} className="grid px-5 py-3 items-center border-b border-[#1E1E1E] hover:bg-[#1A1A1A] transition-colors" style={{ gridTemplateColumns: '1fr repeat(4, 90px)', borderBottomColor: i === COMMON_STOCKS.length - 1 ? 'transparent' : undefined }}>
-                <span className="text-sm font-medium text-white">{stock.name}</span>
+              <div key={stock.name} className={`grid px-5 py-3 items-center border-b ${rowBorder} ${rowHover} transition-colors`} style={{ gridTemplateColumns: '1fr repeat(4, 90px)', borderBottomColor: i === COMMON_STOCKS.length - 1 ? 'transparent' : undefined }}>
+                <span className={`text-sm font-medium ${text}`}>{stock.name}</span>
                 {SELECTED_FUNDS.map((fid) => {
                   const val = ((stock as unknown) as Record<string, number>)[fid] ?? 0
                   return (
@@ -147,7 +160,7 @@ export function OverlapLens() {
                       {val > 0 ? (
                         <span className="text-xs font-semibold text-[#22C55E]">{val.toFixed(1)}%</span>
                       ) : (
-                        <span className="text-xs text-[#2A2A2A]">—</span>
+                        <span className={`text-xs ${emptyCell}`}>—</span>
                       )}
                     </div>
                   )

@@ -7,6 +7,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, AreaChart, Area, XAx
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { useUIStore } from '../../stores/uiStore'
 
 const NAV_HISTORY = Array.from({ length: 24 }, (_, i) => ({
   month: new Date(2024, i, 1).toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }),
@@ -17,6 +18,24 @@ export function SahiFundDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [tab, setTab] = useState<'overview' | 'funds'>('overview')
+  const lm = useUIStore((s) => s.lightMode)
+
+  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#A0A0A0]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
+  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const progressTrack = lm ? 'bg-[#E8E8F0]' : 'bg-[#2A2A2A]'
+  const tooltipStyle = {
+    background: lm ? '#fff' : '#1A1A1A',
+    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    borderRadius: 8,
+  }
+  const chartGrid = lm ? '#E8E8F0' : '#1E1E1E'
+  const chartTick = lm ? '#9CA3AF' : '#606060'
 
   const fund = mockSahiFunds.find((f) => f.id === id)
 
@@ -24,7 +43,7 @@ export function SahiFundDetail() {
     return (
       <div className="flex items-center justify-center h-full min-h-64">
         <div className="text-center">
-          <p className="text-[#A0A0A0] text-sm">Sahi Fund not found.</p>
+          <p className={`${textSub} text-sm`}>Sahi Fund not found.</p>
           <button onClick={() => navigate(-1)} className="text-[#C5F135] text-xs mt-2 hover:underline">Go back</button>
         </div>
       </div>
@@ -34,23 +53,23 @@ export function SahiFundDetail() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Breadcrumb */}
-      <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm text-[#606060] hover:text-white transition-colors">
+      <button onClick={() => navigate(-1)} className={`flex items-center gap-1.5 text-sm ${textMuted} hover:${text} transition-colors`}>
         <ArrowBackIcon sx={{ fontSize: 15 }} />
         Explore Sahi Funds
       </button>
 
       {/* Header */}
-      <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-6">
+      <div className={`${card} rounded-2xl p-6`}>
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-xl font-bold text-white">{fund.name}</h1>
+              <h1 className={`text-xl font-bold ${text}`}>{fund.name}</h1>
               <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#7B2FBE]/20 text-[#7B2FBE]' : 'bg-[#C5F135]/10 text-[#C5F135]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
               <VolatilityBadge level={fund.volatility} />
             </div>
-            <p className="text-sm text-[#A0A0A0] max-w-2xl">{fund.description}</p>
+            <p className={`text-sm ${textSub} max-w-2xl`}>{fund.description}</p>
           </div>
           <button className="bg-[#C5F135] hover:bg-[#A8D020] text-black text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 ml-4">
             Invest Now
@@ -58,7 +77,7 @@ export function SahiFundDetail() {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-5 gap-4 pt-4 border-t border-[#2A2A2A]">
+        <div className={`grid grid-cols-5 gap-4 pt-4 border-t ${dividerColor}`}>
           {[
             { label: 'Fund Count', value: `${fund.fundCount} Funds` },
             { label: 'Min Amount', value: `₹${fund.minAmount.toLocaleString('en-IN')}` },
@@ -67,8 +86,8 @@ export function SahiFundDetail() {
             { label: 'Next Rebalance', value: new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) },
           ].map((s) => (
             <div key={s.label}>
-              <p className="text-[11px] text-[#606060] mb-0.5">{s.label}</p>
-              <p className="text-sm font-semibold text-white">{s.value}</p>
+              <p className={`text-[11px] ${textMuted} mb-0.5`}>{s.label}</p>
+              <p className={`text-sm font-semibold ${text}`}>{s.value}</p>
             </div>
           ))}
         </div>
@@ -77,8 +96,8 @@ export function SahiFundDetail() {
       {/* Returns row */}
       <div className="grid grid-cols-5 gap-3">
         {(['1M', '3M', '6M', '1Y', '3Y'] as const).map((k) => (
-          <div key={k} className="bg-[#141414] border border-[#2A2A2A] rounded-xl px-4 py-3 text-center">
-            <p className="text-[11px] text-[#606060] mb-1">{k} Returns</p>
+          <div key={k} className={`${card} rounded-xl px-4 py-3 text-center`}>
+            <p className={`text-[11px] ${textMuted} mb-1`}>{k} Returns</p>
             <p className={`text-lg font-bold ${(fund.returns[k] ?? 0) >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
               {(fund.returns[k] ?? 0) >= 0 ? '+' : ''}{fund.returns[k]?.toFixed(1)}%
             </p>
@@ -87,13 +106,13 @@ export function SahiFundDetail() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 bg-[#141414] border border-[#2A2A2A] rounded-xl p-1 w-fit">
+      <div className={`flex gap-0 ${lm ? 'bg-[#F3F4F6] border border-[#E8E8F0]' : 'bg-[#141414] border border-[#2A2A2A]'} rounded-xl p-1 w-fit`}>
         {(['overview', 'funds'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className="px-5 py-2 rounded-lg text-sm font-medium transition-all capitalize"
-            style={{ background: tab === t ? '#C5F135' : 'transparent', color: tab === t ? '#000' : '#A0A0A0' }}
+            style={{ background: tab === t ? '#C5F135' : 'transparent', color: tab === t ? '#000' : lm ? '#6B7280' : '#A0A0A0' }}
           >
             {t === 'funds' ? 'Funds & Weights' : 'Overview'}
           </button>
@@ -105,10 +124,10 @@ export function SahiFundDetail() {
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 space-y-6">
             {/* Performance chart */}
-            <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5">
+            <div className={`${card} rounded-2xl p-5`}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-sm font-semibold text-white">Live Performance</h2>
-                <span className="text-[11px] text-[#606060]">Since inception (indexed to 100)</span>
+                <h2 className={`text-sm font-semibold ${text}`}>Live Performance</h2>
+                <span className={`text-[11px] ${textMuted}`}>Since inception (indexed to 100)</span>
               </div>
               <PlanGate requiredTier="pro" label="Unlock Live Performance Chart">
                 <ResponsiveContainer width="100%" height={200}>
@@ -119,12 +138,12 @@ export function SahiFundDetail() {
                         <stop offset="95%" stopColor="#C5F135" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1E1E1E" />
-                    <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#606060' }} tickLine={false} axisLine={false} interval={3} />
-                    <YAxis tick={{ fontSize: 10, fill: '#606060' }} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
+                    <XAxis dataKey="month" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} interval={3} />
+                    <YAxis tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
                     <Tooltip
-                      contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 8 }}
-                      labelStyle={{ color: '#A0A0A0', fontSize: 11 }}
+                      contentStyle={tooltipStyle}
+                      labelStyle={{ color: lm ? '#6B7280' : '#A0A0A0', fontSize: 11 }}
                       itemStyle={{ color: '#C5F135', fontSize: 12, fontWeight: 600 }}
                     />
                     <Area type="monotone" dataKey="value" stroke="#C5F135" strokeWidth={2} fill="url(#sfGrad)" />
@@ -134,17 +153,17 @@ export function SahiFundDetail() {
             </div>
 
             {/* Methodology */}
-            <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5">
-              <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <div className={`${card} rounded-2xl p-5`}>
+              <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
                 <InfoOutlinedIcon sx={{ fontSize: 15, color: '#C5F135' }} /> Methodology
               </h2>
-              <p className="text-sm text-[#A0A0A0] leading-relaxed">{fund.methodology}</p>
+              <p className={`text-sm ${textSub} leading-relaxed`}>{fund.methodology}</p>
             </div>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2">
               {fund.tags.map((tag) => (
-                <span key={tag} className="text-xs px-3 py-1 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-[#A0A0A0]">{tag}</span>
+                <span key={tag} className={`text-xs px-3 py-1 rounded-full ${chip}`}>{tag}</span>
               ))}
             </div>
           </div>
@@ -153,15 +172,15 @@ export function SahiFundDetail() {
           <div className="space-y-4">
             {/* Allocation donut */}
             {fund.holdingsDistribution && (
-              <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5">
-                <h2 className="text-sm font-semibold text-white mb-4">Allocation</h2>
+              <div className={`${card} rounded-2xl p-5`}>
+                <h2 className={`text-sm font-semibold ${text} mb-4`}>Allocation</h2>
                 <ResponsiveContainer width="100%" height={140}>
                   <PieChart>
                     <Pie data={fund.holdingsDistribution} dataKey="value" cx="50%" cy="50%" innerRadius={40} outerRadius={60} strokeWidth={0}>
                       {fund.holdingsDistribution.map((d, i) => <Cell key={i} fill={d.color} />)}
                     </Pie>
                     <Tooltip
-                      contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 8 }}
+                      contentStyle={tooltipStyle}
                       formatter={(val) => [`${val}%`, '']}
                     />
                   </PieChart>
@@ -171,9 +190,9 @@ export function SahiFundDetail() {
                     <div key={d.label} className="flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full" style={{ background: d.color }} />
-                        <span className="text-[#A0A0A0]">{d.label}</span>
+                        <span className={textSub}>{d.label}</span>
                       </div>
-                      <span className="text-white font-semibold">{d.value}%</span>
+                      <span className={`${text} font-semibold`}>{d.value}%</span>
                     </div>
                   ))}
                 </div>
@@ -181,28 +200,28 @@ export function SahiFundDetail() {
             )}
 
             {/* Manager */}
-            <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5">
-              <h2 className="text-sm font-semibold text-white mb-3">Managed By</h2>
-              <p className="text-sm font-medium text-white">{fund.managerName}</p>
-              <p className="text-xs text-[#606060]">{fund.managerCompany}</p>
+            <div className={`${card} rounded-2xl p-5`}>
+              <h2 className={`text-sm font-semibold ${text} mb-3`}>Managed By</h2>
+              <p className={`text-sm font-medium ${text}`}>{fund.managerName}</p>
+              <p className={`text-xs ${textMuted}`}>{fund.managerCompany}</p>
             </div>
 
             {/* Rebalance schedule */}
-            <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5">
-              <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <div className={`${card} rounded-2xl p-5`}>
+              <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
                 <EventIcon sx={{ fontSize: 14, color: '#C5F135' }} /> Rebalance Schedule
               </h2>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-[#606060]">Frequency</span>
-                  <span className="text-white">{fund.rebalanceFrequency}</span>
+                  <span className={textMuted}>Frequency</span>
+                  <span className={text}>{fund.rebalanceFrequency}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#606060]">Last</span>
-                  <span className="text-white">{new Date(fund.lastRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  <span className={textMuted}>Last</span>
+                  <span className={text}>{new Date(fund.lastRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#606060]">Next</span>
+                  <span className={textMuted}>Next</span>
                   <span className="text-[#C5F135] font-semibold">{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 </div>
               </div>
@@ -216,21 +235,21 @@ export function SahiFundDetail() {
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2">
             <PlanGate requiredTier="pro" label="Unlock Fund Weights">
-              <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl overflow-hidden">
-                <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-3 border-b border-[#2A2A2A]">
+              <div className={`${card} rounded-2xl overflow-hidden`}>
+                <div className={`grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
                   {['Fund Name', 'Weight', '1Y Return'].map((h) => (
-                    <span key={h} className="text-[11px] font-semibold text-[#606060] uppercase tracking-wider">{h}</span>
+                    <span key={h} className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider`}>{h}</span>
                   ))}
                 </div>
                 {(fund.holdings ?? []).map((h, i) => (
-                  <div key={h.fundId} className="grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-4 items-center border-b border-[#1E1E1E] hover:bg-[#1A1A1A] transition-colors" style={{ borderBottomColor: i === (fund.holdings?.length ?? 0) - 1 ? 'transparent' : undefined }}>
-                    <p className="text-sm font-medium text-white">{h.fundName}</p>
+                  <div key={h.fundId} className={`grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`} style={{ borderBottomColor: i === (fund.holdings?.length ?? 0) - 1 ? 'transparent' : undefined }}>
+                    <p className={`text-sm font-medium ${text}`}>{h.fundName}</p>
                     <div>
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 bg-[#2A2A2A] rounded-full h-1.5">
+                        <div className={`flex-1 ${progressTrack} rounded-full h-1.5`}>
                           <div className="h-1.5 rounded-full bg-[#C5F135]" style={{ width: `${h.weight}%` }} />
                         </div>
-                        <span className="text-xs font-semibold text-white w-8 text-right">{h.weight}%</span>
+                        <span className={`text-xs font-semibold ${text} w-8 text-right`}>{h.weight}%</span>
                       </div>
                     </div>
                     <span className="text-xs font-semibold text-[#22C55E]">+{(14 + i * 2.3).toFixed(1)}%</span>
@@ -241,8 +260,8 @@ export function SahiFundDetail() {
           </div>
 
           {/* At a glance */}
-          <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-5 h-fit">
-            <h2 className="text-sm font-semibold text-white mb-4">At a Glance</h2>
+          <div className={`${card} rounded-2xl p-5 h-fit`}>
+            <h2 className={`text-sm font-semibold ${text} mb-4`}>At a Glance</h2>
             <div className="space-y-3 text-sm">
               {[
                 { label: 'Number of Funds', value: fund.fundCount },
@@ -251,9 +270,9 @@ export function SahiFundDetail() {
                 { label: 'Risk Level', value: fund.volatility },
                 { label: 'Min Investment', value: `₹${fund.minAmount.toLocaleString('en-IN')}` },
               ].map((s) => (
-                <div key={s.label} className="flex justify-between items-center py-2 border-b border-[#1E1E1E] last:border-0">
-                  <span className="text-[#606060]">{s.label}</span>
-                  <span className="text-white font-medium">{s.value}</span>
+                <div key={s.label} className={`flex justify-between items-center py-2 border-b ${rowBorder} last:border-0`}>
+                  <span className={textMuted}>{s.label}</span>
+                  <span className={`${text} font-medium`}>{s.value}</span>
                 </div>
               ))}
             </div>
@@ -262,7 +281,7 @@ export function SahiFundDetail() {
       )}
 
       {/* SEBI disclaimer */}
-      <p className="text-[10px] text-[#404040] text-center">
+      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#404040]'} text-center`}>
         Sahi MF Funds are model portfolios for educational purposes. Mutual Fund investments are subject to market risks.
         Past performance does not guarantee future returns. This is not investment advice.
         Please consult a SEBI-registered investment advisor before investing.

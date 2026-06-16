@@ -1,6 +1,7 @@
 import LockIcon from '@mui/icons-material/Lock'
 import type { PlanTier } from '../../types'
 import { usePlan } from '../../hooks/usePlan'
+import { useUIStore } from '../../stores/uiStore'
 
 interface PlanGateProps {
   requiredTier: PlanTier
@@ -11,19 +12,23 @@ interface PlanGateProps {
 
 export function PlanGate({ requiredTier, children, label, compact }: PlanGateProps) {
   const { can } = usePlan()
+  const lm = useUIStore((s) => s.lightMode)
 
   if (can(requiredTier)) return <>{children}</>
 
   const tierLabel = requiredTier === 'pro' ? 'Sahi PRO' : 'Sahi Elite'
+
+  const compactBg = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const compactText = lm ? 'text-[#111827]' : 'text-white'
 
   return (
     <div className="relative">
       <div className="pointer-events-none select-none blur-sm">{children}</div>
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 rounded-lg backdrop-blur-[2px]">
         {compact ? (
-          <div className="flex items-center gap-1.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-full px-3 py-1.5">
+          <div className={`flex items-center gap-1.5 ${compactBg} rounded-full px-3 py-1.5`}>
             <LockIcon sx={{ fontSize: 12, color: '#C5F135' }} />
-            <span className="text-xs font-medium text-white">{tierLabel}</span>
+            <span className={`text-xs font-medium ${compactText}`}>{tierLabel}</span>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3 text-center px-6">

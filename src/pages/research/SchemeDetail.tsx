@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockFunds, getMockNavData } from '../../data/funds'
+import { useUIStore } from '../../stores/uiStore'
 
 const periods = ['1M', '6M', '1Y', '3Y', 'MAX'] as const
 type Period = (typeof periods)[number]
@@ -23,6 +24,25 @@ export function SchemeDetail() {
   const fund = mockFunds.find((f) => f.id === id) ?? mockFunds[2]
   const [tab, setTab] = useState<'overview' | 'constituents'>('overview')
   const [period, setPeriod] = useState<Period>('3Y')
+  const lm = useUIStore((s) => s.lightMode)
+
+  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#2A2A2A] text-[#A0A0A0]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
+  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const tabBorder = lm ? 'border-[#E8E8F0]' : 'border-[#1E1E1E]'
+  const accentBg = lm ? 'bg-[#F3F4F6]' : 'bg-[#2A2A2A]'
+  const tooltipStyle = {
+    background: lm ? '#fff' : '#1A1A1A',
+    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    borderRadius: 8, fontSize: 12,
+    color: lm ? '#111827' : '#fff',
+  }
+  const chartTick = lm ? '#9CA3AF' : '#606060'
+  const constituentBorder = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
 
   const navData = getMockNavData(periodMonths[period])
   const startVal = navData[0]?.value ?? 100
@@ -32,40 +52,40 @@ export function SchemeDetail() {
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-4">
       {/* Back */}
-      <Link to="/mutual-funds/search" className="flex items-center gap-2 text-xs text-[#606060] hover:text-white transition-colors w-fit">
+      <Link to="/mutual-funds/search" className={`flex items-center gap-2 text-xs ${textMuted} hover:${text} transition-colors w-fit`}>
         <ArrowBackIcon sx={{ fontSize: 14 }} />
         Back to Search
       </Link>
 
       {/* Fund header */}
-      <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
+      <div className={`${card} rounded-xl p-5`}>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[#2A2A2A] flex items-center justify-center text-sm font-bold text-[#C5F135]">
+            <div className={`w-12 h-12 rounded-xl ${accentBg} flex items-center justify-center text-sm font-bold text-[#C5F135]`}>
               {fund.amcName.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <h1 className="text-base font-semibold text-white">{fund.name}</h1>
+              <h1 className={`text-base font-semibold ${text}`}>{fund.name}</h1>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs text-[#A0A0A0]">{fund.category}</span>
-                <span className="text-[#2A2A2A]">·</span>
-                <span className="text-xs text-[#A0A0A0]">{fund.subCategory}</span>
+                <span className={`text-xs ${textSub}`}>{fund.category}</span>
+                <span className={lm ? 'text-[#E8E8F0]' : 'text-[#2A2A2A]'}>·</span>
+                <span className={`text-xs ${textSub}`}>{fund.subCategory}</span>
                 {fund.tags.slice(0, 2).map((t) => (
-                  <span key={t} className="text-xs bg-[#2A2A2A] text-[#A0A0A0] px-2 py-0.5 rounded-full">{t}</span>
+                  <span key={t} className={`text-xs ${chip} px-2 py-0.5 rounded-full`}>{t}</span>
                 ))}
               </div>
             </div>
           </div>
           <div className="flex items-start gap-8 text-right">
             <div>
-              <p className="text-xs text-[#A0A0A0]">NAV</p>
-              <p className="text-lg font-semibold text-white">₹{fund.nav.toFixed(2)}</p>
+              <p className={`text-xs ${textSub}`}>NAV</p>
+              <p className={`text-lg font-semibold ${text}`}>₹{fund.nav.toFixed(2)}</p>
               <p className={`text-xs ${fund.navChangePercent >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
                 {fund.navChangePercent >= 0 ? '▲' : '▼'} {Math.abs(fund.navChangePercent).toFixed(2)}%
               </p>
             </div>
             <div>
-              <p className="text-xs text-[#A0A0A0]">5Y CAGR</p>
+              <p className={`text-xs ${textSub}`}>5Y CAGR</p>
               <p className="text-lg font-semibold text-[#22C55E]">+{fund.returns['5Y'] ?? '—'}%</p>
             </div>
             <div><VolatilityBadge level={fund.volatility} size="md" /></div>
@@ -74,13 +94,13 @@ export function SchemeDetail() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-[#1E1E1E]">
+      <div className={`flex gap-1 border-b ${tabBorder}`}>
         {(['overview', 'constituents'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2.5 text-sm font-medium capitalize transition-colors border-b-2 -mb-px ${
-              tab === t ? 'border-[#C5F135] text-[#C5F135]' : 'border-transparent text-[#A0A0A0] hover:text-white'
+              tab === t ? 'border-[#C5F135] text-[#C5F135]' : `border-transparent ${textSub} hover:${text}`
             }`}
           >
             {t === 'overview' ? 'Overview' : 'Constituents'}
@@ -93,10 +113,10 @@ export function SchemeDetail() {
           {/* Left: Performance + Analysis */}
           <div className="col-span-2 space-y-4">
             {/* Performance chart */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
+            <div className={`${card} rounded-xl p-5`}>
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-xs text-[#A0A0A0]">Performance</p>
+                  <p className={`text-xs ${textSub}`}>Performance</p>
                   <p className={`text-xl font-semibold ${Number(totalReturn) >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
                     {Number(totalReturn) >= 0 ? '+' : ''}{totalReturn}%
                   </p>
@@ -107,7 +127,7 @@ export function SchemeDetail() {
                       key={p}
                       onClick={() => setPeriod(p)}
                       className={`text-xs px-2.5 py-1 rounded-full transition-colors ${
-                        period === p ? 'bg-[#C5F135] text-black font-semibold' : 'text-[#A0A0A0] hover:text-white'
+                        period === p ? 'bg-[#C5F135] text-black font-semibold' : `${textSub} hover:${text}`
                       }`}
                     >
                       {p}
@@ -123,11 +143,11 @@ export function SchemeDetail() {
                       <stop offset="95%" stopColor="#C5F135" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#606060' }} tickLine={false} axisLine={false}
+                  <XAxis dataKey="date" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false}
                     tickFormatter={(v) => format(new Date(v), period === '1M' ? 'd MMM' : 'MMM yy')} interval="preserveStartEnd" />
                   <YAxis hide domain={['auto', 'auto']} />
                   <Tooltip
-                    contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 8, fontSize: 12 }}
+                    contentStyle={tooltipStyle}
                     labelFormatter={(v) => format(new Date(v as string), 'd MMM yyyy')}
                     formatter={(v) => [`₹${Number(v).toFixed(2)}`, 'NAV']}
                   />
@@ -137,8 +157,8 @@ export function SchemeDetail() {
             </div>
 
             {/* Key metrics */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
-              <h3 className="text-sm font-semibold text-white mb-4">Fund Analysis</h3>
+            <div className={`${card} rounded-xl p-5`}>
+              <h3 className={`text-sm font-semibold ${text} mb-4`}>Fund Analysis</h3>
               <div className="grid grid-cols-2 gap-x-8 gap-y-3">
                 {[
                   { label: 'Expense Ratio', fund: `${fund.expenseRatio}%`, cat: '1.34%' },
@@ -148,11 +168,11 @@ export function SchemeDetail() {
                   { label: 'Min SIP', fund: `₹${fund.minSIP}`, cat: '—' },
                   { label: 'Lock-in', fund: fund.lockIn, cat: '—' },
                 ].map((row) => (
-                  <div key={row.label} className="flex items-center justify-between py-1.5 border-b border-[#1E1E1E]">
-                    <span className="text-xs text-[#A0A0A0]">{row.label}</span>
+                  <div key={row.label} className={`flex items-center justify-between py-1.5 border-b ${rowBorder}`}>
+                    <span className={`text-xs ${textSub}`}>{row.label}</span>
                     <div className="flex items-center gap-4 text-xs font-semibold">
-                      <span className="text-white">{row.fund}</span>
-                      {row.cat !== '—' && <span className="text-[#606060]">Cat: {row.cat}</span>}
+                      <span className={text}>{row.fund}</span>
+                      {row.cat !== '—' && <span className={textMuted}>Cat: {row.cat}</span>}
                     </div>
                   </div>
                 ))}
@@ -160,8 +180,8 @@ export function SchemeDetail() {
             </div>
 
             {/* About the fund */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
-              <h3 className="text-sm font-semibold text-white mb-3">About the Fund</h3>
+            <div className={`${card} rounded-xl p-5`}>
+              <h3 className={`text-sm font-semibold ${text} mb-3`}>About the Fund</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: 'Min SIP Amount', value: `₹${fund.minSIP}` },
@@ -171,8 +191,8 @@ export function SchemeDetail() {
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C5F135]" />
-                    <span className="text-xs text-[#A0A0A0]">{item.label}:</span>
-                    <span className="text-xs font-semibold text-white">{item.value}</span>
+                    <span className={`text-xs ${textSub}`}>{item.label}:</span>
+                    <span className={`text-xs font-semibold ${text}`}>{item.value}</span>
                   </div>
                 ))}
               </div>
@@ -181,34 +201,34 @@ export function SchemeDetail() {
 
           {/* Right: CTA + Returns */}
           <div className="space-y-4">
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5 space-y-3">
+            <div className={`${card} rounded-xl p-5 space-y-3`}>
               <div>
-                <p className="text-xs text-[#A0A0A0]">Minimum Investment</p>
-                <p className="text-xl font-semibold text-white">₹{fund.minLumpsum}</p>
+                <p className={`text-xs ${textSub}`}>Minimum Investment</p>
+                <p className={`text-xl font-semibold ${text}`}>₹{fund.minLumpsum}</p>
               </div>
               <button className="w-full bg-[#C5F135] hover:bg-[#A8D020] text-black text-sm font-semibold py-2.5 rounded-lg transition-colors">
                 Start SIP
               </button>
-              <button className="w-full border border-[#2A2A2A] hover:border-[#C5F135]/30 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+              <button className={`w-full border ${dividerColor} hover:border-[#C5F135]/30 ${text} text-sm font-semibold py-2.5 rounded-lg transition-colors`}>
                 Invest Now
               </button>
             </div>
 
             {/* Returns table */}
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
-              <h3 className="text-sm font-semibold text-white mb-3">Returns</h3>
+            <div className={`${card} rounded-xl p-5`}>
+              <h3 className={`text-sm font-semibold ${text} mb-3`}>Returns</h3>
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-[#2A2A2A]">
-                    <th className="text-left text-[#606060] py-1.5">Period</th>
-                    <th className="text-right text-[#606060] py-1.5">Fund</th>
-                    <th className="text-right text-[#606060] py-1.5">Cat Avg</th>
+                  <tr className={`border-b ${dividerColor}`}>
+                    <th className={`text-left ${textMuted} py-1.5`}>Period</th>
+                    <th className={`text-right ${textMuted} py-1.5`}>Fund</th>
+                    <th className={`text-right ${textMuted} py-1.5`}>Cat Avg</th>
                   </tr>
                 </thead>
                 <tbody>
                   {(['1Y', '3Y', '5Y'] as const).map((p) => (
-                    <tr key={p} className="border-b border-[#1E1E1E] last:border-b-0">
-                      <td className="text-[#A0A0A0] py-2">{p} Return</td>
+                    <tr key={p} className={`border-b ${rowBorder} last:border-b-0`}>
+                      <td className={`${textSub} py-2`}>{p} Return</td>
                       <td className="text-right py-2">
                         {p === '1Y' ? (
                           <span className="text-[#22C55E] font-semibold">+{fund.returns[p]}%</span>
@@ -218,7 +238,7 @@ export function SchemeDetail() {
                           </PlanGate>
                         )}
                       </td>
-                      <td className="text-right py-2 text-[#606060]">—</td>
+                      <td className={`text-right py-2 ${textMuted}`}>—</td>
                     </tr>
                   ))}
                 </tbody>
@@ -230,39 +250,38 @@ export function SchemeDetail() {
 
       {tab === 'constituents' && (
         <div className="grid grid-cols-3 gap-5">
-          <div className="col-span-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-white mb-4">Constituents & Weights</h3>
+          <div className={`col-span-2 ${card} rounded-xl p-5`}>
+            <h3 className={`text-sm font-semibold ${text} mb-4`}>Constituents & Weights</h3>
             {fund.constituents ? (
               <div className="space-y-3">
                 {fund.constituents.map((sec) => (
                   <div key={sec.sector}>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-xs font-semibold text-white">{sec.sector}</span>
+                      <span className={`text-xs font-semibold ${text}`}>{sec.sector}</span>
                       <span className="text-xs font-semibold text-[#C5F135]">{sec.totalWeight}%</span>
                     </div>
                     {sec.holdings.map((h) => (
-                      <div key={h.name} className="flex justify-between py-1 pl-3 border-l border-[#2A2A2A] ml-1">
-                        <span className="text-xs text-[#A0A0A0]">{h.name}</span>
-                        <span className="text-xs text-white">{h.weight}%</span>
+                      <div key={h.name} className={`flex justify-between py-1 pl-3 border-l ${constituentBorder} ml-1`}>
+                        <span className={`text-xs ${textSub}`}>{h.name}</span>
+                        <span className={`text-xs ${text}`}>{h.weight}%</span>
                       </div>
                     ))}
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#606060]">Constituents data not available for this fund.</p>
+              <p className={`text-xs ${textMuted}`}>Constituents data not available for this fund.</p>
             )}
           </div>
 
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-white mb-4">Holdings Distribution</h3>
+          <div className={`${card} rounded-xl p-5`}>
+            <h3 className={`text-sm font-semibold ${text} mb-4`}>Holdings Distribution</h3>
             <ResponsiveContainer width="100%" height={160}>
               <PieChart>
                 <Pie data={holdingsDist} dataKey="value" cx="50%" cy="50%" innerRadius={45} outerRadius={70} strokeWidth={0}>
                   {holdingsDist.map((d, i) => <Cell key={i} fill={d.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 8, fontSize: 12 }}
-                  formatter={(v) => [`${v}%`]} />
+                <Tooltip contentStyle={tooltipStyle} formatter={(v) => [`${v}%`]} />
               </PieChart>
             </ResponsiveContainer>
             <div className="space-y-2 mt-2">
@@ -270,9 +289,9 @@ export function SchemeDetail() {
                 <div key={d.label} className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ background: d.color }} />
-                    <span className="text-xs text-[#A0A0A0]">{d.label}</span>
+                    <span className={`text-xs ${textSub}`}>{d.label}</span>
                   </div>
-                  <span className="text-xs font-semibold text-white">{d.value}%</span>
+                  <span className={`text-xs font-semibold ${text}`}>{d.value}%</span>
                 </div>
               ))}
             </div>

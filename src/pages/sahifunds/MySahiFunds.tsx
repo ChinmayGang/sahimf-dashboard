@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
+import { useUIStore } from '../../stores/uiStore'
 
 const MY_FUNDS = ['sf001', 'sf002']
 
@@ -17,8 +18,15 @@ function formatINR(n: number) {
 export function MySahiFunds() {
   const navigate = useNavigate()
   const myFunds = mockSahiFunds.filter((f) => MY_FUNDS.includes(f.id))
-
   const [activeIdx, setActiveIdx] = useState(0)
+  const lm = useUIStore((s) => s.lightMode)
+
+  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
 
   const mockInvested = [38000, 55000]
   const mockCurrent = [44820, 72450]
@@ -28,12 +36,12 @@ export function MySahiFunds() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center">
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
             <DiamondIcon sx={{ fontSize: 18, color: '#C5F135' }} />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">My Sahi Funds</h1>
-            <p className="text-xs text-[#606060]">{myFunds.length} baskets active</p>
+            <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
+            <p className={`text-xs ${textMuted}`}>{myFunds.length} baskets active</p>
           </div>
         </div>
         <button
@@ -52,9 +60,9 @@ export function MySahiFunds() {
           { label: 'Current Value', value: formatINR(mockCurrent.reduce((a, b) => a + b, 0)), green: true },
           { label: 'Total Gain', value: `+${formatINR(mockCurrent.reduce((a, b) => a + b, 0) - mockInvested.reduce((a, b) => a + b, 0))}`, green: true },
         ].map((s) => (
-          <div key={s.label} className="bg-[#141414] border border-[#2A2A2A] rounded-xl px-4 py-3">
-            <p className="text-[11px] text-[#606060] mb-1">{s.label}</p>
-            <p className={`text-base font-bold ${s.green ? 'text-[#22C55E]' : 'text-white'}`}>{s.value}</p>
+          <div key={s.label} className={`${card} rounded-xl px-4 py-3`}>
+            <p className={`text-[11px] ${textMuted} mb-1`}>{s.label}</p>
+            <p className={`text-base font-bold ${s.green ? 'text-[#22C55E]' : text}`}>{s.value}</p>
           </div>
         ))}
       </div>
@@ -65,12 +73,12 @@ export function MySahiFunds() {
           <button
             key={fund.id}
             onClick={() => { setActiveIdx(idx); navigate(`/mutual-funds/sahi-funds/${fund.id}`) }}
-            className="text-left bg-[#141414] border rounded-2xl p-5 hover:border-[#C5F135]/40 transition-all"
-            style={{ borderColor: activeIdx === idx ? '#C5F135' : '#2A2A2A' }}
+            className={`text-left ${card} rounded-2xl p-5 hover:border-[#C5F135]/40 transition-all`}
+            style={{ borderColor: activeIdx === idx ? '#C5F135' : lm ? '#E8E8F0' : '#2A2A2A' }}
           >
             <div className="flex items-start justify-between mb-3">
               <div>
-                <p className="text-sm font-bold text-white mb-1">{fund.name}</p>
+                <p className={`text-sm font-bold ${text} mb-1`}>{fund.name}</p>
                 <VolatilityBadge level={fund.volatility} />
               </div>
               <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#7B2FBE]/20 text-[#7B2FBE]' : 'bg-[#C5F135]/10 text-[#C5F135]'}`}>
@@ -92,8 +100,8 @@ export function MySahiFunds() {
                   {fund.holdingsDistribution.map((d) => (
                     <div key={d.label} className="flex items-center gap-1.5 text-[11px]">
                       <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: d.color }} />
-                      <span className="text-[#A0A0A0]">{d.label}</span>
-                      <span className="text-white font-medium">{d.value}%</span>
+                      <span className={textSub}>{d.label}</span>
+                      <span className={`${text} font-medium`}>{d.value}%</span>
                     </div>
                   ))}
                 </div>
@@ -103,8 +111,8 @@ export function MySahiFunds() {
             {/* Returns */}
             <div className="grid grid-cols-3 gap-2 mb-4">
               {(['1M', '1Y', '3Y'] as const).map((k) => (
-                <div key={k} className="bg-[#1A1A1A] rounded-lg px-2 py-1.5 text-center">
-                  <p className="text-[10px] text-[#606060]">{k}</p>
+                <div key={k} className={`${cardInner} rounded-lg px-2 py-1.5 text-center`}>
+                  <p className={`text-[10px] ${textMuted}`}>{k}</p>
                   <p className={`text-xs font-bold ${(fund.returns[k] ?? 0) >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
                     {(fund.returns[k] ?? 0) >= 0 ? '+' : ''}{fund.returns[k]?.toFixed(1)}%
                   </p>
@@ -113,17 +121,17 @@ export function MySahiFunds() {
             </div>
 
             {/* Investment status */}
-            <div className="flex items-center justify-between pt-3 border-t border-[#2A2A2A]">
+            <div className={`flex items-center justify-between pt-3 border-t ${dividerColor}`}>
               <div>
-                <p className="text-[11px] text-[#606060]">Invested</p>
-                <p className="text-sm font-semibold text-white">{formatINR(mockInvested[idx])}</p>
+                <p className={`text-[11px] ${textMuted}`}>Invested</p>
+                <p className={`text-sm font-semibold ${text}`}>{formatINR(mockInvested[idx])}</p>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-[#606060]">Current</p>
+                <p className={`text-[11px] ${textMuted}`}>Current</p>
                 <p className="text-sm font-semibold text-[#22C55E]">{formatINR(mockCurrent[idx])}</p>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-[#606060]">XIRR</p>
+                <p className={`text-[11px] ${textMuted}`}>XIRR</p>
                 <p className="text-sm font-semibold text-[#C5F135]">+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
               </div>
             </div>
@@ -134,9 +142,9 @@ export function MySahiFunds() {
       {/* Next rebalance notice */}
       <div className="bg-[#7B2FBE]/10 border border-[#7B2FBE]/30 rounded-xl px-4 py-3 flex items-center gap-3">
         <TrendingUpIcon sx={{ fontSize: 16, color: '#7B2FBE' }} />
-        <p className="text-xs text-[#A0A0A0]">
-          <span className="text-white font-medium">Sahi All-Weather Portfolio</span> is due for rebalancing on{' '}
-          <span className="text-white font-medium">1 Jul 2026</span>. You'll be notified 7 days before.
+        <p className={`text-xs ${textSub}`}>
+          <span className={`${text} font-medium`}>Sahi All-Weather Portfolio</span> is due for rebalancing on{' '}
+          <span className={`${text} font-medium`}>1 Jul 2026</span>. You'll be notified 7 days before.
         </p>
       </div>
     </div>

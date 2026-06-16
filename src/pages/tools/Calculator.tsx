@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import CalculateIcon from '@mui/icons-material/Calculate'
+import { useUIStore } from '../../stores/uiStore'
 
 type ToolType = 'sip' | 'lumpsum' | 'swp' | 'stp'
 
@@ -49,6 +50,20 @@ function useLumpsumCalc(principal: number, rate: number, years: number) {
 export function Calculator() {
   const { type } = useParams<{ type: ToolType }>()
   const toolType = (type ?? 'sip') as ToolType
+  const lm = useUIStore((s) => s.lightMode)
+
+  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const tooltipStyle = {
+    background: lm ? '#fff' : '#1A1A1A',
+    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    borderRadius: 8, fontSize: 12,
+    color: lm ? '#111827' : '#fff',
+  }
+  const chartTick = lm ? '#9CA3AF' : '#606060'
 
   const [monthly, setMonthly] = useState(10000)
   const [principal, setPrincipal] = useState(100000)
@@ -85,35 +100,35 @@ export function Calculator() {
           <CalculateIcon sx={{ fontSize: 20, color: '#C5F135' }} />
         </div>
         <div>
-          <h1 className="text-lg font-semibold text-white">{toolLabels[toolType]}</h1>
-          <p className="text-xs text-[#A0A0A0]">{toolDescriptions[toolType]}</p>
+          <h1 className={`text-lg font-semibold ${text}`}>{toolLabels[toolType]}</h1>
+          <p className={`text-xs ${textSub}`}>{toolDescriptions[toolType]}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-5 gap-6">
         {/* Inputs */}
-        <div className="col-span-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5 space-y-5">
+        <div className={`col-span-2 ${card} rounded-xl p-5 space-y-5`}>
           {(isSIP || toolType === 'swp') ? (
             <div>
               <div className="flex justify-between mb-2">
-                <label className="text-xs text-[#A0A0A0]">{toolType === 'swp' ? 'Monthly Withdrawal' : 'Monthly SIP Amount'}</label>
+                <label className={`text-xs ${textSub}`}>{toolType === 'swp' ? 'Monthly Withdrawal' : 'Monthly SIP Amount'}</label>
                 <span className="text-xs font-semibold text-[#C5F135]">₹{monthly.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={500} max={100000} step={500} value={monthly}
                 onChange={(e) => setMonthly(Number(e.target.value))} className="w-full accent-[#C5F135]" />
-              <div className="flex justify-between text-[10px] text-[#606060] mt-1">
+              <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹500</span><span>₹1 L</span>
               </div>
             </div>
           ) : (
             <div>
               <div className="flex justify-between mb-2">
-                <label className="text-xs text-[#A0A0A0]">Investment Amount</label>
+                <label className={`text-xs ${textSub}`}>Investment Amount</label>
                 <span className="text-xs font-semibold text-[#C5F135]">₹{principal.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={10000} max={10000000} step={10000} value={principal}
                 onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full accent-[#C5F135]" />
-              <div className="flex justify-between text-[10px] text-[#606060] mt-1">
+              <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹10K</span><span>₹1 Cr</span>
               </div>
             </div>
@@ -121,40 +136,40 @@ export function Calculator() {
 
           <div>
             <div className="flex justify-between mb-2">
-              <label className="text-xs text-[#A0A0A0]">Expected Return Rate (p.a.)</label>
+              <label className={`text-xs ${textSub}`}>Expected Return Rate (p.a.)</label>
               <span className="text-xs font-semibold text-[#C5F135]">{rate}%</span>
             </div>
             <input type="range" min={4} max={30} step={0.5} value={rate}
               onChange={(e) => setRate(Number(e.target.value))} className="w-full accent-[#C5F135]" />
-            <div className="flex justify-between text-[10px] text-[#606060] mt-1">
+            <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>4%</span><span>30%</span>
             </div>
           </div>
 
           <div>
             <div className="flex justify-between mb-2">
-              <label className="text-xs text-[#A0A0A0]">Time Period</label>
+              <label className={`text-xs ${textSub}`}>Time Period</label>
               <span className="text-xs font-semibold text-[#C5F135]">{years} yrs</span>
             </div>
             <input type="range" min={1} max={40} step={1} value={years}
               onChange={(e) => setYears(Number(e.target.value))} className="w-full accent-[#C5F135]" />
-            <div className="flex justify-between text-[10px] text-[#606060] mt-1">
+            <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>1 yr</span><span>40 yrs</span>
             </div>
           </div>
 
           {/* Results */}
-          <div className="pt-4 border-t border-[#2A2A2A] space-y-3">
+          <div className={`pt-4 border-t ${dividerColor} space-y-3`}>
             <div className="flex justify-between">
-              <span className="text-xs text-[#A0A0A0]">Total Invested</span>
-              <span className="text-xs font-semibold text-white">{formatINR(calc.totalInvested)}</span>
+              <span className={`text-xs ${textSub}`}>Total Invested</span>
+              <span className={`text-xs font-semibold ${text}`}>{formatINR(calc.totalInvested)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-xs text-[#A0A0A0]">Est. Returns</span>
+              <span className={`text-xs ${textSub}`}>Est. Returns</span>
               <span className="text-xs font-semibold text-[#22C55E]">+{formatINR(calc.gain)}</span>
             </div>
-            <div className="flex justify-between pt-2 border-t border-[#2A2A2A]">
-              <span className="text-xs font-semibold text-[#A0A0A0]">Total Value</span>
+            <div className={`flex justify-between pt-2 border-t ${dividerColor}`}>
+              <span className={`text-xs font-semibold ${textSub}`}>Total Value</span>
               <span className="text-sm font-bold text-[#C5F135]">{formatINR(calc.maturity)}</span>
             </div>
           </div>
@@ -166,11 +181,11 @@ export function Calculator() {
 
         {/* Chart */}
         <div className="col-span-3 space-y-4">
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5">
+          <div className={`${card} rounded-xl p-5`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold text-white">Growth Projection</h2>
+              <h2 className={`text-sm font-semibold ${text}`}>Growth Projection</h2>
               <div className="text-right">
-                <p className="text-xs text-[#A0A0A0]">Maturity Value</p>
+                <p className={`text-xs ${textSub}`}>Maturity Value</p>
                 <p className="text-lg font-bold text-[#C5F135]">{formatINR(calc.maturity)}</p>
               </div>
             </div>
@@ -186,10 +201,10 @@ export function Calculator() {
                     <stop offset="95%" stopColor="#C5F135" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="label" tick={{ fontSize: 10, fill: '#606060' }} tickLine={false} axisLine={false} />
+                <XAxis dataKey="label" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} />
                 <YAxis hide />
                 <Tooltip
-                  contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 8, fontSize: 12 }}
+                  contentStyle={tooltipStyle}
                   formatter={(v) => [formatINR(Number(v))]}
                 />
                 <Area type="monotone" dataKey="invested" stroke="#7B2FBE" strokeWidth={1.5} fill="url(#invGrad2)" />
@@ -197,8 +212,8 @@ export function Calculator() {
               </AreaChart>
             </ResponsiveContainer>
             <div className="flex gap-4 mt-2">
-              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#7B2FBE] rounded" /><span className="text-xs text-[#A0A0A0]">Invested</span></div>
-              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#C5F135] rounded" /><span className="text-xs text-[#A0A0A0]">Projected Value</span></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#7B2FBE] rounded" /><span className={`text-xs ${textSub}`}>Invested</span></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#C5F135] rounded" /><span className={`text-xs ${textSub}`}>Projected Value</span></div>
             </div>
           </div>
 
@@ -209,9 +224,9 @@ export function Calculator() {
               { label: 'Absolute Returns', value: `${(((calc.maturity - calc.totalInvested) / calc.totalInvested) * 100).toFixed(0)}%` },
               { label: 'Est. CAGR', value: `${rate}% p.a.` },
             ].map((s) => (
-              <div key={s.label} className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-3 text-center">
-                <p className="text-xs text-[#A0A0A0] mb-1">{s.label}</p>
-                <p className="text-base font-bold text-white">{s.value}</p>
+              <div key={s.label} className={`${card} rounded-xl p-3 text-center`}>
+                <p className={`text-xs ${textSub} mb-1`}>{s.label}</p>
+                <p className={`text-base font-bold ${text}`}>{s.value}</p>
               </div>
             ))}
           </div>
