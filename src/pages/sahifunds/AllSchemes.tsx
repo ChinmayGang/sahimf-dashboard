@@ -1,0 +1,346 @@
+import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import SearchIcon from '@mui/icons-material/Search'
+import TuneIcon from '@mui/icons-material/Tune'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+import LockIcon from '@mui/icons-material/Lock'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { useUIStore } from '../../stores/uiStore'
+import { mockFunds } from '../../data/funds'
+import { mockSahiFunds } from '../../data/sahiFunds'
+import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
+
+const CATEGORIES = [
+  { label: 'Equity', children: ['Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'Sectoral', 'ELSS'] },
+  { label: 'Debt', children: ['Liquid', 'Overnight', 'Short Duration', 'Medium Duration', 'Long Duration', 'Gilt'] },
+  { label: 'Hybrid', children: ['Aggressive Hybrid', 'Balanced Advantage', 'Multi Asset', 'Arbitrage'] },
+  { label: 'Index / ETF', children: ['Nifty 50', 'Nifty Next 50', 'Sensex', 'Nifty Midcap 150'] },
+]
+const AMCS = ['Mirae Asset', 'PPFAS', 'DSP', 'Axis', 'HDFC', 'SBI', 'ICICI Prudential', 'Kotak', 'Nippon']
+const SORT_OPTIONS = ['Popularity', '1Y Returns ↑', '1Y Returns ↓', 'Expense Ratio ↑', 'Sharpe Ratio ↓', 'Fund Size ↓']
+type TabType = 'open' | 'sahi'
+
+function FilterSection({ title, children, defaultOpen = true }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen)
+  const lightMode = useUIStore((s) => s.lightMode)
+  return (
+    <div className="mb-3 pb-3" style={{ borderBottom: lightMode ? '1px solid #E8E8F0' : '1px solid #1E1E1E' }}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full text-xs font-semibold uppercase tracking-wider mb-2"
+        style={{ color: lightMode ? '#9CA3AF' : '#606060' }}
+      >
+        {title}
+        {open ? <ExpandLessIcon sx={{ fontSize: 15 }} /> : <ExpandMoreIcon sx={{ fontSize: 15 }} />}
+      </button>
+      {open && children}
+    </div>
+  )
+}
+
+export function AllSchemes() {
+  const lightMode = useUIStore((s) => s.lightMode)
+  const navigate = useNavigate()
+  const [tab, setTab] = useState<TabType>('open')
+  const [query, setQuery] = useState('')
+  const [selectedCats, setSelectedCats] = useState<string[]>([])
+  const [selectedVolatility, setSelectedVolatility] = useState<string[]>([])
+  const [selectedAMC, setSelectedAMC] = useState<string[]>([])
+  const [expenseMax, setExpenseMax] = useState(2.5)
+  const [sortBy, setSortBy] = useState('Popularity')
+  const [openCats, setOpenCats] = useState<string[]>(['Equity'])
+
+  const lm = lightMode
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const card = lm ? 'bg-white border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const inputBg = lm ? 'bg-white border-[#E8E8F0]' : 'bg-[#1A1A1A] border-[#2A2A2A]'
+  const accent = lm ? '#7B2FBE' : '#C5F135'
+  const accentText = lm ? 'text-[#7B2FBE]' : 'text-[#C5F135]'
+
+  const toggleCat = (c: string) => setSelectedCats((p) => p.includes(c) ? p.filter((x) => x !== c) : [...p, c])
+  const toggleVol = (v: string) => setSelectedVolatility((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v])
+  const toggleAMC = (a: string) => setSelectedAMC((p) => p.includes(a) ? p.filter((x) => x !== a) : [...p, a])
+  const toggleCatOpen = (c: string) => setOpenCats((p) => p.includes(c) ? p.filter((x) => x !== c) : [...p, c])
+
+  const filteredOpen = useMemo(() => {
+    return mockFunds.filter((f) => {
+      if (query && !f.name.toLowerCase().includes(query.toLowerCase()) && !f.amcName.toLowerCase().includes(query.toLowerCase())) return false
+      if (selectedCats.length && !selectedCats.some((c) => f.category === c || f.subCategory === c)) return false
+      if (selectedVolatility.length && !selectedVolatility.includes(f.volatility)) return false
+      if (selectedAMC.length && !selectedAMC.some((a) => f.amcName.includes(a))) return false
+      if (f.expenseRatio > expenseMax) return false
+      return true
+    })
+  }, [query, selectedCats, selectedVolatility, selectedAMC, expenseMax])
+
+  const filteredSahi = useMemo(() => {
+    return mockSahiFunds.filter((f) => !query || f.name.toLowerCase().includes(query.toLowerCase()))
+  }, [query])
+
+  const activeCount = selectedCats.length + selectedVolatility.length + selectedAMC.length
+
+  return (
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* Top bar */}
+      <div
+        className="flex items-center gap-3 px-5 py-3 flex-shrink-0"
+        style={{ borderBottom: lm ? '1px solid #E8E8F0' : '1px solid #1E1E1E', background: lm ? '#FDFCFF' : 'transparent' }}
+      >
+        <button
+          onClick={() => navigate('/mutual-funds/explore')}
+          className={`flex items-center gap-1 text-xs font-medium ${textSub} hover:${text} transition-colors`}
+        >
+          <ArrowBackIcon sx={{ fontSize: 15 }} />
+          Explore Funds
+        </button>
+        <span className={textMuted}>/</span>
+        <span className={`text-xs font-semibold ${text}`}>
+          {tab === 'sahi' ? 'Sahi MF Funds' : 'All Open Schemes'}
+        </span>
+
+        {/* Tab toggle */}
+        <div
+          className="flex items-center rounded-xl p-0.5 ml-3"
+          style={{ background: lm ? '#F3F0FF' : '#1A1A1A', border: lm ? '1px solid #E0D9FF' : '1px solid #2A2A2A' }}
+        >
+          {(['open', 'sahi'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all"
+              style={tab === t
+                ? { background: accent, color: lm ? '#fff' : '#000' }
+                : { color: lm ? '#9CA3AF' : '#606060' }}
+            >
+              {t === 'sahi' && <AutoAwesomeIcon sx={{ fontSize: 12 }} />}
+              {t === 'sahi' ? 'Sahi Funds' : 'Open Schemes'}
+            </button>
+          ))}
+        </div>
+
+        {/* Search */}
+        <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-1.5 flex-1 max-w-sm ml-auto`}>
+          <SearchIcon sx={{ fontSize: 15, color: lm ? '#9CA3AF' : '#606060' }} />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by fund name, AMC..."
+            className={`bg-transparent outline-none text-xs flex-1 ${text} placeholder-[#9CA3AF]`}
+          />
+        </div>
+
+        <span className={`text-xs ${textMuted} flex-shrink-0`}>
+          {tab === 'sahi' ? filteredSahi.length : filteredOpen.length} funds
+        </span>
+
+        {tab === 'open' && (
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none ${text}`}
+          >
+            {SORT_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+          </select>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Filter sidebar — only for open schemes */}
+        {tab === 'open' && (
+          <aside
+            className="w-56 flex-shrink-0 overflow-y-auto p-4"
+            style={{ borderRight: lm ? '1px solid #E8E8F0' : '1px solid #1E1E1E', background: lm ? '#FDFCFF' : '#0D0D0D' }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: lm ? '#374151' : '#fff' }}>
+                <TuneIcon sx={{ fontSize: 14 }} />
+                Filters
+              </div>
+              {activeCount > 0 && (
+                <button
+                  onClick={() => { setSelectedCats([]); setSelectedVolatility([]); setSelectedAMC([]) }}
+                  className={`text-xs font-semibold ${accentText}`}
+                >
+                  Clear all ({activeCount})
+                </button>
+              )}
+            </div>
+
+            <FilterSection title="Category">
+              {CATEGORIES.map((cat) => (
+                <div key={cat.label} className="mb-1">
+                  <button
+                    onClick={() => toggleCatOpen(cat.label)}
+                    className={`flex items-center justify-between w-full text-xs py-1 transition-colors ${textSub} hover:${text}`}
+                  >
+                    <span className="font-semibold">{cat.label}</span>
+                    {openCats.includes(cat.label) ? <ExpandLessIcon sx={{ fontSize: 13 }} /> : <ExpandMoreIcon sx={{ fontSize: 13 }} />}
+                  </button>
+                  {openCats.includes(cat.label) && (
+                    <div className="ml-2 mt-0.5 space-y-0.5">
+                      {cat.children.map((sub) => (
+                        <label key={sub} className="flex items-center gap-2 cursor-pointer py-0.5">
+                          <input type="checkbox" checked={selectedCats.includes(sub)} onChange={() => toggleCat(sub)} className="w-3 h-3 rounded" style={{ accentColor: accent }} />
+                          <span className={`text-xs ${selectedCats.includes(sub) ? accentText : textSub}`}>{sub}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </FilterSection>
+
+            <FilterSection title="Volatility">
+              {(['Low', 'Medium', 'High'] as const).map((v) => (
+                <label key={v} className="flex items-center gap-2 cursor-pointer py-1">
+                  <input type="checkbox" checked={selectedVolatility.includes(v)} onChange={() => toggleVol(v)} className="w-3 h-3" style={{ accentColor: accent }} />
+                  <VolatilityBadge level={v} />
+                </label>
+              ))}
+            </FilterSection>
+
+            <FilterSection title="Expense Ratio">
+              <input type="range" min={0} max={2.5} step={0.1} value={expenseMax} onChange={(e) => setExpenseMax(Number(e.target.value))} className="w-full" style={{ accentColor: accent }} />
+              <div className="flex justify-between text-xs mt-1" style={{ color: lm ? '#9CA3AF' : '#606060' }}>
+                <span>0%</span>
+                <span className="font-semibold" style={{ color: accent }}>≤ {expenseMax.toFixed(1)}%</span>
+                <span>2.5%</span>
+              </div>
+            </FilterSection>
+
+            <FilterSection title="AMC" defaultOpen={false}>
+              {AMCS.map((a) => (
+                <label key={a} className="flex items-center gap-2 cursor-pointer py-0.5">
+                  <input type="checkbox" checked={selectedAMC.includes(a)} onChange={() => toggleAMC(a)} className="w-3 h-3" style={{ accentColor: accent }} />
+                  <span className={`text-xs ${selectedAMC.includes(a) ? accentText : textSub}`}>{a}</span>
+                </label>
+              ))}
+            </FilterSection>
+          </aside>
+        )}
+
+        {/* Fund list */}
+        <div className="flex-1 overflow-y-auto p-4">
+          {tab === 'sahi' ? (
+            /* Sahi Funds grid */
+            <div className="grid grid-cols-2 gap-3">
+              {filteredSahi.map((fund) => (
+                <div
+                  key={fund.id}
+                  onClick={() => navigate(`/mutual-funds/sahi-funds/${fund.id}`)}
+                  className={`${card} rounded-2xl p-4 cursor-pointer hover:border-[#7B2FBE]/30 transition-all relative overflow-hidden`}
+                >
+                  <div className="absolute top-3 right-3 flex gap-1">
+                    <span className="text-[10px] font-bold bg-[#C5F135] text-black px-2 py-0.5 rounded-full">Best Choice</span>
+                  </div>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2.5"
+                    style={{ background: lm ? '#F3F0FF' : 'rgba(197,241,53,0.1)' }}>
+                    <AutoAwesomeIcon sx={{ fontSize: 16, color: lm ? '#7B2FBE' : '#C5F135' }} />
+                  </div>
+                  <h3 className={`text-sm font-bold ${text} pr-20 mb-1`}>{fund.name}</h3>
+                  <p className={`text-[11px] ${textSub} mb-3 leading-relaxed`}>{fund.description}</p>
+                  <div className="flex gap-1 mb-3">
+                    <VolatilityBadge level={fund.volatility} size="sm" />
+                    {fund.tags.slice(0, 2).map((t) => (
+                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-full"
+                        style={{ background: lm ? '#F3F0FF' : '#2A2A2A', color: lm ? '#7B2FBE' : '#A0A0A0' }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 pt-2.5 text-center"
+                    style={{ borderTop: lm ? '1px solid #E8E8F0' : '1px solid #2A2A2A' }}>
+                    <div>
+                      <p className={`text-[10px] ${textMuted}`}>Min</p>
+                      <p className={`text-xs font-bold ${text}`}>₹{fund.minAmount.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className={`text-[10px] ${textMuted}`}>{fund.fundCount} Funds</p>
+                      <p className={`text-xs font-bold ${text}`}>{fund.rebalanceFrequency}</p>
+                    </div>
+                    <div>
+                      <p className={`text-[10px] ${textMuted}`}>1Y Return</p>
+                      {fund.accessTier === 'free' ? (
+                        <p className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</p>
+                      ) : (
+                        <div className="flex items-center justify-center gap-0.5">
+                          <LockIcon sx={{ fontSize: 10, color: lm ? '#7B2FBE' : '#C5F135' }} />
+                          <span className={`text-xs font-bold ${accentText}`}>PRO</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Open Schemes table */
+            filteredOpen.length === 0 ? (
+              <div className={`flex items-center justify-center h-48 text-sm ${textMuted}`}>No funds match your filters</div>
+            ) : (
+              <div className="space-y-1.5">
+                {/* Table header */}
+                <div
+                  className="grid px-4 py-2 text-[10px] font-bold uppercase tracking-wider"
+                  style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px', color: lm ? '#9CA3AF' : '#606060' }}
+                >
+                  <span>Fund</span>
+                  <span className="text-center">NAV</span>
+                  <span className="text-center">1Y</span>
+                  <span className="text-center">3Y</span>
+                  <span className="text-center">5Y</span>
+                  <span className="text-right">Volatility</span>
+                </div>
+
+                {filteredOpen.map((fund) => (
+                  <div
+                    key={fund.id}
+                    onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
+                    className={`${card} rounded-xl px-4 py-3 cursor-pointer hover:border-[#7B2FBE]/30 transition-all grid items-center`}
+                    style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px' }}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-black"
+                        style={{ background: lm ? '#F3F4F6' : '#2A2A2A', color: lm ? '#374151' : '#A0A0A0' }}
+                      >
+                        {fund.amcName.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div className="min-w-0">
+                        <p className={`text-xs font-bold ${text} truncate`}>{fund.name}</p>
+                        <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct</p>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className={`text-xs font-bold ${text}`}>₹{fund.nav.toFixed(0)}</p>
+                      <p className={`text-[10px] ${fund.navChangePercent >= 0 ? 'text-[#16A34A]' : 'text-[#EF4444]'}`}>
+                        {fund.navChangePercent >= 0 ? '+' : ''}{fund.navChangePercent.toFixed(2)}%
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <span className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</span>
+                    </div>
+                    <div className="text-center">
+                      <span className={`text-xs font-bold ${accentText}`}>+{fund.returns['3Y']}%</span>
+                    </div>
+                    <div className="text-center">
+                      <span className={`text-xs font-bold ${accentText}`}>+{fund.returns['5Y']}%</span>
+                    </div>
+                    <div className="flex justify-end">
+                      <VolatilityBadge level={fund.volatility} size="sm" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

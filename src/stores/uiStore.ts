@@ -14,7 +14,7 @@ interface UIState {
 export const useUIStore = create<UIState>((set) => ({
   sidebarExpanded: true,
   openSubmenu: 'mutual-funds',
-  lightMode: false,
+  lightMode: true,
   toggleSidebar: () =>
     set((s) => ({ sidebarExpanded: !s.sidebarExpanded, openSubmenu: null })),
   setSidebarExpanded: (v) => set({ sidebarExpanded: v }),

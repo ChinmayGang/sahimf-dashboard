@@ -7,13 +7,11 @@ import FolderIcon from '@mui/icons-material/Folder'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import ExploreIcon from '@mui/icons-material/Explore'
-import SearchIcon from '@mui/icons-material/Search'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 import BubbleChartIcon from '@mui/icons-material/BubbleChart'
 import StarRateIcon from '@mui/icons-material/StarRate'
 import BusinessIcon from '@mui/icons-material/Business'
 import CalculateIcon from '@mui/icons-material/Calculate'
-import SavingsIcon from '@mui/icons-material/Savings'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import ArticleIcon from '@mui/icons-material/Article'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -37,16 +35,10 @@ const mfChildren: NavItem[] = [
   { key: 'mf-overview', label: 'Overview', icon: <DashboardIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds' },
   { key: 'mf-portfolios', label: 'My Portfolios', icon: <FolderIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/portfolios' },
   { key: 'mf-transactions', label: 'Transactions', icon: <ReceiptLongIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/transactions' },
-  {
-    key: 'sahi-funds', label: 'Sahi MF Funds', icon: <AutoAwesomeIcon sx={{ fontSize: 16 }} />,
-    children: [
-      { key: 'sahi-explore', label: 'Explore Sahi Funds', icon: <ExploreIcon sx={{ fontSize: 14 }} />, path: '/mutual-funds/sahi-funds' },
-      { key: 'sahi-mine', label: 'My Sahi Funds', icon: <SavingsIcon sx={{ fontSize: 14 }} />, path: '/mutual-funds/my-sahi-funds' },
-    ],
-  },
+  { key: 'mf-explore', label: 'Explore Funds', icon: <ExploreIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/explore' },
+  { key: 'sahi-mine', label: 'My Sahi Funds', icon: <AutoAwesomeIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/my-sahi-funds' },
   { key: 'mf-overlap', label: 'Overlap Lens', icon: <BubbleChartIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/overlap' },
   { key: 'mf-compare', label: 'Fund Comparison', icon: <CompareArrowsIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/compare' },
-  { key: 'mf-search', label: 'Search Schemes', icon: <SearchIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/search' },
   { key: 'mf-scorecard', label: 'MF Scorecard', icon: <StarRateIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/scorecard' },
   { key: 'mf-amfi', label: 'Fund Manager', icon: <BusinessIcon sx={{ fontSize: 16 }} />, path: '/mutual-funds/amfi' },
   {

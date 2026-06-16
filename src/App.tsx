@@ -5,11 +5,11 @@ import { Overview } from './pages/overview/Overview'
 import { Portfolios } from './pages/portfolios/Portfolios'
 import { PortfolioDetail } from './pages/portfolios/PortfolioDetail'
 import { Transactions } from './pages/portfolios/Transactions'
-import { SearchSchemes } from './pages/research/SearchSchemes'
 import { SchemeDetail } from './pages/research/SchemeDetail'
 import { MFScorecard } from './pages/research/MFScorecard'
 import { FundManager } from './pages/research/FundManager'
-import { ExploreSahiFunds } from './pages/sahifunds/ExploreSahiFunds'
+import { ExploreFunds } from './pages/sahifunds/ExploreFunds'
+import { AllSchemes } from './pages/sahifunds/AllSchemes'
 import { SahiFundDetail } from './pages/sahifunds/SahiFundDetail'
 import { MySahiFunds } from './pages/sahifunds/MySahiFunds'
 import { OverlapLens } from './pages/analysis/OverlapLens'
@@ -51,12 +51,14 @@ export default function App() {
             <Route path="mutual-funds/portfolios" element={<Portfolios />} />
             <Route path="mutual-funds/portfolios/:id" element={<PortfolioDetail />} />
             <Route path="mutual-funds/transactions" element={<Transactions />} />
-            <Route path="mutual-funds/sahi-funds" element={<ExploreSahiFunds />} />
+            <Route path="mutual-funds/explore" element={<ExploreFunds />} />
+            <Route path="mutual-funds/explore/all" element={<AllSchemes />} />
+            <Route path="mutual-funds/sahi-funds" element={<Navigate to="/mutual-funds/explore" replace />} />
             <Route path="mutual-funds/sahi-funds/:id" element={<SahiFundDetail />} />
             <Route path="mutual-funds/my-sahi-funds" element={<MySahiFunds />} />
             <Route path="mutual-funds/overlap" element={<OverlapLens />} />
             <Route path="mutual-funds/compare" element={<FundComparison />} />
-            <Route path="mutual-funds/search" element={<SearchSchemes />} />
+            <Route path="mutual-funds/search" element={<Navigate to="/mutual-funds/explore/all" replace />} />
             <Route path="mutual-funds/search/:id" element={<SchemeDetail />} />
             <Route path="mutual-funds/scorecard" element={<MFScorecard />} />
             <Route path="mutual-funds/amfi" element={<FundManager />} />
