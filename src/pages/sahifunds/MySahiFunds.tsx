@@ -1,8 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import DiamondIcon from '@mui/icons-material/Diamond'
-import TrendingUpIcon from '@mui/icons-material/TrendingUp'
-import AddIcon from '@mui/icons-material/Add'
+import { Diamond as DiamondIcon } from '@phosphor-icons/react'
+import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
+import { Plus as AddIcon } from '@phosphor-icons/react'
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -37,12 +37,12 @@ export function MySahiFunds() {
   const [activeIdx, setActiveIdx] = useState(0)
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-transparent' : 'bg-[#141414] border border-transparent'
-  const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'
+  const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
 
   const mockInvested = [38000, 55000]
   const mockCurrent = [44820, 72450]
@@ -52,8 +52,8 @@ export function MySahiFunds() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-            <DiamondIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <DiamondIcon size={18} color="#d6fd70" weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
@@ -62,9 +62,9 @@ export function MySahiFunds() {
         </div>
         <button
           onClick={() => navigate('/mutual-funds/sahi-funds')}
-          className="flex items-center gap-1.5 bg-[#C5F135] hover:bg-[#A8D020] text-black text-xs font-semibold px-3 py-2 rounded-xl transition-colors"
+          className="flex items-center gap-1.5 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-xs font-semibold px-3 py-2 rounded-xl transition-colors"
         >
-          <AddIcon sx={{ fontSize: 14 }} />
+          <AddIcon size={14} weight="regular" />
           Explore More
         </button>
       </div>
@@ -91,8 +91,8 @@ export function MySahiFunds() {
             onClick={() => { setActiveIdx(idx); navigate(`/mutual-funds/sahi-funds/${fund.id}`) }}
             className={`text-left ${card} rounded-2xl p-5 transition-all duration-200 group ${
               activeIdx === idx
-                ? lm ? 'border-[#7B2FBE]' : 'border-[#C5F135]'
-                : lm ? 'hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl'
+                ? lm ? 'border-[#4f46e5]' : 'border-[#d6fd70]'
+                : lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'
             }`}
           >
             <div className="flex items-start justify-between mb-3">
@@ -102,11 +102,11 @@ export function MySahiFunds() {
                   <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-5 h-5" alt="" />
                 </div>
                 <div>
-                  <p className={`text-sm font-bold ${text} mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</p>
+                  <p className={`text-sm font-bold ${text} mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>{fund.name}</p>
                   <VolatilityBadge level={fund.volatility} />
                 </div>
               </div>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#7B2FBE]/20 text-[#7B2FBE]' : 'bg-[#C5F135]/10 text-[#C5F135]'}`}>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
             </div>
@@ -157,7 +157,7 @@ export function MySahiFunds() {
               </div>
               <div className="text-right">
                 <p className={`text-[11px] ${textMuted}`}>XIRR</p>
-                <p className="text-sm font-semibold text-[#C5F135]">+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
+                <p className="text-sm font-semibold text-[#d6fd70]">+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
               </div>
             </div>
           </button>
@@ -165,8 +165,8 @@ export function MySahiFunds() {
       </div>
 
       {/* Next rebalance notice */}
-      <div className="bg-[#7B2FBE]/10 border border-[#7B2FBE]/30 rounded-xl px-4 py-3 flex items-center gap-3">
-        <TrendingUpIcon sx={{ fontSize: 16, color: '#7B2FBE' }} />
+      <div className="bg-[#4f46e5]/10 border border-[#4f46e5]/30 rounded-xl px-4 py-3 flex items-center gap-3">
+        <TrendingUpIcon size={16} color="#4f46e5" weight="duotone" />
         <p className={`text-xs ${textSub}`}>
           <span className={`${text} font-medium`}>Sahi All-Weather Portfolio</span> is due for rebalancing on{' '}
           <span className={`${text} font-medium`}>1 Jul 2026</span>. You'll be notified 7 days before.

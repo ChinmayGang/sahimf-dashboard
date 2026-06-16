@@ -1,7 +1,7 @@
-import SyncIcon from '@mui/icons-material/Sync'
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
+﻿import { ArrowsClockwise as SyncIcon } from '@phosphor-icons/react'
+import { Bell as NotificationsNoneIcon } from '@phosphor-icons/react'
+import { Sun as LightModeIcon } from '@phosphor-icons/react'
+import { Moon as DarkModeIcon } from '@phosphor-icons/react'
 import { PlanBadge } from '../ui/PlanBadge'
 import { useAuthStore } from '../../stores/authStore'
 import { useUIStore } from '../../stores/uiStore'
@@ -12,12 +12,12 @@ export function Topbar() {
   const { lightMode, toggleLightMode } = useUIStore()
   const today = new Date()
 
-  const border = lightMode ? '#D1D5DB' : '#222222'
+  const border = lightMode ? '#D1D5DB' : '#1e2838'
   const bg = 'transparent'
   const textPrimary = lightMode ? '#18181B' : '#FFFFFF'
-  const textSecondary = lightMode ? '#52525B' : '#A0A0A0'
-  const btnBorder = lightMode ? '#E5E7EB' : '#2A2A2A'
-  const btnHoverBg = lightMode ? '#F4F4F5' : '#1A1A1A'
+  const textSecondary = lightMode ? '#52525B' : '#8390a2'
+  const btnBorder = lightMode ? '#E5E7EB' : '#3c4653'
+  const btnHoverBg = lightMode ? '#F4F4F5' : '#14171c'
 
   return (
     <header
@@ -48,7 +48,7 @@ export function Topbar() {
           onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
-          <SyncIcon sx={{ fontSize: 14 }} />
+          <SyncIcon size={14} weight="regular" />
           Sync Active CAS
         </button>
 
@@ -59,22 +59,22 @@ export function Topbar() {
           onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
-          <NotificationsNoneIcon sx={{ fontSize: 18 }} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#C5F135] rounded-full" />
+          <NotificationsNoneIcon size={18} weight="duotone" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#d6fd70] rounded-full" />
         </button>
 
         {/* Light/Dark toggle */}
         <button
           onClick={toggleLightMode}
           className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
-          style={{ color: lightMode ? '#F59E0B' : '#A0A0A0', background: lightMode ? '#FEF3C7' : 'transparent' }}
+          style={{ color: lightMode ? '#F59E0B' : '#8390a2', background: lightMode ? '#FEF3C7' : 'transparent' }}
           title={lightMode ? 'Switch to dark mode' : 'Switch to light mode'}
           onMouseEnter={(e) => { if (!lightMode) e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { if (!lightMode) e.currentTarget.style.background = 'transparent' }}
         >
           {lightMode
-            ? <DarkModeIcon sx={{ fontSize: 16 }} />
-            : <LightModeIcon sx={{ fontSize: 16 }} />}
+            ? <DarkModeIcon size={16} weight="duotone" />
+            : <LightModeIcon size={16} weight="duotone" />}
         </button>
 
         {/* Language toggle */}
@@ -84,7 +84,7 @@ export function Topbar() {
         >
           <button
             className="px-2.5 py-1.5 text-xs font-medium transition-colors"
-            style={{ background: lightMode ? '#18181B' : '#2A2A2A', color: '#FFFFFF' }}
+            style={{ background: lightMode ? '#18181B' : '#3c4653', color: '#FFFFFF' }}
           >
             En
           </button>

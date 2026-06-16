@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
-import PersonIcon from '@mui/icons-material/Person'
-import SearchIcon from '@mui/icons-material/Search'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+﻿import { useState } from 'react'
+import { Bank as AccountBalanceIcon } from '@phosphor-icons/react'
+import { User as PersonIcon } from '@phosphor-icons/react'
+import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
+import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
 import { mockAMCs } from '../../data/amcs'
 import { useUIStore } from '../../stores/uiStore'
 
@@ -17,14 +17,14 @@ export function FundManager() {
   const [selectedAMC, setSelectedAMC] = useState<string | null>(null)
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
-  const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
+  const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
-  const progressTrack = lm ? 'bg-[#E8E8F0]' : 'bg-[#2A2A2A]'
-  const inputBg = lm ? 'bg-white border-[#E8E8F0] text-[#111827]' : 'bg-[#141414] border-[#2A2A2A] text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
+  const progressTrack = lm ? 'bg-[#E0E3E8]' : 'bg-[#1e2838]'
+  const inputBg = lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'
 
   const filtered = mockAMCs.filter((a) => a.name.toLowerCase().includes(search.toLowerCase()))
   const detail = mockAMCs.find((a) => a.id === selectedAMC)
@@ -33,7 +33,7 @@ export function FundManager() {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <button onClick={() => setSelectedAMC(null)} className={`flex items-center gap-1.5 text-sm ${textMuted} hover:${text} transition-colors`}>
-          <ArrowBackIcon sx={{ fontSize: 15 }} />
+          <ArrowBackIcon size={15} weight="bold" />
           Fund Manager / AMFI
         </button>
 
@@ -41,7 +41,7 @@ export function FundManager() {
         <div className={`${card} rounded-2xl p-6`}>
           <div className="flex items-start gap-4 mb-5">
             <div className={`w-14 h-14 rounded-2xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-              <AccountBalanceIcon sx={{ fontSize: 24, color: '#C5F135' }} />
+              <AccountBalanceIcon size={24} color="#d6fd70" weight="duotone" />
             </div>
             <div className="flex-1">
               <h1 className={`text-xl font-bold ${text} mb-1`}>{detail.name}</h1>
@@ -72,11 +72,11 @@ export function FundManager() {
             {detail.managers.map((mgr) => (
               <div key={mgr.name} className={`${card} rounded-2xl p-5 flex items-start gap-4`}>
                 <div className={`w-10 h-10 rounded-full ${cardInner} flex items-center justify-center flex-shrink-0`}>
-                  <PersonIcon sx={{ fontSize: 18, color: lm ? '#9CA3AF' : '#A0A0A0' }} />
+                  <PersonIcon size={18} color={lm ? '#9CA3AF' : '#8390a2'} weight="duotone" />
                 </div>
                 <div>
                   <p className={`text-sm font-bold ${text} mb-0.5`}>{mgr.name}</p>
-                  <p className="text-xs text-[#C5F135] mb-2">{mgr.designation}</p>
+                  <p className="text-xs text-[#d6fd70] mb-2">{mgr.designation}</p>
                   <div className={`flex gap-4 text-xs ${textMuted}`}>
                     <span>Experience: <span className={textSub}>{mgr.experience}</span></span>
                     <span>Funds: <span className={textSub}>{mgr.fundsManaged}</span></span>
@@ -97,9 +97,9 @@ export function FundManager() {
               const isActive = amc.id === detail.id
               return (
                 <div key={amc.id} className="flex items-center gap-3">
-                  <span className="text-xs w-40 truncate" style={{ color: isActive ? '#C5F135' : lm ? '#6B7280' : '#A0A0A0' }}>{amc.name.split(' ').slice(0, 3).join(' ')}</span>
+                  <span className="text-xs w-40 truncate" style={{ color: isActive ? '#d6fd70' : lm ? '#6B7280' : '#8390a2' }}>{amc.name.split(' ').slice(0, 3).join(' ')}</span>
                   <div className={`flex-1 ${progressTrack} rounded-full h-2`}>
-                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? '#C5F135' : lm ? '#D1D5DB' : '#3A3A3A' }} />
+                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? '#d6fd70' : lm ? '#D1D5DB' : '#3c4653' }} />
                   </div>
                   <span className={`text-xs font-medium ${textSub} w-20 text-right`}>{formatAUM(amc.aum)}</span>
                 </div>
@@ -116,8 +116,8 @@ export function FundManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-            <AccountBalanceIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <AccountBalanceIcon size={18} color="#d6fd70" weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Manager / AMFI</h1>
@@ -128,7 +128,7 @@ export function FundManager() {
 
       {/* Search */}
       <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 max-w-sm`}>
-        <SearchIcon sx={{ fontSize: 15, color: lm ? '#9CA3AF' : '#606060' }} />
+        <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
         <input
           type="text"
           placeholder="Search AMC..."
@@ -159,11 +159,11 @@ export function FundManager() {
           <button
             key={amc.id}
             onClick={() => setSelectedAMC(amc.id)}
-            className={`text-left ${card} rounded-2xl p-5 hover:border-[#C5F135]/40 ${lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'} transition-all`}
+            className={`text-left ${card} rounded-2xl p-5 hover:border-[#d6fd70]/40 ${lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'} transition-all`}
           >
             <div className="flex items-center gap-3 mb-3">
               <div className={`w-10 h-10 rounded-xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-                <AccountBalanceIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+                <AccountBalanceIcon size={18} color="#d6fd70" weight="duotone" />
               </div>
               <div>
                 <p className={`text-sm font-bold ${text}`}>{amc.name}</p>
@@ -185,7 +185,7 @@ export function FundManager() {
             {/* AUM bar */}
             <div className="flex items-center gap-2">
               <div className={`flex-1 ${progressTrack} rounded-full h-1`}>
-                <div className="h-1 rounded-full bg-[#C5F135]" style={{ width: `${(amc.aum / 1200000) * 100}%` }} />
+                <div className="h-1 rounded-full bg-[#d6fd70]" style={{ width: `${(amc.aum / 1200000) * 100}%` }} />
               </div>
               <span className={`text-[10px] ${textMuted}`}>{((amc.aum / 6837090) * 100).toFixed(1)}% share</span>
             </div>

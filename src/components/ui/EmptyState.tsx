@@ -1,4 +1,4 @@
-import { useUIStore } from '../../stores/uiStore'
+﻿import { useUIStore } from '../../stores/uiStore'
 
 interface EmptyStateProps {
   icon?: React.ReactNode
@@ -11,8 +11,8 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
   const lm = useUIStore((s) => s.lightMode)
 
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const iconBg = lm ? 'bg-[#F3F4F6] border border-[#E8E8F0] text-[#9CA3AF]' : 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#A0A0A0]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const iconBg = lm ? 'bg-[#F3F4F6] border border-[#E0E3E8] text-[#9CA3AF]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2]'
 
   return (
     <div className="flex flex-col items-center justify-center py-16 px-6 text-center">

@@ -1,8 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import EventIcon from '@mui/icons-material/Event'
+import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
+import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
+import { CalendarDots as EventIcon } from '@phosphor-icons/react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -20,22 +20,22 @@ export function SahiFundDetail() {
   const [tab, setTab] = useState<'overview' | 'funds'>('overview')
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#A0A0A0]'
-  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
-  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
-  const progressTrack = lm ? 'bg-[#E8E8F0]' : 'bg-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
+  const progressTrack = lm ? 'bg-[#E0E3E8]' : 'bg-[#1e2838]'
   const tooltipStyle = {
-    background: lm ? '#fff' : '#1A1A1A',
-    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    background: lm ? '#fff' : '#14171c',
+    border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`,
     borderRadius: 8,
   }
-  const chartGrid = lm ? '#E8E8F0' : '#1E1E1E'
-  const chartTick = lm ? '#9CA3AF' : '#606060'
+  const chartGrid = lm ? '#E0E3E8' : '#1e2838'
+  const chartTick = lm ? '#9CA3AF' : '#64748b'
 
   const fund = mockSahiFunds.find((f) => f.id === id)
 
@@ -44,7 +44,7 @@ export function SahiFundDetail() {
       <div className="flex items-center justify-center h-full min-h-64">
         <div className="text-center">
           <p className={`${textSub} text-sm`}>Sahi Fund not found.</p>
-          <button onClick={() => navigate(-1)} className="text-[#C5F135] text-xs mt-2 hover:underline">Go back</button>
+          <button onClick={() => navigate(-1)} className="text-[#d6fd70] text-xs mt-2 hover:underline">Go back</button>
         </div>
       </div>
     )
@@ -54,7 +54,7 @@ export function SahiFundDetail() {
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Breadcrumb */}
       <button onClick={() => navigate(-1)} className={`flex items-center gap-1.5 text-sm ${textMuted} hover:${text} transition-colors`}>
-        <ArrowBackIcon sx={{ fontSize: 15 }} />
+        <ArrowBackIcon size={15} weight="bold" />
         Explore Sahi Funds
       </button>
 
@@ -64,14 +64,14 @@ export function SahiFundDetail() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <h1 className={`text-xl font-bold ${text}`}>{fund.name}</h1>
-              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#7B2FBE]/20 text-[#7B2FBE]' : 'bg-[#C5F135]/10 text-[#C5F135]'}`}>
+              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
               <VolatilityBadge level={fund.volatility} />
             </div>
             <p className={`text-sm ${textSub} max-w-2xl`}>{fund.description}</p>
           </div>
-          <button className="bg-[#C5F135] hover:bg-[#A8D020] text-black text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 ml-4">
+          <button className="bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 ml-4">
             Invest Now
           </button>
         </div>
@@ -106,13 +106,13 @@ export function SahiFundDetail() {
       </div>
 
       {/* Tabs */}
-      <div className={`flex gap-0 ${lm ? 'bg-[#F3F4F6] border border-[#E8E8F0]' : 'bg-[#141414] border border-[#2A2A2A]'} rounded-xl p-1 w-fit`}>
+      <div className={`flex gap-0 ${lm ? 'bg-[#F3F4F6] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} rounded-xl p-1 w-fit`}>
         {(['overview', 'funds'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className="px-5 py-2 rounded-lg text-sm font-medium transition-all capitalize"
-            style={{ background: tab === t ? '#C5F135' : 'transparent', color: tab === t ? '#000' : lm ? '#6B7280' : '#A0A0A0' }}
+            style={{ background: tab === t ? '#d6fd70' : 'transparent', color: tab === t ? '#000' : lm ? '#6B7280' : '#8390a2' }}
           >
             {t === 'funds' ? 'Funds & Weights' : 'Overview'}
           </button>
@@ -134,8 +134,8 @@ export function SahiFundDetail() {
                   <AreaChart data={NAV_HISTORY}>
                     <defs>
                       <linearGradient id="sfGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#C5F135" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="#C5F135" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#d6fd70" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="#d6fd70" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
@@ -143,10 +143,10 @@ export function SahiFundDetail() {
                     <YAxis tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
                     <Tooltip
                       contentStyle={tooltipStyle}
-                      labelStyle={{ color: lm ? '#6B7280' : '#A0A0A0', fontSize: 11 }}
-                      itemStyle={{ color: '#C5F135', fontSize: 12, fontWeight: 600 }}
+                      labelStyle={{ color: lm ? '#6B7280' : '#8390a2', fontSize: 11 }}
+                      itemStyle={{ color: '#d6fd70', fontSize: 12, fontWeight: 600 }}
                     />
-                    <Area type="monotone" dataKey="value" stroke="#C5F135" strokeWidth={2} fill="url(#sfGrad)" />
+                    <Area type="monotone" dataKey="value" stroke="#d6fd70" strokeWidth={2} fill="url(#sfGrad)" />
                   </AreaChart>
                 </ResponsiveContainer>
               </PlanGate>
@@ -155,7 +155,7 @@ export function SahiFundDetail() {
             {/* Methodology */}
             <div className={`${card} rounded-2xl p-5`}>
               <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
-                <InfoOutlinedIcon sx={{ fontSize: 15, color: '#C5F135' }} /> Methodology
+                <InfoOutlinedIcon size={15} color="#d6fd70" weight="regular" /> Methodology
               </h2>
               <p className={`text-sm ${textSub} leading-relaxed`}>{fund.methodology}</p>
             </div>
@@ -209,7 +209,7 @@ export function SahiFundDetail() {
             {/* Rebalance schedule */}
             <div className={`${card} rounded-2xl p-5`}>
               <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
-                <EventIcon sx={{ fontSize: 14, color: '#C5F135' }} /> Rebalance Schedule
+                <EventIcon size={14} color="#d6fd70" weight="regular" /> Rebalance Schedule
               </h2>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
@@ -222,7 +222,7 @@ export function SahiFundDetail() {
                 </div>
                 <div className="flex justify-between">
                   <span className={textMuted}>Next</span>
-                  <span className="text-[#C5F135] font-semibold">{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  <span className="text-[#d6fd70] font-semibold">{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@ export function SahiFundDetail() {
                     <div>
                       <div className="flex items-center gap-2">
                         <div className={`flex-1 ${progressTrack} rounded-full h-1.5`}>
-                          <div className="h-1.5 rounded-full bg-[#C5F135]" style={{ width: `${h.weight}%` }} />
+                          <div className="h-1.5 rounded-full bg-[#d6fd70]" style={{ width: `${h.weight}%` }} />
                         </div>
                         <span className={`text-xs font-semibold ${text} w-8 text-right`}>{h.weight}%</span>
                       </div>
@@ -281,7 +281,7 @@ export function SahiFundDetail() {
       )}
 
       {/* SEBI disclaimer */}
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#404040]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
         Sahi MF Funds are model portfolios for educational purposes. Mutual Fund investments are subject to market risks.
         Past performance does not guarantee future returns. This is not investment advice.
         Please consult a SEBI-registered investment advisor before investing.

@@ -1,12 +1,12 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import SearchIcon from '@mui/icons-material/Search'
-import TuneIcon from '@mui/icons-material/Tune'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
-import LockIcon from '@mui/icons-material/Lock'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
+import { Sliders as TuneIcon } from '@phosphor-icons/react'
+import { CaretDown as ExpandMoreIcon } from '@phosphor-icons/react'
+import { CaretUp as ExpandLessIcon } from '@phosphor-icons/react'
+import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
+import { Lock as LockIcon } from '@phosphor-icons/react'
+import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { mockFunds } from '../../data/funds'
 import { mockSahiFunds } from '../../data/sahiFunds'
@@ -42,14 +42,14 @@ function FilterSection({ title, children, defaultOpen = true }: { title: string;
   const [open, setOpen] = useState(defaultOpen)
   const lightMode = useUIStore((s) => s.lightMode)
   return (
-    <div className="mb-3 pb-3" style={{ borderBottom: lightMode ? '1px solid #E8E8F0' : '1px solid #1E1E1E' }}>
+    <div className="mb-3 pb-3" style={{ borderBottom: lightMode ? '1px solid #E0E3E8' : '1px solid #1e2838' }}>
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between w-full text-xs font-semibold uppercase tracking-wider mb-2"
-        style={{ color: lightMode ? '#9CA3AF' : '#606060' }}
+        style={{ color: lightMode ? '#9CA3AF' : '#64748b' }}
       >
         {title}
-        {open ? <ExpandLessIcon sx={{ fontSize: 15 }} /> : <ExpandMoreIcon sx={{ fontSize: 15 }} />}
+        {open ? <ExpandLessIcon size={15} weight="bold" /> : <ExpandMoreIcon size={15} weight="bold" />}
       </button>
       {open && children}
     </div>
@@ -70,12 +70,12 @@ export function AllSchemes() {
 
   const lm = lightMode
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const card = lm ? 'bg-white border border-transparent' : 'bg-[#1A1A1A] border border-transparent'
-  const inputBg = lm ? 'bg-white border-[#E8E8F0]' : 'bg-[#1A1A1A] border-[#2A2A2A]'
-  const accent = lm ? '#7B2FBE' : '#C5F135'
-  const accentText = lm ? 'text-[#7B2FBE]' : 'text-[#C5F135]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'
+  const inputBg = lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#3c4653]'
+  const accent = lm ? '#4f46e5' : '#d6fd70'
+  const accentText = lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'
 
   const toggleCat = (c: string) => setSelectedCats((p) => p.includes(c) ? p.filter((x) => x !== c) : [...p, c])
   const toggleVol = (v: string) => setSelectedVolatility((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v])
@@ -104,13 +104,13 @@ export function AllSchemes() {
       {/* Top bar */}
       <div
         className="flex items-center gap-3 px-5 py-3 flex-shrink-0"
-        style={{ borderBottom: lm ? '1px solid #E8E8F0' : '1px solid #1E1E1E', background: lm ? '#FDFCFF' : 'transparent' }}
+        style={{ borderBottom: lm ? '1px solid #E0E3E8' : '1px solid #1e2838', background: lm ? '#FDFCFF' : 'transparent' }}
       >
         <button
           onClick={() => navigate('/mutual-funds/explore')}
           className={`flex items-center gap-1 text-xs font-medium ${textSub} hover:${text} transition-colors`}
         >
-          <ArrowBackIcon sx={{ fontSize: 15 }} />
+          <ArrowBackIcon size={15} weight="bold" />
           Explore Funds
         </button>
         <span className={textMuted}>/</span>
@@ -121,7 +121,7 @@ export function AllSchemes() {
         {/* Tab toggle */}
         <div
           className="flex items-center rounded-xl p-0.5 ml-3"
-          style={{ background: lm ? '#F3F0FF' : '#1A1A1A', border: lm ? '1px solid #E0D9FF' : '1px solid #2A2A2A' }}
+          style={{ background: lm ? '#eeedfd' : '#14171c', border: lm ? '1px solid #dcdafa' : '1px solid #3c4653' }}
         >
           {(['open', 'sahi'] as const).map((t) => (
             <button
@@ -130,9 +130,9 @@ export function AllSchemes() {
               className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all"
               style={tab === t
                 ? { background: accent, color: lm ? '#fff' : '#000' }
-                : { color: lm ? '#9CA3AF' : '#606060' }}
+                : { color: lm ? '#9CA3AF' : '#64748b' }}
             >
-              {t === 'sahi' && <AutoAwesomeIcon sx={{ fontSize: 12 }} />}
+              {t === 'sahi' && <AutoAwesomeIcon size={12} weight="regular" />}
               {t === 'sahi' ? 'Sahi Funds' : 'Open Schemes'}
             </button>
           ))}
@@ -140,7 +140,7 @@ export function AllSchemes() {
 
         {/* Search */}
         <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-1.5 flex-1 max-w-sm ml-auto`}>
-          <SearchIcon sx={{ fontSize: 15, color: lm ? '#9CA3AF' : '#606060' }} />
+          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -170,11 +170,11 @@ export function AllSchemes() {
         {tab === 'open' && (
           <aside
             className="w-56 flex-shrink-0 overflow-y-auto p-4"
-            style={{ borderRight: lm ? '1px solid #E8E8F0' : '1px solid #1E1E1E', background: lm ? '#FDFCFF' : '#0D0D0D' }}
+            style={{ borderRight: lm ? '1px solid #E0E3E8' : '1px solid #1e2838', background: lm ? '#FDFCFF' : '#0a0c0e' }}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: lm ? '#374151' : '#fff' }}>
-                <TuneIcon sx={{ fontSize: 14 }} />
+                <TuneIcon size={14} weight="regular" />
                 Filters
               </div>
               {activeCount > 0 && (
@@ -195,7 +195,7 @@ export function AllSchemes() {
                     className={`flex items-center justify-between w-full text-xs py-1 transition-colors ${textSub} hover:${text}`}
                   >
                     <span className="font-semibold">{cat.label}</span>
-                    {openCats.includes(cat.label) ? <ExpandLessIcon sx={{ fontSize: 13 }} /> : <ExpandMoreIcon sx={{ fontSize: 13 }} />}
+                    {openCats.includes(cat.label) ? <ExpandLessIcon size={13} weight="bold" /> : <ExpandMoreIcon size={13} weight="bold" />}
                   </button>
                   {openCats.includes(cat.label) && (
                     <div className="ml-2 mt-0.5 space-y-0.5">
@@ -222,7 +222,7 @@ export function AllSchemes() {
 
             <FilterSection title="Expense Ratio">
               <input type="range" min={0} max={2.5} step={0.1} value={expenseMax} onChange={(e) => setExpenseMax(Number(e.target.value))} className="w-full" style={{ accentColor: accent }} />
-              <div className="flex justify-between text-xs mt-1" style={{ color: lm ? '#9CA3AF' : '#606060' }}>
+              <div className="flex justify-between text-xs mt-1" style={{ color: lm ? '#9CA3AF' : '#64748b' }}>
                 <span>0%</span>
                 <span className="font-semibold" style={{ color: accent }}>≤ {expenseMax.toFixed(1)}%</span>
                 <span>2.5%</span>
@@ -249,28 +249,28 @@ export function AllSchemes() {
                 <div
                   key={fund.id}
                   onClick={() => navigate(`/mutual-funds/sahi-funds/${fund.id}`)}
-                  className={`${card} rounded-2xl p-4 cursor-pointer transition-all duration-200 relative overflow-hidden group ${lm ? 'hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl'}`}
+                  className={`${card} rounded-2xl p-4 cursor-pointer transition-all duration-200 relative overflow-hidden group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'}`}
                 >
                   <div className="absolute top-3 right-3 flex gap-1">
-                    <span className="text-[10px] font-bold bg-[#C5F135] text-black px-2 py-0.5 rounded-full">Best Choice</span>
+                    <span className="text-[10px] font-bold bg-[#d6fd70] text-black px-2 py-0.5 rounded-full">Best Choice</span>
                   </div>
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2.5"
                     style={{ background: ICON_PALETTES[idx % ICON_PALETTES.length].bg }}>
                     <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-5 h-5" alt="" />
                   </div>
-                  <h3 className={`text-sm font-bold ${text} pr-20 mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</h3>
+                  <h3 className={`text-sm font-bold ${text} pr-20 mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>{fund.name}</h3>
                   <p className={`text-[11px] ${textSub} mb-3 leading-relaxed`}>{fund.description}</p>
                   <div className="flex gap-1 mb-3">
                     <VolatilityBadge level={fund.volatility} size="sm" />
                     {fund.tags.slice(0, 2).map((t) => (
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-full"
-                        style={{ background: lm ? '#F3F0FF' : '#2A2A2A', color: lm ? '#7B2FBE' : '#A0A0A0' }}>
+                        style={{ background: lm ? '#eeedfd' : '#1e2838', color: lm ? '#4f46e5' : '#8390a2' }}>
                         {t}
                       </span>
                     ))}
                   </div>
                   <div className="grid grid-cols-3 gap-2 pt-2.5 text-center"
-                    style={{ borderTop: lm ? '1px solid #E8E8F0' : '1px solid #2A2A2A' }}>
+                    style={{ borderTop: lm ? '1px solid #E0E3E8' : '1px solid #3c4653' }}>
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>Min</p>
                       <p className={`text-xs font-bold ${text}`}>₹{fund.minAmount.toLocaleString()}</p>
@@ -285,7 +285,7 @@ export function AllSchemes() {
                         <p className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</p>
                       ) : (
                         <div className="flex items-center justify-center gap-0.5">
-                          <LockIcon sx={{ fontSize: 10, color: lm ? '#7B2FBE' : '#C5F135' }} />
+                          <LockIcon size={10} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" />
                           <span className={`text-xs font-bold ${accentText}`}>PRO</span>
                         </div>
                       )}
@@ -303,7 +303,7 @@ export function AllSchemes() {
                 {/* Table header */}
                 <div
                   className="grid px-4 py-2 text-[10px] font-bold uppercase tracking-wider"
-                  style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px', color: lm ? '#9CA3AF' : '#606060' }}
+                  style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px', color: lm ? '#9CA3AF' : '#64748b' }}
                 >
                   <span>Fund</span>
                   <span className="text-center">NAV</span>
@@ -317,7 +317,7 @@ export function AllSchemes() {
                   <div
                     key={fund.id}
                     onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
-                    className={`${card} rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#7B2FBE] hover:-translate-y-0.5 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-0.5 hover:shadow-xl'}`}
+                    className={`${card} rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-0.5' : 'hover:border-[#d6fd70] hover:-translate-y-0.5'}`}
                     style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px' }}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -328,7 +328,7 @@ export function AllSchemes() {
                         <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-4 h-4" alt="" />
                       </div>
                       <div className="min-w-0">
-                        <p className={`text-xs font-bold ${text} truncate transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</p>
+                        <p className={`text-xs font-bold ${text} truncate transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>{fund.name}</p>
                         <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct</p>
                       </div>
                     </div>

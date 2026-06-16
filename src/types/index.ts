@@ -1,5 +1,16 @@
 export type PlanTier = 'free' | 'pro' | 'elite'
 
+export interface UserInvestment {
+  fundId: string
+  fundName: string
+  amcName: string
+  category: string
+  investedAmount: number
+  currentValue: number
+  gainLossPercent: number
+  xirr: number
+}
+
 export interface User {
   id: string
   name: string
@@ -8,6 +19,9 @@ export interface User {
   avatar?: string
   plan: PlanTier
   planExpiresAt?: string
+  investments?: UserInvestment[]
+  sahiFundCount?: number
+  watchlist?: string[]
 }
 
 export interface Fund {

@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
-import AddIcon from '@mui/icons-material/Add'
-import CloseIcon from '@mui/icons-material/Close'
+﻿import { useState } from 'react'
+import { ArrowsLeftRight as CompareArrowsIcon } from '@phosphor-icons/react'
+import { Plus as AddIcon } from '@phosphor-icons/react'
+import { X as CloseIcon } from '@phosphor-icons/react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { useUIStore } from '../../stores/uiStore'
 
-const COLORS = ['#C5F135', '#7B2FBE', '#22C55E', '#F59E0B']
+const COLORS = ['#d6fd70', '#4f46e5', '#22C55E', '#F59E0B']
 
 const PERF_DATA = Array.from({ length: 24 }, (_, i) => ({
   month: new Date(2024, i, 1).toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }),
@@ -16,6 +16,9 @@ const PERF_DATA = Array.from({ length: 24 }, (_, i) => ({
   f002: 100 + i * 2.1 + Math.sin(i * 0.7) * 4,
   f005: 100 + i * 2.6 + Math.sin(i * 0.4) * 5,
   f006: 100 + i * 2.8 + Math.sin(i * 0.9) * 6,
+  f003: 100 + i * 1.9 + Math.sin(i * 0.6) * 3.5,
+  f004: 100 + i * 2.3 + Math.sin(i * 0.8) * 4.5,
+  nifty50: 100 + i * 1.4 + Math.sin(i * 0.45) * 2.5,
 }))
 
 const METRICS = [
@@ -40,23 +43,23 @@ export function FundComparison() {
   const [search, setSearch] = useState('')
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const chipBg = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
-  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
-  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
-  const categoryRowBg = lm ? 'bg-[#F9F9FF]' : 'bg-[#111]'
-  const proPlaceholder = lm ? 'text-[#D1D5DB]' : 'text-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const chipBg = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
+  const categoryRowBg = lm ? 'bg-[#F9F9FF]' : 'bg-[#0a0c0e]'
+  const proPlaceholder = lm ? 'text-[#D1D5DB]' : 'text-[#1e2838]'
   const tooltipStyle = {
-    background: lm ? '#fff' : '#1A1A1A',
-    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    background: lm ? '#fff' : '#14171c',
+    border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`,
     borderRadius: 8,
   }
-  const chartGrid = lm ? '#E8E8F0' : '#1E1E1E'
-  const chartTick = lm ? '#9CA3AF' : '#606060'
+  const chartGrid = lm ? '#E0E3E8' : '#1e2838'
+  const chartTick = lm ? '#9CA3AF' : '#64748b'
 
   const selectedFunds = selectedIds.map((id) => mockFunds.find((f) => f.id === id)).filter(Boolean) as typeof mockFunds
 
@@ -83,8 +86,8 @@ export function FundComparison() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-            <CompareArrowsIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <CompareArrowsIcon size={18} color="#d6fd70" weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Comparison</h1>
@@ -100,7 +103,7 @@ export function FundComparison() {
             <div className="w-2 h-2 rounded-full" style={{ background: COLORS[idx] }} />
             <span className={`text-sm font-medium ${text} max-w-48 truncate`}>{fund.name}</span>
             <button onClick={() => removeFund(fund.id)} className={`${textMuted} hover:text-[#EF4444] transition-colors ml-1`}>
-              <CloseIcon sx={{ fontSize: 14 }} />
+              <CloseIcon size={14} weight="regular" />
             </button>
           </div>
         ))}
@@ -109,22 +112,22 @@ export function FundComparison() {
           <div className="relative">
             <button
               onClick={() => setShowPicker(!showPicker)}
-              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E8E8F0]' : 'bg-[#1A1A1A] border-[#2A2A2A]'} border border-dashed hover:border-[#C5F135] rounded-xl px-3 py-2 text-sm ${textMuted} hover:text-[#C5F135] transition-all`}
+              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'} border border-dashed hover:border-[#d6fd70] rounded-xl px-3 py-2 text-sm ${textMuted} hover:text-[#d6fd70] transition-all`}
             >
-              <AddIcon sx={{ fontSize: 16 }} /> Add Fund
+              <AddIcon size={16} weight="duotone" /> Add Fund
             </button>
             {showPicker && (
-              <div className={`absolute top-full mt-2 left-0 z-20 w-72 ${lm ? 'bg-white border-[#E8E8F0]' : 'bg-[#1A1A1A] border-[#2A2A2A]'} border rounded-xl shadow-2xl p-2`}>
+              <div className={`absolute top-full mt-2 left-0 z-20 w-72 ${lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'} border rounded-xl shadow-2xl p-2`}>
                 <input
                   autoFocus
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search fund..."
-                  className={`w-full ${lm ? 'bg-[#F9F9FF] border-[#E8E8F0] text-[#111827]' : 'bg-[#141414] border-[#2A2A2A] text-white'} border rounded-lg px-3 py-2 text-sm outline-none placeholder-[#9CA3AF] mb-2`}
+                  className={`w-full ${lm ? 'bg-[#F9F9FF] border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'} border rounded-lg px-3 py-2 text-sm outline-none placeholder-[#9CA3AF] mb-2`}
                 />
                 <div className="max-h-48 overflow-y-auto space-y-1">
                   {filteredFunds.slice(0, 8).map((f) => (
-                    <button key={f.id} onClick={() => addFund(f.id)} className={`w-full text-left px-3 py-2 rounded-lg ${lm ? 'hover:bg-[#F3F4F6]' : 'hover:bg-[#2A2A2A]'} transition-colors`}>
+                    <button key={f.id} onClick={() => addFund(f.id)} className={`w-full text-left px-3 py-2 rounded-lg ${lm ? 'hover:bg-[#F3F4F6]' : 'hover:bg-[#1e2838]'} transition-colors`}>
                       <p className={`text-sm ${text} truncate`}>{f.name}</p>
                       <p className={`text-[11px] ${textMuted}`}>{f.subCategory}</p>
                     </button>
@@ -138,14 +141,28 @@ export function FundComparison() {
 
       {/* Performance Chart */}
       <div className={`${card} rounded-2xl p-5`}>
-        <h2 className={`text-sm font-semibold ${text} mb-4`}>Performance (indexed to 100)</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className={`text-sm font-semibold ${text}`}>Performance (indexed to 100)</h2>
+          <div className="flex items-center gap-3">
+            {selectedFunds.map((f, idx) => (
+              <div key={f.id} className="flex items-center gap-1.5">
+                <div className="w-4 h-0.5 rounded" style={{ background: COLORS[idx] }} />
+                <span className={`text-xs ${textSub}`}>{f.name.split(' ')[0]}</span>
+              </div>
+            ))}
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-0" style={{ borderTop: '2px dashed #64748b' }} />
+              <span className={`text-xs ${textSub}`}>Nifty 50</span>
+            </div>
+          </div>
+        </div>
         <PlanGate requiredTier="pro" label="Unlock Performance Comparison">
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={PERF_DATA}>
               <defs>
                 {selectedIds.map((id, idx) => (
                   <linearGradient key={id} id={`cmpGrad${idx}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={COLORS[idx]} stopOpacity={0.15} />
+                    <stop offset="5%" stopColor={COLORS[idx]} stopOpacity={0.12} />
                     <stop offset="95%" stopColor={COLORS[idx]} stopOpacity={0} />
                   </linearGradient>
                 ))}
@@ -153,7 +170,10 @@ export function FundComparison() {
               <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
               <XAxis dataKey="month" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} interval={3} />
               <YAxis tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: lm ? '#6B7280' : '#A0A0A0', fontSize: 11 }} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: lm ? '#6B7280' : '#8390a2', fontSize: 11 }}
+                formatter={(v, name) => [Number(v).toFixed(1), name === 'nifty50' ? 'Nifty 50' : name]} />
+              {/* Benchmark Nifty line — always visible (not gated) */}
+              <Area type="monotone" dataKey="nifty50" stroke="#64748b" strokeWidth={1.5} strokeDasharray="5 3" fill="none" dot={false} />
               {selectedIds.map((id, idx) => (
                 <Area key={id} type="monotone" dataKey={id} stroke={COLORS[idx]} strokeWidth={2} fill={`url(#cmpGrad${idx})`} dot={false} />
               ))}
@@ -186,6 +206,31 @@ export function FundComparison() {
           ))}
         </div>
 
+        {/* Nifty 50 benchmark row */}
+        <div className={`border-b ${rowBorder} ${categoryRowBg}`} style={{ display: 'grid', gridTemplateColumns: `200px repeat(${selectedFunds.length}, 1fr)` }}>
+          <div className={`px-5 py-2.5 text-[11px] font-semibold ${textMuted} flex items-center gap-1.5`}>
+            <div className="w-3 h-0" style={{ borderTop: '2px dashed #64748b', display: 'inline-block' }} />
+            vs Nifty 50 (1Y)
+          </div>
+          {selectedFunds.map((fund) => {
+            const ret1Y = getFundVal(fund, '1Y')
+            const nifty1Y = 14.2
+            const alpha = (ret1Y - nifty1Y).toFixed(1)
+            return (
+              <div key={fund.id} className="px-4 py-2.5 text-center">
+                <span
+                  className="text-xs font-bold px-2 py-0.5 rounded-md"
+                  style={Number(alpha) >= 0
+                    ? { background: 'rgba(34,197,94,0.1)', color: '#22c55e' }
+                    : { background: 'rgba(239,68,68,0.1)', color: '#ef4444' }}
+                >
+                  {Number(alpha) >= 0 ? '+' : ''}{alpha}% alpha
+                </span>
+              </div>
+            )
+          })}
+        </div>
+
         {METRICS.map((m) => (
           <div key={m.key} className={`border-b ${rowBorder} last:border-0 ${rowHover} transition-colors`} style={{ display: 'grid', gridTemplateColumns: `200px repeat(${selectedFunds.length}, 1fr)` }}>
             <div className={`px-5 py-3 text-sm ${textSub}`}>{m.label}</div>
@@ -199,7 +244,7 @@ export function FundComparison() {
                   {needsGate ? (
                     <span className={`text-xs ${proPlaceholder}`}>— PRO</span>
                   ) : (
-                    <span className={`text-sm font-semibold ${isBest ? 'text-[#C5F135]' : text}`}>
+                    <span className={`text-sm font-semibold ${isBest ? 'text-[#d6fd70]' : text}`}>
                       {m.format(val)}
                       {isBest && <span className="text-[10px] ml-1">★</span>}
                     </span>

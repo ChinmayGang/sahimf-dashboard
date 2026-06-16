@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import StarIcon from '@mui/icons-material/Star'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+﻿import { useState } from 'react'
+import { Star as StarIcon } from '@phosphor-icons/react'
+import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
@@ -22,7 +22,7 @@ interface ScorecardEntry {
 
 const GRADES = ['A+', 'A', 'A', 'B+', 'B', 'B', 'B-', 'C+']
 const GRADE_COLORS: Record<string, string> = {
-  'A+': '#22C55E', 'A': '#22C55E', 'B+': '#C5F135', 'B': '#C5F135', 'B-': '#F59E0B', 'C+': '#F59E0B', 'C': '#EF4444',
+  'A+': '#22C55E', 'A': '#22C55E', 'B+': '#d6fd70', 'B': '#d6fd70', 'B-': '#F59E0B', 'C+': '#F59E0B', 'C': '#EF4444',
 }
 
 const SCORECARDS: ScorecardEntry[] = mockFunds.slice(0, 8).map((f, i) => {
@@ -36,7 +36,7 @@ const SCORECARDS: ScorecardEntry[] = mockFunds.slice(0, 8).map((f, i) => {
 })
 
 function ScoreBar({ value, lm }: { value: number; lm: boolean }) {
-  const trackColor = lm ? '#E8E8F0' : '#2A2A2A'
+  const trackColor = lm ? '#E0E3E8' : '#1e2838'
   const textColor = lm ? '#111827' : '#fff'
   return (
     <div className="flex items-center gap-2">
@@ -45,7 +45,7 @@ function ScoreBar({ value, lm }: { value: number; lm: boolean }) {
           className="h-1.5 rounded-full"
           style={{
             width: `${value}%`,
-            background: value >= 80 ? '#22C55E' : value >= 60 ? '#C5F135' : '#F59E0B',
+            background: value >= 80 ? '#22C55E' : value >= 60 ? '#d6fd70' : '#F59E0B',
           }}
         />
       </div>
@@ -58,14 +58,14 @@ export function MFScorecard() {
   const [sortBy, setSortBy] = useState<'rank' | 'returns' | 'risk'>('rank')
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const inputBg = lm ? 'bg-white border-[#E8E8F0] text-[#111827]' : 'bg-[#141414] border-[#2A2A2A] text-white'
-  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
-  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const inputBg = lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
 
   const sorted = [...SCORECARDS].sort((a, b) => {
     if (sortBy === 'rank') return a.rank - b.rank
@@ -78,8 +78,8 @@ export function MFScorecard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-            <StarIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <StarIcon size={18} color="#d6fd70" weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>MF Scorecard</h1>
@@ -99,7 +99,7 @@ export function MFScorecard() {
 
       {/* Methodology callout */}
       <div className={`${card} rounded-xl px-4 py-3 flex items-start gap-3`}>
-        <InfoOutlinedIcon sx={{ fontSize: 15, color: '#C5F135', flexShrink: 0, marginTop: '1px' }} />
+        <InfoOutlinedIcon size={15} color="#d6fd70" weight="regular" style={{ flexShrink: 0, marginTop: "1px" }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> — Funds are scored on 5 dimensions across a 100-point scale.</p>
           <p>Returns (35%) · Consistency (25%) · Risk-Adjusted Returns (20%) · Manager Quality (10%) · Cost Efficiency (10%)</p>
@@ -123,7 +123,7 @@ export function MFScorecard() {
             return (
               <div key={entry.fundId} className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`} style={{ borderBottomColor: i === sorted.length - 1 ? 'transparent' : undefined }}>
                 {/* Rank */}
-                <span className="text-sm font-bold text-[#C5F135]">#{entry.rank}</span>
+                <span className="text-sm font-bold text-[#d6fd70]">#{entry.rank}</span>
 
                 {/* Fund */}
                 <div>
@@ -141,7 +141,7 @@ export function MFScorecard() {
                 <ScoreBar value={entry.scores.cost} lm={lm} />
 
                 {/* Grade */}
-                <span className="text-sm font-bold" style={{ color: GRADE_COLORS[grade] ?? (lm ? '#9CA3AF' : '#A0A0A0') }}>{grade}</span>
+                <span className="text-sm font-bold" style={{ color: GRADE_COLORS[grade] ?? (lm ? '#9CA3AF' : '#8390a2') }}>{grade}</span>
 
                 {/* Total */}
                 <div className="text-center">
@@ -155,7 +155,7 @@ export function MFScorecard() {
       </PlanGate>
 
       {/* SEBI disclaimer */}
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#404040]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
         SahiMF Scorecard is a quantitative ranking tool for educational and research purposes only.
         Scores do not constitute personalized investment advice. Mutual Fund investments are subject to market risks.
         SEBI requires us to state: past performance is not indicative of future returns.

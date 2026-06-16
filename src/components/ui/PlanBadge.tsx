@@ -1,4 +1,4 @@
-import StarIcon from '@mui/icons-material/Star'
+﻿import { Star as StarIcon } from '@phosphor-icons/react'
 import type { PlanTier } from '../../types'
 import { useUIStore } from '../../stores/uiStore'
 
@@ -13,11 +13,11 @@ export function PlanBadge({ tier, size = 'sm' }: Props) {
   const config: Record<PlanTier, { label: string; bg: string; text: string }> = {
     free: {
       label: 'Free',
-      bg: lm ? 'bg-[#F3F4F6]' : 'bg-[#2A2A2A]',
-      text: lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]',
+      bg: lm ? 'bg-[#F3F4F6]' : 'bg-[#1e2838]',
+      text: lm ? 'text-[#6B7280]' : 'text-[#8390a2]',
     },
-    pro: { label: 'Sahi PRO', bg: 'bg-[#7B2FBE]', text: 'text-white' },
-    elite: { label: 'Sahi Elite', bg: 'bg-gradient-to-r from-[#C5F135] to-[#A8D020]', text: 'text-black' },
+    pro: { label: 'Sahi PRO', bg: 'bg-[#4f46e5]', text: 'text-white' },
+    elite: { label: 'Sahi Elite', bg: 'bg-gradient-to-r from-[#d6fd70] to-[#b8d94a]', text: 'text-black' },
   }
 
   const { label, bg, text } = config[tier]
@@ -27,7 +27,7 @@ export function PlanBadge({ tier, size = 'sm' }: Props) {
         size === 'sm' ? 'text-xs' : 'text-sm'
       }`}
     >
-      {tier !== 'free' && <StarIcon sx={{ fontSize: 10 }} />}
+      {tier !== 'free' && <StarIcon size={10} weight="regular" />}
       {label}
     </span>
   )

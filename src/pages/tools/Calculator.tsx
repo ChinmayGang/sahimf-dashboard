@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import CalculateIcon from '@mui/icons-material/Calculate'
+import { Calculator as CalculateIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 
 type ToolType = 'sip' | 'lumpsum' | 'swp' | 'stp'
@@ -52,18 +52,18 @@ export function Calculator() {
   const toolType = (type ?? 'sip') as ToolType
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
   const tooltipStyle = {
-    background: lm ? '#fff' : '#1A1A1A',
-    border: `1px solid ${lm ? '#E8E8F0' : '#2A2A2A'}`,
+    background: lm ? '#fff' : '#14171c',
+    border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`,
     borderRadius: 8, fontSize: 12,
     color: lm ? '#111827' : '#fff',
   }
-  const chartTick = lm ? '#9CA3AF' : '#606060'
+  const chartTick = lm ? '#9CA3AF' : '#64748b'
 
   const [monthly, setMonthly] = useState(10000)
   const [principal, setPrincipal] = useState(100000)
@@ -96,8 +96,8 @@ export function Calculator() {
     <div className="p-6 max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[#C5F135]/10 flex items-center justify-center">
-          <CalculateIcon sx={{ fontSize: 20, color: '#C5F135' }} />
+        <div className="w-10 h-10 rounded-xl bg-[#d6fd70]/10 flex items-center justify-center">
+          <CalculateIcon size={20} color="#d6fd70" weight="duotone" />
         </div>
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>{toolLabels[toolType]}</h1>
@@ -112,10 +112,10 @@ export function Calculator() {
             <div>
               <div className="flex justify-between mb-2">
                 <label className={`text-xs ${textSub}`}>{toolType === 'swp' ? 'Monthly Withdrawal' : 'Monthly SIP Amount'}</label>
-                <span className="text-xs font-semibold text-[#C5F135]">₹{monthly.toLocaleString('en-IN')}</span>
+                <span className="text-xs font-semibold text-[#d6fd70]">₹{monthly.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={500} max={100000} step={500} value={monthly}
-                onChange={(e) => setMonthly(Number(e.target.value))} className="w-full accent-[#C5F135]" />
+                onChange={(e) => setMonthly(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
               <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹500</span><span>₹1 L</span>
               </div>
@@ -124,10 +124,10 @@ export function Calculator() {
             <div>
               <div className="flex justify-between mb-2">
                 <label className={`text-xs ${textSub}`}>Investment Amount</label>
-                <span className="text-xs font-semibold text-[#C5F135]">₹{principal.toLocaleString('en-IN')}</span>
+                <span className="text-xs font-semibold text-[#d6fd70]">₹{principal.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={10000} max={10000000} step={10000} value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full accent-[#C5F135]" />
+                onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
               <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹10K</span><span>₹1 Cr</span>
               </div>
@@ -137,10 +137,10 @@ export function Calculator() {
           <div>
             <div className="flex justify-between mb-2">
               <label className={`text-xs ${textSub}`}>Expected Return Rate (p.a.)</label>
-              <span className="text-xs font-semibold text-[#C5F135]">{rate}%</span>
+              <span className="text-xs font-semibold text-[#d6fd70]">{rate}%</span>
             </div>
             <input type="range" min={4} max={30} step={0.5} value={rate}
-              onChange={(e) => setRate(Number(e.target.value))} className="w-full accent-[#C5F135]" />
+              onChange={(e) => setRate(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
             <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>4%</span><span>30%</span>
             </div>
@@ -149,10 +149,10 @@ export function Calculator() {
           <div>
             <div className="flex justify-between mb-2">
               <label className={`text-xs ${textSub}`}>Time Period</label>
-              <span className="text-xs font-semibold text-[#C5F135]">{years} yrs</span>
+              <span className="text-xs font-semibold text-[#d6fd70]">{years} yrs</span>
             </div>
             <input type="range" min={1} max={40} step={1} value={years}
-              onChange={(e) => setYears(Number(e.target.value))} className="w-full accent-[#C5F135]" />
+              onChange={(e) => setYears(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
             <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>1 yr</span><span>40 yrs</span>
             </div>
@@ -170,11 +170,11 @@ export function Calculator() {
             </div>
             <div className={`flex justify-between pt-2 border-t ${dividerColor}`}>
               <span className={`text-xs font-semibold ${textSub}`}>Total Value</span>
-              <span className="text-sm font-bold text-[#C5F135]">{formatINR(calc.maturity)}</span>
+              <span className="text-sm font-bold text-[#d6fd70]">{formatINR(calc.maturity)}</span>
             </div>
           </div>
 
-          <button className="w-full bg-[#C5F135] hover:bg-[#A8D020] text-black text-sm font-semibold py-2.5 rounded-lg transition-colors">
+          <button className="w-full bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold py-2.5 rounded-lg transition-colors">
             Start {toolType.toUpperCase()}
           </button>
         </div>
@@ -186,19 +186,19 @@ export function Calculator() {
               <h2 className={`text-sm font-semibold ${text}`}>Growth Projection</h2>
               <div className="text-right">
                 <p className={`text-xs ${textSub}`}>Maturity Value</p>
-                <p className="text-lg font-bold text-[#C5F135]">{formatINR(calc.maturity)}</p>
+                <p className="text-lg font-bold text-[#d6fd70]">{formatINR(calc.maturity)}</p>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={240}>
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="invGrad2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#7B2FBE" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#7B2FBE" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="valGrad2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#C5F135" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#C5F135" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#d6fd70" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#d6fd70" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="label" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} />
@@ -207,13 +207,13 @@ export function Calculator() {
                   contentStyle={tooltipStyle}
                   formatter={(v) => [formatINR(Number(v))]}
                 />
-                <Area type="monotone" dataKey="invested" stroke="#7B2FBE" strokeWidth={1.5} fill="url(#invGrad2)" />
-                <Area type="monotone" dataKey="value" stroke="#C5F135" strokeWidth={2} fill="url(#valGrad2)" />
+                <Area type="monotone" dataKey="invested" stroke="#4f46e5" strokeWidth={1.5} fill="url(#invGrad2)" />
+                <Area type="monotone" dataKey="value" stroke="#d6fd70" strokeWidth={2} fill="url(#valGrad2)" />
               </AreaChart>
             </ResponsiveContainer>
             <div className="flex gap-4 mt-2">
-              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#7B2FBE] rounded" /><span className={`text-xs ${textSub}`}>Invested</span></div>
-              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#C5F135] rounded" /><span className={`text-xs ${textSub}`}>Projected Value</span></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#4f46e5] rounded" /><span className={`text-xs ${textSub}`}>Invested</span></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#d6fd70] rounded" /><span className={`text-xs ${textSub}`}>Projected Value</span></div>
             </div>
           </div>
 

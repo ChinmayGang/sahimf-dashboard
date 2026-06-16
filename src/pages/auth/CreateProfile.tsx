@@ -1,8 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
-import PersonOutlineIcon from '@mui/icons-material/PersonOutlined'
+import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
+import { Envelope as EmailOutlinedIcon } from '@phosphor-icons/react'
+import { User as PersonOutlineIcon } from '@phosphor-icons/react'
 import paperplane from '../../assets/paperplane.jpg'
 
 const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
@@ -81,7 +81,7 @@ export function CreateProfile() {
                 Your Legal Name
               </label>
               <div className="relative">
-                <PersonOutlineIcon sx={{ fontSize: 15, position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#A1A1AA' }} />
+                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><PersonOutlineIcon size={15} weight="regular" /></span>
                 <input
                   type="text"
                   value={name}
@@ -102,7 +102,7 @@ export function CreateProfile() {
                 Direct Email Address
               </label>
               <div className="relative">
-                <EmailOutlinedIcon sx={{ fontSize: 15, position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#A1A1AA' }} />
+                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><EmailOutlinedIcon size={15} weight="regular" /></span>
                 <input
                   type="email"
                   value={email}
@@ -137,7 +137,7 @@ export function CreateProfile() {
               ) : (
                 <>
                   Continue to Email Verify
-                  <ArrowForwardIcon sx={{ fontSize: 16 }} />
+                  <ArrowForwardIcon size={16} weight="bold" />
                 </>
               )}
             </button>

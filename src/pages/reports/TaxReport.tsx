@@ -1,6 +1,6 @@
-import ReceiptIcon from '@mui/icons-material/Receipt'
-import DownloadIcon from '@mui/icons-material/Download'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+﻿import { Receipt as ReceiptIcon } from '@phosphor-icons/react'
+import { DownloadSimple as DownloadIcon } from '@phosphor-icons/react'
+import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { useUIStore } from '../../stores/uiStore'
 
@@ -24,21 +24,21 @@ function formatINR(n: number) {
 export function TaxReport() {
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
-  const totalRowBg = lm ? 'bg-[#F9F9FF]' : 'bg-[#1A1A1A]'
-  const noteBg = lm ? 'bg-[#F8F7FF] border border-[#E8E8F0]' : 'bg-[#141414] border border-[#2A2A2A]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
+  const totalRowBg = lm ? 'bg-[#F9F9FF]' : 'bg-[#14171c]'
+  const noteBg = lm ? 'bg-[#F8F7FF] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-            <ReceiptIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <ReceiptIcon size={18} color="#d6fd70" weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Tax Report</h1>
@@ -46,8 +46,8 @@ export function TaxReport() {
           </div>
         </div>
         <PlanGate requiredTier="pro" compact>
-          <button className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E8E8F0] text-[#6B7280] hover:text-[#111827]' : 'bg-[#1A1A1A] border-[#2A2A2A] text-[#A0A0A0] hover:text-white'} border hover:border-[#C5F135] rounded-xl px-3 py-2 text-sm transition-all`}>
-            <DownloadIcon sx={{ fontSize: 14 }} />
+          <button className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8] text-[#6B7280] hover:text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-[#8390a2] hover:text-white'} border hover:border-[#d6fd70] rounded-xl px-3 py-2 text-sm transition-all`}>
+            <DownloadIcon size={14} weight="regular" />
             Download PDF
           </button>
         </PlanGate>
@@ -55,11 +55,11 @@ export function TaxReport() {
 
       {/* Tax rules note */}
       <div className={`${noteBg} rounded-xl px-4 py-3 flex items-start gap-3`}>
-        <InfoOutlinedIcon sx={{ fontSize: 15, color: '#C5F135', flexShrink: 0, marginTop: '1px' }} />
+        <InfoOutlinedIcon size={15} color="#d6fd70" weight="regular" style={{ flexShrink: 0, marginTop: "1px" }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p><span className={`${text} font-medium`}>Equity Fund Tax Rules (post Budget 2024)</span></p>
-          <p>STCG (held &lt; 12 months): taxed at <span className="text-[#C5F135] font-medium">20%</span> flat (revised from 15%)</p>
-          <p>LTCG (held ≥ 12 months): taxed at <span className="text-[#C5F135] font-medium">12.5%</span> above ₹1.25L exemption per year (revised from 10% / ₹1L)</p>
+          <p>STCG (held &lt; 12 months): taxed at <span className="text-[#d6fd70] font-medium">20%</span> flat (revised from 15%)</p>
+          <p>LTCG (held ≥ 12 months): taxed at <span className="text-[#d6fd70] font-medium">12.5%</span> above ₹1.25L exemption per year (revised from 10% / ₹1L)</p>
           <p className={textMuted}>Data shown uses old rates for FY 2024–25 and prior. Please consult a tax advisor for current applicability.</p>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function TaxReport() {
                 <span className={`text-xs ${textMuted}`}>Equity Mutual Funds</span>
               </div>
 
-              <div className={`grid grid-cols-2 divide-x ${lm ? 'divide-[#E8E8F0]' : 'divide-[#2A2A2A]'}`}>
+              <div className={`grid grid-cols-2 divide-x ${lm ? 'divide-[#E0E3E8]' : 'divide-[#1e2838]'}`}>
                 {/* STCG */}
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-4">
@@ -125,7 +125,7 @@ export function TaxReport() {
                     </div>
                     <div className="flex justify-between">
                       <span className={textMuted}>Tax Rate</span>
-                      <span className="text-[#C5F135] font-semibold">{fy.ltcg.rate}</span>
+                      <span className="text-[#d6fd70] font-semibold">{fy.ltcg.rate}</span>
                     </div>
                     <div className={`flex justify-between border-t ${dividerColor} pt-3`}>
                       <span className={`${text} font-semibold`}>Tax Payable</span>
@@ -145,7 +145,7 @@ export function TaxReport() {
         </div>
       </PlanGate>
 
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#404040]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
         Tax computations are estimates based on declared transactions. SahiMF does not provide tax advice.
         Please consult a CA or tax advisor for accurate ITR filing. Tax laws are subject to change.
       </p>

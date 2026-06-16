@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+﻿import { useNavigate } from 'react-router-dom'
+import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import pyramidImg from '../../assets/piramid-landingpage.png'
 
 const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
@@ -74,7 +74,7 @@ export function InitializePortfolio() {
                   </p>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                      style={{ background: '#7B2FBE', color: '#fff' }}>
+                      style={{ background: '#4f46e5', color: '#fff' }}>
                       ✦ Recommended
                     </span>
                     <button
@@ -83,7 +83,7 @@ export function InitializePortfolio() {
                       style={{ background: '#18181B', color: '#fff' }}
                     >
                       Fetch Portfolio
-                      <ArrowForwardIcon sx={{ fontSize: 13 }} />
+                      <ArrowForwardIcon size={13} weight="bold" />
                     </button>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ export function InitializePortfolio() {
                     style={{ background: '#18181B', color: '#fff' }}
                   >
                     Create Manually
-                    <ArrowForwardIcon sx={{ fontSize: 13 }} />
+                    <ArrowForwardIcon size={13} weight="bold" />
                   </button>
                 </div>
               </div>

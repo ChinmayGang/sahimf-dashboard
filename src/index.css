@@ -5,26 +5,26 @@
 @import "@fontsource/geist/700.css";
 
 @theme {
-  --color-bg-primary: #0A0A0A;
-  --color-bg-sidebar: #111111;
-  --color-bg-card: #1A1A1A;
-  --color-bg-card-hover: #222222;
-  --color-border: #2A2A2A;
-  --color-border-subtle: #1E1E1E;
+  --color-bg-primary: #0a0c0e;
+  --color-bg-sidebar: #0a0c0e;
+  --color-bg-card: #14171c;
+  --color-bg-card-hover: #1a2130;
+  --color-border: #3c4653;
+  --color-border-subtle: #1e2838;
 
-  --color-accent: #C5F135;
-  --color-accent-dim: #A8D020;
+  --color-accent: #d6fd70;
+  --color-accent-dim: #b8d94a;
 
-  --color-pro: #7B2FBE;
-  --color-pro-light: #9B59D6;
+  --color-pro: #4f46e5;
+  --color-pro-light: #8b5cf6;
 
-  --color-success: #22C55E;
-  --color-danger: #EF4444;
-  --color-warning: #F59E0B;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
 
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted: #606060;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #8390a2;
+  --color-text-muted: #64748b;
 
   --font-family-sans: "Geist", system-ui, sans-serif;
 }
@@ -39,8 +39,8 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #0a0a0a;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0a0c0e;
   font-family: "Geist", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -50,54 +50,53 @@ body,
   height: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #14171c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: #3c4653;
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: #505d6f;
 }
 
 /* ─── Light mode overrides (right panel only via [data-theme="light"]) ─── */
 
 /* Surfaces */
-[data-theme="light"] [class~="bg-[#0A0A0A]"] { background: radial-gradient(ellipse at 75% -5%, #DDD6FE 0%, #EDE9FE 28%, #F5F3FF 55%, #FAFAFA 100%) !important; }
-[data-theme="light"] [class~="bg-[#1A1A1A]"] { background-color: #FFFFFF !important; }
-[data-theme="light"] [class~="bg-[#1E1E1E]"] { background-color: #F0F0F0 !important; }
-[data-theme="light"] [class~="bg-[#2A2A2A]"] { background-color: #EBEBEB !important; }
-[data-theme="light"] [class~="bg-[#222222]"] { background-color: #F5F5F5 !important; }
-[data-theme="light"] [class~="bg-[#111111]"] { background-color: #FAFAFA !important; }
+[data-theme="light"] [class~="bg-[#0a0c0e]"] { background: radial-gradient(ellipse at 75% -5%, #DDD6FE 0%, #EDE9FE 28%, #F5F3FF 55%, #FAFAFA 100%) !important; }
+[data-theme="light"] [class~="bg-[#14171c]"] { background-color: #FFFFFF !important; }
+[data-theme="light"] [class~="bg-[#1e2838]"] { background-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="bg-[#3c4653]"] { background-color: #EBEBEB !important; }
+[data-theme="light"] [class~="bg-[#1a2130]"] { background-color: #F5F5F5 !important; }
 
 /* Borders */
-[data-theme="light"] [class~="border-[#2A2A2A]"] { border-color: #E4E4E7 !important; }
-[data-theme="light"] [class~="border-[#1E1E1E]"] { border-color: #F0F0F0 !important; }
-[data-theme="light"] [class~="border-[#1A1A1A]"] { border-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="border-[#3c4653]"] { border-color: #E4E4E7 !important; }
+[data-theme="light"] [class~="border-[#1e2838]"] { border-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="border-[#14171c]"] { border-color: #F0F0F0 !important; }
 
 /* Primary text — white becomes near-black */
 [data-theme="light"] .text-white { color: #18181B !important; }
 
 /* Keep white text on intentionally colored backgrounds */
-[data-theme="light"] [class~="bg-[#7B2FBE]"] .text-white,
-[data-theme="light"] [class~="bg-[#7B2FBE]"][class~="text-white"] { color: #FFFFFF !important; }
+[data-theme="light"] [class~="bg-[#4f46e5]"] .text-white,
+[data-theme="light"] [class~="bg-[#4f46e5]"][class~="text-white"] { color: #FFFFFF !important; }
 [data-theme="light"] .bg-black\/40 .text-white { color: #FFFFFF !important; }
 
 /* Secondary / muted text */
-[data-theme="light"] [class~="text-[#A0A0A0]"] { color: #52525B !important; }
-[data-theme="light"] [class~="text-[#606060]"] { color: #71717A !important; }
-[data-theme="light"] [class~="text-[#404040]"] { color: #A1A1AA !important; }
+[data-theme="light"] [class~="text-[#8390a2]"] { color: #52525B !important; }
+[data-theme="light"] [class~="text-[#64748b]"] { color: #71717A !important; }
+[data-theme="light"] [class~="text-[#505d6f]"] { color: #A1A1AA !important; }
 
 /* Hover backgrounds */
-[data-theme="light"] [class~="hover:bg-[#1E1E1E]"]:hover { background-color: #F0F0F0 !important; }
-[data-theme="light"] [class~="hover:bg-[#1A1A1A]"]:hover { background-color: #F5F5F5 !important; }
-[data-theme="light"] [class~="hover:bg-[#2A2A2A]"]:hover { background-color: #EBEBEB !important; }
+[data-theme="light"] [class~="hover:bg-[#1e2838]"]:hover { background-color: #F0F0F0 !important; }
+[data-theme="light"] [class~="hover:bg-[#14171c]"]:hover { background-color: #F5F5F5 !important; }
+[data-theme="light"] [class~="hover:bg-[#3c4653]"]:hover { background-color: #EBEBEB !important; }
 
 /* Hover text — prevent white-on-white */
 [data-theme="light"] [class~="hover:text-white"]:hover { color: #18181B !important; }
 
 /* Hover borders */
-[data-theme="light"] [class~="hover:border-[#3A3A3A]"]:hover { border-color: #D1D5DB !important; }
+[data-theme="light"] [class~="hover:border-[#3c4653]"]:hover { border-color: #D1D5DB !important; }
 
 /* Inputs & selects */
 [data-theme="light"] input,

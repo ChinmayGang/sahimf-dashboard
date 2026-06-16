@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import SearchIcon from '@mui/icons-material/Search'
-import TuneIcon from '@mui/icons-material/Tune'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
+import { Sliders as TuneIcon } from '@phosphor-icons/react'
+import { CaretDown as ExpandMoreIcon } from '@phosphor-icons/react'
+import { CaretUp as ExpandLessIcon } from '@phosphor-icons/react'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockFunds } from '../../data/funds'
@@ -22,13 +22,13 @@ const sortOptions = ['Popularity', '1Y Returns ↑', '1Y Returns ↓', 'Expense 
 function FilterSection({ title, children, defaultOpen = true }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="border-b border-[#1E1E1E] pb-3 mb-3">
+    <div className="border-b border-[#1e2838] pb-3 mb-3">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full text-xs font-semibold text-[#A0A0A0] uppercase tracking-wider mb-2"
+        className="flex items-center justify-between w-full text-xs font-semibold text-[#8390a2] uppercase tracking-wider mb-2"
       >
         {title}
-        {open ? <ExpandLessIcon sx={{ fontSize: 16 }} /> : <ExpandMoreIcon sx={{ fontSize: 16 }} />}
+        {open ? <ExpandLessIcon size={16} weight="bold" /> : <ExpandMoreIcon size={16} weight="bold" />}
       </button>
       {open && children}
     </div>
@@ -64,16 +64,16 @@ export function SearchSchemes() {
   return (
     <div className="flex h-full">
       {/* Filter Sidebar */}
-      <aside className="w-60 flex-shrink-0 border-r border-[#1E1E1E] overflow-y-auto p-4">
+      <aside className="w-60 flex-shrink-0 border-r border-[#1e2838] overflow-y-auto p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
-            <TuneIcon sx={{ fontSize: 16 }} />
+            <TuneIcon size={16} weight="duotone" />
             Filters
           </div>
           {activeFilterCount > 0 && (
             <button
               onClick={() => { setSelectedCats([]); setSelectedVolatility([]); setSelectedAMC([]) }}
-              className="text-xs text-[#C5F135] hover:text-[#A8D020]"
+              className="text-xs text-[#d6fd70] hover:text-[#b8d94a]"
             >
               Clear all
             </button>
@@ -86,10 +86,10 @@ export function SearchSchemes() {
             <div key={cat.label} className="mb-1">
               <button
                 onClick={() => setOpenCats((p) => p.includes(cat.label) ? p.filter((c) => c !== cat.label) : [...p, cat.label])}
-                className="flex items-center justify-between w-full text-xs text-[#A0A0A0] hover:text-white py-1 transition-colors"
+                className="flex items-center justify-between w-full text-xs text-[#8390a2] hover:text-white py-1 transition-colors"
               >
                 <span className="font-medium">{cat.label}</span>
-                {openCats.includes(cat.label) ? <ExpandLessIcon sx={{ fontSize: 13 }} /> : <ExpandMoreIcon sx={{ fontSize: 13 }} />}
+                {openCats.includes(cat.label) ? <ExpandLessIcon size={13} weight="bold" /> : <ExpandMoreIcon size={13} weight="bold" />}
               </button>
               {openCats.includes(cat.label) && (
                 <div className="ml-2 space-y-0.5">
@@ -99,9 +99,9 @@ export function SearchSchemes() {
                         type="checkbox"
                         checked={selectedCats.includes(sub)}
                         onChange={() => toggleCat(sub)}
-                        className="accent-[#C5F135] w-3 h-3"
+                        className="accent-[#d6fd70] w-3 h-3"
                       />
-                      <span className={`text-xs transition-colors ${selectedCats.includes(sub) ? 'text-[#C5F135]' : 'text-[#A0A0A0] group-hover:text-white'}`}>
+                      <span className={`text-xs transition-colors ${selectedCats.includes(sub) ? 'text-[#d6fd70]' : 'text-[#8390a2] group-hover:text-white'}`}>
                         {sub}
                       </span>
                     </label>
@@ -120,7 +120,7 @@ export function SearchSchemes() {
                 type="checkbox"
                 checked={selectedVolatility.includes(v)}
                 onChange={() => toggleVol(v)}
-                className="accent-[#C5F135] w-3 h-3"
+                className="accent-[#d6fd70] w-3 h-3"
               />
               <VolatilityBadge level={v} />
             </label>
@@ -137,11 +137,11 @@ export function SearchSchemes() {
               step={0.1}
               value={expenseMax}
               onChange={(e) => setExpenseMax(Number(e.target.value))}
-              className="w-full accent-[#C5F135]"
+              className="w-full accent-[#d6fd70]"
             />
-            <div className="flex justify-between text-xs text-[#606060]">
+            <div className="flex justify-between text-xs text-[#64748b]">
               <span>0%</span>
-              <span className="text-[#C5F135] font-medium">Up to {expenseMax.toFixed(1)}%</span>
+              <span className="text-[#d6fd70] font-medium">Up to {expenseMax.toFixed(1)}%</span>
               <span>2.5%</span>
             </div>
           </div>
@@ -156,9 +156,9 @@ export function SearchSchemes() {
                   type="checkbox"
                   checked={selectedAMC.includes(a)}
                   onChange={() => toggleAMC(a)}
-                  className="accent-[#C5F135] w-3 h-3"
+                  className="accent-[#d6fd70] w-3 h-3"
                 />
-                <span className={`text-xs transition-colors ${selectedAMC.includes(a) ? 'text-[#C5F135]' : 'text-[#A0A0A0] group-hover:text-white'}`}>
+                <span className={`text-xs transition-colors ${selectedAMC.includes(a) ? 'text-[#d6fd70]' : 'text-[#8390a2] group-hover:text-white'}`}>
                   {a}
                 </span>
               </label>
@@ -170,23 +170,23 @@ export function SearchSchemes() {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Search + sort bar */}
-        <div className="flex items-center gap-3 p-4 border-b border-[#1E1E1E] flex-shrink-0">
+        <div className="flex items-center gap-3 p-4 border-b border-[#1e2838] flex-shrink-0">
           <div className="relative flex-1 max-w-md">
-            <SearchIcon sx={{ fontSize: 16, color: '#606060' }} className="absolute left-3 top-1/2 -translate-y-1/2" />
+            <SearchIcon size={16} color="#64748b" weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by fund name, AMC..."
-              className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-[#606060] focus:outline-none focus:border-[#C5F135]/50 transition-colors"
+              className="w-full bg-[#14171c] border border-[#1e2838] rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#d6fd70]/50 transition-colors"
             />
           </div>
-          <span className="text-xs text-[#A0A0A0]">{filtered.length} funds</span>
+          <span className="text-xs text-[#8390a2]">{filtered.length} funds</span>
           <div className="flex items-center gap-2 ml-auto">
-            <span className="text-xs text-[#606060]">Sort by</span>
+            <span className="text-xs text-[#64748b]">Sort by</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-[#1A1A1A] border border-[#2A2A2A] text-xs text-white rounded-lg px-3 py-1.5 focus:outline-none"
+              className="bg-[#14171c] border border-[#1e2838] text-xs text-white rounded-lg px-3 py-1.5 focus:outline-none"
             >
               {sortOptions.map((o) => <option key={o}>{o}</option>)}
             </select>
@@ -196,13 +196,13 @@ export function SearchSchemes() {
         {/* Fund list */}
         <div className="flex-1 overflow-y-auto p-4">
           {filtered.length === 0 ? (
-            <div className="flex items-center justify-center h-48 text-[#606060] text-sm">
+            <div className="flex items-center justify-center h-48 text-[#64748b] text-sm">
               No funds match your filters
             </div>
           ) : (
             <div className="space-y-2">
               {/* Table header */}
-              <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium text-[#606060] uppercase tracking-wide">
+              <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium text-[#64748b] uppercase tracking-wide">
                 <span>Fund</span>
                 <span>NAV</span>
                 <span>1Y Returns</span>
@@ -213,21 +213,21 @@ export function SearchSchemes() {
 
               {filtered.map((fund) => (
                 <Link key={fund.id} to={`/mutual-funds/search/${fund.id}`}>
-                  <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-3 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl hover:border-[#C5F135]/30 transition-all items-center group">
+                  <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-3 bg-[#14171c] border border-[#1e2838] rounded-xl hover:border-[#d6fd70]/30 transition-all items-center group">
                     {/* Fund info */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-9 h-9 rounded-lg bg-[#2A2A2A] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#C5F135]">
+                      <div className="w-9 h-9 rounded-lg bg-[#1e2838] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#d6fd70]">
                         {fund.amcName.slice(0, 2).toUpperCase()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs font-semibold text-white group-hover:text-[#C5F135] transition-colors truncate">
+                        <p className="text-xs font-semibold text-white group-hover:text-[#d6fd70] transition-colors truncate">
                           {fund.name}
                         </p>
                         <div className="flex items-center gap-1 mt-0.5">
-                          <span className="text-[10px] text-[#606060]">{fund.subCategory}</span>
-                          <span className="text-[#2A2A2A]">·</span>
-                          <span className="text-[10px] bg-[#2A2A2A] text-[#A0A0A0] px-1.5 py-0 rounded-full">Direct</span>
-                          <span className="text-[10px] bg-[#2A2A2A] text-[#A0A0A0] px-1.5 py-0 rounded-full">Growth</span>
+                          <span className="text-[10px] text-[#64748b]">{fund.subCategory}</span>
+                          <span className="text-[#1e2838]">·</span>
+                          <span className="text-[10px] bg-[#1e2838] text-[#8390a2] px-1.5 py-0 rounded-full">Direct</span>
+                          <span className="text-[10px] bg-[#1e2838] text-[#8390a2] px-1.5 py-0 rounded-full">Growth</span>
                         </div>
                       </div>
                     </div>

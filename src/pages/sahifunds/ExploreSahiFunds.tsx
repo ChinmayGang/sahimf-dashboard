@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+﻿import { Link } from 'react-router-dom'
+import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { PlanBadge } from '../../components/ui/PlanBadge'
@@ -13,22 +13,22 @@ export function ExploreSahiFunds() {
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <AutoAwesomeIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+            <AutoAwesomeIcon size={18} color="#d6fd70" weight="duotone" />
             <h1 className="text-lg font-semibold text-white">Sahi MF Funds</h1>
           </div>
-          <p className="text-xs text-[#A0A0A0] max-w-lg">
+          <p className="text-xs text-[#8390a2] max-w-lg">
             Curated mutual fund portfolios built by the SahiMF research desk. No personalization —
             research-driven, rules-based, and transparently constructed.
           </p>
         </div>
-        <div className="bg-[#C5F135]/10 border border-[#C5F135]/20 rounded-xl px-4 py-3 text-center">
-          <p className="text-[#C5F135] text-xl font-bold">{mockSahiFunds.length}</p>
-          <p className="text-xs text-[#A0A0A0]">Portfolios</p>
+        <div className="bg-[#d6fd70]/10 border border-[#d6fd70]/20 rounded-xl px-4 py-3 text-center">
+          <p className="text-[#d6fd70] text-xl font-bold">{mockSahiFunds.length}</p>
+          <p className="text-xs text-[#8390a2]">Portfolios</p>
         </div>
       </div>
 
       {/* Disclaimer */}
-      <div className="bg-[#1A1A1A] border border-[#F59E0B]/20 rounded-xl px-4 py-3">
+      <div className="bg-[#14171c] border border-[#F59E0B]/20 rounded-xl px-4 py-3">
         <p className="text-xs text-[#F59E0B]">
           <strong>Important:</strong> Sahi MF Funds are curated research portfolios, not personalized investment advice.
           Past performance does not guarantee future returns. Please read all scheme documents before investing.
@@ -42,8 +42,8 @@ export function ExploreSahiFunds() {
             key={f}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
               f === 'All'
-                ? 'bg-[#C5F135] text-black font-semibold border-[#C5F135]'
-                : 'border-[#2A2A2A] text-[#A0A0A0] hover:border-[#C5F135]/40 hover:text-white'
+                ? 'bg-[#d6fd70] text-black font-semibold border-[#d6fd70]'
+                : 'border-[#1e2838] text-[#8390a2] hover:border-[#d6fd70]/40 hover:text-white'
             }`}
           >
             {f}
@@ -55,11 +55,11 @@ export function ExploreSahiFunds() {
       <div className="grid grid-cols-2 gap-4">
         {mockSahiFunds.map((fund) => (
           <Link key={fund.id} to={`/mutual-funds/sahi-funds/${fund.id}`}>
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C5F135]/30 transition-all group h-full flex flex-col">
+            <div className="bg-[#14171c] border border-[#1e2838] rounded-xl p-5 hover:border-[#d6fd70]/30 transition-all group h-full flex flex-col">
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl bg-[#C5F135]/10 flex items-center justify-center flex-shrink-0">
-                  <AutoAwesomeIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+                <div className="w-10 h-10 rounded-xl bg-[#d6fd70]/10 flex items-center justify-center flex-shrink-0">
+                  <AutoAwesomeIcon size={18} color="#d6fd70" weight="duotone" />
                 </div>
                 <div className="flex items-center gap-2">
                   <PlanBadge tier={fund.accessTier as PlanTier} />
@@ -67,32 +67,32 @@ export function ExploreSahiFunds() {
                 </div>
               </div>
 
-              <h3 className="text-sm font-semibold text-white group-hover:text-[#C5F135] transition-colors mb-1">
+              <h3 className="text-sm font-semibold text-white group-hover:text-[#d6fd70] transition-colors mb-1">
                 {fund.name}
               </h3>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed mb-4 flex-1">
+              <p className="text-xs text-[#8390a2] leading-relaxed mb-4 flex-1">
                 {fund.description}
               </p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-1 mb-4">
                 {fund.tags.map((t) => (
-                  <span key={t} className="text-xs bg-[#2A2A2A] text-[#A0A0A0] px-2 py-0.5 rounded-full">{t}</span>
+                  <span key={t} className="text-xs bg-[#1e2838] text-[#8390a2] px-2 py-0.5 rounded-full">{t}</span>
                 ))}
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#2A2A2A]">
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#1e2838]">
                 <div>
-                  <p className="text-[10px] text-[#606060] mb-0.5">Min Amount</p>
+                  <p className="text-[10px] text-[#64748b] mb-0.5">Min Amount</p>
                   <p className="text-xs font-semibold text-white">₹{fund.minAmount.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-[#606060] mb-0.5">{fund.fundCount} Funds</p>
+                  <p className="text-[10px] text-[#64748b] mb-0.5">{fund.fundCount} Funds</p>
                   <p className="text-xs font-semibold text-white">{fund.rebalanceFrequency}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[10px] text-[#606060] mb-0.5">1Y Returns</p>
+                  <p className="text-[10px] text-[#64748b] mb-0.5">1Y Returns</p>
                   <PlanGate requiredTier={fund.accessTier as PlanTier} compact>
                     <p className="text-xs font-semibold text-[#22C55E]">
                       {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : '—'}

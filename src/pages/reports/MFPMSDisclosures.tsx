@@ -1,7 +1,7 @@
-import ArticleIcon from '@mui/icons-material/Article'
-import DownloadIcon from '@mui/icons-material/Download'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import VerifiedIcon from '@mui/icons-material/Verified'
+﻿import { FileText as ArticleIcon } from '@phosphor-icons/react'
+import { DownloadSimple as DownloadIcon } from '@phosphor-icons/react'
+import { ArrowSquareOut as OpenInNewIcon } from '@phosphor-icons/react'
+import { SealCheck as VerifiedIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 
 const DISCLOSURES = [
@@ -49,23 +49,23 @@ const HIGHLIGHTS = [
 export function MFPMSDisclosures() {
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1A1A1A]'
-  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1E1E1E]'
-  const dividerColor = lm ? 'border-[#E8E8F0]' : 'border-[#2A2A2A]'
-  const docIconBg = lm ? 'bg-[#F3F4F6] border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
-  const typeBadge = lm ? 'bg-[#F3F4F6] border border-[#E8E8F0] text-[#6B7280]' : 'bg-[#1A1A1A] border border-[#2A2A2A] text-[#606060]'
-  const bannerBg = lm ? 'bg-[#F8F7FF] border border-[#C5F135]/30' : 'bg-[#1A1A1A] border border-[#C5F135]/30'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
+  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
+  const docIconBg = lm ? 'bg-[#F3F4F6] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
+  const typeBadge = lm ? 'bg-[#F3F4F6] border border-[#E0E3E8] text-[#6B7280]' : 'bg-[#14171c] border border-[#1e2838] text-[#64748b]'
+  const bannerBg = lm ? 'bg-[#F8F7FF] border border-[#d6fd70]/30' : 'bg-[#14171c] border border-[#d6fd70]/30'
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'} flex items-center justify-center`}>
-          <ArticleIcon sx={{ fontSize: 18, color: '#C5F135' }} />
+        <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+          <ArticleIcon size={18} color="#d6fd70" weight="duotone" />
         </div>
         <div>
           <h1 className={`text-lg font-bold ${text}`}>MFPMS Disclosures</h1>
@@ -77,7 +77,7 @@ export function MFPMSDisclosures() {
       <div className="grid grid-cols-4 gap-4">
         {HIGHLIGHTS.map((h) => (
           <div key={h.label} className={`${card} rounded-xl px-4 py-3 text-center`}>
-            <p className="text-xl font-black text-[#C5F135] mb-1">{h.icon}</p>
+            <p className="text-xl font-black text-[#d6fd70] mb-1">{h.icon}</p>
             <p className={`text-xs font-semibold ${text} mb-0.5`}>{h.label}</p>
             <p className={`text-[10px] ${textMuted}`}>{h.sub}</p>
           </div>
@@ -86,7 +86,7 @@ export function MFPMSDisclosures() {
 
       {/* SEBI disclaimer banner */}
       <div className={`${bannerBg} rounded-xl px-5 py-4 flex items-start gap-3`}>
-        <VerifiedIcon sx={{ fontSize: 18, color: '#C5F135', flexShrink: 0, marginTop: '1px' }} />
+        <VerifiedIcon size={18} color="#d6fd70" weight="duotone" style={{ flexShrink: 0, marginTop: "1px" }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p className={`${text} font-semibold text-sm`}>
             NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.
@@ -111,7 +111,7 @@ export function MFPMSDisclosures() {
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-lg ${docIconBg} flex items-center justify-center flex-shrink-0`}>
-                      <ArticleIcon sx={{ fontSize: 14, color: lm ? '#9CA3AF' : '#606060' }} />
+                      <ArticleIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
                     </div>
                     <div>
                       <p className={`text-sm font-medium ${text}`}>{doc.title}</p>
@@ -122,12 +122,12 @@ export function MFPMSDisclosures() {
                   </div>
                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     {doc.type === 'PDF' ? (
-                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#C5F135] transition-colors`}>
-                        <DownloadIcon sx={{ fontSize: 14 }} /> Download
+                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#d6fd70] transition-colors`}>
+                        <DownloadIcon size={14} weight="regular" /> Download
                       </button>
                     ) : (
-                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#C5F135] transition-colors`}>
-                        <OpenInNewIcon sx={{ fontSize: 14 }} /> View
+                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#d6fd70] transition-colors`}>
+                        <OpenInNewIcon size={14} weight="regular" /> View
                       </button>
                     )}
                   </div>
@@ -139,7 +139,7 @@ export function MFPMSDisclosures() {
         ))}
       </div>
 
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#404040]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
         All disclosures are filed with SEBI and updated on a mandatory basis. For grievances, contact grievance@sahimf.in or write to SEBI at scores.gov.in.
         SahiMF is a product of Arqentis Financial Technologies Pvt. Ltd., Mumbai.
       </p>

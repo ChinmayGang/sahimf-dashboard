@@ -18,22 +18,30 @@ import { Calculator } from './pages/tools/Calculator'
 import { Dividends } from './pages/reports/Dividends'
 import { TaxReport } from './pages/reports/TaxReport'
 import { MFPMSDisclosures } from './pages/reports/MFPMSDisclosures'
+import { Settings } from './pages/settings/Settings'
 import { Login } from './pages/auth/Login'
 import { OTP } from './pages/auth/OTP'
 import { CreateProfile } from './pages/auth/CreateProfile'
 import { InitializePortfolio } from './pages/auth/InitializePortfolio'
 import { DesignSystem } from './pages/design-system/DesignSystem'
+import { useAuthStore } from './stores/authStore'
 
 const queryClient = new QueryClient()
 
 const ComingSoon = ({ name }: { name: string }) => (
   <div className="flex items-center justify-center h-full min-h-64">
     <div className="text-center">
-      <p className="text-[#A0A0A0] text-sm font-medium">{name}</p>
-      <p className="text-[#606060] text-xs mt-1">Coming soon</p>
+      <p className="text-[#8390a2] text-sm font-medium">{name}</p>
+      <p className="text-[#64748b] text-xs mt-1">Coming soon</p>
     </div>
   </div>
 )
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  if (!isAuthenticated) return <Navigate to="/auth/login" replace />
+  return <>{children}</>
+}
 
 export default function App() {
   return (
@@ -45,7 +53,14 @@ export default function App() {
           <Route path="/auth/create-profile" element={<CreateProfile />} />
           <Route path="/auth/initialize" element={<InitializePortfolio />} />
           <Route path="/design-system" element={<DesignSystem />} />
-          <Route path="/" element={<AppShell />}>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <AppShell />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate to="/mutual-funds" replace />} />
             <Route path="mutual-funds" element={<Overview />} />
             <Route path="mutual-funds/portfolios" element={<Portfolios />} />
@@ -70,6 +85,7 @@ export default function App() {
             <Route path="mutual-funds/reports/tax" element={<TaxReport />} />
             <Route path="mutual-funds/reports/mfpms" element={<MFPMSDisclosures />} />
             <Route path="investments" element={<ComingSoon name="Investments" />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
       </BrowserRouter>

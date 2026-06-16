@@ -1,35 +1,35 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import SearchIcon from '@mui/icons-material/Search'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment'
-import NewReleasesIcon from '@mui/icons-material/NewReleases'
-import StarIcon from '@mui/icons-material/Star'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import ShieldIcon from '@mui/icons-material/Shield'
-import SavingsIcon from '@mui/icons-material/Savings'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import LockIcon from '@mui/icons-material/Lock'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
+import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
+import { Flame as LocalFireDepartmentIcon } from '@phosphor-icons/react'
+import { SealCheck as NewReleasesIcon } from '@phosphor-icons/react'
+import { Star as StarIcon } from '@phosphor-icons/react'
+import { Bank as AccountBalanceIcon } from '@phosphor-icons/react'
+import { Rocket as RocketLaunchIcon } from '@phosphor-icons/react'
+import { Shield as ShieldIcon } from '@phosphor-icons/react'
+import { PiggyBank as SavingsIcon } from '@phosphor-icons/react'
+import { ChartBar as BarChartIcon } from '@phosphor-icons/react'
+import { Lock as LockIcon } from '@phosphor-icons/react'
+import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { mockFunds } from '../../data/funds'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
-import heroImg from '../../assets/explore-funds-header.png'
+import heroImg from '../../assets/explore-funds-header.jpg'
 
 const TAGS = ['Low Risk', 'ELSS', 'Free Access', 'New SahiMF', 'View All']
 
 const SECTIONS = [
-  { id: 'sahi', label: 'Sahi MF Funds', badge: 'Recommended', icon: <AutoAwesomeIcon sx={{ fontSize: 16 }} />, isSahi: true },
-  { id: 'trending', label: 'Trending Now', icon: <LocalFireDepartmentIcon sx={{ fontSize: 16 }} /> },
-  { id: 'new', label: 'New Launches', icon: <NewReleasesIcon sx={{ fontSize: 16 }} /> },
-  { id: 'popular', label: 'Most Popular', icon: <StarIcon sx={{ fontSize: 16 }} /> },
-  { id: 'top-amc', label: 'Top Funds by AMC', icon: <AccountBalanceIcon sx={{ fontSize: 16 }} /> },
-  { id: 'high-risk', label: 'High Reward · High Risk', icon: <RocketLaunchIcon sx={{ fontSize: 16 }} /> },
-  { id: 'low-risk', label: 'Stable Returns', icon: <ShieldIcon sx={{ fontSize: 16 }} /> },
-  { id: 'elss', label: 'ELSS Tax Savers', icon: <SavingsIcon sx={{ fontSize: 16 }} /> },
-  { id: 'index', label: 'Index Funds', icon: <BarChartIcon sx={{ fontSize: 16 }} /> },
+  { id: 'sahi', label: 'Sahi MF Funds', badge: 'Recommended', icon: <AutoAwesomeIcon size={16} weight="duotone" />, isSahi: true },
+  { id: 'trending', label: 'Trending Now', icon: <LocalFireDepartmentIcon size={16} weight="duotone" /> },
+  { id: 'new', label: 'New Launches', icon: <NewReleasesIcon size={16} weight="duotone" /> },
+  { id: 'popular', label: 'Most Popular', icon: <StarIcon size={16} weight="duotone" /> },
+  { id: 'top-amc', label: 'Top Funds by AMC', icon: <AccountBalanceIcon size={16} weight="duotone" /> },
+  { id: 'high-risk', label: 'High Reward · High Risk', icon: <RocketLaunchIcon size={16} weight="duotone" /> },
+  { id: 'low-risk', label: 'Stable Returns', icon: <ShieldIcon size={16} weight="duotone" /> },
+  { id: 'elss', label: 'ELSS Tax Savers', icon: <SavingsIcon size={16} weight="duotone" /> },
+  { id: 'index', label: 'Index Funds', icon: <BarChartIcon size={16} weight="duotone" /> },
 ]
 
 // Origami icon filenames (50 available in /icons/schemes/)
@@ -101,19 +101,19 @@ export function ExploreFunds() {
 
   const lm = lightMode
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
   const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const sidebarBg = lm ? '#FDFCFF' : '#0D0D0D'
-  const sidebarBorder = lm ? '#E8E8F0' : '#1E1E1E'
-  const divider = lm ? '#E8E8F0' : '#2A2A2A'
+  const sidebarBg = lm ? '#FDFCFF' : '#0a0c0e'
+  const sidebarBorder = lm ? '#E0E3E8' : '#1e2838'
+  const divider = lm ? '#E0E3E8' : '#3c4653'
 
   const sidebarItem = (active: boolean) => lm
     ? active
-      ? 'bg-[#F3F0FF] border border-[#7B2FBE]/20 text-[#7B2FBE]'
-      : 'text-[#6B7280] hover:bg-[#F8F7FF] hover:text-[#111827]'
+      ? 'bg-[#eeedfd] border border-[#4f46e5]/20 text-[#4f46e5]'
+      : 'text-[#6B7280] hover:bg-[#f0efff] hover:text-[#111827]'
     : active
-      ? 'bg-[#C5F135]/10 text-[#C5F135] border border-[#C5F135]/20'
-      : 'text-[#A0A0A0] hover:bg-[#1E1E1E] hover:text-white'
+      ? 'bg-[#d6fd70]/10 text-[#d6fd70] border border-[#d6fd70]/20'
+      : 'text-[#8390a2] hover:bg-[#1e2838] hover:text-white'
 
   const activeSectionData = SECTIONS.find((s) => s.id === activeSection)!
   const displayFunds = getFunds(activeSection)
@@ -122,8 +122,8 @@ export function ExploreFunds() {
 
   // Card base: transparent border (1px placeholder) to avoid layout shift on hover
   const cardBase = lm
-    ? 'relative bg-white border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl group'
-    : 'relative bg-[#1A1A1A] border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl group'
+    ? 'relative bg-white border border-[#E0E3E8] rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#4f46e5] hover:-translate-y-1 group'
+    : 'relative bg-[#14171c] border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#d6fd70] hover:-translate-y-1 group'
 
   return (
     <div className="flex flex-col h-full">
@@ -138,21 +138,15 @@ export function ExploreFunds() {
             minHeight: 190,
           }}
         >
-          {/* Purple gradient overlay — heavier on left so text readable */}
-          <div
-            className="absolute inset-0"
-            style={{ background: 'linear-gradient(100deg, rgba(76,29,149,0.97) 0%, rgba(109,40,217,0.90) 40%, rgba(139,92,246,0.55) 70%, rgba(139,92,246,0.15) 100%)' }}
-          />
-
           <div className="relative px-7 pt-6 pb-5">
-            <h1 className="text-2xl font-black text-white mb-1 tracking-tight">Explore Mutual Funds</h1>
-            <p className="text-sm text-white/65 mb-4 max-w-md leading-relaxed">
+            <h1 className="text-2xl font-black mb-1 tracking-tight" style={{ color: '#ffffff' }}>Explore Mutual Funds</h1>
+            <p className="text-sm mb-4 max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
               Curated fund portfolios built by the SahiMF research desk. Research-driven, rules-based, and transparently constructed.
             </p>
 
             {/* Search bar */}
-            <div className="flex items-center gap-2 rounded-xl px-3 py-2.5 max-w-lg" style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)' }}>
-              <SearchIcon sx={{ fontSize: 17, color: 'rgba(255,255,255,0.6)' }} />
+            <div className="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 max-w-lg shadow-sm">
+              <SearchIcon size={17} color="#8390a2" weight="regular" />
               <input
                 value={search}
                 onChange={(e) => {
@@ -160,9 +154,9 @@ export function ExploreFunds() {
                   if (e.target.value) navigate('/mutual-funds/explore/all')
                 }}
                 placeholder="Search for sahi mutual funds, or collections..."
-                className="flex-1 bg-transparent outline-none text-sm text-white placeholder-white/45 min-w-0"
+                className="flex-1 bg-transparent outline-none text-sm text-[#111827] placeholder-[#8390a2] min-w-0"
               />
-              <button className="bg-white text-[#6D28D9] text-xs font-bold px-4 py-1.5 rounded-lg flex-shrink-0 hover:bg-white/90 transition-colors">
+              <button className="bg-black text-white text-xs font-bold px-4 py-1.5 rounded-lg flex-shrink-0 hover:bg-[#1e2838] transition-colors">
                 Search
               </button>
             </div>
@@ -182,7 +176,7 @@ export function ExploreFunds() {
                   }}
                   className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${
                     activeTag === tag
-                      ? 'bg-[#C5F135] text-black border-[#C5F135] font-bold'
+                      ? 'bg-[#d6fd70] text-black border-[#d6fd70] font-bold'
                       : 'text-white border-white/25 hover:border-white/50'
                   }`}
                   style={activeTag !== tag ? { background: 'rgba(255,255,255,0.1)' } : {}}
@@ -212,7 +206,7 @@ export function ExploreFunds() {
               <span className="flex-1 truncate">{sec.label}</span>
               {sec.badge && (
                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0"
-                  style={{ background: '#C5F135', color: '#000' }}>
+                  style={{ background: '#d6fd70', color: '#000' }}>
                   {sec.badge}
                 </span>
               )}
@@ -223,9 +217,9 @@ export function ExploreFunds() {
             <button
               onClick={handleViewAll}
               className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all"
-              style={{ color: lm ? '#7B2FBE' : '#C5F135' }}
+              style={{ color: lm ? '#4f46e5' : '#d6fd70' }}
             >
-              <ArrowForwardIcon sx={{ fontSize: 15 }} />
+              <ArrowForwardIcon size={15} weight="bold" />
               View All Schemes
             </button>
           </div>
@@ -236,19 +230,19 @@ export function ExploreFunds() {
           {/* Section header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <span className={lm ? 'text-[#7B2FBE]' : 'text-[#C5F135]'}>{activeSectionData.icon}</span>
+              <span className={lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}>{activeSectionData.icon}</span>
               <h2 className={`text-sm font-bold ${text}`}>{activeSectionData.label}</h2>
               {activeSectionData.badge && (
-                <span className="text-[10px] font-bold bg-[#C5F135] text-black px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold bg-[#d6fd70] text-black px-2 py-0.5 rounded-full">
                   {activeSectionData.badge}
                 </span>
               )}
             </div>
             <button
               onClick={handleViewAll}
-              className={`text-xs font-semibold flex items-center gap-1 transition-colors ${lm ? 'text-[#7B2FBE] hover:text-[#6D28D9]' : 'text-[#C5F135] hover:text-[#A8D020]'}`}
+              className={`text-xs font-semibold flex items-center gap-1 transition-colors ${lm ? 'text-[#4f46e5] hover:text-[#4338ca]' : 'text-[#d6fd70] hover:text-[#b8d94a]'}`}
             >
-              View All <ArrowForwardIcon sx={{ fontSize: 13 }} />
+              View All <ArrowForwardIcon size={13} weight="bold" />
             </button>
           </div>
 
@@ -267,18 +261,18 @@ export function ExploreFunds() {
                   >
                     {/* Featured ribbon */}
                     <div className="absolute top-3 right-3 flex gap-1">
-                      <span className="text-[10px] font-bold bg-[#C5F135] text-black px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold bg-[#d6fd70] text-black px-2 py-0.5 rounded-full">
                         Featured
                       </span>
                       {fund.accessTier !== 'free' && (
-                        <span className="text-[10px] font-bold bg-[#7B2FBE] text-white px-2 py-0.5 rounded-full">PRO</span>
+                        <span className="text-[10px] font-bold bg-[#4f46e5] text-white px-2 py-0.5 rounded-full">PRO</span>
                       )}
                     </div>
 
                     {/* Icon block with origami icon + colored bg */}
                     <div
                       className="w-11 h-11 rounded-xl flex items-center justify-center mb-3 flex-shrink-0 relative overflow-hidden"
-                      style={{ background: lm ? palette.bg : 'rgba(197,241,53,0.07)' }}
+                      style={{ background: lm ? palette.bg : 'rgba(214,253,112,0.07)' }}
                     >
                       {/* Low-opacity tint overlay */}
                       <div className="absolute inset-0" style={{ background: lm ? palette.tint : 'transparent' }} />
@@ -290,7 +284,7 @@ export function ExploreFunds() {
                       />
                     </div>
 
-                    <h3 className={`text-sm font-bold mb-1 pr-16 transition-colors ${lm ? 'text-[#111827] group-hover:text-[#7B2FBE]' : 'text-white group-hover:text-[#C5F135]'}`}>
+                    <h3 className={`text-sm font-bold mb-1 pr-16 transition-colors ${lm ? 'text-[#111827] group-hover:text-[#4f46e5]' : 'text-white group-hover:text-[#d6fd70]'}`}>
                       {fund.name}
                     </h3>
                     <p className={`text-xs ${textSub} leading-relaxed mb-3 flex-1`}>{fund.description}</p>
@@ -298,7 +292,7 @@ export function ExploreFunds() {
                     <div className="flex gap-1 mb-3 flex-wrap">
                       {fund.tags.slice(0, 3).map((t) => (
                         <span key={t} className="text-[10px] px-2 py-0.5 rounded-full"
-                          style={{ background: lm ? '#F3F0FF' : '#2A2A2A', color: lm ? '#7B2FBE' : '#A0A0A0' }}>
+                          style={{ background: lm ? '#eeedfd' : '#1e2838', color: lm ? '#4f46e5' : '#8390a2' }}>
                           {t}
                         </span>
                       ))}
@@ -322,8 +316,8 @@ export function ExploreFunds() {
                           <p className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</p>
                         ) : (
                           <div className="flex items-center justify-center gap-1">
-                            <LockIcon sx={{ fontSize: 10, color: '#7B2FBE' }} />
-                            <span className={`text-xs font-bold ${lm ? 'text-[#7B2FBE]' : 'text-[#C5F135]'}`}>PRO</span>
+                            <LockIcon size={10} color="#4f46e5" weight="regular" />
+                            <span className={`text-xs font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>PRO</span>
                           </div>
                         )}
                       </div>
@@ -335,18 +329,18 @@ export function ExploreFunds() {
               {/* Upgrade teaser card */}
               <div
                 className="rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:-translate-y-1"
-                style={{ background: 'linear-gradient(135deg, #7B2FBE18, #C5F13518)', border: lm ? '1px dashed #7B2FBE35' : '1px dashed #C5F13535' }}
+                style={{ background: 'linear-gradient(135deg, #4f46e518, #d6fd7018)', border: lm ? '1px dashed #4f46e535' : '1px dashed #d6fd7035' }}
                 onClick={() => navigate('/mutual-funds/explore/all')}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3"
-                  style={{ background: lm ? '#F3F0FF' : 'rgba(197,241,53,0.1)' }}>
-                  <LockIcon sx={{ fontSize: 18, color: lm ? '#7B2FBE' : '#C5F135' }} />
+                  style={{ background: lm ? '#eeedfd' : 'rgba(214,253,112,0.1)' }}>
+                  <LockIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
                 </div>
                 <p className={`text-sm font-bold ${text} mb-1`}>Unlock All Sahi Funds</p>
                 <p className={`text-xs ${textSub} mb-3`}>4 more curated baskets available with Sahi PRO</p>
                 <button
                   className="text-xs font-bold px-4 py-2 rounded-xl"
-                  style={{ background: lm ? '#7B2FBE' : '#C5F135', color: lm ? '#fff' : '#000' }}
+                  style={{ background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000' }}
                 >
                   Upgrade to PRO
                 </button>
@@ -376,7 +370,7 @@ export function ExploreFunds() {
                           {/* Origami icon block */}
                           <div
                             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-                            style={{ background: lm ? palette.bg : '#2A2A2A' }}
+                            style={{ background: lm ? palette.bg : '#1e2838' }}
                           >
                             <div className="absolute inset-0" style={{ background: lm ? palette.tint : 'transparent' }} />
                             <img
@@ -387,7 +381,7 @@ export function ExploreFunds() {
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs font-bold truncate transition-colors ${lm ? 'text-[#111827] group-hover:text-[#7B2FBE]' : 'text-white group-hover:text-[#C5F135]'}`}>
+                            <p className={`text-xs font-bold truncate transition-colors ${lm ? 'text-[#111827] group-hover:text-[#4f46e5]' : 'text-white group-hover:text-[#d6fd70]'}`}>
                               {fund.name}
                             </p>
                             <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct Growth</p>
@@ -426,7 +420,7 @@ export function ExploreFunds() {
                 <button
                   onClick={handleViewAll}
                   className="text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors"
-                  style={{ background: lm ? '#7B2FBE' : '#C5F135', color: lm ? '#fff' : '#000' }}
+                  style={{ background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000' }}
                 >
                   View All {activeSectionData.label} →
                 </button>

@@ -1,14 +1,14 @@
-import TrendingUpIcon from '@mui/icons-material/TrendingUp'
-import TrendingDownIcon from '@mui/icons-material/TrendingDown'
-import StarIcon from '@mui/icons-material/Star'
-import LockIcon from '@mui/icons-material/Lock'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
-import SearchIcon from '@mui/icons-material/Search'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutlined'
+﻿import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
+import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
+import { Star as StarIcon } from '@phosphor-icons/react'
+import { Lock as LockIcon } from '@phosphor-icons/react'
+import { CheckCircle as CheckCircleIcon } from '@phosphor-icons/react'
+import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
+import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
+import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
+import { Warning as WarningAmberIcon } from '@phosphor-icons/react'
+import { CheckCircle as CheckCircleOutlineIcon } from '@phosphor-icons/react'
+import { Warning as ErrorOutlineIcon } from '@phosphor-icons/react'
 
 /* ─── Design tokens — these will drive all pages ─────────────── */
 const PAGE_BG = 'radial-gradient(ellipse at 75% -5%, #DDD6FE 0%, #EDE9FE 28%, #F5F3FF 55%, #FAFAFA 100%)'
@@ -17,8 +17,8 @@ const CARD_BORDER = '#E5E7EB'
 const CARD_SHADOW = '0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04)'
 const SURFACE_2 = '#F9FAFB'   // table rows, alternate bg
 const BORDER_SUBTLE = '#F3F4F6'
-const ACCENT = '#C5F135'
-const PRO = '#7B2FBE'
+const ACCENT = '#d6fd70'
+const PRO = '#4f46e5'
 const SUCCESS = '#22C55E'
 const DANGER = '#EF4444'
 const WARNING = '#F59E0B'
@@ -69,7 +69,7 @@ function MetricCard({ label, value, sub, change, accent }: { label: string; valu
           <div className="flex items-center gap-1 mt-2">
             <span className="inline-flex items-center gap-0.5 text-xs font-semibold px-1.5 py-0.5 rounded-full"
               style={{ background: pos ? '#DCFCE7' : '#FEE2E2', color: pos ? SUCCESS : DANGER }}>
-              {pos ? <TrendingUpIcon sx={{ fontSize: 12 }} /> : <TrendingDownIcon sx={{ fontSize: 12 }} />}
+              {pos ? <TrendingUpIcon size={12} weight="regular" /> : <TrendingDownIcon size={12} weight="regular" />}
               {Math.abs(change).toFixed(1)}%
             </span>
             <span className="text-xs" style={{ color: T3 }}>vs last month</span>
@@ -102,7 +102,7 @@ export function DesignSystem() {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full text-xs font-semibold"
             style={{ background: `${ACCENT}20`, color: '#3B5E00' }}>
-            <AutoAwesomeIcon sx={{ fontSize: 12 }} />
+            <AutoAwesomeIcon size={12} weight="regular" />
             For approval · v1.0
           </div>
           <h1 className="text-4xl font-bold mb-2" style={{ color: T1 }}>SahiMF Design System</h1>
@@ -140,8 +140,8 @@ export function DesignSystem() {
             <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: T3 }}>Brand & Semantic</p>
             <div className="grid grid-cols-6 gap-3">
               {[
-                { name: 'Accent', hex: '#C5F135', dark: true, desc: 'CTA, active nav, accent text' },
-                { name: 'Pro Purple', hex: '#7B2FBE', dark: false, desc: 'PRO plan elements' },
+                { name: 'Accent', hex: '#d6fd70', dark: true, desc: 'CTA, active nav, accent text' },
+                { name: 'Pro Purple', hex: '#4f46e5', dark: false, desc: 'PRO plan elements' },
                 { name: 'Success', hex: '#22C55E', dark: false, desc: 'Gains, positive returns' },
                 { name: 'Danger', hex: '#EF4444', dark: false, desc: 'Losses, negative returns' },
                 { name: 'Warning', hex: '#F59E0B', dark: false, desc: 'Medium risk, alerts' },
@@ -189,7 +189,7 @@ export function DesignSystem() {
         {/* ══════════════════════════════════════════════════════════
             3. CARDS
         ══════════════════════════════════════════════════════════ */}
-        <Section title="3. Card Patterns" desc="Four card variants used throughout. All: rounded-2xl · white · 1px border #E5E7EB · shadow-sm.">
+        <Section title="3. Card Patterns" desc="Four card variants used throughout. All: rounded-2xl · white · 1px border #E5E7EB ·.">
 
           {/* Metric cards */}
           <div className="mb-4">
@@ -225,7 +225,7 @@ export function DesignSystem() {
               </div>
               <div className="px-5 py-3 flex items-center gap-5 border-t" style={{ borderColor: BORDER_SUBTLE }}>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-0.5 rounded inline-block" style={{ background: '#7B2FBE' }} />
+                  <span className="w-3 h-0.5 rounded inline-block" style={{ background: '#4f46e5' }} />
                   <span className="text-xs" style={{ color: T2 }}>Invested</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -270,7 +270,7 @@ export function DesignSystem() {
                           {m.locked ? (
                             <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full"
                               style={{ background: `${PRO}15`, color: PRO }}>
-                              <LockIcon sx={{ fontSize: 10 }} /> PRO
+                              <LockIcon size={10} weight="regular" /> PRO
                             </span>
                           ) : (
                             <p className="text-sm font-semibold" style={{ color: m.color }}>{m.value}</p>
@@ -335,7 +335,7 @@ export function DesignSystem() {
                   <div className="flex justify-end">
                     <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
                       style={{ background: `${PRO}15`, color: PRO }}>
-                      <LockIcon sx={{ fontSize: 9 }} /> PRO
+                      <LockIcon size={9} weight="regular" /> PRO
                     </span>
                   </div>
                   {/* Volatility */}
@@ -370,10 +370,10 @@ export function DesignSystem() {
                     Free
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: PRO, color: '#fff' }}>
-                    <StarIcon sx={{ fontSize: 11 }} /> Sahi PRO
+                    <StarIcon size={11} weight="regular" /> Sahi PRO
                   </span>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #C5F135, #A8D020)', color: '#000' }}>
-                    <StarIcon sx={{ fontSize: 11 }} /> Sahi Elite
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #d6fd70, #b8d94a)', color: '#000' }}>
+                    <StarIcon size={11} weight="regular" /> Sahi Elite
                   </span>
                 </div>
               </div>
@@ -414,10 +414,10 @@ export function DesignSystem() {
                 <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: T3 }}>Return Indicators</p>
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#DCFCE7', color: SUCCESS }}>
-                    <TrendingUpIcon sx={{ fontSize: 12 }} /> +22.3%
+                    <TrendingUpIcon size={12} weight="regular" /> +22.3%
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#FEE2E2', color: DANGER }}>
-                    <TrendingDownIcon sx={{ fontSize: 12 }} /> −3.8%
+                    <TrendingDownIcon size={12} weight="regular" /> −3.8%
                   </span>
                   <span className="text-sm font-bold" style={{ color: SUCCESS }}>+18.7%</span>
                   <span className="text-sm font-bold" style={{ color: DANGER }}>−4.2%</span>
@@ -480,13 +480,13 @@ export function DesignSystem() {
                 <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: T3 }}>With Icons</p>
                 <div className="flex items-center gap-3 flex-wrap">
                   <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold" style={{ background: ACCENT, color: '#000' }}>
-                    <AutoAwesomeIcon sx={{ fontSize: 16 }} /> Explore Sahi Funds
+                    <AutoAwesomeIcon size={16} weight="duotone" /> Explore Sahi Funds
                   </button>
                   <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border" style={{ borderColor: CARD_BORDER, color: T1 }}>
-                    <CheckCircleIcon sx={{ fontSize: 14 }} /> Approve
+                    <CheckCircleIcon size={14} weight="regular" /> Approve
                   </button>
                   <button className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold" style={{ background: `${PRO}15`, color: PRO }}>
-                    <LockIcon sx={{ fontSize: 13 }} /> Unlock with PRO
+                    <LockIcon size={13} weight="regular" /> Unlock with PRO
                   </button>
                 </div>
               </div>
@@ -517,7 +517,7 @@ export function DesignSystem() {
               <div>
                 <label className="block text-xs font-semibold mb-1.5" style={{ color: T2 }}>Search Input</label>
                 <div className="relative">
-                  <SearchIcon sx={{ fontSize: 15, position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: T3 }} />
+                  <SearchIcon size={15} weight="regular" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} color={T3} />
                   <input className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none transition-all"
                     style={{ background: CARD, border: `1px solid ${CARD_BORDER}`, color: T1 }}
                     placeholder="Search by fund name, AMC..."
@@ -602,10 +602,10 @@ export function DesignSystem() {
 
             {/* Alert banners */}
             {[
-              { icon: <InfoOutlinedIcon sx={{ fontSize: 16 }} />, bg: '#EFF6FF', border: '#BFDBFE', text: '#1D4ED8', label: 'Info', msg: 'Import your CAS from MFCentral to see all your portfolios in one place.' },
-              { icon: <CheckCircleOutlineIcon sx={{ fontSize: 16 }} />, bg: '#F0FDF4', border: '#BBF7D0', text: '#15803D', label: 'Success', msg: 'SIP of ₹5,000 in Mirae Asset Large Cap Fund activated successfully.' },
-              { icon: <WarningAmberIcon sx={{ fontSize: 16 }} />, bg: '#FFFBEB', border: '#FDE68A', text: '#B45309', label: 'Warning', msg: 'SEBI notice: Sahi MF Funds are research portfolios, not personalised advice.' },
-              { icon: <ErrorOutlineIcon sx={{ fontSize: 16 }} />, bg: '#FFF1F2', border: '#FECDD3', text: '#BE123C', label: 'Danger', msg: 'Plan expired. Renew Sahi PRO to continue accessing 3Y/5Y returns and overlaps.' },
+              { icon: <InfoOutlinedIcon size={16} weight="duotone" />, bg: '#EFF6FF', border: '#BFDBFE', text: '#1D4ED8', label: 'Info', msg: 'Import your CAS from MFCentral to see all your portfolios in one place.' },
+              { icon: <CheckCircleOutlineIcon size={16} weight="duotone" />, bg: '#F0FDF4', border: '#BBF7D0', text: '#15803D', label: 'Success', msg: 'SIP of ₹5,000 in Mirae Asset Large Cap Fund activated successfully.' },
+              { icon: <WarningAmberIcon size={16} weight="duotone" />, bg: '#FFFBEB', border: '#FDE68A', text: '#B45309', label: 'Warning', msg: 'SEBI notice: Sahi MF Funds are research portfolios, not personalised advice.' },
+              { icon: <ErrorOutlineIcon size={16} weight="duotone" />, bg: '#FFF1F2', border: '#FECDD3', text: '#BE123C', label: 'Danger', msg: 'Plan expired. Renew Sahi PRO to continue accessing 3Y/5Y returns and overlaps.' },
             ].map(a => (
               <div key={a.label} className="flex items-start gap-3 p-4 rounded-xl border" style={{ background: a.bg, borderColor: a.border }}>
                 <span style={{ color: a.text, marginTop: 1 }}>{a.icon}</span>
@@ -634,7 +634,7 @@ export function DesignSystem() {
                   <div className="absolute inset-0 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(2px)' }}>
                     <div className="text-center">
                       <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${PRO}15`, border: `1px solid ${PRO}30` }}>
-                        <LockIcon sx={{ fontSize: 18, color: PRO }} />
+                        <LockIcon size={18} color={PRO} weight="duotone" />
                       </div>
                       <p className="text-sm font-semibold mb-1" style={{ color: T1 }}>Upgrade to Sahi PRO</p>
                       <p className="text-xs mb-3" style={{ color: T2 }}>Unlock overlap analysis and 50+ more features</p>

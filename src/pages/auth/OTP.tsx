@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, type KeyboardEvent } from 'react'
+﻿import { useState, useRef, useEffect, type KeyboardEvent } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import { useAuthStore } from '../../stores/authStore'
 import type { User } from '../../types'
 import logoWhite from '../../assets/logo/sahi_logo-white.svg'
@@ -119,12 +119,12 @@ export function OTP() {
                 backdropFilter: 'blur(4px)',
               }}
             >
-              <p className="text-xs font-semibold tracking-widest mb-5" style={{ color: '#606060' }}>
+              <p className="text-xs font-semibold tracking-widest mb-5" style={{ color: '#64748b' }}>
                 — ZERO COMMISSIONS · SEBI PA DIRECT PLAN —
               </p>
               <h1 className="text-3xl font-bold leading-tight mb-4" style={{ color: '#FFFFFF' }}>
                 Kaunsa{' '}
-                <span style={{ color: '#7B2FBE', textDecoration: 'underline', textUnderlineOffset: 4 }}>
+                <span style={{ color: '#4f46e5', textDecoration: 'underline', textUnderlineOffset: 4 }}>
                   mutual fund
                 </span>
                 {' '}sahi hai
@@ -132,7 +132,7 @@ export function OTP() {
                 <span style={{ color: '#D6FD70' }}>your</span>
                 {' '}portfolio?
               </h1>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: '#606060' }}>
+              <p className="text-sm leading-relaxed mb-8" style={{ color: '#64748b' }}>
                 We accept ₹0 in fund sponsorship, charge no affiliate
                 commissions, and focus strictly on portfolio-level diagnostics.
               </p>
@@ -141,8 +141,8 @@ export function OTP() {
           </div>
 
           <div className="text-center">
-            <p className="text-[10px]" style={{ color: '#404040' }}>{FOOTER}</p>
-            <p className="text-[10px] mt-0.5" style={{ color: '#404040' }}>{DISCLAIMER}</p>
+            <p className="text-[10px]" style={{ color: '#505d6f' }}>{FOOTER}</p>
+            <p className="text-[10px] mt-0.5" style={{ color: '#505d6f' }}>{DISCLAIMER}</p>
           </div>
         </div>
 
@@ -237,7 +237,7 @@ export function OTP() {
                     disabled={resending}
                     className="font-semibold transition-colors"
                     style={{ color: resending ? '#A1A1AA' : '#18181B' }}
-                    onMouseEnter={e => { if (!resending) e.currentTarget.style.color = '#7B2FBE' }}
+                    onMouseEnter={e => { if (!resending) e.currentTarget.style.color = '#4f46e5' }}
                     onMouseLeave={e => { if (!resending) e.currentTarget.style.color = '#18181B' }}
                   >
                     {resending ? 'Resending...' : 'Resend SMS Code'}
@@ -267,7 +267,7 @@ export function OTP() {
                 ) : (
                   <>
                     Verify &amp; Log In
-                    <ArrowForwardIcon sx={{ fontSize: 16 }} />
+                    <ArrowForwardIcon size={16} weight="bold" />
                   </>
                 )}
               </button>
