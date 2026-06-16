@@ -12,8 +12,8 @@ export function Topbar() {
   const { lightMode, toggleLightMode } = useUIStore()
   const today = new Date()
 
-  const border = lightMode ? '#E5E7EB' : '#1E1E1E'
-  const bg = lightMode ? '#FFFFFF' : 'transparent'
+  const border = lightMode ? '#D1D5DB' : '#222222'
+  const bg = 'transparent'
   const textPrimary = lightMode ? '#18181B' : '#FFFFFF'
   const textSecondary = lightMode ? '#52525B' : '#A0A0A0'
   const btnBorder = lightMode ? '#E5E7EB' : '#2A2A2A'
