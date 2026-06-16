@@ -16,7 +16,7 @@ import { useUIStore } from '../../stores/uiStore'
 import { mockFunds } from '../../data/funds'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
-import heroImg from '../../assets/hero.png'
+import heroImg from '../../assets/explore-funds-header.png'
 
 const TAGS = ['Low Risk', 'ELSS', 'Free Access', 'New SahiMF', 'View All']
 
