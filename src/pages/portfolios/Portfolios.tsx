@@ -23,7 +23,7 @@ export function Portfolios() {
   const canAddMore = can('pro') || mockPortfolios.length < 1
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-transparent' : 'bg-[#1A1A1A] border border-transparent'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
   const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
@@ -74,7 +74,7 @@ export function Portfolios() {
           <p className={`text-xs ${textSub} mb-1`}>Total Invested</p>
           <p className={`text-xl font-semibold ${text}`}>{formatINR(totalInvested)}</p>
         </div>
-        <div className={`${lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#1A1A1A] border border-[#C5F135]/20'} rounded-xl p-4`}>
+        <div className={`${lm ? 'bg-white border border-transparent' : 'bg-[#1A1A1A] border border-[#C5F135]/20'} rounded-xl p-4`}>
           <p className={`text-xs ${textSub} mb-1`}>Current Value</p>
           <p className="text-xl font-semibold text-[#C5F135]">{formatINR(totalCurrent)}</p>
           <p className="text-xs text-[#22C55E] mt-0.5">
@@ -125,14 +125,14 @@ export function Portfolios() {
         <div className="space-y-3">
           {mockPortfolios.map((p) => (
             <Link key={p.id} to={`/mutual-funds/portfolios/${p.id}`}>
-              <div className={`${card} rounded-xl p-5 hover:border-[#C5F135]/30 transition-all group`}>
+              <div className={`${card} rounded-xl p-5 transition-all duration-200 group ${lm ? 'hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl'}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-[#C5F135]/10 flex items-center justify-center">
                       <FolderOpenIcon sx={{ fontSize: 20, color: '#C5F135' }} />
                     </div>
                     <div>
-                      <h3 className={`text-sm font-semibold ${text} group-hover:text-[#C5F135] transition-colors`}>
+                      <h3 className={`text-sm font-semibold ${text} transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>
                         {p.name}
                       </h3>
                       <p className={`text-xs ${textSub}`}>{p.holdings.length} funds · since {new Date(p.createdAt).getFullYear()}</p>

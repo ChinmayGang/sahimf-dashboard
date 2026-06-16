@@ -122,8 +122,8 @@ export function ExploreFunds() {
 
   // Card base: transparent border (1px placeholder) to avoid layout shift on hover
   const cardBase = lm
-    ? 'bg-white border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl group'
-    : 'bg-[#1A1A1A] border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl group'
+    ? 'relative bg-white border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl group'
+    : 'relative bg-[#1A1A1A] border border-transparent rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl group'
 
   return (
     <div className="flex flex-col h-full">

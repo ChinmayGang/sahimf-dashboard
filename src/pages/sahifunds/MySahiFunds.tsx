@@ -8,6 +8,22 @@ import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { useUIStore } from '../../stores/uiStore'
 
+const ORIGAMI_ICONS = [
+  'bat-origami-4895697.svg','bee-origami-4895698.svg','butterfly-origami-4895700.svg',
+  'cactus-origami-4895701.svg','cat-origami-4895702.svg','chick-origami-4895653.svg',
+  'dragon-origami-4895659.svg','elephant-origami-4895660.svg','flower-origami-4895661.svg',
+  'fox-origami-4895662.svg','giraffe-origami-4895664.svg','horse-origami-4895667.svg',
+  'kangaroo-origami-4895672.svg','kite-origami-4895673.svg','owl-origami-4895676.svg',
+  'panda-origami-4895677.svg','paper-plane-origami-4895678.svg','penguin-origami-4895680.svg',
+  'rabbit-origami-4895682.svg','star-origami-4895689.svg','sun-origami-4895691.svg',
+  'tulip-origami-4895693.svg','unicorn-origami-4895694.svg','whale-origami-4895695.svg',
+]
+const ICON_PALETTES = [
+  { bg: '#EDE9FE' }, { bg: '#FEF3C7' }, { bg: '#DCFCE7' }, { bg: '#DBEAFE' },
+  { bg: '#FCE7F3' }, { bg: '#FEE2E2' }, { bg: '#ECFDF5' }, { bg: '#FFF7ED' },
+  { bg: '#F0F9FF' }, { bg: '#F5F3FF' },
+]
+
 const MY_FUNDS = ['sf001', 'sf002']
 
 function formatINR(n: number) {
@@ -21,7 +37,7 @@ export function MySahiFunds() {
   const [activeIdx, setActiveIdx] = useState(0)
   const lm = useUIStore((s) => s.lightMode)
 
-  const card = lm ? 'bg-white border border-[#E8E8F0] shadow-sm' : 'bg-[#141414] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-transparent' : 'bg-[#141414] border border-transparent'
   const cardInner = lm ? 'bg-[#F8F7FF] border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
@@ -73,13 +89,22 @@ export function MySahiFunds() {
           <button
             key={fund.id}
             onClick={() => { setActiveIdx(idx); navigate(`/mutual-funds/sahi-funds/${fund.id}`) }}
-            className={`text-left ${card} rounded-2xl p-5 hover:border-[#C5F135]/40 transition-all`}
-            style={{ borderColor: activeIdx === idx ? '#C5F135' : lm ? '#E8E8F0' : '#2A2A2A' }}
+            className={`text-left ${card} rounded-2xl p-5 transition-all duration-200 group ${
+              activeIdx === idx
+                ? lm ? 'border-[#7B2FBE]' : 'border-[#C5F135]'
+                : lm ? 'hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl'
+            }`}
           >
             <div className="flex items-start justify-between mb-3">
-              <div>
-                <p className={`text-sm font-bold ${text} mb-1`}>{fund.name}</p>
-                <VolatilityBadge level={fund.volatility} />
+              <div className="flex items-start gap-2.5">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: ICON_PALETTES[idx % ICON_PALETTES.length].bg }}>
+                  <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-5 h-5" alt="" />
+                </div>
+                <div>
+                  <p className={`text-sm font-bold ${text} mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</p>
+                  <VolatilityBadge level={fund.volatility} />
+                </div>
               </div>
               <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#7B2FBE]/20 text-[#7B2FBE]' : 'bg-[#C5F135]/10 text-[#C5F135]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}

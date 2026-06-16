@@ -12,6 +12,22 @@ import { mockFunds } from '../../data/funds'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 
+const ORIGAMI_ICONS = [
+  'bat-origami-4895697.svg','bee-origami-4895698.svg','butterfly-origami-4895700.svg',
+  'cactus-origami-4895701.svg','cat-origami-4895702.svg','chick-origami-4895653.svg',
+  'dragon-origami-4895659.svg','elephant-origami-4895660.svg','flower-origami-4895661.svg',
+  'fox-origami-4895662.svg','giraffe-origami-4895664.svg','horse-origami-4895667.svg',
+  'kangaroo-origami-4895672.svg','kite-origami-4895673.svg','owl-origami-4895676.svg',
+  'panda-origami-4895677.svg','paper-plane-origami-4895678.svg','penguin-origami-4895680.svg',
+  'rabbit-origami-4895682.svg','star-origami-4895689.svg','sun-origami-4895691.svg',
+  'tulip-origami-4895693.svg','unicorn-origami-4895694.svg','whale-origami-4895695.svg',
+]
+const ICON_PALETTES = [
+  { bg: '#EDE9FE' }, { bg: '#FEF3C7' }, { bg: '#DCFCE7' }, { bg: '#DBEAFE' },
+  { bg: '#FCE7F3' }, { bg: '#FEE2E2' }, { bg: '#ECFDF5' }, { bg: '#FFF7ED' },
+  { bg: '#F0F9FF' }, { bg: '#F5F3FF' },
+]
+
 const CATEGORIES = [
   { label: 'Equity', children: ['Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'Sectoral', 'ELSS'] },
   { label: 'Debt', children: ['Liquid', 'Overnight', 'Short Duration', 'Medium Duration', 'Long Duration', 'Gilt'] },
@@ -56,7 +72,7 @@ export function AllSchemes() {
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#A0A0A0]'
   const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
-  const card = lm ? 'bg-white border border-[#E8E8F0]' : 'bg-[#1A1A1A] border border-[#2A2A2A]'
+  const card = lm ? 'bg-white border border-transparent' : 'bg-[#1A1A1A] border border-transparent'
   const inputBg = lm ? 'bg-white border-[#E8E8F0]' : 'bg-[#1A1A1A] border-[#2A2A2A]'
   const accent = lm ? '#7B2FBE' : '#C5F135'
   const accentText = lm ? 'text-[#7B2FBE]' : 'text-[#C5F135]'
@@ -229,20 +245,20 @@ export function AllSchemes() {
           {tab === 'sahi' ? (
             /* Sahi Funds grid */
             <div className="grid grid-cols-2 gap-3">
-              {filteredSahi.map((fund) => (
+              {filteredSahi.map((fund, idx) => (
                 <div
                   key={fund.id}
                   onClick={() => navigate(`/mutual-funds/sahi-funds/${fund.id}`)}
-                  className={`${card} rounded-2xl p-4 cursor-pointer hover:border-[#7B2FBE]/30 transition-all relative overflow-hidden`}
+                  className={`${card} rounded-2xl p-4 cursor-pointer transition-all duration-200 relative overflow-hidden group ${lm ? 'hover:border-[#7B2FBE] hover:-translate-y-1 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-1 hover:shadow-xl'}`}
                 >
                   <div className="absolute top-3 right-3 flex gap-1">
                     <span className="text-[10px] font-bold bg-[#C5F135] text-black px-2 py-0.5 rounded-full">Best Choice</span>
                   </div>
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2.5"
-                    style={{ background: lm ? '#F3F0FF' : 'rgba(197,241,53,0.1)' }}>
-                    <AutoAwesomeIcon sx={{ fontSize: 16, color: lm ? '#7B2FBE' : '#C5F135' }} />
+                    style={{ background: ICON_PALETTES[idx % ICON_PALETTES.length].bg }}>
+                    <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-5 h-5" alt="" />
                   </div>
-                  <h3 className={`text-sm font-bold ${text} pr-20 mb-1`}>{fund.name}</h3>
+                  <h3 className={`text-sm font-bold ${text} pr-20 mb-1 transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</h3>
                   <p className={`text-[11px] ${textSub} mb-3 leading-relaxed`}>{fund.description}</p>
                   <div className="flex gap-1 mb-3">
                     <VolatilityBadge level={fund.volatility} size="sm" />
@@ -297,22 +313,22 @@ export function AllSchemes() {
                   <span className="text-right">Volatility</span>
                 </div>
 
-                {filteredOpen.map((fund) => (
+                {filteredOpen.map((fund, idx) => (
                   <div
                     key={fund.id}
                     onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
-                    className={`${card} rounded-xl px-4 py-3 cursor-pointer hover:border-[#7B2FBE]/30 transition-all grid items-center`}
+                    className={`${card} rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#7B2FBE] hover:-translate-y-0.5 hover:shadow-xl' : 'hover:border-[#C5F135] hover:-translate-y-0.5 hover:shadow-xl'}`}
                     style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px' }}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-black"
-                        style={{ background: lm ? '#F3F4F6' : '#2A2A2A', color: lm ? '#374151' : '#A0A0A0' }}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={{ background: ICON_PALETTES[idx % ICON_PALETTES.length].bg }}
                       >
-                        {fund.amcName.slice(0, 2).toUpperCase()}
+                        <img src={`/icons/schemes/${ORIGAMI_ICONS[idx % ORIGAMI_ICONS.length]}`} className="w-4 h-4" alt="" />
                       </div>
                       <div className="min-w-0">
-                        <p className={`text-xs font-bold ${text} truncate`}>{fund.name}</p>
+                        <p className={`text-xs font-bold ${text} truncate transition-colors duration-200 ${lm ? 'group-hover:text-[#7B2FBE]' : 'group-hover:text-[#C5F135]'}`}>{fund.name}</p>
                         <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct</p>
                       </div>
                     </div>
