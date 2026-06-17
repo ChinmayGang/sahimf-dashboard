@@ -43,7 +43,7 @@ export function PortfolioDetail() {
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: 'Invested', value: formatINR(portfolio.totalInvested), color: text },
-          { label: 'Current Value', value: formatINR(portfolio.currentValue), color: 'text-[#d6fd70]' },
+          { label: 'Current Value', value: formatINR(portfolio.currentValue), color: lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]' },
           {
             label: 'Absolute Returns',
             value: `+${formatINR(portfolio.absoluteReturns)} (${portfolio.absoluteReturnsPercent.toFixed(1)}%)`,

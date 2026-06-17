@@ -65,7 +65,7 @@ export function MFPMSDisclosures() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-          <ArticleIcon size={18} color="#d6fd70" weight="duotone" />
+          <ArticleIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
           <h1 className={`text-lg font-bold ${text}`}>MFPMS Disclosures</h1>
@@ -86,7 +86,7 @@ export function MFPMSDisclosures() {
 
       {/* SEBI disclaimer banner */}
       <div className={`${bannerBg} rounded-xl px-5 py-4 flex items-start gap-3`}>
-        <VerifiedIcon size={18} color="#d6fd70" weight="duotone" style={{ flexShrink: 0, marginTop: "1px" }} />
+        <VerifiedIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" style={{ flexShrink: 0, marginTop: "1px" }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p className={`${text} font-semibold text-sm`}>
             NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.

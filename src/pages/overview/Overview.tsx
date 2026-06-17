@@ -4,7 +4,6 @@ import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
-import { Plus as AddIcon } from '@phosphor-icons/react'
 import { CheckCircle as CheckCircleIcon } from '@phosphor-icons/react'
 import { UploadSimple as UploadFileIcon } from '@phosphor-icons/react'
 import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
@@ -122,11 +121,11 @@ const MARKETPLACE = [
   },
 ]
 
-const QUICK_INVEST_FUNDS = [
-  { name: 'Parag Parikh Flexi Cap', sip: '₹500/mo', returns1Y: '+28.6%', up: true, category: 'Flexi Cap' },
-  { name: 'Mirae Asset Large Cap', sip: '₹1,000/mo', returns1Y: '+17.0%', up: true, category: 'Large Cap' },
-  { name: 'SBI Small Cap', sip: '₹500/mo', returns1Y: '+31.2%', up: true, category: 'Small Cap' },
-  { name: 'HDFC Mid-Cap Opps', sip: '₹500/mo', returns1Y: '+22.4%', up: true, category: 'Mid Cap' },
+const RESEARCH_PICKS = [
+  { name: 'Parag Parikh Flexi Cap', score: '9.2/10', returns1Y: '+28.6%', up: true, category: 'Flexi Cap', reason: 'Global diversification + 14yr manager tenure' },
+  { name: 'Mirae Asset Large Cap', score: '8.8/10', returns1Y: '+17.0%', up: true, category: 'Large Cap', reason: 'Consistent alpha vs Nifty for 7 years' },
+  { name: 'SBI Small Cap', score: '8.5/10', returns1Y: '+31.2%', up: true, category: 'Small Cap', reason: 'Lowest expense ratio in category' },
+  { name: 'HDFC Mid-Cap Opps', score: '8.1/10', returns1Y: '+22.4%', up: true, category: 'Mid Cap', reason: 'Best risk-adjusted returns 5Y CAGR' },
 ]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -213,15 +212,9 @@ function InvestmentCard({ inv, lm }: { inv: UserInvestment; lm: boolean }) {
         </div>
       </div>
       <div className="flex gap-2">
-        {isPositive ? (
-          <button className="flex-1 bg-[#d6fd70] text-[#0a0c0e] text-xs font-bold py-1.5 rounded-lg hover:bg-[#b8d94a] transition-colors">
-            Invest More
-          </button>
-        ) : (
-          <button className={`flex-1 text-xs font-medium py-1.5 rounded-lg border transition-colors ${lm ? 'border-[#E0E3E8] text-[#6B7280] hover:bg-[#F9FAFB]' : 'border-[#1e2838] text-[#8390a2] hover:bg-[#1a2130]'}`}>
-            View Fund
-          </button>
-        )}
+        <button className={`flex-1 text-xs font-semibold py-1.5 rounded-lg border transition-colors ${lm ? 'border-[#4f46e5]/30 text-[#4f46e5] hover:bg-[#eeedfd]' : 'border-[#d6fd70]/30 text-[#d6fd70] hover:bg-[#d6fd70]/10'}`}>
+          {isPositive ? 'Sahi Analysis' : 'View Fund'}
+        </button>
         <button className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors ${lm ? 'border-[#E0E3E8] text-[#6B7280] hover:bg-[#F9FAFB]' : 'border-[#1e2838] text-[#8390a2] hover:bg-[#1a2130]'}`}>
           Details
         </button>
@@ -436,19 +429,24 @@ export function Overview() {
                         Ask
                       </button>
                     </div>
-                    {/* Quick invest */}
-                    <p className="text-[10px] font-bold tracking-widest mb-2 uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>Quick Invest</p>
+                    {/* Sahi Research Picks */}
+                    <p className="text-[10px] font-bold tracking-widest mb-2 uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>Sahi Research Picks</p>
                     <div className="space-y-2">
-                      {QUICK_INVEST_FUNDS.map(f => (
-                        <div key={f.name} className="flex items-center gap-3 px-3 py-2 rounded-xl" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                      {RESEARCH_PICKS.map(f => (
+                        <div
+                          key={f.name}
+                          onClick={() => navigate('/mutual-funds/scorecard')}
+                          className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-white/10 transition-colors"
+                          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+                        >
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold truncate" style={{ color: '#ffffff' }}>{f.name}</p>
-                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} · {f.sip}</p>
+                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} · {f.reason}</p>
                           </div>
-                          <span className="text-xs font-bold" style={{ color: f.up ? '#22c55e' : '#ef4444' }}>{f.returns1Y}</span>
-                          <button className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-[#d6fd70] text-[#0a0c0e] hover:bg-[#b8d94a] transition-colors flex-shrink-0">
-                            Invest
-                          </button>
+                          <div className="text-right flex-shrink-0">
+                            <span className="text-[10px] font-bold" style={{ color: f.up ? '#22c55e' : '#ef4444' }}>{f.returns1Y}</span>
+                            <p className="text-[10px]" style={{ color: '#d6fd70' }}>{f.score}</p>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -510,8 +508,11 @@ export function Overview() {
                       <p className={`text-xs font-semibold ${lm ? 'text-[#374151]' : 'text-[#d1d5db]'}`}>₹{f.minSIP}</p>
                     </div>
                   </div>
-                  <button className="w-full bg-[#4f46e5] text-white text-xs font-bold py-1.5 rounded-lg hover:bg-[#6366f1] transition-colors">
-                    Invest Now
+                  <button
+                    onClick={() => navigate(`/mutual-funds/search/${f.id}`)}
+                    className="w-full bg-[#4f46e5] text-white text-xs font-bold py-1.5 rounded-lg hover:bg-[#6366f1] transition-colors"
+                  >
+                    View Research
                   </button>
                 </div>
               ))}
@@ -569,8 +570,11 @@ export function Overview() {
                     >
                       Full Portfolio <ArrowForwardIcon size={13} weight="bold" />
                     </button>
-                    <button className="flex items-center gap-1.5 bg-white/15 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/25 border border-white/20 transition-colors">
-                      Add Funds <AddIcon size={13} weight="regular" />
+                    <button
+                      onClick={() => navigate('/mutual-funds/overlap')}
+                      className="flex items-center gap-1.5 bg-white/15 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/25 border border-white/20 transition-colors"
+                    >
+                      Overlap Analysis <ArrowForwardIcon size={13} weight="bold" />
                     </button>
                   </div>
                 </div>
@@ -688,8 +692,11 @@ export function Overview() {
                           {(f.returns['1Y'] ?? 0) >= 0 ? '+' : ''}{f.returns['1Y']}%
                         </p>
                       </div>
-                      <button className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-[#4f46e5] text-white hover:bg-[#6366f1] transition-colors">
-                        Invest
+                      <button
+                        onClick={() => navigate(`/mutual-funds/search/${fundId}`)}
+                        className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-[#4f46e5] text-white hover:bg-[#6366f1] transition-colors"
+                      >
+                        Research
                       </button>
                     </div>
                   </div>

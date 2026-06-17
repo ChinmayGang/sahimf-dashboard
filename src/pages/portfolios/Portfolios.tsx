@@ -10,6 +10,7 @@ import { mockPortfolios } from '../../data/portfolios'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { usePlan } from '../../hooks/usePlan'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
 
 function formatINR(n: number) {
   if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`
@@ -33,8 +34,10 @@ function portfolioHealthGrade(xirr: number, fundCount: number): { grade: string;
 export function Portfolios() {
   const { can } = usePlan()
   const [_showAddModal, setShowAddModal] = useState(false)
-  const canAddMore = can('pro') || mockPortfolios.length < 1
   const lm = useUIStore((s) => s.lightMode)
+  const { user } = useAuthStore()
+  const portfolios = portfolios.filter(p => p.userId === user?.id)
+  const canAddMore = can('pro') || portfolios.length < 1
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'
   const text = lm ? 'text-[#111827]' : 'text-white'
@@ -49,10 +52,10 @@ export function Portfolios() {
   }
   const chartTick = lm ? '#9CA3AF' : '#64748b'
 
-  const totalInvested = mockPortfolios.reduce((s, p) => s + p.totalInvested, 0)
-  const totalCurrent = mockPortfolios.reduce((s, p) => s + p.currentValue, 0)
+  const totalInvested = portfolios.reduce((s, p) => s + p.totalInvested, 0)
+  const totalCurrent = portfolios.reduce((s, p) => s + p.currentValue, 0)
 
-  const allocationData = mockPortfolios.map((p) => ({
+  const allocationData = portfolios.map((p) => ({
     name: p.name.length > 16 ? p.name.slice(0, 16) + '…' : p.name,
     invested: p.totalInvested,
     current: p.currentValue,
@@ -64,7 +67,7 @@ export function Portfolios() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>My Portfolios</h1>
-          <p className={`text-xs ${textSub} mt-0.5`}>{mockPortfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
+          <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -89,14 +92,14 @@ export function Portfolios() {
         </div>
         <div className={`${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#d6fd70]/20'} rounded-xl p-4`}>
           <p className={`text-xs ${textSub} mb-1`}>Current Value</p>
-          <p className="text-xl font-semibold text-[#d6fd70]">{formatINR(totalCurrent)}</p>
+          <p className={`text-xl font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{formatINR(totalCurrent)}</p>
           <p className="text-xs text-[#22C55E] mt-0.5">
             +{formatINR(totalCurrent - totalInvested)} ({(((totalCurrent - totalInvested) / totalInvested) * 100).toFixed(1)}%)
           </p>
         </div>
         <div className={`${card} rounded-xl p-4`}>
           <p className={`text-xs ${textSub} mb-1`}>Portfolios</p>
-          <p className={`text-xl font-semibold ${text}`}>{mockPortfolios.length}</p>
+          <p className={`text-xl font-semibold ${text}`}>{portfolios.length}</p>
           <p className={`text-xs ${textSub} mt-0.5`}>{can('pro') ? 'Up to 5 (PRO)' : '1 (Free)'}</p>
         </div>
       </div>
@@ -123,7 +126,7 @@ export function Portfolios() {
       </div>
 
       {/* Portfolio cards */}
-      {mockPortfolios.length === 0 ? (
+      {portfolios.length === 0 ? (
         <EmptyState
           icon={<FolderOpenIcon size={28} weight="duotone" />}
           title="No portfolios yet"
@@ -136,7 +139,7 @@ export function Portfolios() {
         />
       ) : (
         <div className="space-y-3">
-          {mockPortfolios.map((p) => (
+          {portfolios.map((p) => (
             <Link key={p.id} to={`/mutual-funds/portfolios/${p.id}`}>
               <div className={`${card} rounded-xl p-5 transition-all duration-200 group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'}`}>
                 <div className="flex items-start justify-between">
@@ -164,6 +167,7 @@ export function Portfolios() {
                     <div>
                       <p className={`text-xs ${textSub} mb-1`}>Current Value</p>
                       <p className={`text-sm font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{formatINR(p.currentValue)}</p>
+
                     </div>
                     <div>
                       <p className={`text-xs ${textSub} mb-1`}>Total Gain</p>

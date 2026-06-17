@@ -4,7 +4,7 @@ export const mockPortfolios: Portfolio[] = [
   {
     id: 'p001',
     name: 'Primary Portfolio',
-    userId: '1',
+    userId: 'u003',
     createdAt: '2022-01-15',
     totalInvested: 450000,
     currentValue: 612480,
@@ -87,7 +87,7 @@ export const mockPortfolios: Portfolio[] = [
   {
     id: 'p002',
     name: 'Goal: Child Education',
-    userId: '1',
+    userId: 'u003',
     createdAt: '2023-06-01',
     totalInvested: 120000,
     currentValue: 138640,

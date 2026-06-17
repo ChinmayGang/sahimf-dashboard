@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
-  House, Wallet, SquaresFour, Folder, Receipt, Sparkle, Compass,
+  House, Wallet, SquaresFour, Folder, Sparkle, Compass,
   ArrowsLeftRight, Stack, Star, Buildings, Calculator, ChartBar, FileText,
   CaretDown, CaretRight, CaretLeft, Lock, Gear, SignOut,
-  SidebarSimple, ShoppingBag,
+  SidebarSimple, ShoppingBag, Target,
 } from '@phosphor-icons/react'
 import sahiIcon from '../../assets/logo/sahi_icon.svg'
 import sahiLogoWhite from '../../assets/logo/sahi_logo-white.svg'
@@ -28,7 +28,6 @@ const WS = 'regular' as const
 const mfChildren: NavItem[] = [
   { key: 'mf-overview', label: 'Overview', icon: <SquaresFour size={15} weight={W} />, path: '/mutual-funds' },
   { key: 'mf-portfolios', label: 'My Portfolios', icon: <Folder size={15} weight={W} />, path: '/mutual-funds/portfolios' },
-  { key: 'mf-transactions', label: 'Transactions', icon: <Receipt size={15} weight={W} />, path: '/mutual-funds/transactions' },
   { key: 'mf-explore', label: 'Explore Funds', icon: <Compass size={15} weight={W} />, path: '/mutual-funds/explore' },
   { key: 'sahi-mine', label: 'My Sahi Funds', icon: <Sparkle size={15} weight={W} />, path: '/mutual-funds/my-sahi-funds' },
   { key: 'mf-baskets', label: 'Sahi Baskets', icon: <ShoppingBag size={15} weight={W} />, path: '/mutual-funds/baskets' },
@@ -47,10 +46,11 @@ const mfChildren: NavItem[] = [
     ],
   },
   { key: 'mf-dividends', label: 'Dividends', icon: <ChartBar size={15} weight={W} />, path: '/mutual-funds/dividends' },
+  { key: 'mf-goals', label: 'Goals & Plans', icon: <Target size={15} weight={W} />, path: '/mutual-funds/goals' },
   {
     key: 'mf-reports', label: 'Reports', icon: <FileText size={15} weight={W} />,
     children: [
-      { key: 'mf-tax', label: 'Tax Report', icon: <FileText size={13} weight={WS} />, path: '/mutual-funds/reports/tax' },
+      { key: 'mf-tax', label: 'Tax Optimisation', icon: <FileText size={13} weight={WS} />, path: '/mutual-funds/reports/tax' },
       { key: 'mf-mfpms', label: 'MFPMS', icon: <FileText size={13} weight={WS} />, path: '/mutual-funds/reports/mfpms' },
     ],
   },

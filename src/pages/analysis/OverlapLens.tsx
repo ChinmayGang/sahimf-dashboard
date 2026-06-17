@@ -502,6 +502,140 @@ export function OverlapLens() {
                   </div>
                 </div>
               )}
+
+              {/* ── WORST OVERLAPPING PAIRS ── */}
+              <div className={`rounded-2xl overflow-hidden ${card}`}>
+                <div className="px-5 py-4 border-b" style={{ borderColor: divider }}>
+                  <p className={`text-sm font-bold ${text}`}>WORST OVERLAPPING PAIRS</p>
+                </div>
+                <div className="divide-y" style={{ borderColor: divider }}>
+                  {worstPairs.slice(0, 5).map((pair) => {
+                    const fa = mockFunds.find(f => f.id === pair.a)
+                    const fb = mockFunds.find(f => f.id === pair.b)
+                    const severity = pair.val >= 30 ? { label: 'Very high', color: '#ef4444', bg: 'rgba(239,68,68,0.1)' }
+                      : pair.val >= 18 ? { label: 'Moderate', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' }
+                      : pair.val >= 8  ? { label: 'Low', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
+                      : { label: 'Healthy', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
+                    const stocksShared = Math.round(pair.val * 0.5)
+                    const desc = pair.val >= 30
+                      ? `${stocksShared} of 50 stocks shared · Both ${fa?.category ?? ''} mandated`
+                      : pair.val >= 18
+                      ? `${stocksShared} of 50 stocks shared · Top Nifty names overlap`
+                      : pair.val >= 8
+                      ? `${stocksShared} of 50 stocks shared · Partial sector overlap`
+                      : 'Minimal overlap — different market universe'
+                    return (
+                      <div key={`${pair.a}-${pair.b}`} className="px-5 py-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1 min-w-0 pr-4">
+                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
+                            <p className={`text-xs ${textMuted} mt-0.5`}>{desc}</p>
+                          </div>
+                          <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.color }}>
+                            {severity.label}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
+                            <div
+                              className="h-full rounded-full transition-all"
+                              style={{ width: `${pair.val}%`, background: severity.color }}
+                            />
+                          </div>
+                          <span className="text-xs font-bold w-10 text-right" style={{ color: severity.color }}>{pair.val}%</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* ── MOST DUPLICATED STOCKS ── */}
+              {(() => {
+                const FUND_COLORS: Record<string, string> = { f001: '#4f46e5', f002: '#0891b2', f003: '#16a34a', f005: '#ea580c', f006: '#db2777' }
+                const duplicated = COMMON_STOCKS
+                  .map(s => {
+                    const fundsHolding = selectedIds.filter(id => ((s as unknown as Record<string, number>)[id] ?? 0) > 0)
+                    const totalPct = fundsHolding.reduce((sum, id) => sum + ((s as unknown as Record<string, number>)[id] ?? 0), 0)
+                    return { name: s.name, fundsHolding, totalPct, fundCount: fundsHolding.length }
+                  })
+                  .filter(s => s.fundCount >= 2)
+                  .sort((a, b) => b.fundCount - a.fundCount || b.totalPct - a.totalPct)
+                  .slice(0, 8)
+                if (duplicated.length === 0) return null
+                return (
+                  <div className={`rounded-2xl p-5 ${card}`}>
+                    <p className={`text-sm font-bold ${text} mb-1`}>MOST DUPLICATED STOCKS ACROSS YOUR PORTFOLIO</p>
+                    <p className={`text-xs ${textMuted} mb-4`}>Stocks you're holding in multiple funds — you're paying for the same exposure multiple times.</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {duplicated.map(s => (
+                        <div key={s.name} className={`rounded-xl p-3 ${lm ? 'bg-[#F9FAFB] border border-[#E0E3E8]' : 'bg-[#0f1420] border border-[#1e2838]'}`}>
+                          <div className="flex items-start justify-between mb-2">
+                            <p className={`text-xs font-semibold leading-tight ${text}`}>{s.name}</p>
+                            <div className="flex gap-0.5 ml-2 flex-shrink-0">
+                              {s.fundsHolding.map(id => (
+                                <div key={id} className="w-2 h-2 rounded-full" style={{ background: FUND_COLORS[id] ?? '#64748b' }} />
+                              ))}
+                            </div>
+                          </div>
+                          <p className={`text-[10px] ${textMuted}`}>
+                            {s.fundCount} funds · {s.totalPct.toFixed(1)}% of portfolio
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      {selectedFunds.map(f => (
+                        <div key={f.id} className="flex items-center gap-1.5">
+                          <div className="w-2 h-2 rounded-full" style={{ background: FUND_COLORS[f.id] ?? '#64748b' }} />
+                          <span className={`text-[10px] ${textMuted}`}>{f.name.split(' ').slice(0, 2).join(' ')}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {/* ── SECTOR OVERLAP ACROSS ALL FUNDS (stacked) ── */}
+              <div className={`rounded-2xl p-5 ${card}`}>
+                <p className={`text-sm font-bold ${text} mb-1`}>SECTOR OVERLAP ACROSS ALL FUNDS</p>
+                <p className={`text-xs ${textMuted} mb-4`}>Bars show each fund's weight in that sector. Tall bars = concentrated exposure through multiple funds.</p>
+                <div className="space-y-2.5">
+                  {SECTORS.slice(0, 6).map(sector => {
+                    const FUND_COLORS: Record<string, string> = { f001: '#4f46e5', f002: '#0891b2', f003: '#22c55e', f005: '#ea580c', f006: '#db2777' }
+                    const fundWeights = selectedIds.map(id => ({ id, weight: SECTOR_WEIGHTS[id]?.[sector] ?? 0 }))
+                    const avg = Math.round(fundWeights.reduce((s, f) => s + f.weight, 0) / fundWeights.length)
+                    const max = 40
+                    return (
+                      <div key={sector} className="flex items-center gap-3">
+                        <span className={`text-xs font-medium w-28 flex-shrink-0 ${textSub}`}>{sector}</span>
+                        <div className="flex-1 flex items-center gap-0.5 h-4 rounded overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
+                          {fundWeights.map(fw => (
+                            <div
+                              key={fw.id}
+                              className="h-full flex-shrink-0 first:rounded-l-sm last:rounded-r-sm"
+                              style={{ width: `${(fw.weight / max) * 100 / fundWeights.length * 4}%`, background: FUND_COLORS[fw.id] ?? '#64748b', opacity: fw.weight > 0 ? 0.85 : 0 }}
+                              title={`${fw.weight}%`}
+                            />
+                          ))}
+                        </div>
+                        <span className={`text-xs font-semibold w-14 text-right ${textMuted}`}>{avg}% avg</span>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  {selectedFunds.slice(0, 4).map((f, i) => {
+                    const FUND_COLORS = ['#4f46e5', '#0891b2', '#22c55e', '#ea580c']
+                    return (
+                      <div key={f.id} className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-sm" style={{ background: FUND_COLORS[i] }} />
+                        <span className={`text-[10px] ${textMuted}`}>{f.name.split(' ').slice(0, 2).join(' ')}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           )}
 

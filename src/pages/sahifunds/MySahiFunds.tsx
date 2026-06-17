@@ -53,7 +53,7 @@ export function MySahiFunds() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <DiamondIcon size={18} color="#d6fd70" weight="duotone" />
+            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
@@ -106,7 +106,7 @@ export function MySahiFunds() {
                   <VolatilityBadge level={fund.volatility} />
                 </div>
               </div>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : lm ? 'bg-[#f0fdf4] text-[#16a34a]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
             </div>
@@ -157,7 +157,7 @@ export function MySahiFunds() {
               </div>
               <div className="text-right">
                 <p className={`text-[11px] ${textMuted}`}>XIRR</p>
-                <p className="text-sm font-semibold text-[#d6fd70]">+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
+                <p className={`text-sm font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
               </div>
             </div>
           </button>

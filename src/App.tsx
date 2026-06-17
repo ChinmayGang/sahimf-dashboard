@@ -17,6 +17,7 @@ import { FundComparison } from './pages/analysis/FundComparison'
 import { Calculator } from './pages/tools/Calculator'
 import { SIPWhatIf } from './pages/tools/SIPWhatIf'
 import { Baskets } from './pages/sahifunds/Baskets'
+import { Goals } from './pages/sahifunds/Goals'
 import { Dividends } from './pages/reports/Dividends'
 import { TaxReport } from './pages/reports/TaxReport'
 import { MFPMSDisclosures } from './pages/reports/MFPMSDisclosures'
@@ -82,6 +83,7 @@ export default function App() {
             <Route path="mutual-funds/scorecard" element={<MFScorecard />} />
             <Route path="mutual-funds/amfi" element={<FundManager />} />
             <Route path="mutual-funds/baskets" element={<Baskets />} />
+            <Route path="mutual-funds/goals" element={<Goals />} />
             <Route path="mutual-funds/tools/sip-whatif" element={<SIPWhatIf />} />
             <Route path="mutual-funds/tools/sip" element={<Calculator />} />
             <Route path="mutual-funds/tools/lumpsum" element={<Calculator />} />

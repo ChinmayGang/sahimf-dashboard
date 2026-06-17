@@ -42,7 +42,7 @@ export function Dividends() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-          <SavingsIcon size={18} color="#d6fd70" weight="duotone" />
+          <SavingsIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
           <h1 className={`text-lg font-bold ${text}`}>Dividends</h1>
