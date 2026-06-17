@@ -58,13 +58,17 @@ Switch between personas from the profile card in the sidebar.
 - **Sahi Fund Detail** — Performance tabs, methodology, holdings distribution donut, fund weights table
 
 ### Research
+- **Sahi Research Card** — Appears on Scheme Detail; shows verdict (Research Pick / Watchlist / Under Review), Sahi Score, 120-char summary free; full strengths/concerns/analyst note PRO-gated
 - **MF Scorecard** — SahiMF's proprietary 5-dimension scoring (Returns 35% / Consistency 25% / Risk 20% / Manager 10% / Cost 10%), grade A+ to C, Sahi Score bars, PRO gate on full breakdown
 - **Scheme Detail** — NAV chart with Nifty 50 dashed benchmark line, live alpha chip, key metrics, holdings pie, peers carousel
 - **Fund Manager / AMFI** — AMC profiles, manager bios, AUM bar chart, fund list per AMC
 
 ### Analysis
+- **Peer Fund Suggestions** — Appears on Portfolio Detail when any holding underperforms its category threshold; suggests peer funds by category with Sahi Score and Compare link (first peer free, extras PRO-gated)
 - **Overlap Lens** — Dynamic fund picker (2–10 funds); smart layout: matrix view (≤8 funds) or worst-pairs ranked list (>8 funds); 3 tabs: **Stock Overlap** (matrix + common holdings table), **Sector Exposure** (bars vs Nifty 50 reference line, diff chips), **AMC Concentration** (flags >40% single-house risk); cross-link to Fund Comparison on high-overlap pairs
 - **Fund Comparison** — Up to 4 funds side-by-side; Nifty 50 dashed benchmark on the performance chart (always visible, not gated); alpha row in metrics table; best-in-class highlight (★)
+- **Risk Analysis** — SVG Riskometer gauge (6-level SEBI scale), risk-return scatter bubble chart (circles sized by allocation %), PRO-gated Stress Test scenarios (2008 crisis / COVID / rate hike)
+- **Market Cap Allocation** — Portfolio market cap mix breakdown with PageHeroBanner
 
 ### Tools
 - **SIP / Lumpsum / SWP / STP Calculators** — Input panel with AreaChart projection + returns summary
@@ -220,8 +224,11 @@ Requires Node.js 18+. No environment variables needed — all data is mocked. Th
 
 ## Roadmap
 
-- [ ] Fund Analysis rank cards + Riskometer gauge on Scheme Detail
-- [ ] SIP "What If" simulator — blurred fund names, PRO to reveal
+- [x] Risk Analysis page (Riskometer, scatter, stress test)
+- [x] Sahi Research Card on Scheme Detail
+- [x] Peer fund suggestions on Portfolio Detail
+- [x] PageHeroBanner on analysis pages
+- [x] Full light mode audit — all pages lm-conditional
 - [ ] SahiMF Baskets as Goals — landing page, goal tracker, invest funnel
 - [ ] Smarter PRO gates — partial reveal + teaser stats (not full blur)
 - [ ] Legal disclaimer footer across all pages
