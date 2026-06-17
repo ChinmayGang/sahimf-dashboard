@@ -96,7 +96,7 @@ export function Calculator() {
     <div className="p-6 max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[#d6fd70]/10 flex items-center justify-center">
+        <div className={`w-10 h-10 rounded-xl ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'} flex items-center justify-center`}>
           <CalculateIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
@@ -115,7 +115,7 @@ export function Calculator() {
                 <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>₹{monthly.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={500} max={100000} step={500} value={monthly}
-                onChange={(e) => setMonthly(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
+                onChange={(e) => setMonthly(Number(e.target.value))} className="w-full" style={{ accentColor: lm ? '#4f46e5' : '#d6fd70' }} />
               <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹500</span><span>₹1 L</span>
               </div>
@@ -127,7 +127,7 @@ export function Calculator() {
                 <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>₹{principal.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={10000} max={10000000} step={10000} value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
+                onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full" style={{ accentColor: lm ? '#4f46e5' : '#d6fd70' }} />
               <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
                 <span>₹10K</span><span>₹1 Cr</span>
               </div>
@@ -140,7 +140,7 @@ export function Calculator() {
               <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{rate}%</span>
             </div>
             <input type="range" min={4} max={30} step={0.5} value={rate}
-              onChange={(e) => setRate(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
+              onChange={(e) => setRate(Number(e.target.value))} className="w-full" style={{ accentColor: lm ? '#4f46e5' : '#d6fd70' }} />
             <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>4%</span><span>30%</span>
             </div>
@@ -152,7 +152,7 @@ export function Calculator() {
               <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{years} yrs</span>
             </div>
             <input type="range" min={1} max={40} step={1} value={years}
-              onChange={(e) => setYears(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
+              onChange={(e) => setYears(Number(e.target.value))} className="w-full" style={{ accentColor: lm ? '#4f46e5' : '#d6fd70' }} />
             <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
               <span>1 yr</span><span>40 yrs</span>
             </div>
@@ -170,7 +170,7 @@ export function Calculator() {
             </div>
             <div className={`flex justify-between pt-2 border-t ${dividerColor}`}>
               <span className={`text-xs font-semibold ${textSub}`}>Total Value</span>
-              <span className="text-sm font-bold text-[#d6fd70]">{formatINR(calc.maturity)}</span>
+              <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{formatINR(calc.maturity)}</span>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ export function Calculator() {
               <h2 className={`text-sm font-semibold ${text}`}>Growth Projection</h2>
               <div className="text-right">
                 <p className={`text-xs ${textSub}`}>Maturity Value</p>
-                <p className="text-lg font-bold text-[#d6fd70]">{formatINR(calc.maturity)}</p>
+                <p className={`text-lg font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{formatINR(calc.maturity)}</p>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={240}>
@@ -197,8 +197,8 @@ export function Calculator() {
                     <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="valGrad2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#d6fd70" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#d6fd70" stopOpacity={0} />
+                    <stop offset="5%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="label" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false} />
@@ -208,7 +208,7 @@ export function Calculator() {
                   formatter={(v) => [formatINR(Number(v))]}
                 />
                 <Area type="monotone" dataKey="invested" stroke="#4f46e5" strokeWidth={1.5} fill="url(#invGrad2)" />
-                <Area type="monotone" dataKey="value" stroke="#d6fd70" strokeWidth={2} fill="url(#valGrad2)" />
+                <Area type="monotone" dataKey="value" stroke={lm ? '#4f46e5' : '#d6fd70'} strokeWidth={2} fill="url(#valGrad2)" />
               </AreaChart>
             </ResponsiveContainer>
             <div className="flex gap-4 mt-2">

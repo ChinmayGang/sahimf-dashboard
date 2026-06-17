@@ -193,7 +193,7 @@ export function Baskets() {
                   <div key={fn} className="flex items-center gap-2">
                     <CheckCircleIcon size={13} color="#22c55e" weight="duotone" />
                     <span className={`text-xs ${text}`}>{fn}</span>
-                    {i === 0 && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#d6fd70]/10 text-[#d6fd70]">Anchor</span>}
+                    {i === 0 && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${lm ? 'bg-[#4f46e5]/10 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>Anchor</span>}
                   </div>
                 ))}
               </div>

@@ -67,8 +67,8 @@ type Period = (typeof periods)[number]
 const periodMonths: Record<Period, number> = { '1M': 1, '6M': 6, '1Y': 12, '3Y': 36, MAX: 60 }
 
 const holdingsDist = [
-  { label: 'Equity', value: 75.9, color: '#d6fd70' },
-  { label: 'Mutual Funds', value: 13.1, color: '#4f46e5' },
+  { label: 'Equity', value: 75.9, color: '#4f46e5' },
+  { label: 'Mutual Funds', value: 13.1, color: '#0891b2' },
   { label: 'Cash & Eq.', value: 11.0, color: '#22C55E' },
 ]
 
@@ -199,7 +199,7 @@ export function SchemeDetail() {
     'Market News':  { bg: 'rgba(245,158,11,0.12)',  text: '#fbbf24' },
     'AMC News':     { bg: 'rgba(34,197,94,0.12)',   text: '#4ade80' },
     'Regulatory':   { bg: 'rgba(239,68,68,0.12)',   text: '#f87171' },
-    'Performance':  { bg: 'rgba(214,253,112,0.12)', text: '#d6fd70' },
+    'Performance':  { bg: lm ? 'rgba(79,70,229,0.1)' : 'rgba(214,253,112,0.12)', text: lm ? '#4f46e5' : '#d6fd70' },
   }
 
   // Rank cards: mock rank in category (based on fund index in same subcat)
@@ -435,7 +435,7 @@ export function SchemeDetail() {
                       key={p}
                       onClick={() => setPeriod(p)}
                       className={`text-xs px-2.5 py-1 rounded-full transition-colors ${
-                        period === p ? 'bg-[#d6fd70] text-black font-semibold' : `${textSub} hover:${text}`
+                        period === p ? (lm ? 'bg-[#4f46e5] text-white font-semibold' : 'bg-[#d6fd70] text-black font-semibold') : `${textSub} hover:${text}`
                       }`}
                     >
                       {p}
@@ -445,7 +445,7 @@ export function SchemeDetail() {
               </div>
               <div className="flex items-center gap-4 mb-3">
                 <div className="flex items-center gap-1.5">
-                  <div className="w-6 h-0.5 rounded" style={{ background: '#d6fd70' }} />
+                  <div className="w-6 h-0.5 rounded" style={{ background: lm ? '#4f46e5' : '#d6fd70' }} />
                   <span className={`text-xs ${textSub}`}>{fund.name.split(' ')[0]}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -457,8 +457,8 @@ export function SchemeDetail() {
                 <AreaChart data={niftyData}>
                   <defs>
                     <linearGradient id="navGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d6fd70" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#d6fd70" stopOpacity={0} />
+                      <stop offset="5%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0.2} />
+                      <stop offset="95%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="date" tick={{ fontSize: 10, fill: chartTick }} tickLine={false} axisLine={false}
@@ -468,8 +468,9 @@ export function SchemeDetail() {
                     contentStyle={tooltipStyle}
                     labelFormatter={(v) => format(new Date(v as string), 'd MMM yyyy')}
                     formatter={(v, name) => [`₹${Number(v).toFixed(2)}`, name === 'nifty' ? 'Nifty 50' : 'NAV']}
+                    itemStyle={{ color: lm ? '#4f46e5' : '#d6fd70', fontSize: 12, fontWeight: 600 }}
                   />
-                  <Area type="monotone" dataKey="value" stroke="#d6fd70" strokeWidth={2} fill="url(#navGrad)" dot={false} />
+                  <Area type="monotone" dataKey="value" stroke={lm ? '#4f46e5' : '#d6fd70'} strokeWidth={2} fill="url(#navGrad)" dot={false} />
                   <Area type="monotone" dataKey="nifty" stroke="#64748b" strokeWidth={1.5} strokeDasharray="5 3" fill="none" dot={false} />
                 </AreaChart>
               </ResponsiveContainer>

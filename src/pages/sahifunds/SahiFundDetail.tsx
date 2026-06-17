@@ -44,7 +44,7 @@ export function SahiFundDetail() {
       <div className="flex items-center justify-center h-full min-h-64">
         <div className="text-center">
           <p className={`${textSub} text-sm`}>Sahi Fund not found.</p>
-          <button onClick={() => navigate(-1)} className="text-[#d6fd70] text-xs mt-2 hover:underline">Go back</button>
+          <button onClick={() => navigate(-1)} className={`${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'} text-xs mt-2 hover:underline`}>Go back</button>
         </div>
       </div>
     )
@@ -64,7 +64,7 @@ export function SahiFundDetail() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <h1 className={`text-xl font-bold ${text}`}>{fund.name}</h1>
-              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
+              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : lm ? 'bg-[#4f46e5]/10 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
               <VolatilityBadge level={fund.volatility} />
@@ -112,7 +112,7 @@ export function SahiFundDetail() {
             key={t}
             onClick={() => setTab(t)}
             className="px-5 py-2 rounded-lg text-sm font-medium transition-all capitalize"
-            style={{ background: tab === t ? '#d6fd70' : 'transparent', color: tab === t ? '#000' : lm ? '#6B7280' : '#8390a2' }}
+            style={{ background: tab === t ? (lm ? '#4f46e5' : '#d6fd70') : 'transparent', color: tab === t ? (lm ? '#fff' : '#000') : lm ? '#6B7280' : '#8390a2' }}
           >
             {t === 'funds' ? 'Funds & Weights' : 'Overview'}
           </button>
@@ -134,8 +134,8 @@ export function SahiFundDetail() {
                   <AreaChart data={NAV_HISTORY}>
                     <defs>
                       <linearGradient id="sfGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#d6fd70" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="#d6fd70" stopOpacity={0} />
+                        <stop offset="5%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0.2} />
+                        <stop offset="95%" stopColor={lm ? '#4f46e5' : '#d6fd70'} stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
@@ -144,9 +144,9 @@ export function SahiFundDetail() {
                     <Tooltip
                       contentStyle={tooltipStyle}
                       labelStyle={{ color: lm ? '#6B7280' : '#8390a2', fontSize: 11 }}
-                      itemStyle={{ color: '#d6fd70', fontSize: 12, fontWeight: 600 }}
+                      itemStyle={{ color: lm ? '#4f46e5' : '#d6fd70', fontSize: 12, fontWeight: 600 }}
                     />
-                    <Area type="monotone" dataKey="value" stroke="#d6fd70" strokeWidth={2} fill="url(#sfGrad)" />
+                    <Area type="monotone" dataKey="value" stroke={lm ? '#4f46e5' : '#d6fd70'} strokeWidth={2} fill="url(#sfGrad)" />
                   </AreaChart>
                 </ResponsiveContainer>
               </PlanGate>
@@ -222,7 +222,7 @@ export function SahiFundDetail() {
                 </div>
                 <div className="flex justify-between">
                   <span className={textMuted}>Next</span>
-                  <span className="text-[#d6fd70] font-semibold">{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  <span className={`${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'} font-semibold`}>{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@ export function SahiFundDetail() {
                     <div>
                       <div className="flex items-center gap-2">
                         <div className={`flex-1 ${progressTrack} rounded-full h-1.5`}>
-                          <div className="h-1.5 rounded-full bg-[#d6fd70]" style={{ width: `${h.weight}%` }} />
+                          <div className={`h-1.5 rounded-full ${lm ? 'bg-[#4f46e5]' : 'bg-[#d6fd70]'}`} style={{ width: `${h.weight}%` }} />
                         </div>
                         <span className={`text-xs font-semibold ${text} w-8 text-right`}>{h.weight}%</span>
                       </div>

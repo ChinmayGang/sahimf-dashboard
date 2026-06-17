@@ -70,7 +70,7 @@ export function Topbar() {
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
           <NotificationsNoneIcon size={18} weight="duotone" />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#d6fd70] rounded-full" />
+          <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full ${lightMode ? 'bg-[#4f46e5]' : 'bg-[#d6fd70]'}`} />
         </button>
 
         {/* Light/Dark toggle */}

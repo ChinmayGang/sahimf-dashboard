@@ -6,9 +6,15 @@ import { mockTransactions } from '../../data/transactions'
 import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
 
-const TYPE_COLORS: Record<string, string> = {
+const TYPE_COLORS_DARK: Record<string, string> = {
   SIP: '#d6fd70',
   Lumpsum: '#4f46e5',
+  Redemption: '#EF4444',
+  Switch: '#F59E0B',
+}
+const TYPE_COLORS_LIGHT: Record<string, string> = {
+  SIP: '#4f46e5',
+  Lumpsum: '#6366f1',
   Redemption: '#EF4444',
   Switch: '#F59E0B',
 }
@@ -150,7 +156,7 @@ export function Transactions() {
               {/* Type */}
               <span
                 className="text-[11px] font-semibold px-2 py-0.5 rounded-full w-fit"
-                style={{ background: `${TYPE_COLORS[t.type]}18`, color: TYPE_COLORS[t.type] }}
+                style={{ background: `${(lm ? TYPE_COLORS_LIGHT : TYPE_COLORS_DARK)[t.type]}18`, color: (lm ? TYPE_COLORS_LIGHT : TYPE_COLORS_DARK)[t.type] }}
               >
                 {t.type}
               </span>

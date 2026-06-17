@@ -363,7 +363,7 @@ export function FundComparison() {
                       {needsGate ? (
                         <span className={`text-xs ${proPlaceholder}`}>— PRO</span>
                       ) : (
-                        <span className={`text-sm font-semibold ${isBest ? 'text-[#d6fd70]' : text}`}>
+                        <span className={`text-sm font-semibold ${isBest ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>
                           {m.format(val)}
                           {isBest && <span className="text-[10px] ml-1">★</span>}
                         </span>

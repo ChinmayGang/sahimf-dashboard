@@ -77,7 +77,7 @@ export function MFPMSDisclosures() {
       <div className="grid grid-cols-4 gap-4">
         {HIGHLIGHTS.map((h) => (
           <div key={h.label} className={`${card} rounded-xl px-4 py-3 text-center`}>
-            <p className="text-xl font-black text-[#d6fd70] mb-1">{h.icon}</p>
+            <p className={`text-xl font-black mb-1 ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{h.icon}</p>
             <p className={`text-xs font-semibold ${text} mb-0.5`}>{h.label}</p>
             <p className={`text-[10px] ${textMuted}`}>{h.sub}</p>
           </div>
@@ -122,11 +122,11 @@ export function MFPMSDisclosures() {
                   </div>
                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     {doc.type === 'PDF' ? (
-                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#d6fd70] transition-colors`}>
+                      <button className={`flex items-center gap-1.5 text-xs ${textSub} transition-colors`}>
                         <DownloadIcon size={14} weight="regular" /> Download
                       </button>
                     ) : (
-                      <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:text-[#d6fd70] transition-colors`}>
+                      <button className={`flex items-center gap-1.5 text-xs ${textSub} transition-colors`}>
                         <OpenInNewIcon size={14} weight="regular" /> View
                       </button>
                     )}

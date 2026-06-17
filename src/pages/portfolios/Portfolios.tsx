@@ -36,7 +36,7 @@ export function Portfolios() {
   const [_showAddModal, setShowAddModal] = useState(false)
   const lm = useUIStore((s) => s.lightMode)
   const { user } = useAuthStore()
-  const portfolios = portfolios.filter(p => p.userId === user?.id)
+  const portfolios = mockPortfolios.filter(p => p.userId === user?.id)
   const canAddMore = can('pro') || portfolios.length < 1
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'

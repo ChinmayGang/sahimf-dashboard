@@ -206,7 +206,7 @@ export function PortfolioDetail() {
                   <td className={`px-4 py-3 text-xs ${text} whitespace-nowrap`}>₹{h.avgNAV.toFixed(2)}</td>
                   <td className={`px-4 py-3 text-xs ${text} whitespace-nowrap`}>₹{h.currentNAV.toFixed(2)}</td>
                   <td className={`px-4 py-3 text-xs ${text} whitespace-nowrap`}>{formatINR(h.investedAmount)}</td>
-                  <td className="px-4 py-3 text-xs font-semibold text-[#d6fd70] whitespace-nowrap">
+                  <td className={`px-4 py-3 text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'} whitespace-nowrap`}>
                     {formatINR(h.currentValue)}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">

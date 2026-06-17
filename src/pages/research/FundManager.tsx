@@ -185,7 +185,7 @@ export function FundManager() {
             {/* AUM bar */}
             <div className="flex items-center gap-2">
               <div className={`flex-1 ${progressTrack} rounded-full h-1`}>
-                <div className="h-1 rounded-full bg-[#d6fd70]" style={{ width: `${(amc.aum / 1200000) * 100}%` }} />
+                <div className={`h-1 rounded-full ${lm ? 'bg-[#4f46e5]' : 'bg-[#d6fd70]'}`} style={{ width: `${(amc.aum / 1200000) * 100}%` }} />
               </div>
               <span className={`text-[10px] ${textMuted}`}>{((amc.aum / 6837090) * 100).toFixed(1)}% share</span>
             </div>

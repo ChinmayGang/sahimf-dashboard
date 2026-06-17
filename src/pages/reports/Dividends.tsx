@@ -5,11 +5,17 @@ import { Funnel as FilterListIcon } from '@phosphor-icons/react'
 import { mockDividends } from '../../data/dividends'
 import { useUIStore } from '../../stores/uiStore'
 
-const FREQ_COLORS: Record<string, string> = {
+const FREQ_COLORS_DARK: Record<string, string> = {
   Monthly: '#22C55E',
   Quarterly: '#d6fd70',
   Annual: '#4f46e5',
   Special: '#F59E0B',
+}
+const FREQ_COLORS_LIGHT: Record<string, string> = {
+  Monthly: '#16a34a',
+  Quarterly: '#4f46e5',
+  Annual: '#4f46e5',
+  Special: '#d97706',
 }
 
 export function Dividends() {
@@ -102,10 +108,10 @@ export function Dividends() {
             </div>
             <span className={`text-xs ${textSub}`}>{d.amcName}</span>
             <span className={`text-sm ${text} font-medium`}>{new Date(d.recordDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-            <span className="text-sm font-bold text-[#d6fd70]">₹{d.dividendPerUnit.toFixed(4)}</span>
+            <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>₹{d.dividendPerUnit.toFixed(4)}</span>
             <span
               className="text-[11px] font-semibold px-2 py-0.5 rounded-full w-fit"
-              style={{ background: `${FREQ_COLORS[d.frequency]}18`, color: FREQ_COLORS[d.frequency] }}
+              style={{ background: `${(lm ? FREQ_COLORS_LIGHT : FREQ_COLORS_DARK)[d.frequency]}18`, color: (lm ? FREQ_COLORS_LIGHT : FREQ_COLORS_DARK)[d.frequency] }}
             >
               {d.frequency}
             </span>

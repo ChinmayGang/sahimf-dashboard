@@ -16,8 +16,14 @@ interface ScorecardEntry {
 }
 
 const GRADES = ['A+', 'A', 'A', 'B+', 'B', 'B', 'B-', 'C+']
-const GRADE_COLORS: Record<string, string> = {
+const GRADE_COLORS_DARK: Record<string, string> = {
   'A+': '#22C55E', 'A': '#22C55E', 'B+': '#d6fd70', 'B': '#d6fd70', 'B-': '#F59E0B', 'C+': '#F59E0B', 'C': '#EF4444',
+}
+const GRADE_COLORS_LIGHT: Record<string, string> = {
+  'A+': '#16a34a', 'A': '#16a34a', 'B+': '#4f46e5', 'B': '#4f46e5', 'B-': '#d97706', 'C+': '#d97706', 'C': '#dc2626',
+}
+function gradeColor(grade: string, lm: boolean) {
+  return lm ? (GRADE_COLORS_LIGHT[grade] ?? '#4f46e5') : (GRADE_COLORS_DARK[grade] ?? '#d6fd70')
 }
 
 const SCORECARDS: ScorecardEntry[] = mockFunds.slice(0, 8).map((f, i) => {
@@ -36,7 +42,7 @@ function ScoreBar({ value, lm }: { value: number; lm: boolean }) {
       <div className="flex-1 rounded-full h-1.5" style={{ background: lm ? '#E0E3E8' : '#1e2838' }}>
         <div
           className="h-1.5 rounded-full"
-          style={{ width: `${value}%`, background: value >= 80 ? '#22C55E' : value >= 60 ? '#d6fd70' : '#F59E0B' }}
+          style={{ width: `${value}%`, background: value >= 80 ? '#22C55E' : value >= 60 ? (lm ? '#4f46e5' : '#d6fd70') : '#F59E0B' }}
         />
       </div>
       <span className="text-xs font-semibold w-6 text-right" style={{ color: lm ? '#111827' : '#fff' }}>{value}</span>
@@ -102,12 +108,12 @@ export function MFScorecard() {
       {!isPro && (
         <div
           className="rounded-xl px-4 py-3 flex items-center gap-3"
-          style={{ background: 'rgba(214,253,112,0.06)', border: '1px solid rgba(214,253,112,0.2)' }}
+          style={lm ? { background: 'rgba(79,70,229,0.06)', border: '1px solid rgba(79,70,229,0.15)' } : { background: 'rgba(214,253,112,0.06)', border: '1px solid rgba(214,253,112,0.2)' }}
         >
           <TrendUpIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" style={{ flexShrink: 0 }} />
           <div className="flex-1">
             <p className={`text-xs font-semibold ${text}`}>
-              Funds graded <span style={{ color: '#d6fd70' }}>{topGrade}</span> on SahiMF Scorecard (score {topScore}+) beat Nifty 50 by an average of <span style={{ color: '#22c55e' }}>4.2% per year</span> over the last 3 years.
+              Funds graded <span style={{ color: lm ? '#4f46e5' : '#d6fd70' }}>{topGrade}</span> on SahiMF Scorecard (score {topScore}+) beat Nifty 50 by an average of <span style={{ color: '#22c55e' }}>4.2% per year</span> over the last 3 years.
             </p>
             <p className={`text-[10px] ${textMuted} mt-0.5`}>
               Showing top {FREE_ROWS} of {SCORECARDS.length} ranked funds · Unlock all {SCORECARDS.length} with PRO
@@ -144,7 +150,7 @@ export function MFScorecard() {
               className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`}
               style={{ borderBottomColor: i === FREE_ROWS - 1 && !isPro ? undefined : undefined }}
             >
-              <span className="text-sm font-bold text-[#d6fd70]">#{entry.rank}</span>
+              <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
               <div>
                 <p className={`text-sm font-medium ${text} leading-snug`}>{fund.name}</p>
                 <VolatilityBadge level={fund.volatility} />
@@ -154,7 +160,7 @@ export function MFScorecard() {
               <ScoreBar value={entry.scores.consistency} lm={lm} />
               <ScoreBar value={entry.scores.risk} lm={lm} />
               <ScoreBar value={entry.scores.cost} lm={lm} />
-              <span className="text-sm font-bold" style={{ color: GRADE_COLORS[entry.grade] ?? '#8390a2' }}>{entry.grade}</span>
+              <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
               <div className="text-center">
                 <span className={`text-base font-bold ${text}`}>{entry.total}</span>
                 <span className={`text-[10px] ${textMuted}`}>/100</span>
@@ -175,7 +181,7 @@ export function MFScorecard() {
                     key={entry.fundId}
                     className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder}`}
                   >
-                    <span className="text-sm font-bold text-[#d6fd70]">#{entry.rank}</span>
+                    <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
                     <div>
                       <p className={`text-sm font-medium ${text} leading-snug`}>{fund.name}</p>
                       <VolatilityBadge level={fund.volatility} />
@@ -185,7 +191,7 @@ export function MFScorecard() {
                     <ScoreBar value={entry.scores.consistency} lm={lm} />
                     <ScoreBar value={entry.scores.risk} lm={lm} />
                     <ScoreBar value={entry.scores.cost} lm={lm} />
-                    <span className="text-sm font-bold" style={{ color: GRADE_COLORS[entry.grade] ?? '#8390a2' }}>{entry.grade}</span>
+                    <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
                     <div className="text-center">
                       <span className={`text-base font-bold ${text}`}>{entry.total}</span>
                       <span className={`text-[10px] ${textMuted}`}>/100</span>
@@ -244,7 +250,7 @@ export function MFScorecard() {
               className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`}
               style={{ borderBottomColor: i === sorted.slice(FREE_ROWS).length - 1 ? 'transparent' : undefined }}
             >
-              <span className="text-sm font-bold text-[#d6fd70]">#{entry.rank}</span>
+              <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
               <div>
                 <p className={`text-sm font-medium ${text} leading-snug`}>{fund.name}</p>
                 <VolatilityBadge level={fund.volatility} />
@@ -254,7 +260,7 @@ export function MFScorecard() {
               <ScoreBar value={entry.scores.consistency} lm={lm} />
               <ScoreBar value={entry.scores.risk} lm={lm} />
               <ScoreBar value={entry.scores.cost} lm={lm} />
-              <span className="text-sm font-bold" style={{ color: GRADE_COLORS[entry.grade] ?? '#8390a2' }}>{entry.grade}</span>
+              <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
               <div className="text-center">
                 <span className={`text-base font-bold ${text}`}>{entry.total}</span>
                 <span className={`text-[10px] ${textMuted}`}>/100</span>

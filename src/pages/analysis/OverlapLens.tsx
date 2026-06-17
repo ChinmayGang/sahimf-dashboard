@@ -58,8 +58,10 @@ const COMMON_STOCKS = [
   { name: 'Sun Pharma',                   f001: 0,   f002: 3.3, f003: 0,   f004: 6.8, f005: 5.2, f006: 0   },
 ]
 
-function overlapColor(v: number, isDiag: boolean) {
-  if (isDiag) return { bg: 'rgba(214,253,112,0.15)', text: '#d6fd70', border: 'rgba(214,253,112,0.3)' }
+function overlapColor(v: number, isDiag: boolean, lm?: boolean) {
+  if (isDiag) return lm
+    ? { bg: 'rgba(79,70,229,0.1)', text: '#4f46e5', border: 'rgba(79,70,229,0.25)' }
+    : { bg: 'rgba(214,253,112,0.15)', text: '#d6fd70', border: 'rgba(214,253,112,0.3)' }
   if (v >= 25)  return { bg: 'rgba(239,68,68,0.12)',  text: '#ef4444', border: 'rgba(239,68,68,0.3)' }
   if (v >= 12)  return { bg: 'rgba(245,158,11,0.12)', text: '#f59e0b', border: 'rgba(245,158,11,0.3)' }
   if (v > 0)    return { bg: 'rgba(34,197,94,0.10)',  text: '#22c55e', border: 'rgba(34,197,94,0.25)' }
@@ -321,11 +323,11 @@ export function OverlapLens() {
             onClick={() => setTab(t.id)}
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium transition-all"
             style={{
-              background: tab === t.id ? '#d6fd70' : 'transparent',
-              color: tab === t.id ? '#0a0c0e' : lm ? '#6B7280' : '#8390a2',
+              background: tab === t.id ? (lm ? '#4f46e5' : '#d6fd70') : 'transparent',
+              color: tab === t.id ? (lm ? '#ffffff' : '#0a0c0e') : lm ? '#6B7280' : '#8390a2',
             }}
           >
-            <span style={{ color: tab === t.id ? '#0a0c0e' : undefined }}>{t.icon}</span>
+            <span style={{ color: tab === t.id ? (lm ? '#ffffff' : '#0a0c0e') : undefined }}>{t.icon}</span>
             {t.label}
           </button>
         ))}
@@ -344,7 +346,7 @@ export function OverlapLens() {
               {/* Legend */}
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 {[
-                  { color: '#d6fd70', label: 'Same fund' },
+                  { color: lm ? '#4f46e5' : '#d6fd70', label: 'Same fund' },
                   { color: '#ef4444', label: 'High (≥25%)' },
                   { color: '#f59e0b', label: 'Medium (12–24%)' },
                   { color: '#22c55e', label: 'Low (<12%)' },
@@ -382,7 +384,7 @@ export function OverlapLens() {
                           {selectedFunds.map(colF => {
                             const val = OVERLAP_PAIRS[rowF.id]?.[colF.id] ?? 0
                             const isDiag = rowF.id === colF.id
-                            const c = overlapColor(val, isDiag)
+                            const c = overlapColor(val, isDiag, lm)
                             return (
                               <td key={colF.id} className="px-3 py-3 text-center">
                                 <div
@@ -410,7 +412,7 @@ export function OverlapLens() {
                   {worstPairs.map((pair, i) => {
                     const fa = mockFunds.find(f => f.id === pair.a)
                     const fb = mockFunds.find(f => f.id === pair.b)
-                    const c = overlapColor(pair.val, false)
+                    const c = overlapColor(pair.val, false, lm)
                     return (
                       <div key={`${pair.a}-${pair.b}`}
                         className={`flex items-center gap-4 px-5 py-3 transition-colors ${rowHover}`}

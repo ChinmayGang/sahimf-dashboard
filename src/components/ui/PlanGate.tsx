@@ -1,4 +1,4 @@
-﻿import { Lock as LockIcon } from '@phosphor-icons/react'
+import { Lock as LockIcon } from '@phosphor-icons/react'
 import type { PlanTier } from '../../types'
 import { usePlan } from '../../hooks/usePlan'
 import { useUIStore } from '../../stores/uiStore'
@@ -27,19 +27,20 @@ export function PlanGate({ requiredTier, children, label, compact }: PlanGatePro
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 rounded-lg backdrop-blur-[2px]">
         {compact ? (
           <div className={`flex items-center gap-1.5 ${compactBg} rounded-full px-3 py-1.5`}>
-            <LockIcon size={12} color="#d6fd70" weight="regular" />
+            <LockIcon size={12} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" />
             <span className={`text-xs font-medium ${compactText}`}>{tierLabel}</span>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3 text-center px-6">
-            <div className="w-10 h-10 rounded-full bg-[#d6fd70]/10 border border-[#d6fd70]/20 flex items-center justify-center">
-              <LockIcon size={20} color="#d6fd70" weight="duotone" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{ background: lm ? 'rgba(79,70,229,0.1)' : 'rgba(214,253,112,0.1)', border: `1px solid ${lm ? 'rgba(79,70,229,0.2)' : 'rgba(214,253,112,0.2)'}` }}>
+              <LockIcon size={20} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white mb-1">
+              <p className={`text-sm font-semibold mb-1 ${lm ? 'text-[#111827]' : 'text-white'}`}>
                 {label ?? `Upgrade to ${tierLabel}`}
               </p>
-              <p className="text-xs text-[#8390a2]">
+              <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>
                 Unlock this with a {tierLabel} subscription
               </p>
             </div>
