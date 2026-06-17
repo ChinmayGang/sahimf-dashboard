@@ -3,6 +3,7 @@ import { ChartPieSlice, ArrowsClockwise, Warning, TrendUp, Info } from '@phospho
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts'
 import { useUIStore } from '../../stores/uiStore'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { PageHeroBanner } from '../../components/ui/PageHeroBanner'
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 const FUNDS = [
@@ -103,16 +104,18 @@ export function MarketCapAllocation() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className={`w-9 h-9 rounded-xl ${card} flex items-center justify-center`}>
-          <ChartPieSlice size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
-        </div>
-        <div>
-          <h1 className={`text-lg font-bold ${text}`}>Market Cap Allocation</h1>
-          <p className={`text-xs ${textMuted}`}>Portfolio market cap mix vs recommended — drift analysis & rebalancing</p>
-        </div>
-      </div>
+      <PageHeroBanner
+        lm={lm}
+        icon={<ChartPieSlice size={22} weight="duotone" />}
+        title="Market Cap Allocation"
+        subtitle="Portfolio market cap mix vs recommended — drift analysis & rebalancing signals"
+        badge="Research Tool"
+        stats={[
+          { label: 'Your Large Cap', value: `${portfolioMix.large}%` },
+          { label: 'Your Mid Cap', value: `${portfolioMix.mid}%` },
+          { label: 'Your Small Cap', value: `${portfolioMix.small}%` },
+        ]}
+      />
 
       {/* Drift alerts strip */}
       {driftAlerts.length > 0 && (

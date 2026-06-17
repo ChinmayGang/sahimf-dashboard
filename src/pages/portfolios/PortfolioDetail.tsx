@@ -3,9 +3,44 @@ import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
 import { DownloadSimple as FileDownloadIcon } from '@phosphor-icons/react'
+import { Warning as WarningIcon } from '@phosphor-icons/react'
+import { ArrowRight as ArrowRightIcon } from '@phosphor-icons/react'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
+
+type PeerFund = {
+  id: string
+  name: string
+  amc: string
+  xirr: number
+  return1Y: number
+  sahiScore: number
+  tag: string
+}
+
+const PEER_MAP: Record<string, PeerFund[]> = {
+  Hybrid: [
+    { id: 'ph1', name: 'HDFC Balanced Advantage Fund', amc: 'HDFC Mutual Fund', xirr: 14.2, return1Y: 21.4, sahiScore: 84, tag: 'Dynamic Asset Alloc' },
+    { id: 'ph2', name: 'Mirae Asset Hybrid Equity Fund', amc: 'Mirae Asset', xirr: 13.1, return1Y: 19.8, sahiScore: 79, tag: 'Aggressive Hybrid' },
+    { id: 'ph3', name: 'Kotak Balanced Advantage Fund', amc: 'Kotak Mutual Fund', xirr: 12.6, return1Y: 18.2, sahiScore: 76, tag: 'Dynamic Asset Alloc' },
+  ],
+  'Large Cap': [
+    { id: 'pl1', name: 'Nippon India Large Cap Fund', amc: 'Nippon India', xirr: 19.4, return1Y: 26.1, sahiScore: 88, tag: 'Large Cap' },
+    { id: 'pl2', name: 'HDFC Top 100 Fund', amc: 'HDFC Mutual Fund', xirr: 17.8, return1Y: 24.6, sahiScore: 82, tag: 'Large Cap' },
+  ],
+  'Mid Cap': [
+    { id: 'pm1', name: 'Nippon India Growth Fund', amc: 'Nippon India', xirr: 28.4, return1Y: 34.2, sahiScore: 91, tag: 'Mid Cap' },
+    { id: 'pm2', name: 'Kotak Emerging Equity Fund', amc: 'Kotak Mutual Fund', xirr: 26.1, return1Y: 31.8, sahiScore: 86, tag: 'Mid Cap' },
+  ],
+  Debt: [],
+}
+
+function scoreColor(score: number) {
+  if (score >= 80) return '#22c55e'
+  if (score >= 65) return '#f59e0b'
+  return '#ef4444'
+}
 
 function formatINR(n: number) {
   if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
@@ -196,6 +231,123 @@ export function PortfolioDetail() {
           </table>
         </div>
       </div>
+
+      {/* Peer Recommendations — shown when any holding is lagging */}
+      {(() => {
+        const XIRR_THRESHOLDS: Record<string, number> = { Debt: -Infinity, Hybrid: 10, 'Large Cap': 12, 'Mid Cap': 14, 'Flexi Cap': 12, 'Small Cap': 14 }
+        const laggingFunds = portfolio.holdings.filter(h => {
+          const threshold = XIRR_THRESHOLDS[h.category] ?? 12
+          return h.xirr < threshold && h.category !== 'Debt'
+        })
+        if (laggingFunds.length === 0) return null
+
+        return (
+          <div className={`${card} rounded-xl overflow-hidden`}>
+            {/* Header */}
+            <div className={`flex items-center gap-2.5 px-5 py-4 border-b ${lm ? 'border-[#FDE68A] bg-[#FFFBEB]' : 'border-[#422006]/60 bg-[#1c1409]'}`}>
+              <WarningIcon size={16} weight="fill" className="text-[#f59e0b] flex-shrink-0" />
+              <div className="flex-1">
+                <p className={`text-sm font-semibold ${lm ? 'text-[#92400E]' : 'text-[#fcd34d]'}`}>
+                  {laggingFunds.length} fund{laggingFunds.length > 1 ? 's' : ''} may be underperforming their category peers
+                </p>
+                <p className={`text-xs mt-0.5 ${lm ? 'text-[#B45309]' : 'text-[#a16207]'}`}>
+                  Research-based peer comparison · Not personalised advice
+                </p>
+              </div>
+            </div>
+
+            {/* One block per lagging fund */}
+            {laggingFunds.map((h, idx) => {
+              const peers = PEER_MAP[h.category] ?? []
+              const visiblePeers = peers.slice(0, 1)
+              const gatedPeers = peers.slice(1)
+              return (
+                <div key={h.fundId} className={idx < laggingFunds.length - 1 ? `border-b ${lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'}` : ''}>
+                  {/* Lagging fund row */}
+                  <div className={`px-5 py-3 flex items-center gap-3 ${lm ? 'bg-[#FAFAFA]' : 'bg-[#0f1318]'}`}>
+                    <div className="flex-1">
+                      <p className={`text-xs font-semibold ${text} leading-tight`}>{h.fundName}</p>
+                      <p className={`text-[10px] mt-0.5 ${textMuted}`}>{h.amcName} · {h.category}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-[#ef4444]">{h.xirr}% XIRR</p>
+                      <p className={`text-[10px] ${textMuted}`}>Your fund</p>
+                    </div>
+                    <TrendingDownIcon size={16} weight="regular" className="text-[#ef4444]" />
+                  </div>
+
+                  {/* Peer cards */}
+                  <div className="px-5 py-3 space-y-2">
+                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${textMuted}`}>Category peers with better Sahi Score</p>
+                    {visiblePeers.map(peer => (
+                      <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-xs font-semibold ${text} leading-tight truncate`}>{peer.name}</p>
+                          <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} · {peer.tag}</p>
+                        </div>
+                        <div className="flex items-center gap-3 flex-shrink-0">
+                          <div className="text-right">
+                            <p className="text-xs font-bold text-[#22c55e]">{peer.xirr}% XIRR</p>
+                            <p className={`text-[10px] ${textMuted}`}>{peer.return1Y}% 1Y</p>
+                          </div>
+                          <div
+                            className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
+                            style={{ background: scoreColor(peer.sahiScore) }}
+                          >
+                            {peer.sahiScore}
+                          </div>
+                          <Link
+                            to={`/mutual-funds/compare?a=${h.fundId}&b=${peer.id}`}
+                            className="flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1.5 rounded-lg transition-colors"
+                            style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: '#6366f1' }}
+                          >
+                            Compare <ArrowRightIcon size={10} weight="bold" />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* PRO gate for remaining peers */}
+                    {gatedPeers.length > 0 && (
+                      <PlanGate requiredTier="pro" compact>
+                        <div className="space-y-2">
+                          {gatedPeers.map(peer => (
+                            <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
+                              <div className="flex-1 min-w-0">
+                                <p className={`text-xs font-semibold ${text} leading-tight truncate`}>{peer.name}</p>
+                                <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} · {peer.tag}</p>
+                              </div>
+                              <div className="flex items-center gap-3 flex-shrink-0">
+                                <div className="text-right">
+                                  <p className="text-xs font-bold text-[#22c55e]">{peer.xirr}% XIRR</p>
+                                  <p className={`text-[10px] ${textMuted}`}>{peer.return1Y}% 1Y</p>
+                                </div>
+                                <div
+                                  className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
+                                  style={{ background: scoreColor(peer.sahiScore) }}
+                                >
+                                  {peer.sahiScore}
+                                </div>
+                                <Link
+                                  to={`/mutual-funds/compare?a=${h.fundId}&b=${peer.id}`}
+                                  className="flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1.5 rounded-lg transition-colors"
+                                  style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: '#6366f1' }}
+                                >
+                                  Compare <ArrowRightIcon size={10} weight="bold" />
+                                </Link>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </PlanGate>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )
+      })()}
     </div>
   )
 }

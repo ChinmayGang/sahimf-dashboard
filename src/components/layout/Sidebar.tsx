@@ -4,7 +4,7 @@ import {
   House, Wallet, SquaresFour, Folder, Sparkle, Compass,
   ArrowsLeftRight, Stack, Star, Buildings, Calculator, ChartBar, FileText,
   CaretDown, CaretRight, CaretLeft, Lock, Gear, SignOut,
-  SidebarSimple, ShoppingBag, Target, ChartPieSlice,
+  SidebarSimple, ShoppingBag, Target, ChartPieSlice, ShieldCheck,
 } from '@phosphor-icons/react'
 import sahiIcon from '../../assets/logo/sahi_icon.svg'
 import sahiLogoWhite from '../../assets/logo/sahi_logo-white.svg'
@@ -34,6 +34,7 @@ const mfChildren: NavItem[] = [
   { key: 'mf-overlap', label: 'Overlap Lens', icon: <Stack size={15} weight={W} />, path: '/mutual-funds/overlap', badge: 1 },
   { key: 'mf-compare', label: 'Fund Comparison', icon: <ArrowsLeftRight size={15} weight={W} />, path: '/mutual-funds/compare' },
   { key: 'mf-market-cap', label: 'Market Cap Mix', icon: <ChartPieSlice size={15} weight={W} />, path: '/mutual-funds/market-cap' },
+  { key: 'mf-risk', label: 'Risk Analysis', icon: <ShieldCheck size={15} weight={W} />, path: '/mutual-funds/risk' },
   { key: 'mf-scorecard', label: 'MF Scorecard', icon: <Star size={15} weight={W} />, path: '/mutual-funds/scorecard' },
   { key: 'mf-amfi', label: 'Fund Manager', icon: <Buildings size={15} weight={W} />, path: '/mutual-funds/amfi' },
   {

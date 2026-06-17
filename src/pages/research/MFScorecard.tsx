@@ -3,6 +3,7 @@ import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp a
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { PageHeroBanner } from '../../components/ui/PageHeroBanner'
 import { useUIStore } from '../../stores/uiStore'
 import { usePlan } from '../../hooks/usePlan'
 
@@ -71,17 +72,21 @@ export function MFScorecard() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <StarIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
-          </div>
-          <div>
-            <h1 className={`text-lg font-bold ${text}`}>MF Scorecard</h1>
-            <p className={`text-xs ${textMuted}`}>SahiMF proprietary fund scoring system · Updated monthly</p>
-          </div>
-        </div>
+      <PageHeroBanner
+        lm={lm}
+        icon={<StarIcon size={22} weight="duotone" />}
+        title="MF Scorecard"
+        badge="Research Tool"
+        subtitle={`Sahi Score™ ranks ${mockFunds.length} funds across returns, consistency, risk, cost & manager quality`}
+        stats={[
+          { label: 'Funds Ranked', value: `${mockFunds.length}` },
+          { label: 'Top Grade', value: topGrade },
+          { label: 'Top Score', value: `${topScore}` },
+        ]}
+      />
+      {/* Sort control row */}
+      <div className="flex items-center justify-between -mt-2">
+        <p className={`text-xs ${textMuted}`}>SahiMF proprietary scoring · Updated monthly</p>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as typeof sortBy)}

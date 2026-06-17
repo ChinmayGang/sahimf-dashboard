@@ -15,6 +15,7 @@ import { MySahiFunds } from './pages/sahifunds/MySahiFunds'
 import { OverlapLens } from './pages/analysis/OverlapLens'
 import { FundComparison } from './pages/analysis/FundComparison'
 import { MarketCapAllocation } from './pages/analysis/MarketCapAllocation'
+import { RiskAnalysis } from './pages/analysis/RiskAnalysis'
 import { Calculator } from './pages/tools/Calculator'
 import { SIPWhatIf } from './pages/tools/SIPWhatIf'
 import { Baskets } from './pages/sahifunds/Baskets'
@@ -80,6 +81,7 @@ export default function App() {
             <Route path="mutual-funds/overlap" element={<OverlapLens />} />
             <Route path="mutual-funds/compare" element={<FundComparison />} />
             <Route path="mutual-funds/market-cap" element={<MarketCapAllocation />} />
+            <Route path="mutual-funds/risk" element={<RiskAnalysis />} />
             <Route path="mutual-funds/search" element={<Navigate to="/mutual-funds/explore/all" replace />} />
             <Route path="mutual-funds/search/:id" element={<SchemeDetail />} />
             <Route path="mutual-funds/scorecard" element={<MFScorecard />} />

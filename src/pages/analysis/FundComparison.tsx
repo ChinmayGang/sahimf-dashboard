@@ -13,6 +13,7 @@ import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
+import { PageHeroBanner } from '../../components/ui/PageHeroBanner'
 import { useUIStore } from '../../stores/uiStore'
 import { usePlan } from '../../hooks/usePlan'
 
@@ -187,17 +188,18 @@ export function FundComparison() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-          <CompareArrowsIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
-        </div>
-        <div>
-          <h1 className={`text-lg font-bold ${text}`}>Fund Comparison</h1>
-          <p className={`text-xs ${textMuted}`}>Compare up to 4 funds side-by-side — manager, holdings, ratios & more</p>
-        </div>
-      </div>
-
+      <PageHeroBanner
+        lm={lm}
+        icon={<CompareArrowsIcon size={22} weight="duotone" />}
+        title="Fund Comparison"
+        subtitle="Compare up to 4 funds side-by-side — manager profile, top holdings, portfolio ratios & more"
+        badge="Research Tool"
+        stats={[
+          { label: 'Comparing', value: `${selectedFunds.length} funds` },
+          { label: 'Best 1Y Return', value: `${Math.max(...selectedFunds.map(f => f.returns['1Y'] ?? 0)).toFixed(1)}%`, positive: true },
+          { label: 'Lowest Expense', value: `${Math.min(...selectedFunds.map(f => f.expenseRatio)).toFixed(2)}%` },
+        ]}
+      />
       {/* Fund selector row */}
       <div className="flex gap-3 flex-wrap">
         {selectedFunds.map((fund, idx) => (

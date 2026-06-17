@@ -5,9 +5,61 @@ import { ArrowLeft as ArrowBackIcon, ArrowsLeftRight as CompareIcon, FileText as
 import { format, formatDistanceToNow } from 'date-fns'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { SahiResearchCard } from '../../components/ui/SahiResearchCard'
 import { mockFunds, getMockNavData } from '../../data/funds'
 import { FUND_NEWS, type NewsItem } from '../../data/fundNews'
 import { useUIStore } from '../../stores/uiStore'
+
+const RESEARCH_DB: Record<string, Parameters<typeof SahiResearchCard>[0]['data']> = {
+  f001: {
+    verdict: 'Research Pick',
+    sahiScore: 84,
+    summary: 'Mirae Asset Large Cap Fund has consistently delivered above-category returns over 3- and 5-year horizons, driven by a quality-focused bottom-up approach. The fund maintains high conviction in top-tier banking and IT stocks while managing downside through selective rebalancing. Its low-turnover style and competitive expense ratio of 0.54% make it a cost-efficient core holding in a large-cap allocation.',
+    strengths: ['Consistent top-quartile 3Y CAGR of 14.2%', 'Expense ratio below category average (0.54%)', 'Experienced manager with 12+ year track record', 'Well-diversified with >75 holdings'],
+    concerns: ['Moderate tracking error to Nifty 50', 'High banking sector concentration (32%)', 'Underperformance vs index in 2022 bear market'],
+    analystNote: 'Suitable as a core large-cap allocation. Investors seeking passive exposure may consider a Nifty 50 index fund as an alternative. The manager change in 2021 has not disrupted the investment process.',
+    updatedAt: 'June 2026',
+    subScores: [
+      { label: 'Returns', value: 82 },
+      { label: 'Consistency', value: 79 },
+      { label: 'Risk-Adj.', value: 88 },
+      { label: 'Manager', value: 85 },
+      { label: 'Cost', value: 91 },
+    ],
+  },
+  f002: {
+    verdict: 'Research Pick',
+    sahiScore: 92,
+    summary: 'Parag Parikh Flexi Cap Fund stands out for its global diversification and disciplined value-oriented mandate. The fund\'s allocation to international equities (US tech giants) acts as a natural hedge and has significantly contributed to its superior long-term returns. Manager continuity and a concentrated portfolio of high-conviction ideas have driven consistent alpha generation.',
+    strengths: ['Only flexi-cap fund with meaningful international allocation', 'Strong 5Y CAGR of 21.4% with low drawdowns', 'Low expense ratio of 0.63% for actively managed flexi-cap', 'Long-term holding philosophy reduces churn'],
+    concerns: ['SEBI cap on overseas fund allocation (25%) limits global diversification', 'Concentrated top-10 holdings (>60% weight)', 'US tech exposure creates currency and geopolitical risk'],
+    analystNote: 'A strong conviction choice for investors with a 5+ year horizon who want diversified equity exposure including international stocks. The fund\'s differentiated mandate makes it difficult to compare within the flexi-cap category.',
+    updatedAt: 'June 2026',
+    subScores: [
+      { label: 'Returns', value: 94 },
+      { label: 'Consistency', value: 91 },
+      { label: 'Risk-Adj.', value: 89 },
+      { label: 'Manager', value: 96 },
+      { label: 'Cost', value: 88 },
+    ],
+  },
+  default: {
+    verdict: 'Watchlist',
+    sahiScore: 72,
+    summary: 'This fund is currently under SahiMF research coverage. Based on available data, the fund shows adequate performance within its category with some areas warranting further monitoring. Detailed analyst notes are updated monthly.',
+    strengths: ['Adequate historical returns vs category median', 'Reasonable expense ratio', 'Reputed AMC with strong AUM base'],
+    concerns: ['Limited long-term track record', 'Moderate manager stability concerns', 'Below-average risk-adjusted returns'],
+    analystNote: 'Monitor for 2 more quarters before establishing a clear conviction view. Watch for any key personnel changes.',
+    updatedAt: 'June 2026',
+    subScores: [
+      { label: 'Returns', value: 68 },
+      { label: 'Consistency', value: 72 },
+      { label: 'Risk-Adj.', value: 74 },
+      { label: 'Manager', value: 70 },
+      { label: 'Cost', value: 75 },
+    ],
+  },
+}
 
 const periods = ['1M', '6M', '1Y', '3Y', 'MAX'] as const
 type Period = (typeof periods)[number]
@@ -326,6 +378,13 @@ export function SchemeDetail() {
           </div>
         ))}
       </div>
+
+      {/* SahiMF Research Note */}
+      <SahiResearchCard
+        fundName={fund.name}
+        data={RESEARCH_DB[fund.id] ?? RESEARCH_DB.default}
+        lm={lm}
+      />
 
       {/* Tabs */}
       <div className={`flex gap-1 border-b ${tabBorder}`}>

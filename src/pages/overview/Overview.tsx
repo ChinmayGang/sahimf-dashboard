@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
+import { Plus as AddIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
 import { CheckCircle as CheckCircleIcon } from '@phosphor-icons/react'
