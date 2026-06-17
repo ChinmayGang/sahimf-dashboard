@@ -13,6 +13,8 @@ import { ChartBar as BarChartIcon } from '@phosphor-icons/react'
 import { Lock as LockIcon } from '@phosphor-icons/react'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
+import { mockPortfolios } from '../../data/portfolios'
 import { mockFunds } from '../../data/funds'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -115,8 +117,19 @@ export function ExploreFunds() {
       ? 'bg-[#d6fd70]/10 text-[#d6fd70] border border-[#d6fd70]/20'
       : 'text-[#8390a2] hover:bg-[#1e2838] hover:text-white'
 
+  const { user } = useAuthStore()
   const activeSectionData = SECTIONS.find((s) => s.id === activeSection)!
   const displayFunds = getFunds(activeSection)
+
+  // Portfolio gap analysis — look at Rohit's (userId=1) holdings
+  const userPortfolios = mockPortfolios.filter(p => p.userId === (user?.id ?? '1'))
+  const ownedCategories = new Set(userPortfolios.flatMap(p => p.holdings.map(h => h.category)))
+  const ALL_CATEGORIES = ['Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'ELSS', 'Gilt', 'Balanced Advantage', 'Sectoral']
+  const gapCategories = ALL_CATEGORIES.filter(c => !ownedCategories.has(c)).slice(0, 3)
+  const bestForPortfolio = gapCategories.map(cat => {
+    const fund = mockFunds.find(f => f.subCategory === cat || f.category === cat)
+    return fund ? { category: cat, fund } : null
+  }).filter(Boolean) as { category: string; fund: typeof mockFunds[0] }[]
 
   const handleViewAll = () => navigate('/mutual-funds/explore/all')
 
@@ -227,6 +240,34 @@ export function ExploreFunds() {
 
         {/* Right: fund cards */}
         <div className="flex-1 overflow-y-auto p-4">
+          {/* Best for your portfolio — gap analysis */}
+          {bestForPortfolio.length > 0 && (
+            <div className="mb-5 rounded-2xl p-4" style={{ background: lm ? 'linear-gradient(135deg,#f5f3ff,#eef2ff)' : 'linear-gradient(135deg,rgba(79,70,229,0.08),rgba(99,102,241,0.04))', border: lm ? '1px solid #c7d2fe' : '1px solid rgba(79,70,229,0.2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-sm" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>✦</span>
+                <h3 className="text-sm font-bold" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>Best for your portfolio</h3>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000' }}>Gap analysis</span>
+              </div>
+              <p className="text-xs mb-3" style={{ color: lm ? '#6366f1' : '#a5b4fc' }}>
+                Your portfolio is missing these categories — adding them may reduce concentration risk.
+              </p>
+              <div className="grid grid-cols-3 gap-2.5">
+                {bestForPortfolio.map(({ category, fund }) => (
+                  <div
+                    key={category}
+                    className="rounded-xl p-3 cursor-pointer transition-all hover:-translate-y-0.5"
+                    style={{ background: lm ? '#fff' : 'rgba(255,255,255,0.04)', border: lm ? '1px solid #e0e7ff' : '1px solid rgba(99,102,241,0.2)' }}
+                    onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
+                  >
+                    <p className="text-[10px] font-bold mb-0.5" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>{category}</p>
+                    <p className={`text-xs font-semibold truncate ${text}`}>{fund.name.split(' ').slice(0, 3).join(' ')}</p>
+                    <p className="text-xs text-[#22c55e] font-bold mt-1">+{fund.returns['1Y'] ?? '—'}% 1Y</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Section header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">

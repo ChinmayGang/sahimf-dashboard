@@ -13,6 +13,8 @@ import {
   Lightning,
 } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
+import { usePlan } from '../../hooks/usePlan'
+import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { mockFunds } from '../../data/funds'
 
@@ -79,6 +81,8 @@ export function OverlapLens() {
   const navigate = useNavigate()
   const lm = useUIStore(s => s.lightMode)
   const { user } = useAuthStore()
+  const { can } = usePlan()
+  const isPro = can('pro')
 
   const [tab, setTab] = useState<'matrix' | 'sectors' | 'amc'>('matrix')
   const [selectedIds, setSelectedIds] = useState<string[]>(['f001', 'f002', 'f005', 'f006'])
@@ -154,7 +158,7 @@ export function OverlapLens() {
       <div className="p-6 max-w-5xl mx-auto" style={{ background: bg }}>
         <div className="flex items-center gap-3 mb-8">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color="#d6fd70" weight="duotone" />
+            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
@@ -223,7 +227,7 @@ export function OverlapLens() {
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color="#d6fd70" weight="duotone" />
+            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
@@ -667,6 +671,15 @@ export function OverlapLens() {
             </div>
           )}
         </>
+      )}
+
+      {!isPro && (
+        <div className="px-6 pb-6">
+          <ProTrialBanner
+            headline="Unlock deeper overlap insights with Sahi PRO"
+            features={['Rolling sector drift alerts', 'AMC concentration risk', 'Rebalancing suggestions', 'Portfolio stress test']}
+          />
+        </div>
       )}
     </div>
   )

@@ -4,7 +4,7 @@ import {
   House, Wallet, SquaresFour, Folder, Receipt, Sparkle, Compass,
   ArrowsLeftRight, Stack, Star, Buildings, Calculator, ChartBar, FileText,
   CaretDown, CaretRight, CaretLeft, Lock, Gear, SignOut,
-  SidebarSimple,
+  SidebarSimple, ShoppingBag,
 } from '@phosphor-icons/react'
 import sahiIcon from '../../assets/logo/sahi_icon.svg'
 import sahiLogoWhite from '../../assets/logo/sahi_logo-white.svg'
@@ -31,14 +31,16 @@ const mfChildren: NavItem[] = [
   { key: 'mf-transactions', label: 'Transactions', icon: <Receipt size={15} weight={W} />, path: '/mutual-funds/transactions' },
   { key: 'mf-explore', label: 'Explore Funds', icon: <Compass size={15} weight={W} />, path: '/mutual-funds/explore' },
   { key: 'sahi-mine', label: 'My Sahi Funds', icon: <Sparkle size={15} weight={W} />, path: '/mutual-funds/my-sahi-funds' },
-  { key: 'mf-overlap', label: 'Overlap Lens', icon: <Stack size={15} weight={W} />, path: '/mutual-funds/overlap' },
+  { key: 'mf-baskets', label: 'Sahi Baskets', icon: <ShoppingBag size={15} weight={W} />, path: '/mutual-funds/baskets' },
+  { key: 'mf-overlap', label: 'Overlap Lens', icon: <Stack size={15} weight={W} />, path: '/mutual-funds/overlap', badge: 1 },
   { key: 'mf-compare', label: 'Fund Comparison', icon: <ArrowsLeftRight size={15} weight={W} />, path: '/mutual-funds/compare' },
   { key: 'mf-scorecard', label: 'MF Scorecard', icon: <Star size={15} weight={W} />, path: '/mutual-funds/scorecard' },
   { key: 'mf-amfi', label: 'Fund Manager', icon: <Buildings size={15} weight={W} />, path: '/mutual-funds/amfi' },
   {
     key: 'mf-tools', label: 'Tools', icon: <Calculator size={15} weight={W} />,
     children: [
-      { key: 'tool-sip', label: 'SIP', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/sip' },
+      { key: 'tool-whatif', label: 'SIP What If', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/sip-whatif' },
+      { key: 'tool-sip', label: 'SIP Calculator', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/sip' },
       { key: 'tool-lumpsum', label: 'Lumpsum', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/lumpsum' },
       { key: 'tool-swp', label: 'SWP', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/swp' },
       { key: 'tool-stp', label: 'STP', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/stp' },

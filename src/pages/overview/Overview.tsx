@@ -386,13 +386,26 @@ export function Overview() {
                         )
                       })}
                     </div>
-                    <button
-                      onClick={() => navigate('/auth/initialize')}
-                      className="mt-6 flex items-center gap-2 bg-[#d6fd70] text-[#0a0c0e] text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#b8d94a] transition-colors"
-                    >
-                      <UploadFileIcon size={16} weight="duotone" />
-                      Upload CAS to Start
-                    </button>
+                    <div className="mt-6 flex items-center gap-3 flex-wrap">
+                      <button
+                        onClick={() => navigate('/auth/initialize')}
+                        className="flex items-center gap-2 bg-[#d6fd70] text-[#0a0c0e] text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#b8d94a] transition-colors"
+                      >
+                        <UploadFileIcon size={16} weight="duotone" />
+                        Upload CAS to Start
+                      </button>
+                      <button
+                        onClick={() => navigate('/mutual-funds/search')}
+                        className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+                        style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff' }}
+                      >
+                        <SearchIcon size={16} weight="duotone" />
+                        Browse Funds
+                      </button>
+                    </div>
+                    <p className="mt-3 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                      No credit card · No brokerage account needed to explore
+                    </p>
                   </div>
 
                   {/* Right: Sahi Bot */}
@@ -449,6 +462,29 @@ export function Overview() {
         {investCount === 1 && (
           /* Case 2: Single investment */
           <div>
+            {/* Diversification nudge */}
+            <div
+              className="rounded-2xl px-4 py-3 mb-4 flex items-start gap-3"
+              style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)' }}
+            >
+              <FlashOnIcon size={16} color="#f59e0b" weight="duotone" style={{ flexShrink: 0, marginTop: 1 }} />
+              <div className="flex-1">
+                <p className={`text-xs font-semibold ${text}`}>
+                  You have only 1 fund — <span style={{ color: '#f59e0b' }}>100% concentration risk</span>
+                </p>
+                <p className={`text-[11px] mt-0.5 ${textSub}`}>
+                  Diversifying across 3–5 funds in different categories typically reduces volatility by 35–40%. Here are popular funds to consider:
+                </p>
+              </div>
+              <button
+                onClick={() => navigate('/mutual-funds/search')}
+                className="flex items-center gap-1 text-[11px] font-semibold flex-shrink-0 hover:underline"
+                style={{ color: '#f59e0b' }}
+              >
+                Explore <ArrowForwardIcon size={12} weight="bold" />
+              </button>
+            </div>
+
             <div className="flex items-center justify-between mb-3">
               <h2 className={`text-base font-bold ${text}`}>Your Portfolio</h2>
               <button onClick={() => navigate('/mutual-funds/portfolios')} className="text-xs font-semibold text-[#4f46e5] flex items-center gap-1">

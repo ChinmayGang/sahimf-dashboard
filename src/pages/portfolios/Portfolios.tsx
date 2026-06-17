@@ -17,6 +17,19 @@ function formatINR(n: number) {
   return `₹${n.toLocaleString('en-IN')}`
 }
 
+const NIFTY_XIRR = 12.4
+
+function portfolioHealthGrade(xirr: number, fundCount: number): { grade: string; color: string; bg: string } {
+  const score = (xirr >= 15 ? 40 : xirr >= 12 ? 30 : xirr >= 8 ? 20 : 10)
+             + (fundCount >= 4 ? 30 : fundCount >= 2 ? 20 : 10)
+             + (xirr > NIFTY_XIRR ? 30 : xirr > NIFTY_XIRR - 2 ? 20 : 10)
+  if (score >= 90) return { grade: 'A+', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
+  if (score >= 75) return { grade: 'A', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
+  if (score >= 60) return { grade: 'B+', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' }
+  if (score >= 45) return { grade: 'B', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' }
+  return { grade: 'C', color: '#ef4444', bg: 'rgba(239,68,68,0.1)' }
+}
+
 export function Portfolios() {
   const { can } = usePlan()
   const [_showAddModal, setShowAddModal] = useState(false)
@@ -128,8 +141,8 @@ export function Portfolios() {
               <div className={`${card} rounded-xl p-5 transition-all duration-200 group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#d6fd70]/10 flex items-center justify-center">
-                      <FolderOpenIcon size={20} color="#d6fd70" weight="duotone" />
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#d6fd70]/10'}`}>
+                      <FolderOpenIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
                     </div>
                     <div>
                       <h3 className={`text-sm font-semibold ${text} transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>
@@ -141,28 +154,65 @@ export function Portfolios() {
                   <ArrowForwardIosIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="bold" className="group-hover:text-[#d6fd70] transition-colors mt-1" />
                 </div>
 
-                <div className={`grid grid-cols-4 gap-6 mt-5 pt-4 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>
-                  <div>
-                    <p className={`text-xs ${textSub} mb-1`}>Invested</p>
-                    <p className={`text-sm font-semibold ${text}`}>{formatINR(p.totalInvested)}</p>
-                  </div>
-                  <div>
-                    <p className={`text-xs ${textSub} mb-1`}>Current Value</p>
-                    <p className="text-sm font-semibold text-[#d6fd70]">{formatINR(p.currentValue)}</p>
-                  </div>
-                  <div>
-                    <p className={`text-xs ${textSub} mb-1`}>Total Gain</p>
-                    <p className={`text-sm font-semibold ${p.absoluteReturns >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
-                      {p.absoluteReturns >= 0 ? '+' : ''}{formatINR(p.absoluteReturns)}
-                      <span className="text-xs ml-1">({p.absoluteReturnsPercent.toFixed(1)}%)</span>
-                    </p>
-                  </div>
-                  <div>
-                    <p className={`text-xs ${textSub} mb-1`}>XIRR</p>
-                    <div className="flex items-center gap-1">
-                      <TrendingUpIcon size={14} color="#22C55E" weight="regular" />
-                      <p className="text-sm font-semibold text-[#22C55E]">{p.xirr}%</p>
+                <div className={`mt-5 pt-4 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>
+                  {/* Stats row */}
+                  <div className="grid grid-cols-4 gap-4 mb-4">
+                    <div>
+                      <p className={`text-xs ${textSub} mb-1`}>Invested</p>
+                      <p className={`text-sm font-semibold ${text}`}>{formatINR(p.totalInvested)}</p>
                     </div>
+                    <div>
+                      <p className={`text-xs ${textSub} mb-1`}>Current Value</p>
+                      <p className={`text-sm font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{formatINR(p.currentValue)}</p>
+                    </div>
+                    <div>
+                      <p className={`text-xs ${textSub} mb-1`}>Total Gain</p>
+                      <p className={`text-sm font-semibold ${p.absoluteReturns >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
+                        {p.absoluteReturns >= 0 ? '+' : ''}{formatINR(p.absoluteReturns)}
+                        <span className="text-xs ml-1">({p.absoluteReturnsPercent.toFixed(1)}%)</span>
+                      </p>
+                    </div>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className={`text-xs ${textSub} mb-1`}>XIRR</p>
+                        <div className="flex items-center gap-1">
+                          <TrendingUpIcon size={14} color="#22C55E" weight="regular" />
+                          <p className="text-sm font-semibold text-[#22C55E]">{p.xirr}%</p>
+                        </div>
+                      </div>
+                      {/* Health grade chip */}
+                      {(() => {
+                        const h = portfolioHealthGrade(p.xirr, p.holdings.length)
+                        return (
+                          <div className="flex flex-col items-end gap-0.5">
+                            <p className={`text-[9px] font-bold uppercase tracking-wider ${textMuted}`}>Health</p>
+                            <span className="text-xs font-black px-2 py-0.5 rounded-lg" style={{ background: h.bg, color: h.color }}>{h.grade}</span>
+                          </div>
+                        )
+                      })()}
+                    </div>
+                  </div>
+
+                  {/* XIRR vs Nifty bar */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-[10px] font-semibold ${textMuted}`}>XIRR vs Nifty 50</span>
+                      <span className={`text-[10px] font-bold ${p.xirr >= NIFTY_XIRR ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                        {p.xirr >= NIFTY_XIRR ? '+' : ''}{(p.xirr - NIFTY_XIRR).toFixed(1)}% alpha
+                      </span>
+                    </div>
+                    {[
+                      { label: 'Your portfolio', val: p.xirr, color: p.xirr >= NIFTY_XIRR ? '#22c55e' : '#f59e0b' },
+                      { label: 'Nifty 50', val: NIFTY_XIRR, color: lm ? '#D1D5DB' : '#3c4653' },
+                    ].map(row => (
+                      <div key={row.label} className="flex items-center gap-2">
+                        <span className={`text-[10px] w-24 flex-shrink-0 ${textMuted}`}>{row.label}</span>
+                        <div className="flex-1 rounded-full h-1.5 overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
+                          <div className="h-full rounded-full transition-all" style={{ width: `${Math.min((row.val / 25) * 100, 100)}%`, background: row.color }} />
+                        </div>
+                        <span className={`text-[10px] font-semibold w-10 text-right ${text}`}>{row.val}%</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 

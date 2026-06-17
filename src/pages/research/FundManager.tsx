@@ -41,7 +41,7 @@ export function FundManager() {
         <div className={`${card} rounded-2xl p-6`}>
           <div className="flex items-start gap-4 mb-5">
             <div className={`w-14 h-14 rounded-2xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-              <AccountBalanceIcon size={24} color="#d6fd70" weight="duotone" />
+              <AccountBalanceIcon size={24} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
             </div>
             <div className="flex-1">
               <h1 className={`text-xl font-bold ${text} mb-1`}>{detail.name}</h1>
@@ -76,7 +76,7 @@ export function FundManager() {
                 </div>
                 <div>
                   <p className={`text-sm font-bold ${text} mb-0.5`}>{mgr.name}</p>
-                  <p className="text-xs text-[#d6fd70] mb-2">{mgr.designation}</p>
+                  <p className={`text-xs mb-2 ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{mgr.designation}</p>
                   <div className={`flex gap-4 text-xs ${textMuted}`}>
                     <span>Experience: <span className={textSub}>{mgr.experience}</span></span>
                     <span>Funds: <span className={textSub}>{mgr.fundsManaged}</span></span>
@@ -97,9 +97,9 @@ export function FundManager() {
               const isActive = amc.id === detail.id
               return (
                 <div key={amc.id} className="flex items-center gap-3">
-                  <span className="text-xs w-40 truncate" style={{ color: isActive ? '#d6fd70' : lm ? '#6B7280' : '#8390a2' }}>{amc.name.split(' ').slice(0, 3).join(' ')}</span>
+                  <span className="text-xs w-40 truncate" style={{ color: isActive ? (lm ? '#4f46e5' : '#d6fd70') : lm ? '#6B7280' : '#8390a2' }}>{amc.name.split(' ').slice(0, 3).join(' ')}</span>
                   <div className={`flex-1 ${progressTrack} rounded-full h-2`}>
-                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? '#d6fd70' : lm ? '#D1D5DB' : '#3c4653' }} />
+                    <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: isActive ? (lm ? '#4f46e5' : '#d6fd70') : lm ? '#D1D5DB' : '#3c4653' }} />
                   </div>
                   <span className={`text-xs font-medium ${textSub} w-20 text-right`}>{formatAUM(amc.aum)}</span>
                 </div>
@@ -117,7 +117,7 @@ export function FundManager() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <AccountBalanceIcon size={18} color="#d6fd70" weight="duotone" />
+            <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Manager / AMFI</h1>
@@ -163,7 +163,7 @@ export function FundManager() {
           >
             <div className="flex items-center gap-3 mb-3">
               <div className={`w-10 h-10 rounded-xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-                <AccountBalanceIcon size={18} color="#d6fd70" weight="duotone" />
+                <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
               </div>
               <div>
                 <p className={`text-sm font-bold ${text}`}>{amc.name}</p>

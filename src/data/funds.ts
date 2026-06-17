@@ -21,6 +21,36 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Large Cap', 'Equity', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Banking & Finance', totalWeight: 32.4, holdings: [
+        { name: 'HDFC Bank Ltd', weight: 9.82 },
+        { name: 'ICICI Bank Ltd', weight: 8.14 },
+        { name: 'State Bank of India', weight: 5.61 },
+        { name: 'Kotak Mahindra Bank', weight: 4.93 },
+        { name: 'Axis Bank Ltd', weight: 3.90 },
+      ]},
+      { sector: 'Information Technology', totalWeight: 18.6, holdings: [
+        { name: 'Infosys Ltd', weight: 7.42 },
+        { name: 'Tata Consultancy Services', weight: 6.38 },
+        { name: 'HCL Technologies Ltd', weight: 4.80 },
+      ]},
+      { sector: 'Consumer Staples', totalWeight: 12.1, holdings: [
+        { name: 'Hindustan Unilever Ltd', weight: 5.22 },
+        { name: 'ITC Ltd', weight: 4.18 },
+        { name: 'Asian Paints Ltd', weight: 2.70 },
+      ]},
+      { sector: 'Healthcare', totalWeight: 9.8, holdings: [
+        { name: 'Sun Pharmaceutical', weight: 5.14 },
+        { name: 'Dr. Reddy\'s Laboratories', weight: 4.66 },
+      ]},
+      { sector: 'Others', totalWeight: 27.1, holdings: [
+        { name: 'Reliance Industries Ltd', weight: 8.24 },
+        { name: 'Larsen & Toubro Ltd', weight: 6.18 },
+        { name: 'Maruti Suzuki India', weight: 4.92 },
+        { name: 'Bharti Airtel Ltd', weight: 4.63 },
+        { name: 'Net Receivables / Cash', weight: 3.13 },
+      ]},
+    ],
   },
   {
     id: 'f002',
@@ -42,6 +72,31 @@ export const mockFunds: Fund[] = [
     minLumpsum: 1000,
     lockIn: 'None',
     tags: ['Flexi Cap', 'Equity', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Equity – Domestic Large Cap', totalWeight: 44.2, holdings: [
+        { name: 'ITC Ltd', weight: 7.82 },
+        { name: 'Bajaj Holdings & Investment', weight: 6.94 },
+        { name: 'Power Grid Corporation', weight: 5.88 },
+        { name: 'Coal India Ltd', weight: 5.40 },
+        { name: 'HDFC Bank Ltd', weight: 9.20 },
+        { name: 'ICICI Bank Ltd', weight: 8.96 },
+      ]},
+      { sector: 'Equity – International', totalWeight: 25.1, holdings: [
+        { name: 'Alphabet Inc. (Class A)', weight: 10.24 },
+        { name: 'Meta Platforms Inc.', weight: 8.62 },
+        { name: 'Amazon.com Inc.', weight: 6.24 },
+      ]},
+      { sector: 'Equity – Mid & Small Cap', totalWeight: 18.6, holdings: [
+        { name: 'CDSL Ltd', weight: 5.42 },
+        { name: 'Balkrishna Industries', weight: 4.88 },
+        { name: 'Aavas Financiers', weight: 4.36 },
+        { name: 'Persistent Systems', weight: 3.94 },
+      ]},
+      { sector: 'Cash & Equivalents', totalWeight: 12.1, holdings: [
+        { name: 'T-Bills / Money Market', weight: 8.40 },
+        { name: 'Net Receivables', weight: 3.70 },
+      ]},
+    ],
   },
   {
     id: 'f003',
@@ -79,8 +134,15 @@ export const mockFunds: Fund[] = [
         holdings: [
           { name: 'Tata Steel Ltd', weight: 7.21 },
           { name: 'Jindal Steel Ltd', weight: 7.43 },
+          { name: 'Godawari Power and Ispat Ltd', weight: 0.80 },
         ],
       },
+      { sector: 'Others (International FoF)', totalWeight: 24.1, holdings: [
+        { name: 'BlackRock Global Funds – World Energy (Class I2)', weight: 9.19 },
+        { name: 'BlackRock Global Funds – Sustainable Energy Fund (Cl...)', weight: 3.93 },
+        { name: 'Net Receivables / Payables', weight: -1.89 },
+        { name: 'Cash & Equivalents', weight: 12.87 },
+      ]},
     ],
   },
   {
@@ -103,6 +165,34 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Large Cap', 'Equity', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Banking & Finance', totalWeight: 34.8, holdings: [
+        { name: 'HDFC Bank Ltd', weight: 10.42 },
+        { name: 'ICICI Bank Ltd', weight: 9.18 },
+        { name: 'Kotak Mahindra Bank', weight: 6.82 },
+        { name: 'Bajaj Finance Ltd', weight: 5.28 },
+        { name: 'SBI Life Insurance Co.', weight: 3.10 },
+      ]},
+      { sector: 'Information Technology', totalWeight: 22.4, holdings: [
+        { name: 'Infosys Ltd', weight: 9.84 },
+        { name: 'Tata Consultancy Services', weight: 8.62 },
+        { name: 'Wipro Ltd', weight: 3.94 },
+      ]},
+      { sector: 'Energy & Oil', totalWeight: 14.2, holdings: [
+        { name: 'Reliance Industries Ltd', weight: 10.44 },
+        { name: 'NTPC Ltd', weight: 3.76 },
+      ]},
+      { sector: 'Consumer & Retail', totalWeight: 11.8, holdings: [
+        { name: 'Avenue Supermarts (DMart)', weight: 5.62 },
+        { name: 'Hindustan Unilever Ltd', weight: 3.88 },
+        { name: 'Nestle India Ltd', weight: 2.30 },
+      ]},
+      { sector: 'Others & Cash', totalWeight: 16.8, holdings: [
+        { name: 'Larsen & Toubro Ltd', weight: 6.40 },
+        { name: 'Bharti Airtel Ltd', weight: 5.82 },
+        { name: 'Cash & Equivalents', weight: 4.58 },
+      ]},
+    ],
   },
   {
     id: 'f005',
@@ -124,6 +214,41 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Mid Cap', 'Equity', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Healthcare & Pharma', totalWeight: 16.8, holdings: [
+        { name: 'Abbott India Ltd', weight: 4.62 },
+        { name: 'Alkem Laboratories', weight: 4.18 },
+        { name: 'Torrent Pharmaceuticals', weight: 3.82 },
+        { name: 'JB Chemicals & Pharma', weight: 4.18 },
+      ]},
+      { sector: 'Auto & Auto Ancillaries', totalWeight: 14.2, holdings: [
+        { name: 'Minda Industries Ltd', weight: 5.40 },
+        { name: 'Sona BLW Precision', weight: 4.88 },
+        { name: 'Endurance Technologies', weight: 3.92 },
+      ]},
+      { sector: 'Specialty Chemicals', totalWeight: 12.6, holdings: [
+        { name: 'PI Industries Ltd', weight: 5.24 },
+        { name: 'Navin Fluorine International', weight: 4.18 },
+        { name: 'Fine Organic Industries', weight: 3.18 },
+      ]},
+      { sector: 'Retail & Consumer', totalWeight: 11.4, holdings: [
+        { name: 'Trent Ltd', weight: 5.62 },
+        { name: 'Kalyan Jewellers India', weight: 3.18 },
+        { name: 'V-Mart Retail', weight: 2.60 },
+      ]},
+      { sector: 'Financials – Mid Cap', totalWeight: 13.8, holdings: [
+        { name: 'Cholamandalam Investment', weight: 5.44 },
+        { name: 'L&T Finance Holdings', weight: 4.62 },
+        { name: 'Aavas Financiers', weight: 3.74 },
+      ]},
+      { sector: 'Others & Cash', totalWeight: 31.2, holdings: [
+        { name: 'Sundaram Finance', weight: 4.22 },
+        { name: 'KEI Industries', weight: 3.88 },
+        { name: 'Tube Investments of India', weight: 3.64 },
+        { name: 'Remaining 55+ holdings', weight: 15.90 },
+        { name: 'Cash & Equivalents', weight: 3.56 },
+      ]},
+    ],
   },
   {
     id: 'f006',
@@ -145,6 +270,34 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Small Cap', 'Equity', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Industrials & Capital Goods', totalWeight: 18.4, holdings: [
+        { name: 'KSB Limited', weight: 4.82 },
+        { name: 'Greenpanel Industries', weight: 4.24 },
+        { name: 'EPL Limited', weight: 3.88 },
+        { name: 'Mold-Tek Packaging', weight: 3.22 },
+        { name: 'Craftsman Automation', weight: 2.24 },
+      ]},
+      { sector: 'Healthcare – Small Cap', totalWeight: 14.8, holdings: [
+        { name: 'Gland Pharma Ltd', weight: 5.62 },
+        { name: 'Suven Pharmaceuticals', weight: 4.88 },
+        { name: 'Ami Organics Ltd', weight: 4.30 },
+      ]},
+      { sector: 'Consumer Discretionary', totalWeight: 12.6, holdings: [
+        { name: 'Westlife Foodworld', weight: 4.92 },
+        { name: 'Jubilant Foodworks', weight: 4.18 },
+        { name: 'Sapphire Foods India', weight: 3.50 },
+      ]},
+      { sector: 'Specialty Chemicals', totalWeight: 11.2, holdings: [
+        { name: 'NOCIL Ltd', weight: 4.42 },
+        { name: 'Aarti Industries Ltd', weight: 3.88 },
+        { name: 'Vinati Organics', weight: 2.90 },
+      ]},
+      { sector: 'Others & Cash', totalWeight: 43.0, holdings: [
+        { name: 'Remaining 80+ holdings', weight: 38.60 },
+        { name: 'Cash & Equivalents', weight: 4.40 },
+      ]},
+    ],
   },
   {
     id: 'f007',
@@ -166,6 +319,30 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Hybrid', 'Balanced Advantage', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Equity – Long (Unhedged)', totalWeight: 44.8, holdings: [
+        { name: 'HDFC Bank Ltd', weight: 8.62 },
+        { name: 'Reliance Industries Ltd', weight: 7.44 },
+        { name: 'Infosys Ltd', weight: 6.18 },
+        { name: 'ICICI Bank Ltd', weight: 6.04 },
+        { name: 'Bharti Airtel Ltd', weight: 5.24 },
+        { name: 'Remaining equity holdings', weight: 11.28 },
+      ]},
+      { sector: 'Equity – Hedged (Arbitrage)', totalWeight: 20.2, holdings: [
+        { name: 'Equity arbitrage positions', weight: 20.20 },
+      ]},
+      { sector: 'Debt & Fixed Income', totalWeight: 26.8, holdings: [
+        { name: 'Govt of India Securities 2033', weight: 8.42 },
+        { name: 'REC Ltd Bonds (AAA)', weight: 5.88 },
+        { name: 'NABARD Bonds (AAA)', weight: 4.62 },
+        { name: 'HDFC Bank Bonds (AAA)', weight: 4.24 },
+        { name: 'Corporate Bonds – Others', weight: 3.64 },
+      ]},
+      { sector: 'Cash & Equivalents', totalWeight: 8.2, holdings: [
+        { name: 'T-Bills / Money Market', weight: 6.40 },
+        { name: 'Net Receivables', weight: 1.80 },
+      ]},
+    ],
   },
   {
     id: 'f008',
@@ -187,6 +364,24 @@ export const mockFunds: Fund[] = [
     minLumpsum: 5000,
     lockIn: 'None',
     tags: ['Debt', 'Gilt', 'Direct', 'Growth'],
+    constituents: [
+      { sector: 'Government Securities – Long Duration', totalWeight: 68.4, holdings: [
+        { name: '7.26% GOI 2033', weight: 18.42 },
+        { name: '7.18% GOI 2037', weight: 16.88 },
+        { name: '6.99% GOI 2051', weight: 14.24 },
+        { name: '7.34% GOI 2064', weight: 12.62 },
+        { name: '6.54% GOI 2032', weight: 6.24 },
+      ]},
+      { sector: 'Government Securities – Medium Duration', totalWeight: 22.8, holdings: [
+        { name: '7.06% GOI 2028', weight: 10.44 },
+        { name: '6.89% GOI 2025', weight: 8.18 },
+        { name: 'SDL – State Development Loans', weight: 4.18 },
+      ]},
+      { sector: 'Cash & Equivalents', totalWeight: 8.8, holdings: [
+        { name: 'Collateralized Borrowing (CBLO)', weight: 5.62 },
+        { name: 'Net Receivables', weight: 3.18 },
+      ]},
+    ],
   },
 ]
 

@@ -6,7 +6,9 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useUIStore } from '../../stores/uiStore'
+import { usePlan } from '../../hooks/usePlan'
 
 const COLORS = ['#d6fd70', '#4f46e5', '#22C55E', '#F59E0B']
 
@@ -42,6 +44,8 @@ export function FundComparison() {
   const [showPicker, setShowPicker] = useState(false)
   const [search, setSearch] = useState('')
   const lm = useUIStore((s) => s.lightMode)
+  const { can } = usePlan()
+  const isPro = can('pro')
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
@@ -87,7 +91,7 @@ export function FundComparison() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <CompareArrowsIcon size={18} color="#d6fd70" weight="duotone" />
+            <CompareArrowsIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Comparison</h1>
@@ -255,6 +259,13 @@ export function FundComparison() {
           </div>
         ))}
       </div>
+
+      {!isPro && (
+        <ProTrialBanner
+          headline="Unlock full fund comparison with Sahi PRO"
+          features={['3Y & 5Y returns', 'Sharpe & Sortino ratios', 'Drawdown analysis', 'Rolling return charts']}
+        />
+      )}
     </div>
   )
 }

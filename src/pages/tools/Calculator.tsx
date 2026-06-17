@@ -97,7 +97,7 @@ export function Calculator() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-[#d6fd70]/10 flex items-center justify-center">
-          <CalculateIcon size={20} color="#d6fd70" weight="duotone" />
+          <CalculateIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>{toolLabels[toolType]}</h1>
@@ -112,7 +112,7 @@ export function Calculator() {
             <div>
               <div className="flex justify-between mb-2">
                 <label className={`text-xs ${textSub}`}>{toolType === 'swp' ? 'Monthly Withdrawal' : 'Monthly SIP Amount'}</label>
-                <span className="text-xs font-semibold text-[#d6fd70]">₹{monthly.toLocaleString('en-IN')}</span>
+                <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>₹{monthly.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={500} max={100000} step={500} value={monthly}
                 onChange={(e) => setMonthly(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
@@ -124,7 +124,7 @@ export function Calculator() {
             <div>
               <div className="flex justify-between mb-2">
                 <label className={`text-xs ${textSub}`}>Investment Amount</label>
-                <span className="text-xs font-semibold text-[#d6fd70]">₹{principal.toLocaleString('en-IN')}</span>
+                <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>₹{principal.toLocaleString('en-IN')}</span>
               </div>
               <input type="range" min={10000} max={10000000} step={10000} value={principal}
                 onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
@@ -137,7 +137,7 @@ export function Calculator() {
           <div>
             <div className="flex justify-between mb-2">
               <label className={`text-xs ${textSub}`}>Expected Return Rate (p.a.)</label>
-              <span className="text-xs font-semibold text-[#d6fd70]">{rate}%</span>
+              <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{rate}%</span>
             </div>
             <input type="range" min={4} max={30} step={0.5} value={rate}
               onChange={(e) => setRate(Number(e.target.value))} className="w-full accent-[#d6fd70]" />
@@ -149,7 +149,7 @@ export function Calculator() {
           <div>
             <div className="flex justify-between mb-2">
               <label className={`text-xs ${textSub}`}>Time Period</label>
-              <span className="text-xs font-semibold text-[#d6fd70]">{years} yrs</span>
+              <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{years} yrs</span>
             </div>
             <input type="range" min={1} max={40} step={1} value={years}
               onChange={(e) => setYears(Number(e.target.value))} className="w-full accent-[#d6fd70]" />

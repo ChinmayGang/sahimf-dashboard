@@ -41,6 +41,16 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2">
+        {/* SEBI RA badge */}
+        <div
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[10px] font-bold"
+          style={{ color: lightMode ? '#4f46e5' : '#818cf8', borderColor: lightMode ? '#c7d2fe' : 'rgba(99,102,241,0.25)', background: lightMode ? '#eeedfd' : 'rgba(79,70,229,0.08)' }}
+          title="SEBI Research Analyst — INH000009876 | Generic research only, not personalised advice"
+        >
+          SEBI RA
+          <span className="opacity-60 font-medium hidden sm:inline">· INH000009876</span>
+        </div>
+
         {/* Sync CAS */}
         <button
           className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all"

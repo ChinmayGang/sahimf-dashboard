@@ -35,7 +35,7 @@ export function StatCard({ label, value, subValue, change, changeLabel, icon, ac
         {icon && <span className={textMuted}>{icon}</span>}
       </div>
       <div className="space-y-1">
-        <p className={`text-xl font-semibold ${accent ? 'text-[#d6fd70]' : text}`}>{value}</p>
+        <p className={`text-xl font-semibold ${accent ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>{value}</p>
         {subValue && <p className={`text-xs ${textSub}`}>{subValue}</p>}
         {change !== undefined && (
           <div className={`flex items-center gap-1 text-xs font-medium ${isPositive ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>

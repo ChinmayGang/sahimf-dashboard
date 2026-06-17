@@ -15,6 +15,8 @@ import { MySahiFunds } from './pages/sahifunds/MySahiFunds'
 import { OverlapLens } from './pages/analysis/OverlapLens'
 import { FundComparison } from './pages/analysis/FundComparison'
 import { Calculator } from './pages/tools/Calculator'
+import { SIPWhatIf } from './pages/tools/SIPWhatIf'
+import { Baskets } from './pages/sahifunds/Baskets'
 import { Dividends } from './pages/reports/Dividends'
 import { TaxReport } from './pages/reports/TaxReport'
 import { MFPMSDisclosures } from './pages/reports/MFPMSDisclosures'
@@ -23,6 +25,7 @@ import { Login } from './pages/auth/Login'
 import { OTP } from './pages/auth/OTP'
 import { CreateProfile } from './pages/auth/CreateProfile'
 import { InitializePortfolio } from './pages/auth/InitializePortfolio'
+import { VerifyEmail } from './pages/auth/VerifyEmail'
 import { DesignSystem } from './pages/design-system/DesignSystem'
 import { useAuthStore } from './stores/authStore'
 
@@ -52,6 +55,7 @@ export default function App() {
           <Route path="/auth/otp" element={<OTP />} />
           <Route path="/auth/create-profile" element={<CreateProfile />} />
           <Route path="/auth/initialize" element={<InitializePortfolio />} />
+          <Route path="/auth/verify-email" element={<VerifyEmail />} />
           <Route path="/design-system" element={<DesignSystem />} />
           <Route
             path="/"
@@ -77,6 +81,8 @@ export default function App() {
             <Route path="mutual-funds/search/:id" element={<SchemeDetail />} />
             <Route path="mutual-funds/scorecard" element={<MFScorecard />} />
             <Route path="mutual-funds/amfi" element={<FundManager />} />
+            <Route path="mutual-funds/baskets" element={<Baskets />} />
+            <Route path="mutual-funds/tools/sip-whatif" element={<SIPWhatIf />} />
             <Route path="mutual-funds/tools/sip" element={<Calculator />} />
             <Route path="mutual-funds/tools/lumpsum" element={<Calculator />} />
             <Route path="mutual-funds/tools/swp" element={<Calculator />} />

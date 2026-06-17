@@ -2,7 +2,9 @@
 import { DownloadSimple as DownloadIcon } from '@phosphor-icons/react'
 import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useUIStore } from '../../stores/uiStore'
+import { usePlan } from '../../hooks/usePlan'
 
 const TAX_DATA = [
   {
@@ -23,6 +25,8 @@ function formatINR(n: number) {
 
 export function TaxReport() {
   const lm = useUIStore((s) => s.lightMode)
+  const { can } = usePlan()
+  const isPro = can('pro')
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
@@ -144,6 +148,13 @@ export function TaxReport() {
           ))}
         </div>
       </PlanGate>
+
+      {!isPro && (
+        <ProTrialBanner
+          headline="Unlock your full Tax Report with Sahi PRO"
+          features={['LTCG & STCG breakdowns', 'Harvesting opportunities', 'ITR-ready CSV export', 'FY-wise gain tracker']}
+        />
+      )}
 
       <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
         Tax computations are estimates based on declared transactions. SahiMF does not provide tax advice.

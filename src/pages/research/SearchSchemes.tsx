@@ -7,6 +7,7 @@ import { CaretUp as ExpandLessIcon } from '@phosphor-icons/react'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockFunds } from '../../data/funds'
+import { useUIStore } from '../../stores/uiStore'
 
 const categories = [
   { label: 'Equity', children: ['Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'Sectoral', 'Thematic', 'ELSS'] },
@@ -36,6 +37,7 @@ function FilterSection({ title, children, defaultOpen = true }: { title: string;
 }
 
 export function SearchSchemes() {
+  const lm = useUIStore((s) => s.lightMode)
   const [query, setQuery] = useState('')
   const [selectedCats, setSelectedCats] = useState<string[]>([])
   const [selectedVolatility, setSelectedVolatility] = useState<string[]>([])
@@ -101,7 +103,7 @@ export function SearchSchemes() {
                         onChange={() => toggleCat(sub)}
                         className="accent-[#d6fd70] w-3 h-3"
                       />
-                      <span className={`text-xs transition-colors ${selectedCats.includes(sub) ? 'text-[#d6fd70]' : 'text-[#8390a2] group-hover:text-white'}`}>
+                      <span className={`text-xs transition-colors ${selectedCats.includes(sub) ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : lm ? 'text-[#6B7280] group-hover:text-[#111827]' : 'text-[#8390a2] group-hover:text-white'}`}>
                         {sub}
                       </span>
                     </label>
@@ -158,7 +160,7 @@ export function SearchSchemes() {
                   onChange={() => toggleAMC(a)}
                   className="accent-[#d6fd70] w-3 h-3"
                 />
-                <span className={`text-xs transition-colors ${selectedAMC.includes(a) ? 'text-[#d6fd70]' : 'text-[#8390a2] group-hover:text-white'}`}>
+                <span className={`text-xs transition-colors ${selectedAMC.includes(a) ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : lm ? 'text-[#6B7280] group-hover:text-[#111827]' : 'text-[#8390a2] group-hover:text-white'}`}>
                   {a}
                 </span>
               </label>

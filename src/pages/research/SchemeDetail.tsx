@@ -1,11 +1,12 @@
-﻿import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
-import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
-import { format } from 'date-fns'
+import { ArrowLeft as ArrowBackIcon, ArrowsLeftRight as CompareIcon, FileText as ReportIcon, Buildings as BuildingsIcon, Globe as GlobeIcon, Newspaper as NewsIcon, ArrowSquareOut as ExternalLinkIcon, X as CloseIcon, Clock as ClockIcon, Coins as CoinsIcon, TrendDown as TrendDownIcon, ShoppingBag as BasketUpsellIcon, ArrowRight as ArrowRightSmIcon } from '@phosphor-icons/react'
+import { format, formatDistanceToNow } from 'date-fns'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { mockFunds, getMockNavData } from '../../data/funds'
+import { FUND_NEWS, type NewsItem } from '../../data/fundNews'
 import { useUIStore } from '../../stores/uiStore'
 
 const periods = ['1M', '6M', '1Y', '3Y', 'MAX'] as const
@@ -19,10 +20,91 @@ const holdingsDist = [
   { label: 'Cash & Eq.', value: 11.0, color: '#22C55E' },
 ]
 
+// SEBI 6-level riskometer
+const RISK_LEVELS = ['Low', 'Low-Moderate', 'Moderate', 'Moderately High', 'High', 'Very High'] as const
+type RiskLevel = typeof RISK_LEVELS[number]
+
+const RISK_COLORS: Record<RiskLevel, string> = {
+  'Low': '#22C55E',
+  'Low-Moderate': '#84cc16',
+  'Moderate': '#eab308',
+  'Moderately High': '#f59e0b',
+  'High': '#ef4444',
+  'Very High': '#dc2626',
+}
+
+function volatilityToRisk(v: 'Low' | 'Medium' | 'High'): RiskLevel {
+  if (v === 'Low') return 'Moderate'
+  if (v === 'Medium') return 'Moderately High'
+  return 'High'
+}
+
+function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
+  const idx = RISK_LEVELS.indexOf(level)
+  // Needle angle: -90° (far left) to +90° (far right), 6 levels
+  const angleDeg = -90 + (idx / (RISK_LEVELS.length - 1)) * 180
+  const color = RISK_COLORS[level]
+
+  return (
+    <div className="flex flex-col items-center">
+      <svg viewBox="0 0 160 90" width="160" height="90" style={{ overflow: 'visible' }}>
+        {/* Arc segments */}
+        {RISK_LEVELS.map((_, i) => {
+          const startAngle = Math.PI + (i / RISK_LEVELS.length) * Math.PI
+          const endAngle = Math.PI + ((i + 1) / RISK_LEVELS.length) * Math.PI
+          const r = 68
+          const cx = 80, cy = 82
+          const x1 = cx + r * Math.cos(startAngle)
+          const y1 = cy + r * Math.sin(startAngle)
+          const x2 = cx + r * Math.cos(endAngle)
+          const y2 = cy + r * Math.sin(endAngle)
+          const segColors = ['#22C55E', '#84cc16', '#eab308', '#f59e0b', '#ef4444', '#dc2626']
+          const active = i <= idx
+          return (
+            <path
+              key={i}
+              d={`M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`}
+              fill={active ? segColors[i] : (lm ? '#E0E3E8' : '#1e2838')}
+              opacity={active ? 1 : 0.4}
+            />
+          )
+        })}
+        {/* White inner circle to make donut */}
+        <circle cx="80" cy="82" r="44" fill={lm ? '#ffffff' : '#14171c'} />
+        {/* Needle */}
+        {(() => {
+          const rad = (angleDeg * Math.PI) / 180
+          const nx = 80 + 52 * Math.cos(rad)
+          const ny = 82 + 52 * Math.sin(rad)
+          return (
+            <>
+              <line x1="80" y1="82" x2={nx} y2={ny} stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+              <circle cx="80" cy="82" r="4" fill={color} />
+            </>
+          )
+        })()}
+      </svg>
+      <p className="text-xs font-bold mt-1" style={{ color }}>{level}</p>
+    </div>
+  )
+}
+
+// Peer funds mock data (same subcategory, different funds)
+function getPeerFunds(currentId: string, subCategory: string) {
+  return mockFunds
+    .filter(f => f.id !== currentId && f.subCategory === subCategory)
+    .slice(0, 3)
+}
+
+function getPeerFundsAny(currentId: string) {
+  return mockFunds.filter(f => f.id !== currentId).slice(0, 3)
+}
+
 export function SchemeDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const fund = mockFunds.find((f) => f.id === id) ?? mockFunds[2]
-  const [tab, setTab] = useState<'overview' | 'constituents'>('overview')
+  const [tab, setTab] = useState<'overview' | 'constituents' | 'dividends'>('overview')
   const [period, setPeriod] = useState<Period>('3Y')
   const lm = useUIStore((s) => s.lightMode)
 
@@ -49,7 +131,6 @@ export function SchemeDetail() {
   const endVal = navData[navData.length - 1]?.value ?? 100
   const totalReturn = (((endVal - startVal) / startVal) * 100).toFixed(2)
 
-  // Nifty 50 benchmark (normalised to fund's start value so both start at same point)
   const niftyData = navData.map((d, i) => ({
     ...d,
     nifty: startVal * (1 + i * 0.008 + Math.sin(i * 0.3) * 0.012),
@@ -57,19 +138,108 @@ export function SchemeDetail() {
   const niftyReturn = (((niftyData[niftyData.length - 1]?.nifty ?? startVal) - startVal) / startVal * 100).toFixed(2)
   const alpha = (Number(totalReturn) - Number(niftyReturn)).toFixed(1)
 
+  const riskLevel = volatilityToRisk(fund.volatility)
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null)
+  const fundNews = FUND_NEWS[fund.id] ?? []
+
+  const categoryColors: Record<string, { bg: string; text: string }> = {
+    'Fund Update':  { bg: 'rgba(99,102,241,0.12)',  text: '#818cf8' },
+    'Market News':  { bg: 'rgba(245,158,11,0.12)',  text: '#fbbf24' },
+    'AMC News':     { bg: 'rgba(34,197,94,0.12)',   text: '#4ade80' },
+    'Regulatory':   { bg: 'rgba(239,68,68,0.12)',   text: '#f87171' },
+    'Performance':  { bg: 'rgba(214,253,112,0.12)', text: '#d6fd70' },
+  }
+
+  // Rank cards: mock rank in category (based on fund index in same subcat)
+  const sameCatFunds = mockFunds.filter(f => f.subCategory === fund.subCategory)
+  const totalInCat = Math.max(sameCatFunds.length, 5)
+  const returnRank = sameCatFunds.sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0)).findIndex(f => f.id === fund.id) + 1
+  const costRank = sameCatFunds.sort((a, b) => a.expenseRatio - b.expenseRatio).findIndex(f => f.id === fund.id) + 1
+  const volRank = sameCatFunds.sort((a, b) => {
+    const order = { Low: 0, Medium: 1, High: 2 }
+    return order[a.volatility] - order[b.volatility]
+  }).findIndex(f => f.id === fund.id) + 1
+
+  const peers = getPeerFunds(fund.id, fund.subCategory)
+  const peerFunds = peers.length >= 2 ? peers : getPeerFundsAny(fund.id).slice(0, 3)
+  const leastVolatilePeer = [...peerFunds].sort((a, b) => {
+    const o = { Low: 0, Medium: 1, High: 2 }
+    return o[a.volatility] - o[b.volatility]
+  })[0]
+  const highestReturnPeer = [...peerFunds].sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0))[0]
+
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-4">
+      {/* News modal */}
+      {selectedNews && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setSelectedNews(null)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl p-6 space-y-4"
+            style={{ background: lm ? '#ffffff' : '#14171c', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`, maxHeight: '80vh', overflowY: 'auto' }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-start justify-between gap-3">
+              <span
+                className="text-[10px] font-bold px-2 py-1 rounded-full"
+                style={categoryColors[selectedNews.category]}
+              >
+                {selectedNews.category}
+              </span>
+              <button onClick={() => setSelectedNews(null)}>
+                <CloseIcon size={18} weight="bold" color={lm ? '#9CA3AF' : '#64748b'} />
+              </button>
+            </div>
+            <h2 className={`text-sm font-bold ${text} leading-snug`}>{selectedNews.headline}</h2>
+            <div className="flex items-center gap-3">
+              <span className={`text-xs font-semibold ${textSub}`}>{selectedNews.source}</span>
+              <span className={`text-[10px] ${textMuted} flex items-center gap-1`}>
+                <ClockIcon size={10} weight="regular" />
+                {format(new Date(selectedNews.publishedAt), 'd MMM yyyy, h:mm a')}
+              </span>
+            </div>
+            <p className={`text-xs ${textSub} leading-relaxed`}>{selectedNews.body}</p>
+            {selectedNews.sourceUrl ? (
+              <a
+                href={selectedNews.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#6366f1] hover:underline"
+              >
+                <ExternalLinkIcon size={13} weight="duotone" />
+                Read full article on {selectedNews.source}
+              </a>
+            ) : (
+              <p className={`text-[10px] ${textMuted}`}>Full article available on {selectedNews.source} website.</p>
+            )}
+          </div>
+        </div>
+      )}
       {/* Back */}
-      <Link to="/mutual-funds/search" className={`flex items-center gap-2 text-xs ${textMuted} hover:${text} transition-colors w-fit`}>
-        <ArrowBackIcon size={14} weight="bold" />
-        Back to Search
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link to="/mutual-funds/search" className={`flex items-center gap-2 text-xs ${textMuted} hover:${text} transition-colors`}>
+          <ArrowBackIcon size={14} weight="bold" />
+          Back to Search
+        </Link>
+        <button
+          onClick={() => navigate(`/mutual-funds/compare?fund=${fund.id}`)}
+          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+          style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)', color: '#6366f1', border: '1px solid rgba(99,102,241,0.2)' }}
+        >
+          <CompareIcon size={13} weight="duotone" />
+          Compare with similar
+        </button>
+      </div>
 
       {/* Fund header */}
       <div className={`${card} rounded-xl p-5`}>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-xl ${accentBg} flex items-center justify-center text-sm font-bold text-[#d6fd70]`}>
+            <div className={`w-12 h-12 rounded-xl ${accentBg} flex items-center justify-center text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>
               {fund.amcName.slice(0, 2).toUpperCase()}
             </div>
             <div>
@@ -101,24 +271,80 @@ export function SchemeDetail() {
         </div>
       </div>
 
+      {/* Fund Analysis rank cards — inspired by smallcase/tickertape */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          {
+            label: 'Returns',
+            rank: returnRank,
+            total: totalInCat,
+            stat: `${fund.returns['1Y'] ?? '—'}%`,
+            statLabel: '1Y Return',
+            color: returnRank === 1 ? (lm ? '#4f46e5' : '#d6fd70') : returnRank <= 2 ? '#22C55E' : '#f59e0b',
+            medal: returnRank === 1 ? '🥇' : returnRank === 2 ? '🥈' : returnRank === 3 ? '🥉' : null,
+          },
+          {
+            label: 'Cost',
+            rank: costRank,
+            total: totalInCat,
+            stat: `${fund.expenseRatio}%`,
+            statLabel: 'Expense Ratio',
+            color: costRank <= 2 ? '#22C55E' : costRank <= Math.ceil(totalInCat / 2) ? '#f59e0b' : '#ef4444',
+            medal: costRank === 1 ? '🥇' : costRank === 2 ? '🥈' : null,
+          },
+          {
+            label: 'Volatility',
+            rank: volRank,
+            total: totalInCat,
+            stat: fund.volatility,
+            statLabel: 'Std. Deviation tier',
+            color: fund.volatility === 'Low' ? '#22C55E' : fund.volatility === 'Medium' ? '#f59e0b' : '#ef4444',
+            medal: volRank === 1 ? '🥇' : null,
+          },
+        ].map((item) => (
+          <div key={item.label} className={`${card} rounded-xl p-4`}>
+            <div className="flex items-start justify-between mb-2">
+              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>{item.label}</p>
+              {item.medal && <span className="text-base">{item.medal}</span>}
+            </div>
+            <div className="flex items-end gap-2 mb-2">
+              <span className="text-2xl font-black" style={{ color: item.color, lineHeight: 1 }}>
+                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>st</span>
+              </span>
+              <span className={`text-xs ${textMuted} mb-0.5`}>of {item.total}</span>
+            </div>
+            <p className={`text-xs font-semibold ${text}`}>{item.stat}</p>
+            <p className={`text-[10px] ${textMuted}`}>{item.statLabel}</p>
+            {/* mini progress bar */}
+            <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
+              <div
+                className="h-full rounded-full transition-all"
+                style={{ width: `${((item.total - item.rank + 1) / item.total) * 100}%`, background: item.color }}
+              />
+            </div>
+            <p className={`text-[10px] ${textMuted} mt-1`}>vs {item.total} in category</p>
+          </div>
+        ))}
+      </div>
+
       {/* Tabs */}
       <div className={`flex gap-1 border-b ${tabBorder}`}>
-        {(['overview', 'constituents'] as const).map((t) => (
+        {(['overview', 'constituents', 'dividends'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2.5 text-sm font-medium capitalize transition-colors border-b-2 -mb-px ${
-              tab === t ? 'border-[#d6fd70] text-[#d6fd70]' : `border-transparent ${textSub} hover:${text}`
+              tab === t ? (lm ? 'border-[#4f46e5] text-[#4f46e5]' : 'border-[#d6fd70] text-[#d6fd70]') : `border-transparent ${textSub} hover:${text}`
             }`}
           >
-            {t === 'overview' ? 'Overview' : 'Constituents'}
+            {t === 'overview' ? 'Overview' : t === 'constituents' ? 'Constituents' : 'Dividends'}
           </button>
         ))}
       </div>
 
       {tab === 'overview' && (
         <div className="grid grid-cols-3 gap-5">
-          {/* Left: Performance + Analysis */}
+          {/* Left column */}
           <div className="col-span-2 space-y-4">
             {/* Performance chart */}
             <div className={`${card} rounded-xl p-5`}>
@@ -130,7 +356,7 @@ export function SchemeDetail() {
                       {Number(totalReturn) >= 0 ? '+' : ''}{totalReturn}%
                     </p>
                   </div>
-                  <div className={`h-8 w-px`} style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
+                  <div className="h-8 w-px" style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
                   <div>
                     <p className={`text-xs ${textSub}`}>Nifty 50</p>
                     <p className={`text-xl font-semibold ${textSub}`}>{Number(niftyReturn) >= 0 ? '+' : ''}{niftyReturn}%</p>
@@ -158,10 +384,15 @@ export function SchemeDetail() {
                   ))}
                 </div>
               </div>
-              {/* Legend */}
               <div className="flex items-center gap-4 mb-3">
-                <div className="flex items-center gap-1.5"><div className="w-6 h-0.5 rounded" style={{ background: '#d6fd70' }} /><span className={`text-xs ${textSub}`}>{fund.name.split(' ')[0]}</span></div>
-                <div className="flex items-center gap-1.5"><div className="w-6 h-0.5 rounded border-t-2 border-dashed" style={{ borderColor: '#64748b' }} /><span className={`text-xs ${textSub}`}>Nifty 50</span></div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-6 h-0.5 rounded" style={{ background: '#d6fd70' }} />
+                  <span className={`text-xs ${textSub}`}>{fund.name.split(' ')[0]}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-6 h-0.5 rounded border-t-2 border-dashed" style={{ borderColor: '#64748b' }} />
+                  <span className={`text-xs ${textSub}`}>Nifty 50</span>
+                </div>
               </div>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={niftyData}>
@@ -183,9 +414,36 @@ export function SchemeDetail() {
                   <Area type="monotone" dataKey="nifty" stroke="#64748b" strokeWidth={1.5} strokeDasharray="5 3" fill="none" dot={false} />
                 </AreaChart>
               </ResponsiveContainer>
+              <p className="text-[10px] mt-2" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
+                Past performance is not indicative of future returns.
+              </p>
             </div>
 
-            {/* Key metrics */}
+            {/* Risk metrics row */}
+            <div className={`${card} rounded-xl p-4`}>
+              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-3`}>Risk Metrics</p>
+              <div className="grid grid-cols-4 gap-3">
+                {[
+                  { label: 'Alpha (1Y)', value: alpha, suffix: '%', color: Number(alpha) >= 0 ? '#22c55e' : '#ef4444', free: true },
+                  { label: 'Beta', value: (0.85 + Math.random() * 0.3).toFixed(2), suffix: '', color: lm ? '#111827' : '#fff', free: false },
+                  { label: 'Sharpe Ratio', value: fund.sharpeRatio.toFixed(2), suffix: '', color: fund.sharpeRatio >= 1 ? '#22c55e' : '#f59e0b', free: false },
+                  { label: 'Max Drawdown', value: `${(-(8 + Math.random() * 12)).toFixed(1)}`, suffix: '%', color: '#ef4444', free: false },
+                ].map((m) => (
+                  <div key={m.label} className="text-center">
+                    <p className={`text-[10px] ${textMuted} mb-1`}>{m.label}</p>
+                    {m.free ? (
+                      <p className="text-lg font-bold" style={{ color: m.color }}>{m.value}{m.suffix}</p>
+                    ) : (
+                      <PlanGate requiredTier="pro" compact>
+                        <p className="text-lg font-bold" style={{ color: m.color }}>{m.value}{m.suffix}</p>
+                      </PlanGate>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Fund Analysis key metrics */}
             <div className={`${card} rounded-xl p-5`}>
               <h3 className={`text-sm font-semibold ${text} mb-4`}>Fund Analysis</h3>
               <div className="grid grid-cols-2 gap-x-8 gap-y-3">
@@ -201,45 +459,250 @@ export function SchemeDetail() {
                     <span className={`text-xs ${textSub}`}>{row.label}</span>
                     <div className="flex items-center gap-4 text-xs font-semibold">
                       <span className={text}>{row.fund}</span>
-                      {row.cat !== '—' && <span className={textMuted}>Cat: {row.cat}</span>}
+                      {row.cat !== '—' && <span className={textMuted}>Cat avg: {row.cat}</span>}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* About the fund */}
+            {/* Peer Mutual Funds */}
             <div className={`${card} rounded-xl p-5`}>
-              <h3 className={`text-sm font-semibold ${text} mb-3`}>About the Fund</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: 'Min SIP Amount', value: `₹${fund.minSIP}` },
-                  { label: 'Lock-in', value: fund.lockIn },
-                  { label: 'Fund Size', value: `₹${fund.fundSize.toLocaleString('en-IN')} Cr` },
-                  { label: 'Launched on', value: new Date(fund.launchedOn).getFullYear() },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#d6fd70]" />
-                    <span className={`text-xs ${textSub}`}>{item.label}:</span>
-                    <span className={`text-xs font-semibold ${text}`}>{item.value}</span>
+              <h3 className={`text-sm font-semibold ${text} mb-4`}>Peer Mutual Funds</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {/* Least Volatile */}
+                {leastVolatilePeer && (
+                  <div
+                    className="rounded-xl p-3 cursor-pointer transition-all hover:scale-[1.01]"
+                    style={{ background: lm ? '#F9F9FF' : '#0a0c0e', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}` }}
+                    onClick={() => navigate(`/mutual-funds/scheme/${leastVolatilePeer.id}`)}
+                  >
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e' }}>
+                        Least Volatile
+                      </span>
+                    </div>
+                    <p className={`text-xs font-semibold ${text} line-clamp-2 mb-1`}>{leastVolatilePeer.name}</p>
+                    <p className={`text-[10px] ${textMuted} mb-2`}>{leastVolatilePeer.amcName}</p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className={`text-[10px] ${textMuted}`}>1Y Returns</p>
+                        <p className="text-sm font-bold text-[#22C55E]">{leastVolatilePeer.returns['1Y']}%</p>
+                      </div>
+                      <div>
+                        <p className={`text-[10px] ${textMuted}`}>NAV</p>
+                        <p className={`text-sm font-semibold ${text}`}>₹{leastVolatilePeer.nav.toFixed(2)}</p>
+                      </div>
+                      <VolatilityBadge level={leastVolatilePeer.volatility} size="sm" />
+                    </div>
                   </div>
-                ))}
+                )}
+                {/* Highest 1Y Returns */}
+                {highestReturnPeer && (
+                  <div
+                    className="rounded-xl p-3 cursor-pointer transition-all hover:scale-[1.01]"
+                    style={{ background: lm ? '#F9F9FF' : '#0a0c0e', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}` }}
+                    onClick={() => navigate(`/mutual-funds/scheme/${highestReturnPeer.id}`)}
+                  >
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ background: 'rgba(245,158,11,0.1)', color: '#f59e0b' }}>
+                        Highest 1Y Returns
+                      </span>
+                    </div>
+                    <p className={`text-xs font-semibold ${text} line-clamp-2 mb-1`}>{highestReturnPeer.name}</p>
+                    <p className={`text-[10px] ${textMuted} mb-2`}>{highestReturnPeer.amcName}</p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className={`text-[10px] ${textMuted}`}>1Y Returns</p>
+                        <p className="text-sm font-bold text-[#22C55E]">{highestReturnPeer.returns['1Y']}%</p>
+                      </div>
+                      <div>
+                        <p className={`text-[10px] ${textMuted}`}>NAV</p>
+                        <p className={`text-sm font-semibold ${text}`}>₹{highestReturnPeer.nav.toFixed(2)}</p>
+                      </div>
+                      <VolatilityBadge level={highestReturnPeer.volatility} size="sm" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Fund News & Updates */}
+            {fundNews.length > 0 && (
+              <div className={`${card} rounded-xl p-5`}>
+                <div className="flex items-center gap-2 mb-4">
+                  <NewsIcon size={15} weight="duotone" color={lm ? '#6366f1' : '#d6fd70'} />
+                  <h3 className={`text-sm font-semibold ${text}`}>Fund News & Updates</h3>
+                  <span
+                    className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    style={{ background: lm ? 'rgba(79,70,229,0.08)' : 'rgba(214,253,112,0.1)', color: lm ? '#4f46e5' : '#d6fd70' }}
+                  >
+                    {fundNews.length} articles
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {fundNews.map((item) => (
+                    <div
+                      key={item.id}
+                      className="rounded-xl p-3 cursor-pointer transition-all hover:scale-[1.005]"
+                      style={{
+                        background: lm ? '#F9F9FF' : '#0a0c0e',
+                        border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`,
+                      }}
+                      onClick={() => setSelectedNews(item)}
+                    >
+                      <div className="flex items-start justify-between gap-2 mb-1.5">
+                        <span
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                          style={categoryColors[item.category]}
+                        >
+                          {item.category}
+                        </span>
+                        <span className={`text-[10px] ${textMuted} flex items-center gap-1 flex-shrink-0`}>
+                          <ClockIcon size={9} weight="regular" />
+                          {formatDistanceToNow(new Date(item.publishedAt), { addSuffix: true })}
+                        </span>
+                      </div>
+                      <p className={`text-xs font-medium ${text} leading-snug mb-1 line-clamp-2`}>{item.headline}</p>
+                      <div className="flex items-center justify-between">
+                        <span className={`text-[10px] ${textMuted}`}>{item.source}</span>
+                        <ExternalLinkIcon size={11} weight="duotone" color={lm ? '#9CA3AF' : '#64748b'} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* AMC block */}
+            <div className={`${card} rounded-xl p-5`}>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3 mb-3">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black"
+                    style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#4f46e5' : '#d6fd70' }}
+                  >
+                    {fund.amcName.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className={`text-sm font-semibold ${text}`}>{fund.amcName}</p>
+                    <p className={`text-[10px] ${textMuted}`}>SEBI Reg: AMC/MF/SEBI/2024</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => navigate('/reports/mfpms-disclosures')}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+                    style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)', color: '#6366f1' }}
+                  >
+                    <ReportIcon size={12} weight="duotone" />
+                    See Factsheet
+                  </button>
+                  <button
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+                    style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#6B7280' : '#8390a2' }}
+                  >
+                    <GlobeIcon size={12} weight="duotone" />
+                    AMC Website
+                  </button>
+                </div>
+              </div>
+              <p className={`text-xs ${textSub} leading-relaxed mb-3`}>
+                {fund.amcName} is one of India's leading asset management companies. As an AMC, it manages mutual fund
+                schemes across equity, debt, and hybrid categories, with a focus on disciplined investment processes
+                and long-term wealth creation for investors.
+              </p>
+              <div className="flex items-center gap-4">
+                <div>
+                  <p className={`text-[10px] ${textMuted}`}>Schemes Managed</p>
+                  <p className={`text-sm font-bold ${text}`}>{8 + mockFunds.filter(f => f.amcName === fund.amcName).length}</p>
+                </div>
+                <div className={`h-6 w-px`} style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
+                <div>
+                  <p className={`text-[10px] ${textMuted}`}>Total AUM</p>
+                  <p className={`text-sm font-bold ${text}`}>₹{(fund.fundSize * 4.2 / 100).toFixed(0)}K Cr</p>
+                </div>
+                <div className={`h-6 w-px`} style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
+                <div className="flex items-center gap-1.5">
+                  <BuildingsIcon size={12} weight="duotone" color="#8390a2" />
+                  <p className={`text-[10px] ${textMuted}`}>Mumbai, India</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right: CTA + Returns */}
+          {/* Right column */}
           <div className="space-y-4">
+            {/* CTA card */}
             <div className={`${card} rounded-xl p-5 space-y-3`}>
               <div>
                 <p className={`text-xs ${textSub}`}>Minimum Investment</p>
                 <p className={`text-xl font-semibold ${text}`}>₹{fund.minLumpsum}</p>
               </div>
+              <div className="space-y-1.5">
+                <p className={`text-[10px] ${textMuted}`}>Suggested SIP amounts</p>
+                <div className="flex gap-2">
+                  {[500, 1000, 5000].map(amt => (
+                    <button
+                      key={amt}
+                      className="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all"
+                      style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#374151' : '#8390a2' }}
+                    >
+                      ₹{amt >= 1000 ? `${amt / 1000}K` : amt}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <button className="w-full bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold py-2.5 rounded-lg transition-colors">
                 Start SIP
               </button>
               <button className={`w-full border ${dividerColor} hover:border-[#d6fd70]/30 ${text} text-sm font-semibold py-2.5 rounded-lg transition-colors`}>
-                Invest Now
+                Invest Lumpsum
+              </button>
+              <p className="text-[9px] text-center" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
+                Min SIP ₹{fund.minSIP} · Lock-in: {fund.lockIn}
+              </p>
+            </div>
+
+            {/* Riskometer */}
+            <div className={`${card} rounded-xl p-5`}>
+              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-3`}>Risk Level (SEBI Riskometer)</p>
+              <div className="flex justify-center">
+                <Riskometer level={riskLevel} lm={lm} />
+              </div>
+              <div className="mt-3 space-y-1">
+                {RISK_LEVELS.map((lvl) => (
+                  <div key={lvl} className="flex items-center gap-2">
+                    <div
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ background: lvl === riskLevel ? RISK_COLORS[lvl] : (lm ? '#E0E3E8' : '#1e2838') }}
+                    />
+                    <span
+                      className="text-[10px]"
+                      style={{ color: lvl === riskLevel ? RISK_COLORS[lvl] : (lm ? '#9CA3AF' : '#505d6f'), fontWeight: lvl === riskLevel ? 700 : 400 }}
+                    >
+                      {lvl}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Basket upsell */}
+            <div
+              className="rounded-2xl p-4 cursor-pointer transition-all hover:-translate-y-0.5"
+              style={{ background: lm ? 'linear-gradient(135deg, #eeedfd 0%, #f5f3ff 100%)' : 'linear-gradient(135deg, rgba(79,70,229,0.12) 0%, rgba(99,102,241,0.06) 100%)', border: lm ? '1px solid #c7d2fe' : '1px solid rgba(79,70,229,0.2)' }}
+              onClick={() => navigate('/mutual-funds/baskets')}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <BasketUpsellIcon size={14} color={lm ? '#4f46e5' : '#818cf8'} weight="duotone" />
+                <span className="text-xs font-bold" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>Sahi Baskets</span>
+              </div>
+              <p className={`text-[11px] leading-relaxed mb-3`} style={{ color: lm ? '#4f46e5' : '#a5b4fc' }}>
+                This fund is part of the <span className="font-semibold">Dream Home</span> and <span className="font-semibold">Retirement Corpus</span> baskets. Invest with a goal in mind.
+              </p>
+              <button className="flex items-center gap-1 text-[11px] font-bold" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>
+                Explore Baskets <ArrowRightSmIcon size={11} weight="bold" />
               </button>
             </div>
 
@@ -272,10 +735,91 @@ export function SchemeDetail() {
                   ))}
                 </tbody>
               </table>
+              <p className="text-[9px] mt-2" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
+                Past performance is not indicative of future returns.
+              </p>
             </div>
           </div>
         </div>
       )}
+
+      {tab === 'dividends' && (() => {
+        const dividends = [
+          { date: '2024-12-13', record: '2024-12-16', nav: 42.18, amount: 0.80, type: 'Regular' },
+          { date: '2024-09-13', record: '2024-09-16', nav: 40.92, amount: 0.75, type: 'Regular' },
+          { date: '2024-06-14', record: '2024-06-17', nav: 39.55, amount: 0.70, type: 'Regular' },
+          { date: '2024-03-15', record: '2024-03-18', nav: 37.80, amount: 0.65, type: 'Regular' },
+          { date: '2023-12-15', record: '2023-12-18', nav: 36.22, amount: 0.60, type: 'Regular' },
+          { date: '2023-09-15', record: '2023-09-18', nav: 34.90, amount: 0.55, type: 'Regular' },
+          { date: '2023-06-16', record: '2023-06-19', nav: 33.45, amount: 0.55, type: 'Regular' },
+          { date: '2023-03-17', record: '2023-03-20', nav: 31.80, amount: 0.50, type: 'Regular' },
+          { date: '2022-12-16', record: '2022-12-19', nav: 30.10, amount: 0.50, type: 'Regular' },
+          { date: '2022-09-16', record: '2022-09-19', nav: 28.75, amount: 0.45, type: 'Special' },
+          { date: '2022-06-17', record: '2022-06-20', nav: 27.20, amount: 0.45, type: 'Regular' },
+          { date: '2022-03-18', record: '2022-03-21', nav: 26.10, amount: 0.40, type: 'Regular' },
+        ]
+        const totalPaid = dividends.reduce((s, d) => s + d.amount, 0)
+        const annualAvg = (totalPaid / (dividends.length / 4)).toFixed(2)
+        const yieldPct = ((totalPaid / dividends[0].nav) * 100 / 3).toFixed(2)
+        return (
+          <div className="grid grid-cols-3 gap-5">
+            <div className={`col-span-2 ${card} rounded-xl overflow-hidden`}>
+              <div className="px-5 py-4 flex items-center justify-between border-b" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
+                <div className="flex items-center gap-2">
+                  <CoinsIcon size={15} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+                  <h3 className={`text-sm font-semibold ${text}`}>Dividend History</h3>
+                </div>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold`} style={{ background: lm ? 'rgba(79,70,229,0.08)' : 'rgba(214,253,112,0.1)', color: lm ? '#4f46e5' : '#d6fd70' }}>
+                  {dividends.length} payouts · 3 years
+                </span>
+              </div>
+              <div className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2 border-b`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
+                {['Ex-Date', 'Record Date', 'NAV', 'Amount', 'Type'].map(h => (
+                  <span key={h} className={`text-[10px] font-bold uppercase tracking-wider ${textMuted}`}>{h}</span>
+                ))}
+              </div>
+              {dividends.map((d) => (
+                <div
+                  key={d.date}
+                  className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2.5 items-center border-b transition-colors ${lm ? 'hover:bg-[#F9F9FF] border-[#F0F0F8]' : 'hover:bg-[#1a2130] border-[#1e2838]'}`}
+                >
+                  <span className={`text-xs font-medium ${text}`}>{format(new Date(d.date), 'dd MMM yyyy')}</span>
+                  <span className={`text-xs ${textSub}`}>{format(new Date(d.record), 'dd MMM yyyy')}</span>
+                  <span className={`text-xs ${textSub}`}>₹{d.nav.toFixed(2)}</span>
+                  <div className="flex items-center gap-1">
+                    <TrendDownIcon size={11} color="#22c55e" weight="bold" />
+                    <span className="text-xs font-semibold text-[#22c55e]">₹{d.amount.toFixed(2)}</span>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${d.type === 'Special' ? 'bg-amber-500/10 text-amber-500' : (lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]')}`}>{d.type}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <div className={`${card} rounded-xl p-5 space-y-4`}>
+                <h3 className={`text-sm font-semibold ${text}`}>Dividend Stats</h3>
+                {[
+                  { label: '3Y Total Payout', value: `₹${totalPaid.toFixed(2)}` },
+                  { label: 'Avg Annual Dividend', value: `₹${annualAvg}` },
+                  { label: 'Approx Div Yield', value: `${yieldPct}% p.a.`, accent: true },
+                  { label: 'Frequency', value: 'Quarterly' },
+                  { label: 'Payout on', value: 'Growth & IDCW' },
+                ].map(s => (
+                  <div key={s.label} className="flex justify-between items-center">
+                    <span className={`text-xs ${textSub}`}>{s.label}</span>
+                    <span className={`text-xs font-bold ${s.accent ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>{s.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={`${card} rounded-xl p-4`}>
+                <p className={`text-[10px] leading-relaxed ${textMuted}`}>
+                  Dividends (IDCW) reduce the NAV by the payout amount on the ex-date. The actual yield depends on your purchase NAV. Consider Growth option for long-term compounding — dividends are taxed as income.
+                </p>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {tab === 'constituents' && (
         <div className="grid grid-cols-3 gap-5">
@@ -287,7 +831,7 @@ export function SchemeDetail() {
                   <div key={sec.sector}>
                     <div className="flex justify-between items-center mb-1">
                       <span className={`text-xs font-semibold ${text}`}>{sec.sector}</span>
-                      <span className="text-xs font-semibold text-[#d6fd70]">{sec.totalWeight}%</span>
+                      <span className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{sec.totalWeight}%</span>
                     </div>
                     {sec.holdings.map((h) => (
                       <div key={h.name} className={`flex justify-between py-1 pl-3 border-l ${constituentBorder} ml-1`}>
