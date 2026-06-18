@@ -34,6 +34,139 @@
   100% { background-position:  200% 0; }
 }
 
+/* ─── Rotating research/analysis border (points 1, 12, 27) ─── */
+@property --sahi-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes sahi-rotate {
+  to { --sahi-angle: 360deg; }
+}
+/* Full rotating border around the whole card */
+.sahi-research-border {
+  position: relative;
+  border-radius: 1rem;
+  background: #ffffff;
+}
+.sahi-research-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--sahi-angle),
+    #8c34ee, #4f46e5, #d6fd70, #22c55e, #4f46e5, #8c34ee
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: sahi-rotate 4s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sahi-research-border::before { animation: none; }
+}
+
+/* ─── Premium plan purchase card (points 2, 30) ─── */
+.premium-plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #0a0c0e;
+  background-image:
+    radial-gradient(at 88% 40%, #0a0c0e 0px, transparent 85%),
+    radial-gradient(at 49% 30%, #0a0c0e 0px, transparent 85%),
+    radial-gradient(at 14% 26%, #0a0c0e 0px, transparent 85%),
+    radial-gradient(at 0% 64%, #4f46e5 0px, transparent 85%),
+    radial-gradient(at 41% 94%, #8c34ee 0px, transparent 85%),
+    radial-gradient(at 100% 99%, #6366f1 0px, transparent 85%);
+  border-radius: 1rem;
+  box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.12) inset;
+  overflow: hidden;
+}
+.premium-plan-card__border {
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  background-image: linear-gradient(0deg, #1a1d24 -50%, #0a0c0e 100%);
+  border-radius: 1rem;
+}
+.premium-plan-card__border::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center;
+  width: 200%;
+  height: 10rem;
+  background-image: linear-gradient(
+    0deg,
+    rgba(140, 52, 238, 0) 0%,
+    #8c34ee 40%,
+    #d6fd70 50%,
+    #8c34ee 60%,
+    rgba(140, 52, 238, 0) 100%
+  );
+  animation: premium-rotate 7s linear infinite;
+}
+@keyframes premium-rotate {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.premium-plan-card > * { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .premium-plan-card__border::before { animation: none; }
+}
+
+/* ─── Glow PRO button (point 3) ─── */
+.glow-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 9999px;
+  background-image: linear-gradient(135deg, #8c34ee 0%, #4f46e5 100%);
+  box-shadow: inset 0 -2px 18px -4px rgba(255, 255, 255, 0.55), 0 4px 20px rgba(140, 52, 238, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.glow-btn:hover {
+  filter: brightness(1.06);
+  box-shadow: inset 0 -2px 22px -4px rgba(255, 255, 255, 0.7), 0 6px 26px rgba(140, 52, 238, 0.45);
+}
+.glow-btn:focus-visible {
+  outline: 2px solid #d6fd70;
+  outline-offset: 2px;
+}
+.glow-btn:active,
+.glow-btn[data-state="clicked"] {
+  transform: scale(0.96);
+}
+.glow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 * {
   box-sizing: border-box;
 }

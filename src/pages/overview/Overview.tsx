@@ -1,5 +1,6 @@
-﻿import { useState, useRef } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import * as Tooltip from '@radix-ui/react-tooltip'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import { Plus as AddIcon } from '@phosphor-icons/react'
@@ -25,6 +26,7 @@ import { Globe as GlobeIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { ProButton } from '../../components/ui/ProButton'
 import { useAuthStore } from '../../stores/authStore'
+import { useWatchlistStore } from '../../stores/watchlistStore'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { mockFunds } from '../../data/funds'
 import type { UserInvestment } from '../../types'
@@ -145,6 +147,8 @@ const RESEARCH_PICKS = [
 
 function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boolean }) {
   const navigate = useNavigate()
+  const saved = useWatchlistStore((s) => s.ids.includes(fund.id))
+  const toggleWatch = useWatchlistStore((s) => s.toggle)
   const ret = fund.returns['1Y'] ?? 0
   const tierColor = fund.accessTier === 'free' ? '#16a34a' : fund.accessTier === 'pro' ? '#4f46e5' : '#f59e0b'
   const tierBg = fund.accessTier === 'free' ? '#dcfce7' : fund.accessTier === 'pro' ? '#eeedfd' : '#fef9c3'
@@ -162,12 +166,23 @@ function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boole
         >
           <AutoAwesomeIcon size={18} color="#4f46e5" weight="duotone" />
         </div>
-        <span
-          className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-          style={{ background: tierBg, color: tierColor }}
-        >
-          {tierLabel}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span
+            className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+            style={{ background: tierBg, color: tierColor }}
+          >
+            {tierLabel}
+          </span>
+          <button
+            onClick={(e) => { e.stopPropagation(); toggleWatch(fund.id) }}
+            className="flex-shrink-0 transition-transform hover:scale-110"
+            aria-label={saved ? 'Remove from watchlist' : 'Add to watchlist'}
+          >
+            {saved
+              ? <FavoriteIcon size={15} color="#4f46e5" weight="fill" />
+              : <FavoriteBorderIcon size={15} color={lm ? '#9CA3AF' : '#505d6f'} weight="duotone" />}
+          </button>
+        </div>
       </div>
       <p className={`text-sm font-bold leading-snug mb-1 ${lm ? 'text-[#111827]' : 'text-white'}`}>{fund.name}</p>
       <p className={`text-[11px] mb-3 line-clamp-2 ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>{fund.description}</p>
@@ -244,7 +259,13 @@ export function Overview() {
   const lm = lightMode
 
   const [askQuery, setAskQuery] = useState('')
-  const [watchlisted, setWatchlisted] = useState<string[]>([])
+  // Watchlist hearts persist app-wide via the watchlist store; seed from user's saved list
+  const seedWatchlist = useWatchlistStore((s) => s.seed)
+  const watchlisted = useWatchlistStore((s) => s.ids)
+  const toggleWatchlist = useWatchlistStore((s) => s.toggle)
+  useEffect(() => {
+    if (user?.watchlist?.length) seedWatchlist(user.watchlist)
+  }, [user?.watchlist, seedWatchlist])
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const investments = user?.investments ?? []
@@ -295,13 +316,41 @@ export function Overview() {
             {(() => {
               const open = isMarketOpen()
               return (
-                <div
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium ${lm ? 'bg-[#F9FAFB] border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'}`}
-                  style={{ color: open ? '#16a34a' : '#dc2626' }}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-[#22c55e] animate-pulse' : 'bg-[#ef4444]'}`} />
-                  {open ? 'Market Open' : 'Market Closed'}
-                </div>
+                <Tooltip.Provider delayDuration={80}>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <div
+                        className="flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-bold cursor-default transition-all"
+                        style={{
+                          color: open ? '#15803d' : '#b91c1c',
+                          background: open ? '#dcfce7' : '#fee2e2',
+                          borderColor: open ? '#86efac' : '#fca5a5',
+                        }}
+                      >
+                        <span className="relative flex h-2 w-2">
+                          {open && <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: '#22c55e' }} />}
+                          <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: open ? '#16a34a' : '#ef4444' }} />
+                        </span>
+                        {open ? 'Market Open' : 'Market Closed'}
+                      </div>
+                    </Tooltip.Trigger>
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        side="bottom"
+                        sideOffset={8}
+                        className="z-50 rounded-lg px-3 py-2 text-xs shadow-xl"
+                        style={{ background: '#111827', color: '#fff', maxWidth: 220 }}
+                      >
+                        <p className="font-semibold mb-0.5">{open ? 'NSE / BSE are live' : 'Markets are closed'}</p>
+                        <p style={{ color: 'rgba(255,255,255,0.7)' }}>
+                          Trading hours: 9:15 AM – 3:30 PM IST, Mon–Fri.
+                          {!open && ' Opens next business day at 9:15 AM.'}
+                        </p>
+                        <Tooltip.Arrow style={{ fill: '#111827' }} />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
               )
             })()}
           </div>
@@ -346,7 +395,7 @@ export function Overview() {
             </div>
           </div>
           <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
-            {mockSahiFunds.slice(0, 8).map(f => (
+            {mockSahiFunds.map(f => (
               <SahiFundCard key={f.id} fund={f} lm={lm} />
             ))}
           </div>
@@ -364,7 +413,7 @@ export function Overview() {
             }}
           >
             {/* Overlay — must be absolute so bg image shows through */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(10,12,14,0.96) 0%, rgba(15,12,30,0.92) 50%, rgba(10,12,14,0.85) 100%)' }} />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.97) 0%, rgba(79,70,229,0.92) 55%, rgba(79,70,229,0.82) 100%)' }} />
             <div className="relative" style={{ color: '#ffffff' }}>
               <div className="p-6 lg:p-8">
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -553,9 +602,9 @@ export function Overview() {
               return (
                 <div
                   className="rounded-2xl p-5 mb-5 relative overflow-hidden"
-                  style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 80%)' }}
+                  style={{ background: '#4F46E5' }}
                 >
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${pyramidBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                  <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${pyramidBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                   <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
                       <p className="text-xs text-white/60 mb-0.5">Invested</p>
@@ -671,11 +720,11 @@ export function Overview() {
               <AddIcon size={14} weight="regular" /> Add Fund
             </button>
           </div>
-          {(user?.watchlist ?? []).length === 0 ? (
+          {watchlisted.length === 0 ? (
             <div className={`rounded-2xl border p-8 text-center ${card}`}>
               <FavoriteBorderIcon size={28} color={lm ? '#E0E3E8' : '#1e2838'} weight="duotone" />
               <p className={`text-sm font-medium mt-2 ${textSub}`}>Your watchlist is empty</p>
-              <p className={`text-xs mt-1 ${textMuted}`}>Bookmark funds to track them here</p>
+              <p className={`text-xs mt-1 ${textMuted}`}>Tap the heart on any fund to track it here</p>
               <button
                 onClick={() => navigate('/mutual-funds/explore')}
                 className="mt-4 text-xs font-semibold text-[#4f46e5] border border-[#4f46e5]/30 px-4 py-1.5 rounded-lg hover:bg-[#eeedfd] transition-colors"
@@ -685,10 +734,9 @@ export function Overview() {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-3">
-              {(user?.watchlist ?? []).slice(0, 3).map(fundId => {
+              {watchlisted.slice(0, 6).map(fundId => {
                 const f = mockFunds.find(mf => mf.id === fundId)
                 if (!f) return null
-                const isWL = watchlisted.includes(fundId)
                 return (
                   <div key={fundId} className={`rounded-2xl border p-4 ${card}`}>
                     <div className="flex items-start justify-between mb-2">
@@ -697,13 +745,11 @@ export function Overview() {
                         <p className={`text-xs ${textSub}`}>{f.category}</p>
                       </div>
                       <button
-                        onClick={() => setWatchlisted(w => isWL ? w.filter(x => x !== fundId) : [...w, fundId])}
-                        className="flex-shrink-0 ml-2"
+                        onClick={() => toggleWatchlist(fundId)}
+                        className="flex-shrink-0 ml-2 transition-transform hover:scale-110"
+                        aria-label="Remove from watchlist"
                       >
-                        {isWL
-                          ? <FavoriteIcon size={16} color="#4f46e5" weight="fill" />
-                          : <FavoriteBorderIcon size={16} color={lm ? '#9CA3AF' : '#505d6f'} weight="duotone" />
-                        }
+                        <FavoriteIcon size={16} color="#4f46e5" weight="fill" />
                       </button>
                     </div>
                     <div className="flex justify-between items-end">
@@ -765,9 +811,9 @@ export function Overview() {
             <div className="rounded-2xl overflow-hidden relative flex items-center gap-4 p-5 min-h-[120px]"
               style={{ background: '#3359C3' }}>
               <div>
-                <p className="text-xs font-bold text-blue-200 mb-1 tracking-wider uppercase">Liquid Parking</p>
-                <h3 className="text-base font-bold text-white mb-1.5 leading-snug">Grow your idle money</h3>
-                <p className="text-xs text-white/65 mb-3 max-w-xs">Park surplus cash in liquid MF portfolios with zero lock-in and instant withdrawal.</p>
+                <p className="text-xs font-bold mb-1 tracking-wider uppercase" style={{ color: '#bfdbfe' }}>Liquid Parking</p>
+                <h3 className="text-base font-bold mb-1.5 leading-snug" style={{ color: '#ffffff' }}>Grow your idle money</h3>
+                <p className="text-xs mb-3 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>Park surplus cash in liquid MF portfolios with zero lock-in and instant withdrawal.</p>
                 <button className={`text-xs font-bold px-4 py-1.5 rounded-lg transition-colors ${lm ? 'bg-white text-[#1d4ed8] hover:bg-blue-50' : 'bg-white text-[#1d4ed8] hover:bg-blue-50'}`}>
                   Explore now
                 </button>
@@ -781,7 +827,7 @@ export function Overview() {
               <div>
                 <p className="text-xs font-bold mb-1 tracking-wider uppercase" style={{ color: '#6ee7b7' }}>Market Theme</p>
                 <h3 className="text-base font-bold mb-1.5 leading-snug" style={{ color: '#ffffff' }}>Global shifts, local gains</h3>
-                <p className="text-xs mb-3 max-w-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>Funds likely to benefit from geopolitical shifts and new trade corridors.</p>
+                <p className="text-xs mb-3 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>Funds likely to benefit from geopolitical shifts and new trade corridors.</p>
                 <button className="text-xs font-bold px-4 py-1.5 rounded-lg transition-colors bg-white hover:bg-emerald-50" style={{ color: '#065f46' }}>
                   Explore now
                 </button>
@@ -793,7 +839,7 @@ export function Overview() {
 
         {/* ── Upsell: Upgrade banner (free plan only) ── */}
         {user?.plan === 'free' && (
-          <div className="rounded-2xl overflow-hidden relative" style={{ background: 'linear-gradient(135deg, #0a0c0e 0%, #1a1230 100%)' }}>
+          <div className="rounded-2xl overflow-hidden relative" style={{ background: '#0A0C0E' }}>
             {/* BG image as absolute overlay */}
             <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${pyramidBg})`, backgroundSize: 'cover', backgroundPosition: 'right center' }} />
             {/* Gradient fade over the image */}

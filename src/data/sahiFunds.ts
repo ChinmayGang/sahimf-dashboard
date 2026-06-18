@@ -110,7 +110,7 @@ export const mockSahiFunds: SahiFund[] = [
     id: 'sf005',
     name: 'Sahi Flexi Alpha',
     description:
-      'A high-conviction flexi-cap portfolio that invests across market caps based on Sahi's proprietary alpha signals.',
+      "A high-conviction flexi-cap portfolio that invests across market caps based on Sahi's proprietary alpha signals.",
     methodology:
       'Dynamic allocation between large, mid, and small cap based on valuation gaps and earnings momentum. Typically 6–8 funds. Rebalanced quarterly.',
     managerName: 'Sahi Research Desk',
@@ -217,6 +217,115 @@ export const mockSahiFunds: SahiFund[] = [
       { fundId: 'f005', fundName: 'HDFC Mid-Cap Opportunities Fund', weight: 30 },
       { fundId: 'f006', fundName: 'SBI Small Cap Fund', weight: 30 },
       { fundId: 'f002', fundName: 'Parag Parikh Flexi Cap Fund', weight: 40 },
+    ],
+  },
+  {
+    id: 'sf009',
+    name: 'Sahi Retirement Builder',
+    description:
+      'A long-horizon allocation tuned for steady compounding into retirement — heavier on quality large caps with a debt cushion.',
+    methodology:
+      'Glide-path allocation that gradually de-risks as the target date nears. Annual rebalance with a quality and low-volatility tilt.',
+    managerName: 'Sahi Research Desk',
+    managerCompany: 'SahiMF / Arqentis',
+    fundCount: 5,
+    minAmount: 5000,
+    rebalanceFrequency: 'Yearly',
+    lastRebalance: '2026-01-01',
+    nextRebalance: '2027-01-01',
+    returns: { '1M': 1.4, '3M': 4.1, '6M': 8.2, '1Y': 14.1, '3Y': 12.8 },
+    volatility: 'Low',
+    accessTier: 'free',
+    tags: ['Retirement', 'Long Term', 'Low Risk'],
+    holdingsDistribution: [
+      { label: 'Large Cap', value: 55, color: '#C5F135' },
+      { label: 'Debt', value: 35, color: '#7B2FBE' },
+      { label: 'Gold', value: 10, color: '#F59E0B' },
+    ],
+    holdings: [
+      { fundId: 'f001', fundName: 'Mirae Asset Large Cap Fund', weight: 40 },
+      { fundId: 'f008', fundName: 'Kotak Gilt Fund', weight: 35 },
+    ],
+  },
+  {
+    id: 'sf010',
+    name: 'Sahi Tax Saver ELSS',
+    description:
+      'A curated set of ELSS funds for 80C tax savings with a 3-year lock-in and strong long-term equity track records.',
+    methodology:
+      'Screens ELSS funds on rolling 5Y returns, expense ratio and downside capture. Equal-weighted across 3 funds, reviewed yearly.',
+    managerName: 'Sahi Research Desk',
+    managerCompany: 'SahiMF / Arqentis',
+    fundCount: 3,
+    minAmount: 500,
+    rebalanceFrequency: 'Yearly',
+    lastRebalance: '2026-01-01',
+    nextRebalance: '2027-01-01',
+    returns: { '1M': 3.1, '3M': 9.2, '6M': 15.6, '1Y': 24.2, '3Y': 19.4 },
+    volatility: 'Medium',
+    accessTier: 'free',
+    tags: ['ELSS', 'Tax Saving', '80C'],
+    holdingsDistribution: [
+      { label: 'Large Cap', value: 50, color: '#C5F135' },
+      { label: 'Mid Cap', value: 35, color: '#7B2FBE' },
+      { label: 'Small Cap', value: 15, color: '#EF4444' },
+    ],
+    holdings: [
+      { fundId: 'f002', fundName: 'Parag Parikh Flexi Cap Fund', weight: 50 },
+      { fundId: 'f005', fundName: 'HDFC Mid-Cap Opportunities Fund', weight: 50 },
+    ],
+  },
+  {
+    id: 'sf011',
+    name: 'Sahi Steady Income',
+    description:
+      'A conservative debt-oriented allocation for capital preservation and predictable income with minimal volatility.',
+    methodology:
+      'Blends short-duration and corporate bond funds with a small equity sleeve. Duration kept low to limit interest-rate risk.',
+    managerName: 'Sahi Research Desk',
+    managerCompany: 'SahiMF / Arqentis',
+    fundCount: 3,
+    minAmount: 5000,
+    rebalanceFrequency: 'Quarterly',
+    lastRebalance: '2026-04-01',
+    nextRebalance: '2026-07-01',
+    returns: { '1M': 0.7, '3M': 2.1, '6M': 4.3, '1Y': 8.1, '3Y': 7.2 },
+    volatility: 'Low',
+    accessTier: 'pro',
+    tags: ['Debt', 'Income', 'Capital Preservation'],
+    holdingsDistribution: [
+      { label: 'Debt', value: 85, color: '#7B2FBE' },
+      { label: 'Equity', value: 15, color: '#C5F135' },
+    ],
+    holdings: [
+      { fundId: 'f008', fundName: 'Kotak Gilt Fund', weight: 60 },
+      { fundId: 'f007', fundName: 'ICICI Prudential Balanced Advantage Fund', weight: 40 },
+    ],
+  },
+  {
+    id: 'sf012',
+    name: 'Sahi Bluechip Core',
+    description:
+      'A simple, low-cost core of large-cap funds for investors who want broad-market equity exposure without the noise.',
+    methodology:
+      'Two-fund large-cap core selected on consistency and low expense. Rebalanced half-yearly to keep weights in band.',
+    managerName: 'Sahi Research Desk',
+    managerCompany: 'SahiMF / Arqentis',
+    fundCount: 2,
+    minAmount: 5000,
+    rebalanceFrequency: 'Half-Yearly',
+    lastRebalance: '2026-01-01',
+    nextRebalance: '2026-07-01',
+    returns: { '1M': 2.2, '3M': 6.4, '6M': 11.2, '1Y': 18.9, '3Y': 15.1 },
+    volatility: 'Medium',
+    accessTier: 'free',
+    tags: ['Large Cap', 'Bluechip', 'Core'],
+    holdingsDistribution: [
+      { label: 'Large Cap', value: 100, color: '#C5F135' },
+    ],
+    holdings: [
+      { fundId: 'f001', fundName: 'Mirae Asset Large Cap Fund', weight: 50 },
+      { fundId: 'f002', fundName: 'Parag Parikh Flexi Cap Fund', weight: 50 },
     ],
   },
 ]
