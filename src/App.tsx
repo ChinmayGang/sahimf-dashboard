@@ -30,6 +30,7 @@ import { CreateProfile } from './pages/auth/CreateProfile'
 import { InitializePortfolio } from './pages/auth/InitializePortfolio'
 import { VerifyEmail } from './pages/auth/VerifyEmail'
 import { DesignSystem } from './pages/design-system/DesignSystem'
+import { Pricing } from './pages/pricing/Pricing'
 import { useAuthStore } from './stores/authStore'
 
 const queryClient = new QueryClient()
@@ -54,6 +55,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/otp" element={<OTP />} />
           <Route path="/auth/create-profile" element={<CreateProfile />} />

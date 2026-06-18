@@ -112,10 +112,10 @@ export function ExploreFunds() {
   const sidebarItem = (active: boolean) => lm
     ? active
       ? 'bg-[#eeedfd] border border-[#4f46e5]/20 text-[#4f46e5]'
-      : 'text-[#6B7280] hover:bg-[#f0efff] hover:text-[#111827]'
+      : 'border border-transparent text-[#6B7280] hover:bg-[#f0efff] hover:text-[#111827]'
     : active
       ? 'bg-[#d6fd70]/10 text-[#d6fd70] border border-[#d6fd70]/20'
-      : 'text-[#8390a2] hover:bg-[#1e2838] hover:text-white'
+      : 'border border-transparent text-[#8390a2] hover:bg-[#1e2838] hover:text-white'
 
   const { user } = useAuthStore()
   const activeSectionData = SECTIONS.find((s) => s.id === activeSection)!
@@ -169,7 +169,7 @@ export function ExploreFunds() {
                 placeholder="Search for sahi mutual funds, or collections..."
                 className="flex-1 bg-transparent outline-none text-sm text-[#111827] placeholder-[#8390a2] min-w-0"
               />
-              <button className="bg-black text-white text-xs font-bold px-4 py-1.5 rounded-lg flex-shrink-0 hover:bg-[#1e2838] transition-colors">
+              <button className="bg-[#4f46e5] text-white text-xs font-bold px-4 py-1.5 rounded-lg flex-shrink-0 hover:bg-[#6366f1] transition-colors">
                 Search
               </button>
             </div>
