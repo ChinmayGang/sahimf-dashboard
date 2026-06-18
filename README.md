@@ -272,7 +272,15 @@ This pass worked through a detailed 40-point design review. Status below.
 - Reports: removed MFPMS PDF section + sub-tab, renamed to "Reports & Disclosures", Tax promoted to its own nav item (#39, #38 partial)
 - Pricing: premium animated PRO/Elite cards + simulated purchase flow that returns the user to their previous page (#30)
 
+**Follow-up fixes**
+- Rotating 4-colour research/analysis border now actually renders (wrapper = conic-gradient ring, padding technique, with `@property` fallback)
+- Hid Numera / Thematic Baskets / ArqEd Learning / F&O / Credit from the side menu (kept until launch)
+- Sahi Research Note free-gate rebuilt — blurred preview + working "Unlock with Sahi PRO" overlay (was a mis-sized empty gate)
+- Rank cards: rank-tier tinted bg + border, icon scales with rank (44/36/28 px), rank-1 shine-gradient pill anchored top-center on the border
+
 ### Pending ⏳
+
+**From the original 40-point review (still open)**
 
 - #10 Explore tags / search button (already white — verify against latest design)
 - #13/#37 Global grey→black text sweep across every remaining page
@@ -289,6 +297,23 @@ This pass worked through a detailed 40-point design review. Status below.
 - #36 Goals & Plans: full design-system alignment (tabs, hover, tones)
 - Risk-label vocabulary unified to one scale project-wide (Low/Medium/High vs Moderate)
 - Mobile responsive (Batch 8) · Supabase integration (Batch 9)
+
+**New TODO — added verbatim (not yet started)**
+
+1. we need to create database with supabase and connect all pages with each other so data, content, user, plan, investments, everthing connected to eachother.
+2. we need to make subcribe and plan pages to be access from settings
+3. few pages are still not developed in new create account or u have not connected yet, just keep this point in to-do for us to remember
+4. we need to fix colors, design styles, design systems, text color, cards design, hover effects and animations and light mode colors and dark mode colors, need to replace all icons to filled one, removing duotones icons, form fields effects, buttons states for each button category like primary, secondary, tieretery, brand text, normal text links everything. Convert cards to components and use them and we need to finalise the card stacks hierrachy also for each have same components.
+5. for aryan kapoor, we are showing he has sahi funds investment which should not be possible
+6. fix the container size for each page if they are in it. overlap lens has different from others, but we need to check others too
+7. sahi basket heading icon style, overlap lens heading icon style, and risk analysis heading icon styles and others, all have different styles
+8. risk odometer when gets risky has no color, make it red.
+9. fix the buttons colors which should be fixed if we succesfully built the point 3 without any errors
+10. MF scorecard still not designed as i have asked, and same with market cap mis, the rebalance simulator card drag bar not visible. all pointers which i have shared are not done. get those same points here also if not done.
+11. the button which is placed to add more funds is compare page and other pages has hover effect which turns it neon which make it visibility to none.
+12. Colors for light mode is the major change, if required we need to make the overhaul changes to everyhting and use a global color coded to everything correctly so things stays visible.
+13. calculator updates are also not done.
+14. whereever u have used the upgrade, upgrade to pro, or upgrade to sahi pro buttons should have that same animated button which u have just created.
 
 ---
 
