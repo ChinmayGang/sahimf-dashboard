@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { Sparkle as SparkleIcon } from '@phosphor-icons/react'
 import { Check as CheckIcon } from '@phosphor-icons/react'
 import { Warning as WarnIcon } from '@phosphor-icons/react'
+import { LockSimple as LockIcon } from '@phosphor-icons/react'
 import { AnimatedBorderCard } from './AnimatedBorderCard'
-import { PlanGate } from './PlanGate'
+import { ProButton } from './ProButton'
+import { UpgradePopup } from './UpgradePopup'
 import { usePlan } from '../../hooks/usePlan'
 
 type Verdict = 'Research Pick' | 'Watchlist' | 'Under Review'
@@ -46,6 +49,7 @@ function ScoreBar({ label, value, lm }: { label: string; value: number; lm: bool
 export function SahiResearchCard({ fundName, data, lm }: Props) {
   const { can } = usePlan()
   const isPro = can('pro')
+  const [showUpgrade, setShowUpgrade] = useState(false)
   const vs = VERDICT_STYLE[data.verdict]
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
@@ -88,15 +92,15 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           {!isPro && '…'}
         </p>
 
-        {/* Free gate — blurred continuation */}
+        {/* Free gate — blurred preview with a working unlock overlay */}
         {!isPro && (
-          <div className="relative mt-2">
+          <div className="relative mt-3 rounded-xl overflow-hidden" style={{ minHeight: 150 }}>
             <div
-              className="pointer-events-none select-none"
-              style={{ filter: 'blur(4px)', opacity: 0.5, userSelect: 'none' }}
+              className="pointer-events-none select-none px-1"
+              style={{ filter: 'blur(5px)', userSelect: 'none' }}
+              aria-hidden
             >
-              <p className={`text-xs leading-relaxed ${text}`}>{data.summary.slice(120)}</p>
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]">Key Strengths</p>
                   {data.strengths.map((s, i) => (
@@ -117,13 +121,17 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
                 </div>
               </div>
             </div>
+            {/* Unlock overlay */}
             <div
-              className="absolute inset-0 flex items-center justify-center"
-              style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.85) 40%)' }}
+              className="absolute inset-0 flex flex-col items-center justify-center text-center gap-2 px-6"
+              style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.92) 55%)' }}
             >
-              <PlanGate requiredTier="pro">
-                <span />
-              </PlanGate>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: '#eeedfd', border: '1px solid rgba(79,70,229,0.25)' }}>
+                <LockIcon size={16} color="#4f46e5" weight="duotone" />
+              </div>
+              <p className="text-xs font-semibold text-[#111827]">Full research note is a Sahi PRO feature</p>
+              <p className="text-[11px] text-[#6B7280] max-w-xs">Strengths, watch points, Sahi Score breakdown and the analyst note.</p>
+              <ProButton label="Unlock with Sahi PRO" size="sm" className="mt-1" onClick={() => setShowUpgrade(true)} />
             </div>
           </div>
         )}
@@ -172,6 +180,13 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           </>
         )}
       </div>
+
+      <UpgradePopup
+        open={showUpgrade}
+        onClose={() => setShowUpgrade(false)}
+        feature="Full Sahi Research Note"
+        description="Unlock the complete analyst note — strengths, watch points, Sahi Score breakdown and verdict rationale for every fund."
+      />
     </AnimatedBorderCard>
   )
 }

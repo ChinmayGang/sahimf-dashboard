@@ -60,11 +60,7 @@ const topNavItems: NavItem[] = [
 
 const productItems: NavItem[] = [
   { key: 'mutual-funds', label: 'Mutual Funds', icon: <SquaresFour size={15} weight={W} />, children: mfChildren },
-  { key: 'numera', label: 'Numera', icon: <ChartBar size={15} weight={W} />, comingSoon: true },
-  { key: 'thematic', label: 'Thematic Baskets', icon: <Stack size={15} weight={W} />, comingSoon: true },
-  { key: 'arqed', label: 'ArqEd Learning', icon: <Compass size={15} weight={W} />, comingSoon: true },
-  { key: 'fo', label: 'F&O', icon: <ArrowsLeftRight size={15} weight={W} />, comingSoon: true },
-  { key: 'credit', label: 'Credit', icon: <Wallet size={15} weight={W} />, comingSoon: true },
+  // Other Arqentis products (Numera, Thematic Baskets, ArqEd, F&O, Credit) are hidden until launch.
 ]
 
 // Sidebar is always dark regardless of app light/dark mode

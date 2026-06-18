@@ -43,31 +43,38 @@
 @keyframes sahi-rotate {
   to { --sahi-angle: 360deg; }
 }
-/* Full rotating border around the whole card */
+@keyframes sahi-rotate-fallback {
+  to { transform: rotate(360deg); }
+}
+/* The wrapper IS the rotating gradient; the inner card sits inset by 2px so the
+   gradient shows as a border ring. Robust across browsers (no mask trickery). */
 .sahi-research-border {
   position: relative;
-  border-radius: 1rem;
-  background: #ffffff;
-}
-.sahi-research-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
+  border-radius: 1.05rem;
+  padding: 2px;
   background: conic-gradient(
     from var(--sahi-angle),
     #8c34ee, #4f46e5, #d6fd70, #22c55e, #4f46e5, #8c34ee
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
   animation: sahi-rotate 4s linear infinite;
-  pointer-events: none;
-  z-index: 0;
+}
+/* Fallback for engines without @property: spin a positioned gradient layer */
+@supports not (background: conic-gradient(from var(--sahi-angle), red, blue)) {
+  .sahi-research-border {
+    background: #4f46e5;
+    overflow: hidden;
+  }
+  .sahi-research-border::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(#8c34ee, #4f46e5, #d6fd70, #22c55e, #4f46e5, #8c34ee);
+    animation: sahi-rotate-fallback 4s linear infinite;
+    z-index: 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sahi-research-border::before { animation: none; }
+  .sahi-research-border { animation: none; }
 }
 
 /* ─── Premium plan purchase card (points 2, 30) ─── */

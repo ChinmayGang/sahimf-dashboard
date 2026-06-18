@@ -325,7 +325,7 @@ export function SchemeDetail() {
       </div>
 
       {/* Fund Analysis rank cards — inspired by smallcase/tickertape */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3 mt-3">
         {[
           {
             label: 'Returns',
@@ -333,7 +333,6 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
-            color: returnRank === 1 ? '#16a34a' : returnRank <= 3 ? '#4f46e5' : '#f59e0b',
             topTag: 'Highest Returns',
           },
           {
@@ -342,7 +341,6 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.expenseRatio}%`,
             statLabel: 'Expense Ratio',
-            color: costRank === 1 ? '#16a34a' : costRank <= 3 ? '#4f46e5' : '#f59e0b',
             topTag: 'Lowest Cost',
           },
           {
@@ -351,38 +349,56 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: fund.volatility,
             statLabel: 'Std. Deviation tier',
-            color: volRank === 1 ? '#16a34a' : volRank <= 3 ? '#4f46e5' : '#f59e0b',
             topTag: 'Most Stable',
           },
-        ].map((item) => (
-          <div key={item.label} className={`${card} rounded-xl p-4`}>
+        ].map((item) => {
+          // Tier styling driven by rank: 1 = gold/green, 2-3 = indigo, 4-5 = amber, 6+ = neutral
+          const tier = item.rank === 1
+            ? { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' }
+            : item.rank <= 3
+            ? { color: '#4f46e5', tintBg: '#f5f3ff', tintBorder: '#c7d2fe', shine: '', shadow: '' }
+            : item.rank <= 5
+            ? { color: '#d97706', tintBg: '#fffbeb', tintBorder: '#fde68a', shine: '', shadow: '' }
+            : { color: '#6B7280', tintBg: '#f9fafb', tintBorder: '#E0E3E8', shine: '', shadow: '' }
+          const iconSize = item.rank === 1 ? 44 : item.rank <= 3 ? 36 : 28
+          return (
+          <div
+            key={item.label}
+            className="relative rounded-xl p-4"
+            style={{ background: tier.tintBg, border: `1px solid ${tier.tintBorder}` }}
+          >
+            {/* Rank-1 shine pill anchored to the top-center border */}
+            {item.rank === 1 && (
+              <span
+                className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-bold px-3 py-1 rounded-full text-white whitespace-nowrap z-10"
+                style={{ background: tier.shine, backgroundSize: '200% 100%', animation: 'shimmer-rail 3s linear infinite', boxShadow: `0 3px 10px ${tier.shadow}` }}
+              >
+                {item.topTag}
+              </span>
+            )}
             <div className="flex items-start justify-between mb-2">
               <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>{item.label}</p>
-              <RankBadge rank={item.rank} size={28} />
+              <RankBadge rank={item.rank} size={iconSize} />
             </div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl font-black" style={{ color: item.color, lineHeight: 1 }}>
-                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>{ordinal(item.rank).replace(String(item.rank), '')}</span>
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-2xl font-black" style={{ color: tier.color, lineHeight: 1 }}>
+                {item.rank}<span className="text-sm font-semibold" style={{ color: tier.color }}>{ordinal(item.rank).replace(String(item.rank), '')}</span>
               </span>
               <span className={`text-xs ${textMuted}`}>of {item.total}</span>
-              {item.rank === 1 && (
-                <span className="ml-auto text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#dcfce7', color: '#15803d' }}>
-                  {item.topTag}
-                </span>
-              )}
             </div>
             <p className={`text-xs font-semibold ${text}`}>{item.stat}</p>
             <p className={`text-[10px] ${textMuted}`}>{item.statLabel}</p>
             {/* mini progress bar */}
-            <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
+            <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.06)' }}>
               <div
                 className="h-full rounded-full transition-all"
-                style={{ width: `${((item.total - item.rank + 1) / item.total) * 100}%`, background: item.color }}
+                style={{ width: `${((item.total - item.rank + 1) / item.total) * 100}%`, background: tier.color }}
               />
             </div>
             <p className={`text-[10px] ${textMuted} mt-1`}>vs {item.total} in category</p>
           </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* SahiMF Research Note */}

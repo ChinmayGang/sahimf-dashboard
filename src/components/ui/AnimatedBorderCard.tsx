@@ -9,8 +9,9 @@ interface AnimatedBorderCardProps {
 
 /**
  * Highlight card for Sahi Research / Analysis content.
- * Uses a continuously rotating 4-colour conic-gradient border so these cards
- * are instantly distinguishable from regular light-bordered cards.
+ * The wrapper renders a continuously rotating 4-colour conic-gradient ring;
+ * the inner white card sits on top (inset by the wrapper's 2px padding) so the
+ * gradient reads as an animated border — instantly distinct from plain cards.
  */
 export function AnimatedBorderCard({ children, className = '', badge = 'SAHI RESEARCH' }: AnimatedBorderCardProps) {
   return (
