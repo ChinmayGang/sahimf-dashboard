@@ -47,18 +47,7 @@ function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   const nx = cx + r * Math.cos(rad)
   const ny = cy + r * Math.sin(rad)
 
-  // Arc segments
-  const segments = RISK_SCORE_LABELS.map((_, i) => {
-    const startAngle = -90 + (i / total) * 180
-    const endAngle = -90 + ((i + 1) / total) * 180
-    const sRad = (startAngle * Math.PI) / 180
-    const eRad = (endAngle * Math.PI) / 180
-    const x1 = cx + r * Math.cos(sRad)
-    const y1 = cy + r * Math.sin(sRad)
-    const x2 = cx + r * Math.cos(eRad)
-    const y2 = cy + r * Math.sin(eRad)
-    return `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`
-  })
+
 
   return (
     <div className="flex flex-col items-center">
@@ -155,7 +144,7 @@ function RiskReturnBubbles({
       <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility →</text>
 
       {/* Bubbles */}
-      {funds.map((f, i) => {
+      {funds.map((f, _i) => {
         const cx = toX(f.xirr)
         const cy = toY(f.vol)
         const r = 8 + f.alloc * 0.4

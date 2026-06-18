@@ -6,12 +6,9 @@ import {
   House as HouseIcon,
   Umbrella as RetirementIcon,
   Heart as WeddingIcon,
-  Lightning as FlashIcon,
-  ArrowRight as ArrowRightIcon,
   Warning as WarningIcon,
   CheckCircle as CheckIcon,
   LightbulbFilament as BulbIcon,
-  X as CloseIcon,
 } from '@phosphor-icons/react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { useUIStore } from '../../stores/uiStore'
@@ -34,7 +31,6 @@ function computeRetirement(monthlyExpense: number, retirementAge: number, curren
   const yearsToRetire = retirementAge - currentAge
   const postYears = 25
   const monthlyReturnRate = expectedReturn / 100 / 12
-  const monthlyInflation = inflation / 100 / 12
   const postMonthlyRate = postReturnRate / 100 / 12
   const inflatedExpense = monthlyExpense * Math.pow(1 + inflation / 100, yearsToRetire)
   const requiredCorpus = inflatedExpense * ((1 - Math.pow(1 + postMonthlyRate, -postYears * 12)) / postMonthlyRate)
@@ -68,11 +64,10 @@ function computeRetirement(monthlyExpense: number, retirementAge: number, curren
 
 export function Goals() {
   const lm = useUIStore((s) => s.lightMode)
-  const { can } = usePlan()
-  const isPro = can('pro')
+  const { can: _can } = usePlan()
 
   const [activeGoal, setActiveGoal] = useState<string | null>('retirement')
-  const [showNewGoal, setShowNewGoal] = useState(false)
+  const [_showNewGoal, setShowNewGoal] = useState(false)
 
   // Retirement sliders
   const [sip, setSip] = useState(25000)
@@ -89,13 +84,10 @@ export function Goals() {
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
   const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
-  const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
-  const bgPage = lm ? '#F9FAFB' : '#0a0c0e'
-
   const tooltipStyle = { background: lm ? '#fff' : '#14171c', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`, borderRadius: 8, fontSize: 11, color: lm ? '#111827' : '#fff' }
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
 
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
@@ -219,7 +211,7 @@ export function Goals() {
                 <YAxis tick={{ fontSize: 10, fill: lm ? '#9CA3AF' : '#64748b' }} tickLine={false} axisLine={false} tickFormatter={v => `₹${v}L`} />
                 <Tooltip
                   contentStyle={tooltipStyle}
-                  formatter={(v: number, name: string) => [`₹${v}L`, name === 'corpus' ? 'Your projected corpus' : 'Required corpus']}
+                  formatter={(v, name) => [`₹${Number(v)}L`, name === 'corpus' ? 'Your projected corpus' : 'Required corpus'] as [string, string]}
                   labelFormatter={l => `Age ${l}`}
                 />
                 <ReferenceLine x={retAge} stroke={lm ? '#E0E3E8' : '#1e2838'} strokeDasharray="4 2" />

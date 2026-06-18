@@ -539,7 +539,7 @@ export function FundComparison() {
       {activeTab === 'holdings' && (
         <div className="space-y-4">
           {selectedFunds.map((f, idx) => {
-            const allHoldings = f.constituents.flatMap(s => s.holdings.map(h => ({ ...h, sector: s.sector })))
+            const allHoldings = (f.constituents ?? []).flatMap(s => s.holdings.map(h => ({ ...h, sector: s.sector })))
             const sorted = [...allHoldings].sort((a, b) => b.weight - a.weight)
             const top5 = sorted.slice(0, 5)
             const top10 = sorted.slice(0, 10)

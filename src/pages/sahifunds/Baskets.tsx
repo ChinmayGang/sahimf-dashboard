@@ -161,7 +161,7 @@ export function Baskets() {
   const trackedBaskets = user?.plan === 'pro' ? [BASKETS[0], BASKETS[2]] : []
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-6">
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Methodology modal */}
       {showMethodology && selectedBasket && (
         <div

@@ -105,7 +105,7 @@ export function TaxReport() {
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#0f1420]'
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
 
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
@@ -184,7 +184,7 @@ export function TaxReport() {
             </tr>
           </thead>
           <tbody>
-            {FUND_TAX.map((f, i) => (
+            {FUND_TAX.map((f, _i) => (
               <tr
                 key={f.fundId}
                 className={`border-b ${dividerColor} ${rowHover} cursor-pointer transition-colors`}

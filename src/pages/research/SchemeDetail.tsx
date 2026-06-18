@@ -221,7 +221,7 @@ export function SchemeDetail() {
   const highestReturnPeer = [...peerFunds].sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0))[0]
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-4">
+    <div className="p-6 max-w-7xl mx-auto space-y-4">
       {/* News modal */}
       {selectedNews && (
         <div
@@ -333,7 +333,7 @@ export function SchemeDetail() {
             stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
             color: returnRank === 1 ? (lm ? '#4f46e5' : '#d6fd70') : returnRank <= 2 ? '#22C55E' : '#f59e0b',
-            medal: returnRank === 1 ? '🥇' : returnRank === 2 ? '🥈' : returnRank === 3 ? '🥉' : null,
+            medal: null,
           },
           {
             label: 'Cost',
@@ -342,7 +342,7 @@ export function SchemeDetail() {
             stat: `${fund.expenseRatio}%`,
             statLabel: 'Expense Ratio',
             color: costRank <= 2 ? '#22C55E' : costRank <= Math.ceil(totalInCat / 2) ? '#f59e0b' : '#ef4444',
-            medal: costRank === 1 ? '🥇' : costRank === 2 ? '🥈' : null,
+            medal: null,
           },
           {
             label: 'Volatility',
@@ -351,7 +351,7 @@ export function SchemeDetail() {
             stat: fund.volatility,
             statLabel: 'Std. Deviation tier',
             color: fund.volatility === 'Low' ? '#22C55E' : fund.volatility === 'Medium' ? '#f59e0b' : '#ef4444',
-            medal: volRank === 1 ? '🥇' : null,
+            medal: null,
           },
         ].map((item) => (
           <div key={item.label} className={`${card} rounded-xl p-4`}>

@@ -138,7 +138,7 @@ export function Portfolios() {
           }
         />
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-5">
           {portfolios.map((p) => (
             <Link key={p.id} to={`/mutual-funds/portfolios/${p.id}`}>
               <div className={`${card} rounded-xl p-5 transition-all duration-200 group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'}`}>

@@ -170,16 +170,16 @@ export function MarketCapAllocation() {
               <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: lm ? '#6B7280' : '#8390a2' }} tickLine={false} axisLine={false} width={80} />
               <RechartsTip
                 contentStyle={{ background: lm ? '#fff' : '#14171c', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`, borderRadius: 10, fontSize: 11, color: lm ? '#111827' : '#fff' }}
-                formatter={(v: number, name: string) => [`${v}%`, name === 'current' ? 'Your portfolio' : 'Recommended']}
+                formatter={(v, name) => [`${Number(v)}%`, name === 'current' ? 'Your portfolio' : 'Recommended'] as [string, string]}
               />
               <Bar dataKey="current" name="current" radius={[0, 4, 4, 0]} fill={MCAP_COLORS.large}>
-                {allocationCompare.map((d, i) => {
+                {allocationCompare.map((_d, i) => {
                   const colors = [MCAP_COLORS.large, MCAP_COLORS.mid, MCAP_COLORS.small]
                   return <Cell key={i} fill={colors[i]} />
                 })}
               </Bar>
               <Bar dataKey="recommended" name="recommended" radius={[0, 4, 4, 0]} fill={lm ? '#e5e7eb' : '#1e2838'}>
-                {allocationCompare.map((d, i) => {
+                {allocationCompare.map((_d, i) => {
                   const colors = lm
                     ? ['#c7d2fe', '#bae6fd', '#fde68a']
                     : ['#3730a3', '#0e7490', '#92400e']

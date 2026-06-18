@@ -42,8 +42,8 @@ const DISCLOSURES = [
 const HIGHLIGHTS = [
   { icon: '₹0', label: 'Commission Received', sub: 'From any Indian MF house. Ever.' },
   { icon: '✓', label: 'SEBI Registered IA', sub: 'SEBI/IA/0000/2024' },
-  { icon: '🔒', label: 'Direct Plan Only', sub: 'Never regular plans' },
-  { icon: '📋', label: 'Full Disclosure', sub: 'Fee-only advisory model' },
+  { icon: '✓', label: 'Direct Plan Only', sub: 'Never regular plans' },
+  { icon: '✓', label: 'Full Disclosure', sub: 'Fee-only advisory model' },
 ]
 
 export function MFPMSDisclosures() {

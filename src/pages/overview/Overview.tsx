@@ -20,6 +20,8 @@ import { CaretLeft as ChevronLeftIcon } from '@phosphor-icons/react'
 import { Lightning as FlashOnIcon } from '@phosphor-icons/react'
 import { GraduationCap as SchoolIcon } from '@phosphor-icons/react'
 import { ChartLine as ShowChartIcon } from '@phosphor-icons/react'
+import { CurrencyDollar as CurrencyDollarIcon } from '@phosphor-icons/react'
+import { Globe as GlobeIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { mockSahiFunds } from '../../data/sahiFunds'
@@ -275,7 +277,7 @@ export function Overview() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className={`text-xl font-bold ${text}`}>{greeting()}, {firstName} 👋</h1>
+              <h1 className={`text-xl font-bold ${text}`}>{greeting()}, {firstName}</h1>
               <p className={`text-sm ${textSub}`}>
                 {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
               </p>
@@ -752,7 +754,7 @@ export function Overview() {
                   Explore now
                 </button>
               </div>
-              <div className="flex-shrink-0 text-5xl select-none opacity-90">💰</div>
+              <div className="flex-shrink-0 opacity-80"><CurrencyDollarIcon size={52} color="rgba(255,255,255,0.75)" weight="duotone" /></div>
             </div>
 
             {/* Card 2 — Geopolitical theme */}
@@ -766,7 +768,7 @@ export function Overview() {
                   Explore now
                 </button>
               </div>
-              <div className="flex-shrink-0 text-4xl select-none">🌍</div>
+              <div className="flex-shrink-0 opacity-80"><GlobeIcon size={44} color="rgba(255,255,255,0.75)" weight="duotone" /></div>
             </div>
           </div>
         </div>
