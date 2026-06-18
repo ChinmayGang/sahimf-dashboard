@@ -270,7 +270,7 @@ export function FundComparison() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex-1 justify-center ${active ? (lm ? 'bg-white text-[#111827] shadow-sm' : 'bg-[#14171c] text-white') : textMuted}`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex-1 justify-center ${active ? (lm ? 'bg-white text-[#111827] shadow-sm' : 'bg-[#14171c] text-white') : (lm ? 'text-[#6B7280]' : 'text-[#64748b]')}`}
             >
               {icons[tab.key]}
               {tab.label}
