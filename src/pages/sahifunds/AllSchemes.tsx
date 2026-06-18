@@ -157,7 +157,7 @@ export function AllSchemes() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none ${text}`}
+            className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
           >
             {SORT_OPTIONS.map((o) => <option key={o}>{o}</option>)}
           </select>

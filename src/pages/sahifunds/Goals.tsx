@@ -120,10 +120,10 @@ export function Goals() {
               onClick={() => setActiveGoal(g.id)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold flex-shrink-0 transition-all ${
                 active
-                  ? 'text-white shadow-sm'
-                  : lm ? 'bg-white border border-[#E0E3E8] text-[#6B7280] hover:border-[#4f46e5]/40' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2] hover:border-[#4f46e5]/40'
+                  ? 'shadow-sm'
+                  : lm ? 'bg-white border border-[#E0E3E8] text-[#374151] hover:border-[#4f46e5]/40' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2] hover:border-[#4f46e5]/40'
               }`}
-              style={active ? { background: g.color } : {}}
+              style={active ? { background: g.color, color: '#ffffff' } : {}}
             >
               <Icon size={16} weight="duotone" />
               {g.label}
@@ -138,25 +138,25 @@ export function Goals() {
 
           {/* Shortfall / surplus banner */}
           <div
-            className="rounded-2xl p-4 relative overflow-hidden"
+            className="rounded-2xl p-5"
             style={hasShortfall
-              ? { background: 'linear-gradient(135deg, #1c0a0a 0%, #2d1515 100%)', border: '1px solid rgba(239,68,68,0.3)' }
-              : { background: 'linear-gradient(135deg, #0a1c0e 0%, #0f2d1a 100%)', border: '1px solid rgba(34,197,94,0.3)' }
+              ? { background: '#FEF2F2', border: '1px solid #FCA5A5' }
+              : { background: '#F0FDF4', border: '1px solid #86EFAC' }
             }
           >
             <div className="flex items-start gap-3 mb-4">
               {hasShortfall
-                ? <WarningIcon size={18} color="#f87171" weight="duotone" className="flex-shrink-0 mt-0.5" />
-                : <CheckIcon size={18} color="#4ade80" weight="duotone" className="flex-shrink-0 mt-0.5" />
+                ? <WarningIcon size={18} color="#DC2626" weight="duotone" className="flex-shrink-0 mt-0.5" />
+                : <CheckIcon size={18} color="#16A34A" weight="duotone" className="flex-shrink-0 mt-0.5" />
               }
               <div>
-                <p className="text-white font-bold text-base">
+                <p className="text-[#111827] font-bold text-base">
                   {hasShortfall
-                    ? `No — there is a shortfall of ${formatINR(result.shortfall)}`
-                    : `Yes — you are on track, with a surplus of ${formatINR(-result.shortfall)}`
+                    ? `Shortfall of ${formatINR(result.shortfall)} — action needed`
+                    : `On track — surplus of ${formatINR(-result.shortfall)}`
                   }
                 </p>
-                <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                <p className="text-sm mt-0.5 text-[#374151]">
                   Your ₹{(sip / 1000).toFixed(0)}K/month SIP projects {formatINR(result.projectedCorpus)} by age {retAge},
                   but you need {formatINR(result.requiredCorpus)} to sustain ₹{formatINR(result.inflatedExpense)}/month in retirement.
                 </p>
@@ -166,15 +166,15 @@ export function Goals() {
             {/* 4 key stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { label: 'Projected corpus at ' + retAge, value: formatINR(result.projectedCorpus), color: hasShortfall ? '#fca5a5' : '#4ade80' },
-                { label: 'Corpus needed', value: formatINR(result.requiredCorpus), color: 'rgba(255,255,255,0.85)', sub: 'For 25 yrs post-retirement' },
-                { label: hasShortfall ? 'Shortfall' : 'Surplus', value: formatINR(Math.abs(result.shortfall)), color: hasShortfall ? '#f87171' : '#4ade80', sub: hasShortfall ? 'Shortfall — action needed' : 'On track!' },
-                { label: 'SIP needed to close gap', value: `₹${(sip + result.sipNeeded).toLocaleString('en-IN')}/mo`, color: '#d6fd70', sub: `vs current ₹${(sip / 1000).toFixed(0)}K/mo` },
+                { label: 'Projected corpus at ' + retAge, value: formatINR(result.projectedCorpus), color: hasShortfall ? '#DC2626' : '#16A34A' },
+                { label: 'Corpus needed', value: formatINR(result.requiredCorpus), color: '#111827', sub: 'For 25 yrs post-retirement' },
+                { label: hasShortfall ? 'Shortfall' : 'Surplus', value: formatINR(Math.abs(result.shortfall)), color: hasShortfall ? '#DC2626' : '#16A34A', sub: hasShortfall ? 'Action needed' : 'On track!' },
+                { label: 'SIP needed to close gap', value: `₹${(sip + result.sipNeeded).toLocaleString('en-IN')}/mo`, color: '#4f46e5', sub: `vs current ₹${(sip / 1000).toFixed(0)}K/mo` },
               ].map((s, i) => (
-                <div key={i} className="rounded-xl px-3 py-2.5" style={{ background: 'rgba(255,255,255,0.07)' }}>
-                  <p className="text-[10px] uppercase tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>{s.label}</p>
+                <div key={i} className="rounded-xl px-3 py-2.5 bg-white/80 border border-black/5">
+                  <p className="text-[10px] uppercase tracking-wide text-[#6B7280] mb-1">{s.label}</p>
                   <p className="text-base font-bold" style={{ color: s.color }}>{s.value}</p>
-                  {s.sub && <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.sub}</p>}
+                  {s.sub && <p className="text-[10px] text-[#9CA3AF] mt-0.5">{s.sub}</p>}
                 </div>
               ))}
             </div>
@@ -182,7 +182,7 @@ export function Goals() {
 
           {/* Retirement timeline bar */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider ${textMuted} mb-3`}>RETIREMENT TIMELINE</p>
+            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-3`}>RETIREMENT TIMELINE</p>
             <div className="flex rounded-xl overflow-hidden h-8 mb-2">
               <div className="flex items-center justify-center text-xs font-bold text-white" style={{ width: `${(retAge - 38) / (retAge - 38 + 25) * 100}%`, background: '#4f46e5' }}>
                 Accumulation {retAge - 38} yrs
@@ -203,7 +203,7 @@ export function Goals() {
 
           {/* Corpus projection chart */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider ${textMuted} mb-1`}>CORPUS PROJECTION — YEAR BY YEAR</p>
+            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-1`}>CORPUS PROJECTION — YEAR BY YEAR</p>
             <p className={`text-xs ${textMuted} mb-4`}>(₹ in Lakhs)</p>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={result.yearlyData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -231,7 +231,7 @@ export function Goals() {
 
           {/* Assumption sliders */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider ${textMuted} mb-4`}>ADJUST YOUR ASSUMPTIONS</p>
+            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-4`}>ADJUST YOUR ASSUMPTIONS</p>
             <div className="space-y-4">
               {[
                 { label: 'Monthly SIP (₹)', value: sip, min: 1000, max: 200000, step: 1000, onChange: setSip, fmt: (v: number) => `₹${v.toLocaleString('en-IN')}` },
@@ -259,7 +259,7 @@ export function Goals() {
 
           {/* Monthly withdrawal sustainability */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider ${textMuted} mb-3`}>MONTHLY WITHDRAWAL SUSTAINABILITY</p>
+            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-3`}>MONTHLY WITHDRAWAL SUSTAINABILITY</p>
             <p className={`text-xs ${textSub} mb-4`}>At {formatINR(result.inflatedExpense)}/month withdrawal, assuming 7% post-retirement return:</p>
 
             <div className="flex items-baseline gap-2 mb-1">

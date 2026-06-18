@@ -1,7 +1,5 @@
 ﻿import { ArrowsClockwise as SyncIcon } from '@phosphor-icons/react'
 import { Bell as NotificationsNoneIcon } from '@phosphor-icons/react'
-import { Sun as LightModeIcon } from '@phosphor-icons/react'
-import { Moon as DarkModeIcon } from '@phosphor-icons/react'
 import { PlanBadge } from '../ui/PlanBadge'
 import { useAuthStore } from '../../stores/authStore'
 import { useUIStore } from '../../stores/uiStore'
@@ -9,7 +7,7 @@ import { format } from 'date-fns'
 
 export function Topbar() {
   const user = useAuthStore((s) => s.user)
-  const { lightMode, toggleLightMode } = useUIStore()
+  const { lightMode } = useUIStore()
   const today = new Date()
 
   const border = lightMode ? '#D1D5DB' : '#1e2838'
@@ -41,15 +39,6 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2">
-        {/* SEBI RA badge */}
-        <div
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[10px] font-bold"
-          style={{ color: lightMode ? '#4f46e5' : '#818cf8', borderColor: lightMode ? '#c7d2fe' : 'rgba(99,102,241,0.25)', background: lightMode ? '#eeedfd' : 'rgba(79,70,229,0.08)' }}
-          title="SEBI Research Analyst | Generic research only, not personalised advice"
-        >
-          SEBI RA
-        </div>
-
         {/* Sync CAS */}
         <button
           className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all"
@@ -69,21 +58,7 @@ export function Topbar() {
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
           <NotificationsNoneIcon size={18} weight="duotone" />
-          <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full ${lightMode ? 'bg-[#4f46e5]' : 'bg-[#d6fd70]'}`} />
-        </button>
-
-        {/* Light/Dark toggle */}
-        <button
-          onClick={toggleLightMode}
-          className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
-          style={{ color: lightMode ? '#F59E0B' : '#8390a2', background: lightMode ? '#FEF3C7' : 'transparent' }}
-          title={lightMode ? 'Switch to dark mode' : 'Switch to light mode'}
-          onMouseEnter={(e) => { if (!lightMode) e.currentTarget.style.background = btnHoverBg }}
-          onMouseLeave={(e) => { if (!lightMode) e.currentTarget.style.background = 'transparent' }}
-        >
-          {lightMode
-            ? <DarkModeIcon size={16} weight="duotone" />
-            : <LightModeIcon size={16} weight="duotone" />}
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#4f46e5]" />
         </button>
 
         {/* Language toggle */}

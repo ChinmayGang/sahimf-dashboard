@@ -74,10 +74,10 @@ export function Dividends() {
           />
         </div>
         <FilterListIcon size={16} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />
-        <select value={freqFilter} onChange={(e) => setFreqFilter(e.target.value)} className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}>
+        <select value={freqFilter} onChange={(e) => setFreqFilter(e.target.value)} className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}>
           {['All', 'Monthly', 'Quarterly', 'Annual', 'Special'].map((f) => <option key={f} value={f}>{f}</option>)}
         </select>
-        <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}>
+        <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}>
           {['All', 'IDCW', 'Growth'].map((f) => <option key={f} value={f}>{f}</option>)}
         </select>
       </div>
@@ -86,7 +86,7 @@ export function Dividends() {
       <div className={`${card} rounded-2xl overflow-hidden`}>
         <div className={`grid grid-cols-[1fr_150px_120px_120px_100px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
           {['Fund', 'AMC', 'Record Date', 'Dividend/Unit', 'Frequency'].map((h) => (
-            <span key={h} className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider`}>{h}</span>
+            <span key={h} className={`text-[11px] font-semibold ${textSub} uppercase tracking-wider`}>{h}</span>
           ))}
         </div>
 

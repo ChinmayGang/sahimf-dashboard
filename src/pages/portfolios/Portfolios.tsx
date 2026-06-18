@@ -138,9 +138,9 @@ export function Portfolios() {
           }
         />
       ) : (
-        <div className="space-y-5">
+        <div className="flex flex-col gap-6">
           {portfolios.map((p) => (
-            <Link key={p.id} to={`/mutual-funds/portfolios/${p.id}`}>
+            <Link key={p.id} to={`/mutual-funds/portfolios/${p.id}`} className="block">
               <div className={`${card} rounded-xl p-5 transition-all duration-200 group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">

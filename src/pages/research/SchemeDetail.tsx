@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { ArrowLeft as ArrowBackIcon, ArrowsLeftRight as CompareIcon, FileText as ReportIcon, Buildings as BuildingsIcon, Globe as GlobeIcon, Newspaper as NewsIcon, ArrowSquareOut as ExternalLinkIcon, X as CloseIcon, Clock as ClockIcon, Coins as CoinsIcon, TrendDown as TrendDownIcon, ShoppingBag as BasketUpsellIcon, ArrowRight as ArrowRightSmIcon } from '@phosphor-icons/react'
 import { format, formatDistanceToNow } from 'date-fns'
@@ -72,18 +72,7 @@ const holdingsDist = [
   { label: 'Cash & Eq.', value: 11.0, color: '#22C55E' },
 ]
 
-// SEBI 6-level riskometer
-const RISK_LEVELS = ['Low', 'Low-Moderate', 'Moderate', 'Moderately High', 'High', 'Very High'] as const
-type RiskLevel = typeof RISK_LEVELS[number]
-
-const RISK_COLORS: Record<RiskLevel, string> = {
-  'Low': '#22C55E',
-  'Low-Moderate': '#84cc16',
-  'Moderate': '#eab308',
-  'Moderately High': '#f59e0b',
-  'High': '#ef4444',
-  'Very High': '#dc2626',
-}
+type RiskLevel = 'Low' | 'Low-Moderate' | 'Moderate' | 'Moderately High' | 'High' | 'Very High'
 
 function volatilityToRisk(v: 'Low' | 'Medium' | 'High'): RiskLevel {
   if (v === 'Low') return 'Moderate'
@@ -91,52 +80,58 @@ function volatilityToRisk(v: 'Low' | 'Medium' | 'High'): RiskLevel {
   return 'High'
 }
 
+const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string }> = {
+  'Low':            { label: 'Low',    idx: 0, color: '#22C55E' },
+  'Low-Moderate':   { label: 'Low',    idx: 0, color: '#22C55E' },
+  'Moderate':       { label: 'Medium', idx: 1, color: '#f59e0b' },
+  'Moderately High':{ label: 'Medium', idx: 1, color: '#f59e0b' },
+  'High':           { label: 'High',   idx: 2, color: '#ef4444' },
+  'Very High':      { label: 'High',   idx: 2, color: '#ef4444' },
+}
+
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
-  const idx = RISK_LEVELS.indexOf(level)
-  // Needle angle: -90° (far left) to +90° (far right), 6 levels
-  const angleDeg = -90 + (idx / (RISK_LEVELS.length - 1)) * 180
-  const color = RISK_COLORS[level]
+  const { label, idx, color } = RISK_3_MAP[level]
+  // Arc spans 180° to 360° (LEFT→UP→RIGHT). Needle center of each 60° segment.
+  const angleDeg = 180 + (idx + 0.5) * 60
+  const cx = 80, cy = 82, r = 68
 
   return (
     <div className="flex flex-col items-center">
       <svg viewBox="0 0 160 90" width="160" height="90" style={{ overflow: 'visible' }}>
-        {/* Arc segments */}
-        {RISK_LEVELS.map((_, i) => {
-          const startAngle = Math.PI + (i / RISK_LEVELS.length) * Math.PI
-          const endAngle = Math.PI + ((i + 1) / RISK_LEVELS.length) * Math.PI
-          const r = 68
-          const cx = 80, cy = 82
+        {[
+          { fill: '#22C55E' },
+          { fill: '#f59e0b' },
+          { fill: '#ef4444' },
+        ].map((seg, i) => {
+          const startAngle = Math.PI + (i / 3) * Math.PI
+          const endAngle = Math.PI + ((i + 1) / 3) * Math.PI
           const x1 = cx + r * Math.cos(startAngle)
           const y1 = cy + r * Math.sin(startAngle)
           const x2 = cx + r * Math.cos(endAngle)
           const y2 = cy + r * Math.sin(endAngle)
-          const segColors = ['#22C55E', '#84cc16', '#eab308', '#f59e0b', '#ef4444', '#dc2626']
-          const active = i <= idx
           return (
             <path
               key={i}
               d={`M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`}
-              fill={active ? segColors[i] : (lm ? '#E0E3E8' : '#1e2838')}
-              opacity={active ? 1 : 0.4}
+              fill={i <= idx ? seg.fill : (lm ? '#E0E3E8' : '#1e2838')}
+              opacity={i <= idx ? 1 : 0.35}
             />
           )
         })}
-        {/* White inner circle to make donut */}
-        <circle cx="80" cy="82" r="44" fill={lm ? '#ffffff' : '#14171c'} />
-        {/* Needle */}
+        <circle cx={cx} cy={cy} r="44" fill={lm ? '#ffffff' : '#14171c'} />
         {(() => {
           const rad = (angleDeg * Math.PI) / 180
-          const nx = 80 + 52 * Math.cos(rad)
-          const ny = 82 + 52 * Math.sin(rad)
+          const nx = cx + 52 * Math.cos(rad)
+          const ny = cy + 52 * Math.sin(rad)
           return (
             <>
-              <line x1="80" y1="82" x2={nx} y2={ny} stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-              <circle cx="80" cy="82" r="4" fill={color} />
+              <line x1={cx} y1={cy} x2={nx} y2={ny} stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+              <circle cx={cx} cy={cy} r="4" fill={color} />
             </>
           )
         })()}
       </svg>
-      <p className="text-xs font-bold mt-1" style={{ color }}>{level}</p>
+      <p className="text-xs font-bold mt-1" style={{ color }}>{label}</p>
     </div>
   )
 }
@@ -158,6 +153,11 @@ export function SchemeDetail() {
   const fund = mockFunds.find((f) => f.id === id) ?? mockFunds[2]
   const [tab, setTab] = useState<'overview' | 'constituents' | 'dividends'>('overview')
   const [period, setPeriod] = useState<Period>('3Y')
+
+  useEffect(() => {
+    const el = document.querySelector('.overflow-y-auto')
+    if (el) el.scrollTop = 0
+  }, [id])
   const lm = useUIStore((s) => s.lightMode)
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
@@ -726,25 +726,21 @@ export function SchemeDetail() {
 
             {/* Riskometer */}
             <div className={`${card} rounded-xl p-5`}>
-              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-3`}>Risk Level (SEBI Riskometer)</p>
+              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Risk Level</p>
               <div className="flex justify-center">
                 <Riskometer level={riskLevel} lm={lm} />
               </div>
-              <div className="mt-3 space-y-1">
-                {RISK_LEVELS.map((lvl) => (
-                  <div key={lvl} className="flex items-center gap-2">
-                    <div
-                      className="w-2 h-2 rounded-full flex-shrink-0"
-                      style={{ background: lvl === riskLevel ? RISK_COLORS[lvl] : (lm ? '#E0E3E8' : '#1e2838') }}
-                    />
-                    <span
-                      className="text-[10px]"
-                      style={{ color: lvl === riskLevel ? RISK_COLORS[lvl] : (lm ? '#9CA3AF' : '#505d6f'), fontWeight: lvl === riskLevel ? 700 : 400 }}
-                    >
-                      {lvl}
-                    </span>
-                  </div>
-                ))}
+              <div className="mt-3 flex justify-around">
+                {(['Low', 'Medium', 'High'] as const).map((lvl) => {
+                  const cfg = { Low: '#22C55E', Medium: '#f59e0b', High: '#ef4444' }
+                  const active = RISK_3_MAP[riskLevel]?.label === lvl
+                  return (
+                    <div key={lvl} className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: active ? cfg[lvl] : (lm ? '#E0E3E8' : '#1e2838') }} />
+                      <span className="text-[10px]" style={{ color: active ? cfg[lvl] : (lm ? '#6B7280' : '#505d6f'), fontWeight: active ? 700 : 400 }}>{lvl}</span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
 

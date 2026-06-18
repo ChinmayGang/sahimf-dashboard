@@ -189,7 +189,7 @@ export function SearchSchemes() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className={`border text-xs rounded-lg px-3 py-1.5 focus:outline-none ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
+              className={`border text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer appearance-none ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
             >
               {sortOptions.map((o) => <option key={o}>{o}</option>)}
             </select>

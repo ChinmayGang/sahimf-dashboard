@@ -97,7 +97,7 @@ export function Transactions() {
         <select
           value={portfolioFilter}
           onChange={(e) => setPortfolioFilter(e.target.value)}
-          className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}
+          className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
         >
           {portfolioOptions.map((p) => <option key={p} value={p}>{p}</option>)}
         </select>
@@ -106,7 +106,7 @@ export function Transactions() {
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}
+          className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
         >
           {['All', 'SIP', 'Lumpsum', 'Redemption', 'Switch'].map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
@@ -115,7 +115,7 @@ export function Transactions() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}
+          className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
         >
           {['All', 'Completed', 'Processing', 'Failed'].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -126,7 +126,7 @@ export function Transactions() {
         {/* Table header */}
         <div className={`grid grid-cols-[1fr_100px_80px_100px_110px_90px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
           {['Fund', 'Portfolio', 'Type', 'Amount', 'Date', 'Status'].map((h) => (
-            <span key={h} className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider`}>{h}</span>
+            <span key={h} className={`text-[11px] font-semibold ${textSub} uppercase tracking-wider`}>{h}</span>
           ))}
         </div>
 

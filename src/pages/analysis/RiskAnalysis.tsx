@@ -19,87 +19,78 @@ const CAT_VOL: Record<string, number> = {
   'Large Cap': 14, 'Flexi Cap': 15, 'Mid Cap': 19, 'Small Cap': 24,
   'Hybrid': 10, 'Debt': 4,
 }
-const RISK_SCORE_COLORS = ['#22c55e', '#84cc16', '#eab308', '#f59e0b', '#ef4444', '#dc2626']
-const RISK_SCORE_LABELS = ['Low', 'Low-Moderate', 'Moderate', 'Moderately High', 'High', 'Very High']
-
 function getRiskLabel(score: number): string {
-  if (score < 2) return 'Low'
-  if (score < 2.8) return 'Low-Moderate'
-  if (score < 3.5) return 'Moderate'
-  if (score < 4.5) return 'Moderately High'
-  if (score < 5) return 'High'
-  return 'Very High'
+  if (score < 2.5) return 'Low'
+  if (score < 4) return 'Medium'
+  return 'High'
 }
+
+const RISK3_LABELS = ['Low', 'Medium', 'High']
+const RISK3_COLORS = ['#22c55e', '#f59e0b', '#ef4444']
+
 function getRiskLabelIdx(label: string): number {
-  return RISK_SCORE_LABELS.indexOf(label)
+  const i = RISK3_LABELS.indexOf(label)
+  return i === -1 ? 1 : i
+}
+
+function riskScoreToColor(score: number): string {
+  if (score < 2.5) return '#22c55e'
+  if (score < 4) return '#f59e0b'
+  return '#ef4444'
+}
+
+const RISK3_CONFIG: Record<string, { idx: number; color: string }> = {
+  'Low':    { idx: 0, color: '#22c55e' },
+  'Medium': { idx: 1, color: '#f59e0b' },
+  'High':   { idx: 2, color: '#ef4444' },
 }
 
 // ─── Riskometer SVG ───────────────────────────────────────────────────────────
 function Riskometer({ label, lm }: { label: string; lm: boolean }) {
-  const idx = getRiskLabelIdx(label)
-  const total = RISK_SCORE_LABELS.length - 1
-  const angleDeg = -90 + (idx / total) * 180
-  const color = RISK_SCORE_COLORS[idx]
+  const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Medium']
+  const { idx, color } = cfg
+  // Arc spans 180°→360° (LEFT→UP→RIGHT). Needle at center of each 60° segment.
+  const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 110, cy = 90, r = 75
-
-  // Needle
   const rad = (angleDeg * Math.PI) / 180
-  const nx = cx + r * Math.cos(rad)
-  const ny = cy + r * Math.sin(rad)
-
-
 
   return (
     <div className="flex flex-col items-center">
       <svg viewBox="0 0 220 110" width="220" height="110" style={{ overflow: 'visible' }}>
-        {/* Background arc */}
-        <path
-          d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-          fill="none"
-          stroke={lm ? '#E0E3E8' : '#1e2838'}
-          strokeWidth={14}
-          strokeLinecap="round"
-        />
-        {/* Colored arc up to current level */}
-        <path
-          d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${nx} ${ny}`}
-          fill="none"
-          stroke={color}
-          strokeWidth={14}
-          strokeLinecap="round"
-          style={{ filter: `drop-shadow(0 0 6px ${color}60)` }}
-        />
-        {/* Segment ticks */}
-        {RISK_SCORE_LABELS.map((_, i) => {
-          const a = (-90 + (i / total) * 180) * (Math.PI / 180)
+        {/* 3 colored arc segments: LEFT→UP→RIGHT */}
+        {[
+          { color: '#22c55e' },
+          { color: '#f59e0b' },
+          { color: '#ef4444' },
+        ].map((seg, i) => {
+          const a0 = ((180 + (i / 3) * 180) * Math.PI) / 180
+          const a1 = ((180 + ((i + 1) / 3) * 180) * Math.PI) / 180
+          const x1 = cx + r * Math.cos(a0), y1 = cy + r * Math.sin(a0)
+          const x2 = cx + r * Math.cos(a1), y2 = cy + r * Math.sin(a1)
           return (
-            <line
+            <path
               key={i}
-              x1={cx + (r - 10) * Math.cos(a)}
-              y1={cy + (r - 10) * Math.sin(a)}
-              x2={cx + (r + 2) * Math.cos(a)}
-              y2={cy + (r + 2) * Math.sin(a)}
-              stroke={lm ? '#E0E3E8' : '#2a3545'}
-              strokeWidth={2}
+              d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
+              fill="none"
+              stroke={i <= idx ? seg.color : (lm ? '#E0E3E8' : '#1e2838')}
+              strokeWidth={14}
+              strokeLinecap="butt"
+              opacity={i <= idx ? 1 : 0.4}
             />
           )
         })}
         {/* Needle */}
         <line
-          x1={cx}
-          y1={cy}
+          x1={cx} y1={cy}
           x2={cx + (r - 15) * Math.cos(rad)}
           y2={cy + (r - 15) * Math.sin(rad)}
-          stroke={color}
-          strokeWidth={3}
-          strokeLinecap="round"
+          stroke={color} strokeWidth={3} strokeLinecap="round"
         />
         <circle cx={cx} cy={cy} r={6} fill={color} />
         {/* Labels */}
-        <text x={cx - r - 2} y={cy + 18} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="middle">Low</text>
-        <text x={cx + r + 2} y={cy + 18} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="middle">High</text>
-        {/* Score label */}
-        <text x={cx} y={cy + 22} fontSize={11} fontWeight="bold" fill={color} textAnchor="middle">{label}</text>
+        <text x={cx - r - 2} y={cy + 18} fontSize={8} fill={lm ? '#6B7280' : '#64748b'} textAnchor="middle">Low</text>
+        <text x={cx} y={cy + 22} fontSize={9} fontWeight="bold" fill={color} textAnchor="middle">{label}</text>
+        <text x={cx + r + 2} y={cy + 18} fontSize={8} fill={lm ? '#6B7280' : '#64748b'} textAnchor="middle">High</text>
       </svg>
     </div>
   )
@@ -148,7 +139,7 @@ function RiskReturnBubbles({
         const cx = toX(f.xirr)
         const cy = toY(f.vol)
         const r = 8 + f.alloc * 0.4
-        const color = RISK_SCORE_COLORS[Math.min(Math.floor(CAT_RISK[f.category] ?? 3), 5)]
+        const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
         return (
           <g key={f.name}>
             <circle
@@ -251,11 +242,11 @@ export function RiskAnalysis() {
           </div>
 
           {/* Risk level legend */}
-          <div className="flex justify-between mt-4 px-2">
-            {RISK_SCORE_LABELS.map((l, i) => (
+          <div className="flex justify-around mt-4 px-2">
+            {RISK3_LABELS.map((l, i) => (
               <div key={l} className="flex flex-col items-center gap-1">
-                <div className="w-2 h-2 rounded-full" style={{ background: RISK_SCORE_COLORS[i] }} />
-                <span className="text-[7px] text-center leading-tight" style={{ color: lm ? '#9CA3AF' : '#64748b', maxWidth: 28 }}>{l.split('-')[0]}</span>
+                <div className="w-2 h-2 rounded-full" style={{ background: RISK3_COLORS[i] }} />
+                <span className="text-[8px] text-center leading-tight" style={{ color: lm ? '#6B7280' : '#64748b' }}>{l}</span>
               </div>
             ))}
           </div>
@@ -298,7 +289,7 @@ export function RiskAnalysis() {
         {/* Legend */}
         <div className="flex flex-wrap gap-3 mt-3">
           {fundsWithRisk.map((f, i) => {
-            const color = RISK_SCORE_COLORS[Math.min(Math.floor(f.riskScore), 5)]
+            const color = riskScoreToColor(f.riskScore)
             return (
               <div key={i} className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full" style={{ background: color, opacity: 0.7 }} />
@@ -327,7 +318,7 @@ export function RiskAnalysis() {
             <tbody>
               {fundsWithRisk.map((f, i) => {
                 const labelIdx = getRiskLabelIdx(f.riskLabel)
-                const color = RISK_SCORE_COLORS[labelIdx] ?? '#64748b'
+                const color = RISK3_COLORS[labelIdx] ?? '#f59e0b'
                 return (
                   <tr key={i} className={`border-b ${divider} last:border-0 ${rowHover} transition-colors`}>
                     <td className="px-4 py-3">

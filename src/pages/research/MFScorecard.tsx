@@ -96,7 +96,7 @@ export function MFScorecard() {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-          className={`${inputBg} border rounded-xl px-3 py-2 text-sm outline-none cursor-pointer`}
+          className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
         >
           <option value="rank">Sort: Rank</option>
           <option value="returns">Sort: Returns Score</option>
@@ -137,7 +137,7 @@ export function MFScorecard() {
         {/* Header */}
         <div className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-3 border-b ${dividerColor}`}>
           {['#', 'Fund', 'Category', 'Returns', 'Consistency', 'Risk', 'Cost', 'Grade', 'Score'].map((h) => (
-            <span key={h} className={`text-[11px] font-semibold ${textMuted} uppercase tracking-wider`}>{h}</span>
+            <span key={h} className={`text-[11px] font-semibold ${textSub} uppercase tracking-wider`}>{h}</span>
           ))}
         </div>
 
