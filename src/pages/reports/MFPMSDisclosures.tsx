@@ -22,10 +22,9 @@ const DISCLOSURES = [
     ],
   },
   {
-    category: 'MF Portfolio Management Service (MFPMS)',
+    category: 'Research & Risk Disclosure',
     docs: [
-      { title: 'MFPMS Disclosure Document', date: 'Apr 2026', type: 'PDF', size: '890 KB' },
-      { title: 'Model Portfolio Performance — Q4 FY 2025–26', date: 'Jun 2026', type: 'PDF', size: '340 KB' },
+      { title: 'Research Methodology Disclosure', date: 'Apr 2026', type: 'PDF', size: '320 KB' },
       { title: 'Risk Disclosure & Investor Charter', date: 'Mar 2024', type: 'PDF', size: '215 KB' },
     ],
   },
@@ -68,7 +67,7 @@ export function MFPMSDisclosures() {
           <ArticleIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
-          <h1 className={`text-lg font-bold ${text}`}>MFPMS Disclosures</h1>
+          <h1 className={`text-lg font-bold ${text}`}>Reports &amp; Disclosures</h1>
           <p className={`text-xs ${textMuted}`}>SEBI regulatory documents and compliance disclosures</p>
         </div>
       </div>

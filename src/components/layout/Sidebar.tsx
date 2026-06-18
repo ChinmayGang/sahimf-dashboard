@@ -49,13 +49,8 @@ const mfChildren: NavItem[] = [
   },
   { key: 'mf-dividends', label: 'Dividends', icon: <ChartBar size={15} weight={W} />, path: '/mutual-funds/dividends' },
   { key: 'mf-goals', label: 'Goals & Plans', icon: <Target size={15} weight={W} />, path: '/mutual-funds/goals' },
-  {
-    key: 'mf-reports', label: 'Reports', icon: <FileText size={15} weight={W} />,
-    children: [
-      { key: 'mf-tax', label: 'Tax Optimisation', icon: <FileText size={13} weight={WS} />, path: '/mutual-funds/reports/tax' },
-      { key: 'mf-mfpms', label: 'MFPMS', icon: <FileText size={13} weight={WS} />, path: '/mutual-funds/reports/mfpms' },
-    ],
-  },
+  { key: 'mf-tax', label: 'Tax Optimisation', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/tax' },
+  { key: 'mf-reports', label: 'Reports & Disclosures', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/mfpms' },
 ]
 
 const topNavItems: NavItem[] = [

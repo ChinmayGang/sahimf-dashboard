@@ -89,14 +89,14 @@ export function MySahiFunds() {
           <button
             key={fund.id}
             onClick={() => { setActiveIdx(idx); navigate(`/mutual-funds/sahi-funds/${fund.id}`) }}
-            className={`text-left rounded-2xl p-5 transition-all duration-200 group border ${
+            className={`text-left rounded-2xl p-5 transition-all duration-200 group border hover:-translate-y-1 ${
               activeIdx === idx
                 ? lm
-                  ? '-translate-y-1 bg-white border-[#4f46e5] shadow-lg shadow-[#4f46e5]/10'
-                  : '-translate-y-1 bg-[#14171c] border-[#d6fd70] shadow-lg shadow-[#d6fd70]/10'
+                  ? '-translate-y-1 bg-white border-[#4f46e5] shadow-lg shadow-[#4f46e5]/10 hover:shadow-xl hover:shadow-[#4f46e5]/20'
+                  : '-translate-y-1 bg-[#14171c] border-[#d6fd70] shadow-lg shadow-[#d6fd70]/10 hover:shadow-xl'
                 : lm
-                  ? 'bg-white border-[#E0E3E8] hover:border-[#4f46e5] hover:-translate-y-1'
-                  : 'bg-[#14171c] border-[#1e2838] hover:border-[#d6fd70] hover:-translate-y-1'
+                  ? 'bg-white border-[#E0E3E8] hover:border-[#4f46e5] hover:shadow-md'
+                  : 'bg-[#14171c] border-[#1e2838] hover:border-[#d6fd70]'
             }`}
           >
             <div className="flex items-start justify-between mb-3">
