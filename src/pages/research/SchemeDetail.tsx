@@ -332,8 +332,8 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
-            color: returnRank === 1 ? (lm ? '#4f46e5' : '#d6fd70') : returnRank <= 2 ? '#22C55E' : '#f59e0b',
-            medal: null,
+            color: returnRank === 1 ? '#4f46e5' : returnRank <= 2 ? '#22C55E' : '#f59e0b',
+            medal: returnRank === 1 ? '🥇' : returnRank === 2 ? '🥈' : returnRank === 3 ? '🥉' : null,
           },
           {
             label: 'Cost',
@@ -342,7 +342,7 @@ export function SchemeDetail() {
             stat: `${fund.expenseRatio}%`,
             statLabel: 'Expense Ratio',
             color: costRank <= 2 ? '#22C55E' : costRank <= Math.ceil(totalInCat / 2) ? '#f59e0b' : '#ef4444',
-            medal: null,
+            medal: costRank === 1 ? '🥇' : costRank === 2 ? '🥈' : costRank === 3 ? '🥉' : null,
           },
           {
             label: 'Volatility',
@@ -351,7 +351,7 @@ export function SchemeDetail() {
             stat: fund.volatility,
             statLabel: 'Std. Deviation tier',
             color: fund.volatility === 'Low' ? '#22C55E' : fund.volatility === 'Medium' ? '#f59e0b' : '#ef4444',
-            medal: null,
+            medal: volRank === 1 ? '🥇' : volRank === 2 ? '🥈' : volRank === 3 ? '🥉' : null,
           },
         ].map((item) => (
           <div key={item.label} className={`${card} rounded-xl p-4`}>
@@ -361,7 +361,7 @@ export function SchemeDetail() {
             </div>
             <div className="flex items-end gap-2 mb-2">
               <span className="text-2xl font-black" style={{ color: item.color, lineHeight: 1 }}>
-                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>st</span>
+                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>{item.rank === 1 ? 'st' : item.rank === 2 ? 'nd' : item.rank === 3 ? 'rd' : 'th'}</span>
               </span>
               <span className={`text-xs ${textMuted} mb-0.5`}>of {item.total}</span>
             </div>
