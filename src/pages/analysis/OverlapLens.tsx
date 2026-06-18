@@ -247,7 +247,7 @@ export function OverlapLens() {
       {/* Fund Picker */}
       <div className={`rounded-2xl p-4 ${card}`}>
         <div className="flex items-center justify-between mb-3">
-          <p className={`text-xs font-semibold uppercase tracking-wider ${textMuted}`}>Funds being analysed</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider text-[#374151]`}>Funds being analysed</p>
           <button
             onClick={() => setPickerOpen(p => !p)}
             className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
@@ -364,7 +364,7 @@ export function OverlapLens() {
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-3 text-[11px] font-semibold ${textMuted} uppercase tracking-wider w-48`}> </th>
+                        <th className={`text-left px-4 py-3 text-[11px] font-semibold text-[#374151] uppercase tracking-wider w-48`}> </th>
                         {selectedFunds.map(f => (
                           <th key={f.id} className="px-3 py-3 text-center min-w-[100px]">
                             <p className={`text-[11px] font-medium ${text} truncate max-w-24`}>{shortName(f.name)}</p>
@@ -405,7 +405,7 @@ export function OverlapLens() {
                 /* >8 funds: ranked worst-pairs list */
                 <div className={`rounded-2xl overflow-hidden ${card}`}>
                   <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                    <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>
+                    <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>
                       Overlap ranked — worst pairs first ({worstPairs.length} total)
                     </p>
                   </div>
@@ -447,7 +447,7 @@ export function OverlapLens() {
               {/* Common stocks table */}
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Common holdings (% of fund)</p>
+                  <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Common holdings (% of fund)</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="min-w-full">
@@ -651,7 +651,7 @@ export function OverlapLens() {
 
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Sector allocation vs Nifty 50</p>
+                  <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Sector allocation vs Nifty 50</p>
                 </div>
                 <div className="p-5 space-y-4">
                   {SECTORS.map(sector => {
@@ -690,7 +690,7 @@ export function OverlapLens() {
               {/* Per-fund sector breakdown */}
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Per-fund sector breakdown</p>
+                  <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Per-fund sector breakdown</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="min-w-full">
@@ -745,7 +745,7 @@ export function OverlapLens() {
             <div className="space-y-4">
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Fund house concentration</p>
+                  <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Fund house concentration</p>
                 </div>
                 <div className="p-5 space-y-4">
                   {amcMap.map(([amc, count]) => {

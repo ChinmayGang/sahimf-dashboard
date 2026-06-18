@@ -356,7 +356,7 @@ export function SchemeDetail() {
         ].map((item) => (
           <div key={item.label} className={`${card} rounded-xl p-4`}>
             <div className="flex items-start justify-between mb-2">
-              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>{item.label}</p>
+              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>{item.label}</p>
               {item.medal && <span className="text-base">{item.medal}</span>}
             </div>
             <div className="flex items-end gap-2 mb-2">
@@ -481,7 +481,7 @@ export function SchemeDetail() {
 
             {/* Risk metrics row */}
             <div className={`${card} rounded-xl p-4`}>
-              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-3`}>Risk Metrics</p>
+              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Risk Metrics</p>
               <div className="grid grid-cols-4 gap-3">
                 {[
                   { label: 'Alpha (1Y)', value: alpha, suffix: '%', color: Number(alpha) >= 0 ? '#22c55e' : '#ef4444', free: true },
@@ -831,7 +831,7 @@ export function SchemeDetail() {
               </div>
               <div className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2 border-b`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
                 {['Ex-Date', 'Record Date', 'NAV', 'Amount', 'Type'].map(h => (
-                  <span key={h} className={`text-[10px] font-bold uppercase tracking-wider ${textMuted}`}>{h}</span>
+                  <span key={h} className={`text-[10px] font-bold uppercase tracking-wider text-[#374151]`}>{h}</span>
                 ))}
               </div>
               {dividends.map((d) => (

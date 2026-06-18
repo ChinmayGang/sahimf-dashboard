@@ -189,7 +189,7 @@ export function Portfolios() {
                         const h = portfolioHealthGrade(p.xirr, p.holdings.length)
                         return (
                           <div className="flex flex-col items-end gap-0.5">
-                            <p className={`text-[9px] font-bold uppercase tracking-wider ${textMuted}`}>Health</p>
+                            <p className={`text-[9px] font-bold uppercase tracking-wider text-[#374151]`}>Health</p>
                             <span className="text-xs font-black px-2 py-0.5 rounded-lg" style={{ background: h.bg, color: h.color }}>{h.grade}</span>
                           </div>
                         )

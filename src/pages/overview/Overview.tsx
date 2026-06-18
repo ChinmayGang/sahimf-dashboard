@@ -23,6 +23,7 @@ import { ChartLine as ShowChartIcon } from '@phosphor-icons/react'
 import { CurrencyDollar as CurrencyDollarIcon } from '@phosphor-icons/react'
 import { Globe as GlobeIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
+import { ProButton } from '../../components/ui/ProButton'
 import { useAuthStore } from '../../stores/authStore'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { mockFunds } from '../../data/funds'
@@ -42,6 +43,15 @@ function greeting() {
   if (h < 12) return 'Good morning'
   if (h < 17) return 'Good afternoon'
   return 'Good evening'
+}
+
+function isMarketOpen(): boolean {
+  // BSE/NSE: Mon–Fri 09:15–15:30 IST
+  const istStr = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+  const ist = new Date(istStr)
+  const day = ist.getDay() // 0=Sun, 6=Sat
+  const mins = ist.getHours() * 60 + ist.getMinutes()
+  return day >= 1 && day <= 5 && mins >= 9 * 60 + 15 && mins < 15 * 60 + 30
 }
 
 // ── Mock data ─────────────────────────────────────────────────────────────────
@@ -282,10 +292,18 @@ export function Overview() {
                 {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
               </p>
             </div>
-            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium ${lm ? 'bg-[#F9FAFB] border-[#E0E3E8] text-[#6B7280]' : 'bg-[#14171c] border-[#1e2838] text-[#8390a2]'}`}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-              Live Market
-            </div>
+            {(() => {
+              const open = isMarketOpen()
+              return (
+                <div
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium ${lm ? 'bg-[#F9FAFB] border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'}`}
+                  style={{ color: open ? '#16a34a' : '#dc2626' }}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${open ? 'bg-[#22c55e] animate-pulse' : 'bg-[#ef4444]'}`} />
+                  {open ? 'Market Open' : 'Market Closed'}
+                </div>
+              )
+            })()}
           </div>
 
           {/* Ticker row */}
@@ -328,7 +346,7 @@ export function Overview() {
             </div>
           </div>
           <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
-            {mockSahiFunds.slice(0, 5).map(f => (
+            {mockSahiFunds.slice(0, 8).map(f => (
               <SahiFundCard key={f.id} fund={f} lm={lm} />
             ))}
           </div>
@@ -745,7 +763,7 @@ export function Overview() {
           <div className="grid md:grid-cols-2 gap-4">
             {/* Card 1 — Idle money parking */}
             <div className="rounded-2xl overflow-hidden relative flex items-center gap-4 p-5 min-h-[120px]"
-              style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%)' }}>
+              style={{ background: '#3359C3' }}>
               <div>
                 <p className="text-xs font-bold text-blue-200 mb-1 tracking-wider uppercase">Liquid Parking</p>
                 <h3 className="text-base font-bold text-white mb-1.5 leading-snug">Grow your idle money</h3>
@@ -759,7 +777,7 @@ export function Overview() {
 
             {/* Card 2 — Geopolitical theme */}
             <div className="rounded-2xl overflow-hidden relative flex items-center gap-4 p-5 min-h-[120px]"
-              style={{ background: 'linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%)' }}>
+              style={{ background: '#1E6B55' }}>
               <div>
                 <p className="text-xs font-bold mb-1 tracking-wider uppercase" style={{ color: '#6ee7b7' }}>Market Theme</p>
                 <h3 className="text-base font-bold mb-1.5 leading-snug" style={{ color: '#ffffff' }}>Global shifts, local gains</h3>
@@ -792,9 +810,7 @@ export function Overview() {
                 </p>
               </div>
               <div className="flex-shrink-0 flex flex-col items-end gap-2">
-                <button className="bg-[#d6fd70] text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#b8d94a] transition-colors whitespace-nowrap" style={{ color: '#0a0c0e' }}>
-                  Upgrade to PRO
-                </button>
+                <ProButton label="Upgrade to PRO" onClick={() => {}} />
                 <button className="text-xs hover:opacity-80 transition-opacity" style={{ color: 'rgba(255,255,255,0.4)' }}>
                   See what's included
                 </button>

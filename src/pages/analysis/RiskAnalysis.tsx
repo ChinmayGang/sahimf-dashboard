@@ -233,7 +233,7 @@ export function RiskAnalysis() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Riskometer card */}
         <div className={`${card} rounded-2xl p-5`}>
-          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 ${textMuted}`}>Portfolio Risk Level</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 text-[#374151]`}>Portfolio Risk Level</p>
           <Riskometer label={portfolioRiskLabel} lm={lm} />
           <div className="mt-3 text-center">
             <p className={`text-xs ${textSub} max-w-xs mx-auto leading-relaxed`}>
@@ -254,7 +254,7 @@ export function RiskAnalysis() {
 
         {/* Risk metrics */}
         <div className={`${card} rounded-2xl p-5 space-y-3`}>
-          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 ${textMuted}`}>Key Risk Metrics</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 text-[#374151]`}>Key Risk Metrics</p>
           {[
             { label: 'Portfolio Beta (vs Nifty)', value: beta, note: 'Lower = less market sensitive', highlight: Number(beta) < 1 },
             { label: 'Est. Portfolio Volatility (1Y SD)', value: `${portfolioVol.toFixed(1)}%`, note: 'Annualised standard deviation', highlight: portfolioVol < 15 },

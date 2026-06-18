@@ -29,6 +29,11 @@
   --font-family-sans: "Geist", system-ui, sans-serif;
 }
 
+@keyframes shimmer-rail {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
 * {
   box-sizing: border-box;
 }

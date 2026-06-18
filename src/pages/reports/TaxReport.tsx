@@ -179,7 +179,7 @@ export function TaxReport() {
           <thead>
             <tr className={`border-b ${dividerColor} ${lm ? 'bg-[#F9F9FF]' : 'bg-[#0f1420]'}`}>
               {['Fund', 'Gain', 'Holding', 'Tax type', 'Tax outgo'].map(h => (
-                <th key={h} className={`text-left px-5 py-3 text-[11px] font-semibold uppercase tracking-wider ${textMuted}`}>{h}</th>
+                <th key={h} className={`text-left px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-[#374151]`}>{h}</th>
               ))}
             </tr>
           </thead>

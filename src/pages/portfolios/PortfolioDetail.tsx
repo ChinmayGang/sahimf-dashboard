@@ -97,7 +97,7 @@ export function PortfolioDetail() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* XIRR vs Nifty */}
         <div className={`${card} rounded-xl p-4`}>
-          <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-3`}>Portfolio XIRR vs Benchmark</p>
+          <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Portfolio XIRR vs Benchmark</p>
           {(() => {
             const nifty3Y = 14.2
             const alpha = (portfolio.xirr - nifty3Y).toFixed(1)
@@ -131,7 +131,7 @@ export function PortfolioDetail() {
         {/* Sector spread */}
         <div className={`${card} rounded-xl p-4`}>
           <div className="flex items-center justify-between mb-3">
-            <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Sector spread</p>
+            <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Sector spread</p>
             <button
               onClick={() => window.location.href = '/mutual-funds/overlap'}
               className="text-[10px] font-semibold px-2 py-1 rounded-lg transition-colors"

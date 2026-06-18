@@ -137,7 +137,7 @@ export function MarketCapAllocation() {
 
         {/* Donut */}
         <div className={`${card} rounded-2xl p-5 flex flex-col items-center justify-center gap-4`} style={{ minWidth: 220 }}>
-          <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider self-start`}>Portfolio Mix</p>
+          <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider self-start`}>Portfolio Mix</p>
           <div className="relative">
             <PieChart width={160} height={160}>
               <Pie data={pieLargeData} cx={80} cy={80} innerRadius={50} outerRadius={72} dataKey="value" strokeWidth={0} paddingAngle={2}>
@@ -163,7 +163,7 @@ export function MarketCapAllocation() {
 
         {/* Allocation vs Recommended bar chart */}
         <div className={`${card} rounded-2xl p-5`}>
-          <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider mb-4`}>Current vs Recommended</p>
+          <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-4`}>Current vs Recommended</p>
           <ResponsiveContainer width="100%" height={140}>
             <BarChart data={allocationCompare} barCategoryGap="35%" barGap={4} layout="vertical">
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 10, fill: lm ? '#9CA3AF' : '#64748b' }} tickLine={false} axisLine={false} tickFormatter={v => `${v}%`} />
@@ -391,7 +391,7 @@ export function MarketCapAllocation() {
           {/* Fund rebalance actions */}
           {totalRebalanceTarget === 100 && (
             <div className="space-y-2">
-              <p className={`text-xs font-semibold ${textMuted} uppercase tracking-wider`}>Suggested Fund Actions</p>
+              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Suggested Fund Actions</p>
               {FUNDS.map((f, i) => {
                 const w = Math.round(WEIGHTS[i] * 100)
                 const action = w > 30 ? 'Reduce' : w < 20 ? 'Increase' : 'Hold'
