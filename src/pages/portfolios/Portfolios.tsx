@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Plus as AddIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { FolderOpen as FolderOpenIcon } from '@phosphor-icons/react'
@@ -33,6 +33,7 @@ function portfolioHealthGrade(xirr: number, fundCount: number): { grade: string;
 
 export function Portfolios() {
   const { can } = usePlan()
+  const navigate = useNavigate()
   const [_showAddModal, setShowAddModal] = useState(false)
   const lm = useUIStore((s) => s.lightMode)
   const { user } = useAuthStore()
@@ -230,6 +231,23 @@ export function Portfolios() {
                   {p.holdings.length > 4 && (
                     <span className={`text-xs ${textMuted} px-1 py-0.5`}>+{p.holdings.length - 4} more</span>
                   )}
+                </div>
+
+                {/* Quick actions */}
+                <div className={`flex gap-2 mt-4 pt-3 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>
+                  {[
+                    { label: 'View Holdings', to: `/mutual-funds/portfolios/${p.id}` },
+                    { label: 'Compare', to: '/mutual-funds/compare' },
+                    { label: 'Overlap', to: '/mutual-funds/overlap' },
+                  ].map((a) => (
+                    <button
+                      key={a.label}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigate(a.to) }}
+                      className={`flex-1 text-[11px] font-semibold py-1.5 rounded-lg border transition-colors ${lm ? 'border-[#E0E3E8] text-[#4f46e5] hover:bg-[#eeedfd] hover:border-[#4f46e5]' : 'border-[#1e2838] text-[#d6fd70] hover:bg-[#1a2130]'}`}
+                    >
+                      {a.label}
+                    </button>
+                  ))}
                 </div>
               </div>
             </Link>
