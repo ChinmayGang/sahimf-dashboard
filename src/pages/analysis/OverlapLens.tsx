@@ -60,11 +60,12 @@ const COMMON_STOCKS = [
 
 function overlapColor(v: number, isDiag: boolean, lm?: boolean) {
   if (isDiag) return lm
-    ? { bg: 'rgba(79,70,229,0.1)', text: '#4f46e5', border: 'rgba(79,70,229,0.25)' }
+    ? { bg: '#eeedfd', text: '#4f46e5', border: 'rgba(79,70,229,0.35)' }
     : { bg: 'rgba(214,253,112,0.15)', text: '#d6fd70', border: 'rgba(214,253,112,0.3)' }
-  if (v >= 25)  return { bg: 'rgba(239,68,68,0.12)',  text: '#ef4444', border: 'rgba(239,68,68,0.3)' }
-  if (v >= 12)  return { bg: 'rgba(245,158,11,0.12)', text: '#f59e0b', border: 'rgba(245,158,11,0.3)' }
-  if (v > 0)    return { bg: 'rgba(34,197,94,0.10)',  text: '#22c55e', border: 'rgba(34,197,94,0.25)' }
+  // Stronger, darker-text pills so they read clearly on a white background (pt 21)
+  if (v >= 25)  return { bg: '#fee2e2', text: '#b91c1c', border: 'rgba(239,68,68,0.4)' }
+  if (v >= 12)  return { bg: '#fef3c7', text: '#b45309', border: 'rgba(245,158,11,0.4)' }
+  if (v > 0)    return { bg: '#dcfce7', text: '#15803d', border: 'rgba(34,197,94,0.35)' }
   return null
 }
 
@@ -283,7 +284,7 @@ export function OverlapLens() {
         {/* Search dropdown */}
         {pickerOpen && (
           <div className="mt-3">
-            <div className="flex items-center gap-2 rounded-xl px-3 py-2 mb-2" style={{ background: inputBg, border: `1px solid ${inputBorder}` }}>
+            <div className="flex items-center gap-2 rounded-xl px-3 py-2 mb-2" style={{ background: lm ? '#ffffff' : inputBg, border: `1px solid ${lm ? '#D1D5DB' : inputBorder}` }}>
               <MagnifyingGlass size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />
               <input
                 autoFocus
@@ -454,9 +455,9 @@ export function OverlapLens() {
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold ${textMuted} w-48`}>Stock</th>
+                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold text-[#374151] uppercase tracking-wide w-48`}>Stock</th>
                         {selectedFunds.map(f => (
-                          <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold ${textMuted} min-w-[80px]`}>
+                          <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold text-[#374151] min-w-[80px]`}>
                             {f.name.split(' ')[0]}
                           </th>
                         ))}
@@ -522,10 +523,10 @@ export function OverlapLens() {
                   {worstPairs.slice(0, 5).map((pair) => {
                     const fa = mockFunds.find(f => f.id === pair.a)
                     const fb = mockFunds.find(f => f.id === pair.b)
-                    const severity = pair.val >= 30 ? { label: 'Very high', color: '#ef4444', bg: 'rgba(239,68,68,0.1)' }
-                      : pair.val >= 18 ? { label: 'Moderate', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' }
-                      : pair.val >= 8  ? { label: 'Low', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
-                      : { label: 'Healthy', color: '#22c55e', bg: 'rgba(34,197,94,0.1)' }
+                    const severity = pair.val >= 30 ? { label: 'Very high', color: '#ef4444', bg: '#fee2e2', text: '#b91c1c' }
+                      : pair.val >= 18 ? { label: 'Moderate', color: '#f59e0b', bg: '#fef3c7', text: '#b45309' }
+                      : pair.val >= 8  ? { label: 'Low', color: '#22c55e', bg: '#dcfce7', text: '#15803d' }
+                      : { label: 'Healthy', color: '#22c55e', bg: '#dcfce7', text: '#15803d' }
                     const stocksShared = Math.round(pair.val * 0.5)
                     const desc = pair.val >= 30
                       ? `${stocksShared} of 50 stocks shared · Both ${fa?.category ?? ''} mandated`
@@ -541,7 +542,7 @@ export function OverlapLens() {
                             <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
                             <p className={`text-xs ${textMuted} mt-0.5`}>{desc}</p>
                           </div>
-                          <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.color }}>
+                          <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.text }}>
                             {severity.label}
                           </span>
                         </div>
@@ -660,6 +661,7 @@ export function OverlapLens() {
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
                   <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Sector allocation vs Nifty 50</p>
+                  <p className={`text-[11px] ${textSub} mt-0.5 normal-case`}>The coloured bar is your portfolio's average weight in each sector. The grey vertical line marks the Nifty 50 benchmark weight.</p>
                 </div>
                 <div className="p-5 space-y-4">
                   {SECTORS.map(sector => {
@@ -704,13 +706,13 @@ export function OverlapLens() {
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold ${textMuted} w-28`}>Sector</th>
+                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold text-[#374151] uppercase tracking-wide w-28`}>Sector</th>
                         {selectedFunds.map(f => (
-                          <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold ${textMuted} min-w-[90px]`}>
+                          <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold text-[#374151] min-w-[90px]`}>
                             {shortName(f.name)}
                           </th>
                         ))}
-                        <th className={`text-center px-3 py-2.5 text-[11px] font-semibold ${textMuted}`}>Nifty 50</th>
+                        <th className={`text-center px-3 py-2.5 text-[11px] font-semibold text-[#374151]`}>Nifty 50</th>
                       </tr>
                     </thead>
                     <tbody>

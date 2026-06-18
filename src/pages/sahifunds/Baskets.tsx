@@ -138,8 +138,11 @@ const BASKETS: Basket[] = [
   },
 ]
 
-const RISK_COLORS: Record<string, string> = {
-  Low: '#22c55e', Moderate: '#f59e0b', High: '#ef4444',
+// Light-theme readable risk pills (darker text + solid soft bg)
+const RISK_PILL: Record<string, { bg: string; text: string }> = {
+  Low: { bg: '#dcfce7', text: '#15803d' },
+  Moderate: { bg: '#fef3c7', text: '#b45309' },
+  High: { bg: '#fee2e2', text: '#b91c1c' },
 }
 
 export function Baskets() {
@@ -309,14 +312,9 @@ export function Baskets() {
             return (
               <div
                 key={basket.id}
-                className={`${card} rounded-2xl p-5 transition-all hover:-translate-y-0.5 cursor-pointer relative ${basket.featured ? (lm ? 'ring-1 ring-[#4f46e5]/20' : 'ring-1 ring-[#d6fd70]/20') : ''}`}
+                className={`bg-white border border-[#E0E3E8] rounded-2xl p-5 transition-all duration-200 hover:border-[#4f46e5] hover:-translate-y-1 cursor-pointer relative`}
                 onClick={() => { setSelectedBasket(basket); if (!isLocked) setShowMethodology(true) }}
               >
-                {basket.featured && (
-                  <span className="absolute top-3 right-3 text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: lm ? '#4f46e5' : '#818cf8' }}>
-                    Popular
-                  </span>
-                )}
                 {isLocked && (
                   <div className="absolute top-3 right-3 flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(99,102,241,0.1)', color: '#818cf8' }}>
                     <LockIcon size={9} weight="bold" /> PRO
@@ -348,7 +346,7 @@ export function Baskets() {
                 </div>
 
                 <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: divider }}>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: `${RISK_COLORS[basket.riskLevel]}15`, color: RISK_COLORS[basket.riskLevel] }}>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: RISK_PILL[basket.riskLevel].bg, color: RISK_PILL[basket.riskLevel].text }}>
                     {basket.riskLevel} Risk
                   </span>
                   {isLocked ? (
