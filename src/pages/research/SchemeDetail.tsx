@@ -6,6 +6,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { SahiResearchCard } from '../../components/ui/SahiResearchCard'
+import { RankBadge, ordinal } from '../../components/ui/RankBadge'
 import { mockFunds, getMockNavData } from '../../data/funds'
 import { FUND_NEWS, type NewsItem } from '../../data/fundNews'
 import { useUIStore } from '../../stores/uiStore'
@@ -332,8 +333,8 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
-            color: returnRank === 1 ? '#4f46e5' : returnRank <= 2 ? '#22C55E' : '#f59e0b',
-            medal: returnRank === 1 ? '🥇' : returnRank === 2 ? '🥈' : returnRank === 3 ? '🥉' : null,
+            color: returnRank === 1 ? '#16a34a' : returnRank <= 3 ? '#4f46e5' : '#f59e0b',
+            topTag: 'Highest Returns',
           },
           {
             label: 'Cost',
@@ -341,8 +342,8 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.expenseRatio}%`,
             statLabel: 'Expense Ratio',
-            color: costRank <= 2 ? '#22C55E' : costRank <= Math.ceil(totalInCat / 2) ? '#f59e0b' : '#ef4444',
-            medal: costRank === 1 ? '🥇' : costRank === 2 ? '🥈' : costRank === 3 ? '🥉' : null,
+            color: costRank === 1 ? '#16a34a' : costRank <= 3 ? '#4f46e5' : '#f59e0b',
+            topTag: 'Lowest Cost',
           },
           {
             label: 'Volatility',
@@ -350,20 +351,25 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: fund.volatility,
             statLabel: 'Std. Deviation tier',
-            color: fund.volatility === 'Low' ? '#22C55E' : fund.volatility === 'Medium' ? '#f59e0b' : '#ef4444',
-            medal: volRank === 1 ? '🥇' : volRank === 2 ? '🥈' : volRank === 3 ? '🥉' : null,
+            color: volRank === 1 ? '#16a34a' : volRank <= 3 ? '#4f46e5' : '#f59e0b',
+            topTag: 'Most Stable',
           },
         ].map((item) => (
           <div key={item.label} className={`${card} rounded-xl p-4`}>
             <div className="flex items-start justify-between mb-2">
               <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>{item.label}</p>
-              {item.medal && <span className="text-base">{item.medal}</span>}
+              <RankBadge rank={item.rank} size={28} />
             </div>
-            <div className="flex items-end gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl font-black" style={{ color: item.color, lineHeight: 1 }}>
-                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>{item.rank === 1 ? 'st' : item.rank === 2 ? 'nd' : item.rank === 3 ? 'rd' : 'th'}</span>
+                {item.rank}<span className="text-sm font-semibold" style={{ color: item.color }}>{ordinal(item.rank).replace(String(item.rank), '')}</span>
               </span>
-              <span className={`text-xs ${textMuted} mb-0.5`}>of {item.total}</span>
+              <span className={`text-xs ${textMuted}`}>of {item.total}</span>
+              {item.rank === 1 && (
+                <span className="ml-auto text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#dcfce7', color: '#15803d' }}>
+                  {item.topTag}
+                </span>
+              )}
             </div>
             <p className={`text-xs font-semibold ${text}`}>{item.stat}</p>
             <p className={`text-[10px] ${textMuted}`}>{item.statLabel}</p>
