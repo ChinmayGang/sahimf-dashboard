@@ -249,11 +249,12 @@ export function OverlapLens() {
         <div className="flex items-center justify-between mb-3">
           <p className={`text-xs font-semibold uppercase tracking-wider text-[#374151]`}>Funds being analysed</p>
           <button
-            onClick={() => setPickerOpen(p => !p)}
-            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
+            onClick={() => selectedIds.length < 5 && setPickerOpen(p => !p)}
+            disabled={selectedIds.length >= 5}
+            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: '#4f46e5' }}
           >
-            <Plus size={13} weight="bold" /> Add Fund
+            <Plus size={13} weight="bold" /> {selectedIds.length >= 5 ? 'Max 5 funds' : 'Add Fund'}
           </button>
         </div>
 
@@ -297,7 +298,7 @@ export function OverlapLens() {
               {searchResults.map(f => (
                 <button
                   key={f.id}
-                  onClick={() => { setSelectedIds(ids => [...ids, f.id]); setSearch('') }}
+                  onClick={() => { if (selectedIds.length < 5) { setSelectedIds(ids => [...ids, f.id]); setSearch(''); setPickerOpen(false) } }}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left transition-colors ${rowHover}`}
                 >
                   <div>

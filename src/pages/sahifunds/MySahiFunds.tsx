@@ -89,10 +89,14 @@ export function MySahiFunds() {
           <button
             key={fund.id}
             onClick={() => { setActiveIdx(idx); navigate(`/mutual-funds/sahi-funds/${fund.id}`) }}
-            className={`text-left ${card} rounded-2xl p-5 transition-all duration-200 group ${
+            className={`text-left rounded-2xl p-5 transition-all duration-200 group border ${
               activeIdx === idx
-                ? lm ? 'border-[#4f46e5]' : 'border-[#d6fd70]'
-                : lm ? 'hover:border-[#4f46e5] hover:-translate-y-1' : 'hover:border-[#d6fd70] hover:-translate-y-1'
+                ? lm
+                  ? '-translate-y-1 bg-white border-[#4f46e5] shadow-lg shadow-[#4f46e5]/10'
+                  : '-translate-y-1 bg-[#14171c] border-[#d6fd70] shadow-lg shadow-[#d6fd70]/10'
+                : lm
+                  ? 'bg-white border-[#E0E3E8] hover:border-[#4f46e5] hover:-translate-y-1'
+                  : 'bg-[#14171c] border-[#1e2838] hover:border-[#d6fd70] hover:-translate-y-1'
             }`}
           >
             <div className="flex items-start justify-between mb-3">

@@ -701,7 +701,7 @@ export function Overview() {
                         className="flex-shrink-0 ml-2"
                       >
                         {isWL
-                          ? <FavoriteIcon size={16} color="#ef4444" weight="duotone" />
+                          ? <FavoriteIcon size={16} color="#4f46e5" weight="fill" />
                           : <FavoriteBorderIcon size={16} color={lm ? '#9CA3AF' : '#505d6f'} weight="duotone" />
                         }
                       </button>
