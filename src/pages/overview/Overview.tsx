@@ -810,7 +810,7 @@ export function Overview() {
                 </p>
               </div>
               <div className="flex-shrink-0 flex flex-col items-end gap-2">
-                <ProButton label="Upgrade to PRO" onClick={() => {}} />
+                <ProButton label="Upgrade to PRO" onClick={() => navigate('/pricing')} />
                 <button className="text-xs hover:opacity-80 transition-opacity" style={{ color: 'rgba(255,255,255,0.4)' }}>
                   See what's included
                 </button>

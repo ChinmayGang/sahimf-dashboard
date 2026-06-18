@@ -507,9 +507,16 @@ export function OverlapLens() {
               )}
 
               {/* ── WORST OVERLAPPING PAIRS ── */}
-              <div className={`rounded-2xl overflow-hidden ${card}`}>
-                <div className="px-5 py-4 border-b" style={{ borderColor: divider }}>
-                  <p className={`text-sm font-bold ${text}`}>WORST OVERLAPPING PAIRS</p>
+              <div className={`rounded-2xl overflow-hidden bg-white border ${highOverlapCount > 0 ? 'border-[#ef4444]/30' : 'border-[#E0E3E8]'}`}>
+                <div className="px-5 py-4 border-b" style={{ borderColor: highOverlapCount > 0 ? 'rgba(239,68,68,0.15)' : divider }}>
+                  <div className="flex items-center gap-2">
+                    <p className={`text-sm font-bold ${text}`}>Worst Overlapping Pairs</p>
+                    {highOverlapCount > 0 && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444' }}>
+                        {highOverlapCount} High
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="divide-y" style={{ borderColor: divider }}>
                   {worstPairs.slice(0, 5).map((pair) => {
