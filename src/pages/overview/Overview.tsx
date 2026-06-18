@@ -541,8 +541,8 @@ export function Overview() {
           </div>
         )}
 
-        {investCount >= 3 && (
-          /* Case 3: 3+ investments */
+        {investCount >= 2 && (
+          /* Case 3: 2+ investments */
           <div>
             {/* Portfolio summary */}
             {(() => {
