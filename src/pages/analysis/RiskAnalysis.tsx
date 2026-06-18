@@ -326,7 +326,7 @@ export function RiskAnalysis() {
             <thead>
               <tr className={`border-b ${divider}`}>
                 {['Fund', 'Category', 'Allocation', 'Risk Level', 'Est. Volatility', 'XIRR', 'Risk Score'].map(h => (
-                  <th key={h} className={`text-left text-[11px] font-semibold ${textMuted} uppercase tracking-wide px-4 py-3 whitespace-nowrap`}>{h}</th>
+                  <th key={h} className={`text-left text-[11px] font-semibold text-[#374151] uppercase tracking-wide px-4 py-3 whitespace-nowrap`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -376,7 +376,7 @@ export function RiskAnalysis() {
               { scenario: 'US Fed Rate Hike Cycle', portImpact: '-12.8%', recovery: '4 months', color: '#eab308' },
             ].map(s => (
               <div key={s.scenario} className="rounded-xl p-4" style={{ background: `${s.color}0d`, border: `1px solid ${s.color}30` }}>
-                <p className={`text-[10px] font-semibold uppercase tracking-wide ${textMuted} mb-2`}>{s.scenario}</p>
+                <p className={`text-[10px] font-semibold uppercase tracking-wide text-[#374151] mb-2`}>{s.scenario}</p>
                 <p className="text-xl font-black" style={{ color: s.color }}>{s.portImpact}</p>
                 <p className={`text-xs mt-1 ${textSub}`}>Est. portfolio impact</p>
                 <p className={`text-xs font-semibold mt-2 ${text}`}>Recovery: {s.recovery}</p>

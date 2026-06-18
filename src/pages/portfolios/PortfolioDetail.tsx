@@ -278,7 +278,7 @@ export function PortfolioDetail() {
 
                   {/* Peer cards */}
                   <div className="px-5 py-3 space-y-2">
-                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${textMuted}`}>Category peers with better Sahi Score</p>
+                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]`}>Category peers with better Sahi Score</p>
                     {visiblePeers.map(peer => (
                       <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
                         <div className="flex-1 min-w-0">
