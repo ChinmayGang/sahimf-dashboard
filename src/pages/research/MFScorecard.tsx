@@ -3,7 +3,6 @@ import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp a
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
-import { PageHeroBanner } from '../../components/ui/PageHeroBanner'
 import { useUIStore } from '../../stores/uiStore'
 import { usePlan } from '../../hooks/usePlan'
 
@@ -78,18 +77,30 @@ export function MFScorecard() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
-      <PageHeroBanner
-        lm={lm}
-        icon={<StarIcon size={22} weight="duotone" />}
-        title="MF Scorecard"
-        badge="Research Tool"
-        subtitle={`Sahi Score™ ranks ${mockFunds.length} funds across returns, consistency, risk, cost & manager quality`}
-        stats={[
-          { label: 'Funds Ranked', value: `${mockFunds.length}` },
-          { label: 'Top Grade', value: topGrade },
-          { label: 'Top Score', value: `${topScore}` },
-        ]}
-      />
+      {/* Page Header */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
+            <span style={{ color: '#d6fd70' }}><StarIcon size={20} weight="duotone" /></span>
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <h1 className="text-xl font-black tracking-tight text-[#111827]">MF Scorecard</h1>
+              <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
+            </div>
+            <p className="text-xs text-[#6B7280]">Sahi Score™ ranks {mockFunds.length} funds across returns, consistency, risk, cost &amp; manager quality</p>
+          </div>
+        </div>
+        <div className="flex-shrink-0 flex gap-2">
+          {[{ label: 'Funds Ranked', value: `${mockFunds.length}` }, { label: 'Top Grade', value: topGrade }, { label: 'Top Score', value: `${topScore}` }].map(s => (
+            <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
+              <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
+              <p className="text-[10px] text-[#9CA3AF] mt-0.5 whitespace-nowrap">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
       {/* Sort control row */}
       <div className="flex items-center justify-between -mt-2">
         <p className={`text-xs ${textMuted}`}>SahiMF proprietary scoring · Updated monthly</p>

@@ -5,6 +5,7 @@ import {
   Car as CarIcon, Heartbeat as RetirementIcon, Airplane as TravelIcon,
   ArrowRight as ArrowRightIcon, Info as InfoIcon, X as CloseIcon,
   CheckCircle as CheckCircleIcon, Lock as LockIcon, Sparkle as SparkleIcon,
+  Target as TargetIcon,
 } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
@@ -228,7 +229,29 @@ export function Baskets() {
         </div>
       </div>
 
-      {/* Active goal trackers — PRO users */}
+      {/* Active goal trackers — PRO users / empty CTA for free */}
+      {trackedBaskets.length === 0 && !isPro && (
+        <div className="rounded-2xl p-6 flex items-center gap-5" style={{ background: 'linear-gradient(135deg, #f5f0ff 0%, #eee8ff 100%)', border: '1px solid #d4c5ff' }}>
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.3)' }}>
+            <TargetIcon size={22} color="#d6fd70" weight="duotone" />
+          </div>
+          <div className="flex-1">
+            <p className="text-base font-black text-[#1e0845] mb-0.5">Track your goals with Sahi Baskets</p>
+            <p className="text-xs text-[#5b3f8a] leading-relaxed">
+              Add baskets to your portfolio, set targets, and watch your progress — retirement, education, home or any goal.
+            </p>
+          </div>
+          <button
+            onClick={() => window.location.href = '/pricing'}
+            className="flex-shrink-0 flex items-center gap-2 text-sm font-bold text-white px-5 py-2.5 rounded-full transition-opacity hover:opacity-90"
+            style={{ background: 'linear-gradient(135deg, #8c34ee 0%, #4f46e5 100%)', boxShadow: '0 4px 16px rgba(140,52,238,0.3)' }}
+          >
+            <SparkleIcon size={14} weight="fill" />
+            Upgrade to PRO
+          </button>
+        </div>
+      )}
       {trackedBaskets.length > 0 && (
         <div>
           <p className={`text-sm font-semibold ${text} mb-3`}>Your Active Goals</p>

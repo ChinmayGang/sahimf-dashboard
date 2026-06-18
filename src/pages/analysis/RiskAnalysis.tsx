@@ -4,7 +4,6 @@ import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { PlanGate } from '../../components/ui/PlanGate'
-import { PageHeroBanner } from '../../components/ui/PageHeroBanner'
 
 // ─── Risk score helpers ───────────────────────────────────────────────────────
 const CAT_RISK: Record<string, number> = {
@@ -216,18 +215,34 @@ export function RiskAnalysis() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
-      <PageHeroBanner
-        lm={lm}
-        icon={<ShieldIcon size={22} weight="duotone" />}
-        title="Portfolio Risk Analysis"
-        subtitle="Research-based risk scoring of your portfolio — volatility, beta, drawdown & fund-level breakdown"
-        badge="Research Tool"
-        stats={[
-          { label: 'Risk Level', value: portfolioRiskLabel },
-          { label: 'Est. Volatility', value: `${portfolioVol.toFixed(1)}%` },
-          { label: 'Portfolio XIRR', value: `${portfolioXirr.toFixed(1)}%`, positive: true },
-        ]}
-      />
+      {/* Page Header */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
+            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="duotone" /></span>
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <h1 className="text-xl font-black tracking-tight text-[#111827]">Portfolio Risk Analysis</h1>
+              <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
+            </div>
+            <p className="text-xs text-[#6B7280]">Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund-level breakdown</p>
+          </div>
+        </div>
+        <div className="flex-shrink-0 flex gap-2">
+          {[
+            { label: 'Risk Level', value: portfolioRiskLabel },
+            { label: 'Est. Volatility', value: `${portfolioVol.toFixed(1)}%` },
+            { label: 'Portfolio XIRR', value: `${portfolioXirr.toFixed(1)}%` },
+          ].map(s => (
+            <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
+              <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
+              <p className="text-[10px] text-[#9CA3AF] mt-0.5 whitespace-nowrap">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Top row: riskometer + summary metrics */}
       <div className="grid md:grid-cols-2 gap-6">
