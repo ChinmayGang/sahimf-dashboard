@@ -239,4 +239,57 @@ Requires Node.js 18+. No environment variables needed — all data is mocked. Th
 
 ---
 
+## Status — UX Polish Pass (June 2026)
+
+This pass worked through a detailed 40-point design review. Status below.
+
+### Done ✅
+
+**Reusable components / global**
+- Rotating 4-colour conic-gradient border (`.sahi-research-border`) to highlight Sahi Research / Analysis cards (#1, #12)
+- `PremiumPlanCard` — dark plan card with an animated rotating light-beam border (#2)
+- `ProButton` rebuilt on a shared `.glow-btn` with full active/hover/focus/disabled states — single source of truth for all upgrade buttons (#3, #14)
+- `UpgradePopup` (Radix dialog) wired to `PlanGate` and `ProTrialBanner` upgrade buttons
+- Persistent `useWatchlistStore` — hearts work app-wide and survive reload (#5)
+- `RankBadge` + `ordinal()` — shared rank icons (1st–5th PNGs) and correct ordinals (#11)
+- Custom dropdown caret + light-mode scrollbars (#35, partial #37)
+- SEBI registration number removed from the top nav (kept only in the legal footer) (#40)
+
+**Overview**
+- Portfolio summary & first-time CTA cards → solid `#4F46E5`; research upsell → `#0A0C0E` (#4)
+- Brighter text on "Grow your idle money" / "Global shifts" cards (#6)
+- Market status pill made prominent (green/red shaded, ping dot) with an IST-hours tooltip 9:15 AM–3:30 PM (#8)
+- Watchlist hearts active by default; heart toggle added to fund cards (#5)
+- Added 4 more Sahi funds so the showcase scroll is visible (#7)
+
+**Pages**
+- My Portfolios: quick-action row (Holdings / Compare / Overlap) per card (#9)
+- Explore MF: fixed the black-border flash on section switch (#15)
+- Baskets: removed featured ring/Popular focus, hover matches Explore cards, readable risk pills (#19, #20)
+- Overlap Lens: stronger pills, darkened gray headings, readable severity pills, sector-bar explainer, white search field, max-5 funds (#21–#26)
+- Scheme Detail: rank icons for 1st–5th, only rank 1 tagged, fixed ordinals (#11)
+- My Sahi Funds: active/first card now has hover feedback (#16)
+- Reports: removed MFPMS PDF section + sub-tab, renamed to "Reports & Disclosures", Tax promoted to its own nav item (#39, #38 partial)
+- Pricing: premium animated PRO/Elite cards + simulated purchase flow that returns the user to their previous page (#30)
+
+### Pending ⏳
+
+- #10 Explore tags / search button (already white — verify against latest design)
+- #13/#37 Global grey→black text sweep across every remaining page
+- #14 Extract remaining buttons into shared state-driven components
+- #17 Deeper detail view for *owned* Sahi funds vs scheme preview
+- #18 Reframe Sahi Funds as recommendations (schemes), not separate products
+- #22 Audit every remaining grey heading project-wide
+- #27 Per-tab "Sahi Comparison" insight section in Fund Comparison (PRO, highlighted border)
+- #28/#29 Unify page container widths + header-card style across all pages
+- #31 Market Cap: free-tier guidance, rebalance simulator UX, remove emoji, move Sahi analysis up
+- #32 Risk Analysis: free-tier guidance, bubble-chart tooltips, fill right-side gap with insight
+- #33 MF Scorecard: deeper per-fund scorecard analysis on row expand
+- #34 Merge SIP What-If into SIP, fix toggle, build Lumpsum/SWP/STP variants
+- #36 Goals & Plans: full design-system alignment (tabs, hover, tones)
+- Risk-label vocabulary unified to one scale project-wide (Low/Medium/High vs Moderate)
+- Mobile responsive (Batch 8) · Supabase integration (Batch 9)
+
+---
+
 Built by [Arqentis Financial Technologies](https://arqentis.in) · SEBI RA
