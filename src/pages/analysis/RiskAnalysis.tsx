@@ -1,9 +1,11 @@
 import { useMemo } from 'react'
-import { ShieldCheck as ShieldIcon } from '@phosphor-icons/react'
+import { ShieldCheck as ShieldIcon, UploadSimple as UploadIcon, LightbulbFilament as BulbIcon } from '@phosphor-icons/react'
 import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { ProButton } from '../../components/ui/ProButton'
+import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 
 // ─── Risk score helpers ───────────────────────────────────────────────────────
 const CAT_RISK: Record<string, number> = {
@@ -140,7 +142,8 @@ function RiskReturnBubbles({
         const r = 8 + f.alloc * 0.4
         const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
         return (
-          <g key={f.name}>
+          <g key={f.name} style={{ cursor: 'pointer' }}>
+            <title>{`${f.name} · ${f.alloc.toFixed(0)}% allocation · ${f.xirr.toFixed(1)}% XIRR · ${f.vol}% volatility`}</title>
             <circle
               cx={cx} cy={cy} r={r}
               fill={color}
@@ -213,6 +216,37 @@ export function RiskAnalysis() {
   const maxDrawdownEst = -(portfolioVol * 0.8).toFixed(1)
   const beta = (portfolioRiskScore / 3.5).toFixed(2)
 
+  // No holdings to analyse — guide the user to add a portfolio instead of empty charts.
+  if (totalInvested === 0) {
+    return (
+      <div className="p-6 max-w-7xl mx-auto space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
+            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="duotone" /></span>
+          </div>
+          <div>
+            <h1 className={`text-xl font-black tracking-tight ${text}`}>Portfolio Risk Analysis</h1>
+            <p className={`text-xs ${textSub}`}>Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund breakdown</p>
+          </div>
+        </div>
+
+        <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+            style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)' }}>
+            <UploadIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          </div>
+          <p className={`text-base font-bold ${text} mb-1`}>Analyse your portfolio risk</p>
+          <p className={`text-sm ${textSub} max-w-md mb-5`}>
+            Upload your CAS statement or add a few funds and we'll score your portfolio's volatility, beta,
+            drawdown and fund-level risk — with a Sahi insight on how to balance it.
+          </p>
+          <ProButton label="Add your portfolio" onClick={() => { window.location.href = '/mutual-funds/portfolios' }} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Page Header */}
@@ -248,7 +282,7 @@ export function RiskAnalysis() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Riskometer card */}
         <div className={`${card} rounded-2xl p-5`}>
-          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 text-[#374151]`}>Portfolio Risk Level</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Portfolio Risk Level</p>
           <Riskometer label={portfolioRiskLabel} lm={lm} />
           <div className="mt-3 text-center">
             <p className={`text-xs ${textSub} max-w-xs mx-auto leading-relaxed`}>
@@ -269,7 +303,7 @@ export function RiskAnalysis() {
 
         {/* Risk metrics */}
         <div className={`${card} rounded-2xl p-5 space-y-3`}>
-          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 text-[#374151]`}>Key Risk Metrics</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-4 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Key Risk Metrics</p>
           {[
             { label: 'Portfolio Beta (vs Nifty)', value: beta, note: 'Lower = less market sensitive', highlight: Number(beta) < 1 },
             { label: 'Est. Portfolio Volatility (1Y SD)', value: `${portfolioVol.toFixed(1)}%`, note: 'Annualised standard deviation', highlight: portfolioVol < 15 },
@@ -292,12 +326,13 @@ export function RiskAnalysis() {
         </div>
       </div>
 
-      {/* Risk/Return Bubble Chart */}
+      {/* Risk/Return Bubble Chart + Sahi Insight (B7-4) */}
+      <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
       <div className={`${card} rounded-2xl p-5`}>
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className={`text-sm font-semibold ${text}`}>Risk vs Return — Fund Scatter</p>
-            <p className={`text-xs ${textMuted} mt-0.5`}>Bubble size = allocation %; right = higher return; up = higher volatility</p>
+            <p className={`text-xs ${textMuted} mt-0.5`}>Bubble size = allocation %; hover a bubble for details</p>
           </div>
         </div>
         <RiskReturnBubbles funds={fundsWithRisk} lm={lm} />
@@ -316,6 +351,36 @@ export function RiskAnalysis() {
         </div>
       </div>
 
+      {/* Sahi Insight — fills the column beside the scatter */}
+      <AnimatedBorderCard badge="SAHI INSIGHT">
+        <div className="px-4 pb-4">
+          <div className="flex items-center gap-2 mb-2">
+            <BulbIcon size={15} color="#4f46e5" weight="duotone" />
+            <p className="text-sm font-semibold text-[#111827]">Sahi Risk Insight</p>
+          </div>
+          <p className="text-xs text-[#374151] leading-relaxed">
+            Your portfolio carries a <b style={{ color: riskScoreToColor(portfolioRiskScore) }}>{portfolioRiskLabel}</b> risk profile —
+            an estimated <b className="text-[#111827]">{portfolioVol.toFixed(1)}%</b> annualised volatility and a beta of <b className="text-[#111827]">{beta}</b> versus the Nifty 50.
+          </p>
+          <ul className="mt-3 space-y-2">
+            {[
+              Number(beta) < 1 ? 'Beta below 1 — your mix is less sensitive to market swings than the index.' : 'Beta above 1 — expect sharper moves than the index in both directions.',
+              `Worst-case drawdown is estimated near ${maxDrawdownEst}% in a deep correction — size your emergency buffer accordingly.`,
+              portfolioVol > 18 ? 'Volatility is on the higher side; a larger large-cap or hybrid sleeve would smooth the ride.' : 'Volatility sits in a comfortable band for a long-horizon growth investor.',
+            ].map((t, i) => (
+              <li key={i} className="flex items-start gap-2 text-xs text-[#374151] leading-relaxed">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#4f46e5' }} />
+                {t}
+              </li>
+            ))}
+          </ul>
+          <p className="text-[10px] text-[#6B7280] mt-3 pt-3 border-t border-[#E0E3E8]">
+            Generic research, not personalised advice. SEBI RA regulations apply.
+          </p>
+        </div>
+      </AnimatedBorderCard>
+      </div>
+
       {/* Fund-by-fund risk table */}
       <div className={`${card} rounded-2xl overflow-hidden`}>
         <div className={`flex items-center justify-between px-5 py-4 border-b ${divider}`}>
@@ -326,7 +391,7 @@ export function RiskAnalysis() {
             <thead>
               <tr className={`border-b ${divider}`}>
                 {['Fund', 'Category', 'Allocation', 'Risk Level', 'Est. Volatility', 'XIRR', 'Risk Score'].map(h => (
-                  <th key={h} className={`text-left text-[11px] font-semibold text-[#374151] uppercase tracking-wide px-4 py-3 whitespace-nowrap`}>{h}</th>
+                  <th key={h} className={`text-left text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wide px-4 py-3 whitespace-nowrap`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -376,7 +441,7 @@ export function RiskAnalysis() {
               { scenario: 'US Fed Rate Hike Cycle', portImpact: '-12.8%', recovery: '4 months', color: '#eab308' },
             ].map(s => (
               <div key={s.scenario} className="rounded-xl p-4" style={{ background: `${s.color}0d`, border: `1px solid ${s.color}30` }}>
-                <p className={`text-[10px] font-semibold uppercase tracking-wide text-[#374151] mb-2`}>{s.scenario}</p>
+                <p className={`text-[10px] font-semibold uppercase tracking-wide ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-2`}>{s.scenario}</p>
                 <p className="text-xl font-black" style={{ color: s.color }}>{s.portImpact}</p>
                 <p className={`text-xs mt-1 ${textSub}`}>Est. portfolio impact</p>
                 <p className={`text-xs font-semibold mt-2 ${text}`}>Recovery: {s.recovery}</p>

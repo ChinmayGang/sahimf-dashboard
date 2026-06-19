@@ -266,3 +266,21 @@ select.appearance-none {
 [data-theme="light"] ::-webkit-scrollbar-track { background: #F4F4F5; }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 2px; }
 [data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #A1A1AA; }
+
+/* Rebalance simulator — filled track (inline gradient) + a clearly draggable pill handle (B7-3) */
+.rebalance-slider { -webkit-appearance: none; appearance: none; height: 8px; border-radius: 9999px; outline: none; cursor: pointer; }
+.rebalance-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 9999px;
+  background: var(--thumb, #4f46e5); border: 3px solid #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3); cursor: grab; margin-top: -5px;
+  transition: transform .12s ease;
+}
+.rebalance-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.15); }
+.rebalance-slider::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 9999px;
+  background: var(--thumb, #4f46e5); border: 3px solid #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3); cursor: grab;
+}
+.rebalance-slider::-webkit-slider-runnable-track { height: 8px; border-radius: 9999px; }
+.rebalance-slider::-moz-range-track { height: 8px; border-radius: 9999px; }
