@@ -17,7 +17,6 @@ import { FundComparison } from './pages/analysis/FundComparison'
 import { MarketCapAllocation } from './pages/analysis/MarketCapAllocation'
 import { RiskAnalysis } from './pages/analysis/RiskAnalysis'
 import { Calculator } from './pages/tools/Calculator'
-import { SIPWhatIf } from './pages/tools/SIPWhatIf'
 import { Baskets } from './pages/sahifunds/Baskets'
 import { Goals } from './pages/sahifunds/Goals'
 import { Dividends } from './pages/reports/Dividends'
@@ -81,11 +80,12 @@ export default function App() {
             <Route path="mutual-funds/amfi" element={<FundManager />} />
             <Route path="mutual-funds/baskets" element={<Baskets />} />
             <Route path="mutual-funds/goals" element={<Goals />} />
-            <Route path="mutual-funds/tools/sip-whatif" element={<SIPWhatIf />} />
+            {/* All tools merged into one tabbed page; legacy paths deep-link to a tab */}
             <Route path="mutual-funds/tools/sip" element={<Calculator />} />
-            <Route path="mutual-funds/tools/lumpsum" element={<Calculator />} />
-            <Route path="mutual-funds/tools/swp" element={<Calculator />} />
-            <Route path="mutual-funds/tools/stp" element={<Calculator />} />
+            <Route path="mutual-funds/tools/sip-whatif" element={<Navigate to="/mutual-funds/tools/sip?tab=whatif" replace />} />
+            <Route path="mutual-funds/tools/lumpsum" element={<Navigate to="/mutual-funds/tools/sip?tab=lumpsum" replace />} />
+            <Route path="mutual-funds/tools/swp" element={<Navigate to="/mutual-funds/tools/sip?tab=swp" replace />} />
+            <Route path="mutual-funds/tools/stp" element={<Navigate to="/mutual-funds/tools/sip?tab=stp" replace />} />
             <Route path="mutual-funds/dividends" element={<Dividends />} />
             <Route path="mutual-funds/reports/tax" element={<TaxReport />} />
             <Route path="mutual-funds/reports/mfpms" element={<MFPMSDisclosures />} />

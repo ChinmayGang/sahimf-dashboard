@@ -4,6 +4,7 @@ import type { PlanTier } from '../../types'
 import { usePlan } from '../../hooks/usePlan'
 import { useUIStore } from '../../stores/uiStore'
 import { UpgradePopup } from './UpgradePopup'
+import { ProButton } from './ProButton'
 
 interface PlanGateProps {
   requiredTier: PlanTier
@@ -53,12 +54,11 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
                   Unlock this with a {tierLabel} subscription
                 </p>
               </div>
-              <button
+              <ProButton
+                label={`Upgrade to ${tierLabel}`}
+                size="sm"
                 onClick={() => setShowUpgrade(true)}
-                className="bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-xs font-semibold px-4 py-2 rounded-full transition-colors"
-              >
-                Upgrade to {tierLabel}
-              </button>
+              />
             </div>
           )}
         </div>

@@ -23,7 +23,6 @@ interface NavItem {
 }
 
 const W = 'duotone' as const
-const WS = 'regular' as const
 
 const mfChildren: NavItem[] = [
   { key: 'mf-overview', label: 'Overview', icon: <SquaresFour size={15} weight={W} />, path: '/mutual-funds' },
@@ -37,19 +36,10 @@ const mfChildren: NavItem[] = [
   { key: 'mf-risk', label: 'Risk Analysis', icon: <ShieldCheck size={15} weight={W} />, path: '/mutual-funds/risk' },
   { key: 'mf-scorecard', label: 'MF Scorecard', icon: <Star size={15} weight={W} />, path: '/mutual-funds/scorecard' },
   { key: 'mf-amfi', label: 'Fund Manager', icon: <Buildings size={15} weight={W} />, path: '/mutual-funds/amfi' },
-  {
-    key: 'mf-tools', label: 'Tools', icon: <Calculator size={15} weight={W} />,
-    children: [
-      { key: 'tool-whatif', label: 'SIP What If', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/sip-whatif' },
-      { key: 'tool-sip', label: 'SIP Calculator', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/sip' },
-      { key: 'tool-lumpsum', label: 'Lumpsum', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/lumpsum' },
-      { key: 'tool-swp', label: 'SWP', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/swp' },
-      { key: 'tool-stp', label: 'STP', icon: <Calculator size={13} weight={WS} />, path: '/mutual-funds/tools/stp' },
-    ],
-  },
+  { key: 'mf-tools', label: 'SIP Calculator', icon: <Calculator size={15} weight={W} />, path: '/mutual-funds/tools/sip' },
   { key: 'mf-dividends', label: 'Dividends', icon: <ChartBar size={15} weight={W} />, path: '/mutual-funds/dividends' },
   { key: 'mf-goals', label: 'Goals & Plans', icon: <Target size={15} weight={W} />, path: '/mutual-funds/goals' },
-  { key: 'mf-tax', label: 'Tax Optimisation', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/tax' },
+  { key: 'mf-tax', label: 'Tax Optimizer', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/tax' },
   { key: 'mf-reports', label: 'Reports & Disclosures', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/mfpms' },
 ]
 

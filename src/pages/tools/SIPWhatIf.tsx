@@ -26,7 +26,7 @@ function formatINR(n: number) {
 const CHART_COLORS = ['#d6fd70', '#6366f1', '#22c55e', '#f59e0b', '#0891b2', '#ec4899', '#14b8a6', '#a855f7', '#f97316', '#ef4444']
 const NIFTY_COLOR = '#64748b'
 
-export function SIPWhatIf() {
+export function SIPWhatIf({ embedded = false }: { embedded?: boolean } = {}) {
   const lm = useUIStore((s) => s.lightMode)
   const { can } = usePlan()
   const isPro = can('pro')
@@ -68,17 +68,19 @@ export function SIPWhatIf() {
   const invested = monthly * years * 12
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-5">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
-          <ChartLineIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+    <div className={embedded ? 'space-y-5' : 'p-6 max-w-7xl mx-auto space-y-5'}>
+      {/* Header — hidden when embedded inside the merged Calculator page */}
+      {!embedded && (
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
+            <ChartLineIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+          </div>
+          <div>
+            <h1 className={`text-lg font-bold ${text}`}>SIP What If Calculator</h1>
+            <p className={`text-xs ${textMuted}`}>Compare how top funds would have grown your SIP — side by side</p>
+          </div>
         </div>
-        <div>
-          <h1 className={`text-lg font-bold ${text}`}>SIP What If Calculator</h1>
-          <p className={`text-xs ${textMuted}`}>Compare how top funds would have grown your SIP — side by side</p>
-        </div>
-      </div>
+      )}
 
       <div className="grid grid-cols-3 gap-5">
         {/* Left: controls */}

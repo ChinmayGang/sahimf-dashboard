@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X as CloseIcon, Sparkle as SparkleIcon, Check as CheckIcon, Crown as CrownIcon } from '@phosphor-icons/react'
 import { useNavigate } from 'react-router-dom'
+import { ProButton } from './ProButton'
 
 interface UpgradePopupProps {
   open: boolean
@@ -100,17 +101,21 @@ export function UpgradePopup({ open, onClose, feature, description }: UpgradePop
             </div>
 
             {/* CTAs */}
+            <ProButton
+              label="Unlock with Sahi PRO"
+              size="lg"
+              className="w-full"
+              onClick={() => { onClose(); navigate('/pricing') }}
+            />
             <button
               onClick={() => { onClose(); navigate('/pricing') }}
-              className="w-full py-3 rounded-full text-sm font-bold text-white flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
-              style={{ background: 'linear-gradient(135deg, #8c34ee 0%, #4f46e5 100%)', boxShadow: '0 4px 20px rgba(140,52,238,0.35)' }}
+              className="w-full mt-2.5 py-2 rounded-xl text-xs font-semibold text-[#4f46e5] hover:underline transition-colors"
             >
-              <SparkleIcon size={15} weight="fill" />
-              Upgrade to Sahi PRO
+              See all plan details →
             </button>
             <button
               onClick={onClose}
-              className="w-full mt-2 py-2 rounded-xl text-xs font-medium text-[#6B7280] hover:text-[#374151] transition-colors"
+              className="w-full mt-0.5 py-1.5 rounded-xl text-xs font-medium text-[#6B7280] hover:text-[#374151] transition-colors"
             >
               Maybe later
             </button>
