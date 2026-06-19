@@ -169,7 +169,7 @@ export function Login() {
                     className="flex items-center gap-1.5 px-3 py-3 border-r flex-shrink-0 text-sm font-medium select-none"
                     style={{ borderColor: error ? '#EF4444' : focused ? '#D4D4D8' : '#E4E4E7', color: '#18181B', background: '#F9FAFB' }}
                   >
-                    <span>🇮🇳</span><span>+91</span>
+                    <span>+91</span>
                   </div>
                   <input
                     type="tel"

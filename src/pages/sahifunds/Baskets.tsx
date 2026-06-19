@@ -158,7 +158,7 @@ export function Baskets() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const divider = lm ? '#E0E3E8' : '#1e2838'
 
   // User's tracked baskets (Rohit has invested)
@@ -206,7 +206,7 @@ export function Baskets() {
               <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-2`}>How it works</p>
               <p className={`text-xs leading-relaxed ${textSub}`}>{selectedBasket.methodology}</p>
             </div>
-            <p className={`text-[10px] ${textMuted}`}>Past CAGR range is for illustrative purposes only. Not a guarantee of returns. SEBI RA: INH000009876.</p>
+            <p className={`text-[10px] ${textMuted}`}>Past CAGR range is for illustrative purposes only. Not a guarantee of returns. SEBI Registered Research Analyst.</p>
           </div>
         </div>
       )}
@@ -372,7 +372,7 @@ export function Baskets() {
       </div>
 
       <p className={`text-[10px] ${textMuted} text-center`}>
-        Sahi Baskets are curated by the SahiMF research team for educational and informational purposes only. They are not personalised investment recommendations. SEBI RA: INH000009876. Past performance is not indicative of future returns.
+        Sahi Baskets are curated by the SahiMF research team for educational and informational purposes only. They are not personalised investment recommendations. SEBI Registered Research Analyst. Past performance is not indicative of future returns.
       </p>
     </div>
   )

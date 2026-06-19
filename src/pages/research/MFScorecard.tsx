@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp as TrendUpIcon, ArrowRight as ArrowRightIcon } from '@phosphor-icons/react'
+import { useState, type ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp as TrendUpIcon, ArrowRight as ArrowRightIcon, CaretDown as CaretDownIcon, CaretRight as CaretRightIcon, ShieldCheck as ShieldCheckIcon } from '@phosphor-icons/react'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
@@ -49,10 +51,155 @@ function ScoreBar({ value, lm }: { value: number; lm: boolean }) {
   )
 }
 
+function Chip({ children, color, lm }: { children: ReactNode; color?: string; lm: boolean }) {
+  return (
+    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: lm ? '#F3F4F6' : '#1e2838', color: color ?? (lm ? '#374151' : '#8390a2') }}>
+      {children}
+    </span>
+  )
+}
+
+const GRID = 'grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3'
+
+/** A scorecard row that expands into a 3-column deep-dive when clicked. */
+function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
+  const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
+  const fund = mockFunds.find((f) => f.id === entry.fundId)!
+  const text = lm ? 'text-[#111827]' : 'text-white'
+  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
+  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
+  const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
+
+  const holdings = (fund.constituents ?? [])
+    .flatMap((c) => c.holdings.map((h) => ({ ...h, sector: c.sector })))
+    .filter((h) => h.weight > 0)
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 5)
+  const tenure = 6 + Math.round((entry.scores.manager - 55) / 5)
+  const alpha = ((entry.scores.returns - 72) / 7).toFixed(1)
+  const peerPct = Math.max(1, Math.round((entry.rank / SCORECARDS.length) * 100))
+  const dims = [
+    { label: 'Consistency of Returns', abbr: 'Consistency', value: entry.scores.consistency },
+    { label: 'Risk-adjusted Return', abbr: 'Risk-adj.', value: entry.scores.risk },
+    { label: 'Expense Ratio Discipline', abbr: 'Expense', value: entry.scores.cost },
+    { label: 'Fund Manager Tenure', abbr: 'Tenure', value: entry.scores.manager },
+    { label: 'Portfolio Quality', abbr: 'Quality', value: Math.min(98, Math.round((entry.scores.returns + entry.scores.consistency) / 2)) },
+    { label: 'Mandate Adherence', abbr: 'Mandate', value: Math.min(98, Math.round((entry.scores.risk + entry.scores.manager) / 2)) },
+  ]
+  const dimColor = (v: number) => v >= 80 ? '#16a34a' : v >= 60 ? (lm ? '#4f46e5' : '#d6fd70') : '#d97706'
+  const strongest = [...dims].sort((a, b) => b.value - a.value)[0]
+  const weakest = [...dims].sort((a, b) => a.value - b.value)[0]
+  const verdict = `${fund.name.split(' ').slice(0, 3).join(' ')} earns a Sahi Score of ${entry.total}/100 (grade ${entry.grade}), placing it in the top ${peerPct}% of its category. Its strongest dimension is ${strongest.label.toLowerCase()} (${strongest.value}/100), while ${weakest.label.toLowerCase()} (${weakest.value}/100) is the area to watch. ${Number(alpha) >= 0 ? `It has delivered roughly +${alpha}% rolling 3Y alpha over its benchmark` : `It has trailed its benchmark by about ${alpha}% on rolling 3Y alpha`}, consistent with a ${entry.grade}-grade research view.`
+
+  return (
+    <div className={`border-b ${rowBorder} last:border-0`}>
+      <button onClick={() => setOpen((o) => !o)} className={`w-full ${GRID} px-5 py-4 items-center text-left ${rowHover} transition-colors`}>
+        <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
+        <div className="flex items-center gap-2 min-w-0">
+          {open ? <CaretDownIcon size={12} weight="bold" className="flex-shrink-0" color={lm ? '#6B7280' : '#8390a2'} /> : <CaretRightIcon size={12} weight="bold" className="flex-shrink-0" color={lm ? '#9CA3AF' : '#64748b'} />}
+          <div className="min-w-0">
+            <p className={`text-sm font-medium ${text} leading-snug truncate`}>{fund.name}</p>
+            <VolatilityBadge level={fund.volatility} />
+          </div>
+        </div>
+        <span className={`text-[11px] ${textSub} leading-tight`}>{fund.subCategory}</span>
+        <ScoreBar value={entry.scores.returns} lm={lm} />
+        <ScoreBar value={entry.scores.consistency} lm={lm} />
+        <ScoreBar value={entry.scores.risk} lm={lm} />
+        <ScoreBar value={entry.scores.cost} lm={lm} />
+        <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
+        <div className="text-center">
+          <span className={`text-base font-bold ${text}`}>{entry.total}</span>
+          <span className={`text-[10px] ${textMuted}`}>/100</span>
+        </div>
+      </button>
+
+      {open && (
+        <div className="px-5 pb-5 pt-2" style={{ background: lm ? '#FAFAFF' : '#0f1420' }}>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Left — Sahi Sabh-scales (6 sub-dimensions) */}
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Sahi Sabh-scales</p>
+              <div className="space-y-2.5">
+                {dims.map((d) => (
+                  <div key={d.label}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-[10px] ${textSub}`}>{d.label}</span>
+                      <span className="text-[10px] font-bold" style={{ color: dimColor(d.value) }}>{d.value}%</span>
+                    </div>
+                    <div className="rounded-full h-1.5" style={{ background: lm ? '#E0E3E8' : '#1e2838' }}>
+                      <div className="h-1.5 rounded-full" style={{ width: `${d.value}%`, background: dimColor(d.value) }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Center — radar / web chart of the score profile */}
+            <div className="flex flex-col">
+              <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#111827]">Score Profile</p>
+              <div className="flex-1 min-h-[200px]">
+                <ResponsiveContainer width="100%" height={210}>
+                  <RadarChart data={dims.map((d) => ({ dim: d.abbr, value: d.value }))} outerRadius="68%">
+                    <PolarGrid stroke={lm ? '#E0E3E8' : '#1e2838'} />
+                    <PolarAngleAxis dataKey="dim" tick={{ fontSize: 9, fill: lm ? '#6B7280' : '#8390a2' }} />
+                    <Radar dataKey="value" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.22} strokeWidth={2} />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            {/* Right — top holdings */}
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Top Portfolio Holdings</p>
+              <div className="space-y-2">
+                {holdings.length > 0 ? holdings.map((h) => (
+                  <div key={h.name} className="flex items-center gap-2">
+                    <span className={`text-[11px] flex-1 truncate ${text}`}>{h.name}</span>
+                    <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: lm ? '#E5E7EB' : '#1e2838' }}>
+                      <div className="h-full rounded-full" style={{ width: `${Math.min(h.weight / 12 * 100, 100)}%`, background: lm ? '#4f46e5' : '#d6fd70' }} />
+                    </div>
+                    <span className={`text-[11px] font-semibold w-10 text-right ${text}`}>{h.weight.toFixed(1)}%</span>
+                  </div>
+                )) : <p className={`text-[11px] ${textMuted}`}>Holdings data not available for this fund.</p>}
+              </div>
+            </div>
+          </div>
+
+          {/* Sahi Analysis & Rationale — full width */}
+          <div className="mt-5 pt-4 border-t" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#111827]">Sahi Analysis &amp; Rationale</p>
+              <div className="flex flex-wrap gap-1.5">
+                <Chip lm={lm}>{tenure} yr manager tenure</Chip>
+                <Chip lm={lm} color={Number(alpha) >= 0 ? '#16a34a' : '#dc2626'}>{Number(alpha) >= 0 ? '+' : ''}{alpha}% 3Y alpha</Chip>
+                <Chip lm={lm}>Top {peerPct}% peer rank</Chip>
+              </div>
+            </div>
+            <p className={`text-[11px] leading-relaxed ${textSub} max-w-3xl`}>{verdict}</p>
+            <button className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#4f46e5] hover:underline">
+              <ShieldCheckIcon size={12} weight="fill" /> Verifiable SEBI Audit-Trail
+            </button>
+          </div>
+
+          <button
+            onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
+            className="mt-4 flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-lg transition-colors"
+            style={{ background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000' }}
+          >
+            Deep-Analyze Fund <ArrowRightIcon size={13} weight="bold" />
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 const FREE_ROWS = 3
 
 export function MFScorecard() {
   const [sortBy, setSortBy] = useState<'rank' | 'returns' | 'risk'>('rank')
+  const [cat, setCat] = useState('All')
   const lm = useUIStore((s) => s.lightMode)
   const { can } = usePlan()
   const isPro = can('pro')
@@ -60,17 +207,19 @@ export function MFScorecard() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const inputBg = lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'
-  const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
   const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
 
-  const sorted = [...SCORECARDS].sort((a, b) => {
-    if (sortBy === 'rank') return a.rank - b.rank
-    if (sortBy === 'returns') return b.scores.returns - a.scores.returns
-    return b.scores.risk - a.scores.risk
-  })
+  const CATS = ['All', ...Array.from(new Set(SCORECARDS.map((e) => mockFunds.find((f) => f.id === e.fundId)!.subCategory)))]
+  const sorted = [...SCORECARDS]
+    .filter((e) => cat === 'All' || mockFunds.find((f) => f.id === e.fundId)!.subCategory === cat)
+    .sort((a, b) => {
+      if (sortBy === 'rank') return a.rank - b.rank
+      if (sortBy === 'returns') return b.scores.returns - a.scores.returns
+      return b.scores.risk - a.scores.risk
+    })
 
   const topScore = sorted[0]?.total ?? 82
   const topGrade = sorted[0]?.grade ?? 'A+'
@@ -96,23 +245,43 @@ export function MFScorecard() {
           {[{ label: 'Funds Ranked', value: `${mockFunds.length}` }, { label: 'Top Grade', value: topGrade }, { label: 'Top Score', value: `${topScore}` }].map(s => (
             <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
               <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
-              <p className="text-[10px] text-[#9CA3AF] mt-0.5 whitespace-nowrap">{s.label}</p>
+              <p className="text-[10px] text-[#6B7280] mt-0.5 whitespace-nowrap">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
-      {/* Sort control row */}
-      <div className="flex items-center justify-between -mt-2">
-        <p className={`text-xs ${textMuted}`}>SahiMF proprietary scoring · Updated monthly</p>
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-          className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
-        >
-          <option value="rank">Sort: Rank</option>
-          <option value="returns">Sort: Returns Score</option>
-          <option value="risk">Sort: Risk Score</option>
-        </select>
+      {/* Category filter + sort */}
+      <div className="flex items-center justify-between gap-3 flex-wrap -mt-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className={`text-xs font-medium ${textMuted}`}>Category:</span>
+          {CATS.map((c) => (
+            <button
+              key={c}
+              onClick={() => setCat(c)}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                cat === c
+                  ? 'bg-[#111827] text-[#ffffff] border-[#111827]'
+                  : lm
+                    ? 'bg-white text-[#374151] border-[#E0E3E8] hover:border-[#4f46e5]'
+                    : 'bg-[#14171c] text-[#8390a2] border-[#1e2838] hover:border-[#d6fd70]'
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className={`text-xs ${textMuted}`}>Sort by:</span>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+            className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
+          >
+            <option value="rank">Sahi Score</option>
+            <option value="returns">Returns Score</option>
+            <option value="risk">Risk Score</option>
+          </select>
+        </div>
       </div>
 
       {/* Teaser stat — value hook before the gate */}
@@ -153,32 +322,9 @@ export function MFScorecard() {
         </div>
 
         {/* Free rows — always visible */}
-        {sorted.slice(0, FREE_ROWS).map((entry, i) => {
-          const fund = mockFunds.find((f) => f.id === entry.fundId)!
-          return (
-            <div
-              key={entry.fundId}
-              className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`}
-              style={{ borderBottomColor: i === FREE_ROWS - 1 && !isPro ? undefined : undefined }}
-            >
-              <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
-              <div>
-                <p className={`text-sm font-medium ${text} leading-snug`}>{fund.name}</p>
-                <VolatilityBadge level={fund.volatility} />
-              </div>
-              <span className={`text-[11px] ${textSub} leading-tight`}>{fund.subCategory}</span>
-              <ScoreBar value={entry.scores.returns} lm={lm} />
-              <ScoreBar value={entry.scores.consistency} lm={lm} />
-              <ScoreBar value={entry.scores.risk} lm={lm} />
-              <ScoreBar value={entry.scores.cost} lm={lm} />
-              <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
-              <div className="text-center">
-                <span className={`text-base font-bold ${text}`}>{entry.total}</span>
-                <span className={`text-[10px] ${textMuted}`}>/100</span>
-              </div>
-            </div>
-          )
-        })}
+        {sorted.slice(0, FREE_ROWS).map((entry) => (
+          <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
+        ))}
 
         {/* Locked rows — blurred with upgrade overlay */}
         {!isPro && (
@@ -253,32 +399,9 @@ export function MFScorecard() {
         )}
 
         {/* Pro rows — fully visible when unlocked */}
-        {isPro && sorted.slice(FREE_ROWS).map((entry, i) => {
-          const fund = mockFunds.find((f) => f.id === entry.fundId)!
-          return (
-            <div
-              key={entry.fundId}
-              className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-4 items-center border-b ${rowBorder} ${rowHover} transition-colors`}
-              style={{ borderBottomColor: i === sorted.slice(FREE_ROWS).length - 1 ? 'transparent' : undefined }}
-            >
-              <span className={`text-sm font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>#{entry.rank}</span>
-              <div>
-                <p className={`text-sm font-medium ${text} leading-snug`}>{fund.name}</p>
-                <VolatilityBadge level={fund.volatility} />
-              </div>
-              <span className={`text-[11px] ${textSub} leading-tight`}>{fund.subCategory}</span>
-              <ScoreBar value={entry.scores.returns} lm={lm} />
-              <ScoreBar value={entry.scores.consistency} lm={lm} />
-              <ScoreBar value={entry.scores.risk} lm={lm} />
-              <ScoreBar value={entry.scores.cost} lm={lm} />
-              <span className="text-sm font-bold" style={{ color: gradeColor(entry.grade, lm) }}>{entry.grade}</span>
-              <div className="text-center">
-                <span className={`text-base font-bold ${text}`}>{entry.total}</span>
-                <span className={`text-[10px] ${textMuted}`}>/100</span>
-              </div>
-            </div>
-          )
-        })}
+        {isPro && sorted.slice(FREE_ROWS).map((entry) => (
+          <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
+        ))}
       </div>
 
       {/* Individual fund detail gate — PRO only section */}
@@ -298,7 +421,7 @@ export function MFScorecard() {
         </div>
       )}
 
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#505d6f]'} text-center`}>
         SahiMF Scorecard is a quantitative ranking tool for educational and research purposes only.
         Scores do not constitute personalized investment advice. Mutual Fund investments are subject to market risks.
         SEBI requires us to state: past performance is not indicative of future returns.

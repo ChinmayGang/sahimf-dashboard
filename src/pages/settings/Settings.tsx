@@ -32,8 +32,8 @@ export function Settings() {
     ? user.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
     : '??'
 
-  const planLabel = user?.plan === 'pro' ? 'Sahi PRO' : user?.plan === 'elite' ? 'Sahi Elite' : 'Free'
-  const planColor = user?.plan === 'pro' ? '#4f46e5' : user?.plan === 'elite' ? '#f59e0b' : '#6B7280'
+  const planLabel = user?.plan === 'pro' ? 'Sahi PRO' : user?.plan === 'wealth' ? 'Sahi Wealth' : 'Free'
+  const planColor = user?.plan === 'pro' ? '#4f46e5' : user?.plan === 'wealth' ? '#f59e0b' : '#6B7280'
 
   return (
     <div className="min-h-full p-6" style={{ background: bg }}>

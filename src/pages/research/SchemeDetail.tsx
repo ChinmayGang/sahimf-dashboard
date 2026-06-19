@@ -114,8 +114,8 @@ function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
             <path
               key={i}
               d={`M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`}
-              fill={i <= idx ? seg.fill : (lm ? '#E0E3E8' : '#1e2838')}
-              opacity={i <= idx ? 1 : 0.35}
+              fill={seg.fill}
+              opacity={i === idx ? 1 : 0.4}
             />
           )
         })}
@@ -164,7 +164,7 @@ export function SchemeDetail() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#1e2838] text-[#8390a2]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
   const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
@@ -333,7 +333,7 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
-            topTag: 'Highest Returns',
+            topTag: 'Highest Return',
           },
           {
             label: 'Cost',
@@ -349,53 +349,55 @@ export function SchemeDetail() {
             total: totalInCat,
             stat: fund.volatility,
             statLabel: 'Std. Deviation tier',
-            topTag: 'Most Stable',
+            topTag: 'Lowest Risk',
           },
         ].map((item) => {
-          // Tier styling driven by rank: 1 = gold/green, 2-3 = indigo, 4-5 = amber, 6+ = neutral
-          const tier = item.rank === 1
-            ? { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' }
-            : item.rank <= 3
-            ? { color: '#4f46e5', tintBg: '#f5f3ff', tintBorder: '#c7d2fe', shine: '', shadow: '' }
-            : item.rank <= 5
-            ? { color: '#d97706', tintBg: '#fffbeb', tintBorder: '#fde68a', shine: '', shadow: '' }
-            : { color: '#6B7280', tintBg: '#f9fafb', tintBorder: '#E0E3E8', shine: '', shadow: '' }
-          const iconSize = item.rank === 1 ? 44 : item.rank <= 3 ? 36 : 28
+          // Per-rank medal styling matching the reference: 1 green · 2 orange · 3 slate · 4 amber · 5 slate
+          const RANK_TIER: Record<number, { color: string; tintBg: string; tintBorder: string; shine: string; shadow: string }> = {
+            1: { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' },
+            2: { color: '#ea580c', tintBg: '#fff7ed', tintBorder: '#fdba74', shine: '', shadow: '' },
+            3: { color: '#64748b', tintBg: '#f8fafc', tintBorder: '#cbd5e1', shine: '', shadow: '' },
+            4: { color: '#d97706', tintBg: '#fffbeb', tintBorder: '#fcd34d', shine: '', shadow: '' },
+            5: { color: '#64748b', tintBg: '#f8fafc', tintBorder: '#cbd5e1', shine: '', shadow: '' },
+          }
+          const tier = RANK_TIER[item.rank] ?? { color: '#6B7280', tintBg: '#f9fafb', tintBorder: '#E0E3E8', shine: '', shadow: '' }
           return (
           <div
             key={item.label}
-            className="relative rounded-xl p-4"
-            style={{ background: tier.tintBg, border: `1px solid ${tier.tintBorder}` }}
+            className="relative rounded-2xl p-4 flex flex-col"
+            style={{ background: tier.tintBg, border: `1.5px solid ${tier.tintBorder}` }}
           >
-            {/* Rank-1 shine pill anchored to the top-center border */}
+            {/* Rank-1 winner banner anchored to the top border */}
             {item.rank === 1 && (
               <span
-                className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-bold px-3 py-1 rounded-full text-white whitespace-nowrap z-10"
+                className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-bold uppercase tracking-wide px-3 py-1 rounded-full text-white whitespace-nowrap z-10"
                 style={{ background: tier.shine, backgroundSize: '200% 100%', animation: 'shimmer-rail 3s linear infinite', boxShadow: `0 3px 10px ${tier.shadow}` }}
               >
                 {item.topTag}
               </span>
             )}
-            <div className="flex items-start justify-between mb-2">
-              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>{item.label}</p>
-              <RankBadge rank={item.rank} size={iconSize} />
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="text-[11px] font-bold text-[#374151] uppercase tracking-wider mb-1">{item.label}</p>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl font-black leading-none" style={{ color: tier.color }}>
+                    {item.rank}<span className="text-base font-bold">{ordinal(item.rank).replace(String(item.rank), '')}</span>
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: tier.color, opacity: 0.7 }}>of {item.total}</span>
+                </div>
+              </div>
+              <div className="flex-shrink-0 -mt-1 -mr-1">
+                <RankBadge rank={item.rank} size={60} />
+              </div>
             </div>
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-2xl font-black" style={{ color: tier.color, lineHeight: 1 }}>
-                {item.rank}<span className="text-sm font-semibold" style={{ color: tier.color }}>{ordinal(item.rank).replace(String(item.rank), '')}</span>
-              </span>
-              <span className={`text-xs ${textMuted}`}>of {item.total}</span>
-            </div>
-            <p className={`text-xs font-semibold ${text}`}>{item.stat}</p>
-            <p className={`text-[10px] ${textMuted}`}>{item.statLabel}</p>
-            {/* mini progress bar */}
-            <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.06)' }}>
+            <p className="text-xl font-black mt-3" style={{ color: tier.color }}>{item.stat}</p>
+            <p className="text-[11px] font-medium text-[#6B7280] mb-3">{item.statLabel}</p>
+            <div className="mt-auto h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.07)' }}>
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${((item.total - item.rank + 1) / item.total) * 100}%`, background: tier.color }}
               />
             </div>
-            <p className={`text-[10px] ${textMuted} mt-1`}>vs {item.total} in category</p>
           </div>
           )
         })}

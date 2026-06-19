@@ -38,7 +38,7 @@ export function SIPWhatIf() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const divider = lm ? '#E0E3E8' : '#1e2838'
   const tooltipStyle = { background: lm ? '#fff' : '#14171c', border: `1px solid ${divider}`, borderRadius: 8, fontSize: 11, color: lm ? '#111827' : '#fff' }
   const accentText = lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'

@@ -21,7 +21,7 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
 
   if (can(requiredTier)) return <>{children}</>
 
-  const tierLabel = requiredTier === 'pro' ? 'Sahi PRO' : 'Sahi Elite'
+  const tierLabel = requiredTier === 'pro' ? 'Sahi PRO' : 'Sahi Wealth'
 
   const compactBg = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const compactText = lm ? 'text-[#111827]' : 'text-white'

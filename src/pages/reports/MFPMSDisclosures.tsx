@@ -51,7 +51,7 @@ export function MFPMSDisclosures() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
   const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
@@ -138,7 +138,7 @@ export function MFPMSDisclosures() {
         ))}
       </div>
 
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#505d6f]'} text-center`}>
         All disclosures are filed with SEBI and updated on a mandatory basis. For grievances, contact grievance@sahimf.in or write to SEBI at scores.gov.in.
         SahiMF is a product of Arqentis Financial Technologies Pvt. Ltd., Mumbai.
       </p>

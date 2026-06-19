@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
-  House, Wallet, SquaresFour, Folder, Sparkle, Compass,
+  SquaresFour, Folder, Sparkle, Compass,
   ArrowsLeftRight, Stack, Star, Buildings, Calculator, ChartBar, FileText,
   CaretDown, CaretRight, CaretLeft, Lock, Gear, SignOut,
   SidebarSimple, ShoppingBag, Target, ChartPieSlice, ShieldCheck,
@@ -53,15 +53,9 @@ const mfChildren: NavItem[] = [
   { key: 'mf-reports', label: 'Reports & Disclosures', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/mfpms' },
 ]
 
-const topNavItems: NavItem[] = [
-  { key: 'home', label: 'Home', icon: <House size={15} weight={W} />, path: '/' },
-  { key: 'investments', label: 'Investments', icon: <Wallet size={15} weight={W} />, path: '/investments' },
-]
-
-const productItems: NavItem[] = [
-  { key: 'mutual-funds', label: 'Mutual Funds', icon: <SquaresFour size={15} weight={W} />, children: mfChildren },
-  // Other Arqentis products (Numera, Thematic Baskets, ArqEd, F&O, Credit) are hidden until launch.
-]
+// Flat top-level nav — all mutual-fund tools are surfaced directly (no parent dropdown).
+// Other Arqentis products (Numera, Thematic Baskets, ArqEd, F&O, Credit) are hidden until launch.
+const navItems: NavItem[] = mfChildren
 
 // Sidebar is always dark regardless of app light/dark mode
 const S = {
@@ -197,8 +191,8 @@ export function Sidebar() {
   const [edgeHovered, setEdgeHovered] = useState(false)
 
   const initials = user?.name ? user.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase() : '??'
-  const planLabel = user?.plan === 'pro' ? 'Sahi PRO' : user?.plan === 'elite' ? 'Elite' : 'Free'
-  const planColor = user?.plan === 'pro' ? '#4f46e5' : user?.plan === 'elite' ? '#f59e0b' : S.textMuted
+  const planLabel = user?.plan === 'pro' ? 'Sahi PRO' : user?.plan === 'wealth' ? 'Sahi Wealth' : 'Free'
+  const planColor = user?.plan === 'pro' ? '#4f46e5' : user?.plan === 'wealth' ? '#f59e0b' : S.textMuted
   const handleLogout = () => { logout(); navigate('/auth/login') }
 
   return (
@@ -242,15 +236,11 @@ export function Sidebar() {
         {/* Nav */}
         {sidebarExpanded ? (
           <div className="flex-1 overflow-y-auto py-1 px-2 space-y-0.5 scrollbar-hide">
-            {topNavItems.map(item => <NavRow key={item.key} item={item} />)}
-            <div className="my-1.5 border-t" style={{ borderColor: S.divider }} />
-            {productItems.map(item => <NavRow key={item.key} item={item} />)}
+            {navItems.map(item => <NavRow key={item.key} item={item} />)}
           </div>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2">
-            {topNavItems.map(item => <CollapsedIcon key={item.key} item={item} />)}
-            <div className="w-5 border-t my-1.5" style={{ borderColor: S.divider }} />
-            {productItems.map(item => <CollapsedIcon key={item.key} item={item} />)}
+          <div className="flex-1 flex flex-col items-center gap-0.5 py-2 overflow-y-auto scrollbar-hide">
+            {navItems.map(item => <CollapsedIcon key={item.key} item={item} />)}
           </div>
         )}
 

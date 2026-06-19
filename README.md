@@ -241,61 +241,61 @@ Requires Node.js 18+. No environment variables needed — all data is mocked. Th
 
 ## Status — UX Polish Pass (June 2026)
 
-This pass worked through a detailed 40-point design review. Status below.
+This pass worked through a detailed 40-point design review + ongoing session fixes. Status below.
 
 ### Done ✅
 
 **Reusable components / global**
-- Rotating 4-colour conic-gradient border (`.sahi-research-border`) to highlight Sahi Research / Analysis cards (#1, #12)
-- `PremiumPlanCard` — dark plan card with an animated rotating light-beam border (#2)
-- `ProButton` rebuilt on a shared `.glow-btn` with full active/hover/focus/disabled states — single source of truth for all upgrade buttons (#3, #14)
+- `AnimatedBorderCard` — animated top-rail rotating gradient strip (4px, `#8c34ee → #4f46e5 → #d6fd70 → #06b6d4`) + "SAHI RESEARCH" pill badge pinned top-right. Used on FundComparison Sahi Comparison panels.
+- `PremiumPlanCard` — dark plan card with an animated rotating light-beam border
+- `ProButton` rebuilt on a shared `.glow-btn` with full active/hover/focus/disabled states — single source of truth for all upgrade buttons
 - `UpgradePopup` (Radix dialog) wired to `PlanGate` and `ProTrialBanner` upgrade buttons
-- Persistent `useWatchlistStore` — hearts work app-wide and survive reload (#5)
-- `RankBadge` + `ordinal()` — shared rank icons (1st–5th PNGs) and correct ordinals (#11)
-- Custom dropdown caret + light-mode scrollbars (#35, partial #37)
-- SEBI registration number removed from the top nav (kept only in the legal footer) (#40)
+- Persistent `useWatchlistStore` — hearts work app-wide and survive reload
+- `RankBadge` + `ordinal()` — 5-tier color system with custom rank cards (not PNGs), correct ordinals
+- Custom dropdown caret + light-mode scrollbars
+- SEBI registration number removed from all surfaces (Pricing, Baskets, Topbar)
+- Plan tier renamed: `elite → wealth` globally (`types/index.ts`, `usePlan.ts`, `PlanBadge`, `PlanGate`, `UpgradePopup`, `Pricing`, `Sidebar`, `Overview`)
+- Nav restructured: Home + Investments pages removed; Mutual Funds dropdown flattened to direct sidebar items
 
 **Overview**
-- Portfolio summary & first-time CTA cards → solid `#4F46E5`; research upsell → `#0A0C0E` (#4)
-- Brighter text on "Grow your idle money" / "Global shifts" cards (#6)
-- Market status pill made prominent (green/red shaded, ping dot) with an IST-hours tooltip 9:15 AM–3:30 PM (#8)
-- Watchlist hearts active by default; heart toggle added to fund cards (#5)
-- Added 4 more Sahi funds so the showcase scroll is visible (#7)
+- Portfolio summary & first-time CTA cards → solid `#4F46E5`, gradient `135deg #4f46e5→#4338ca`; all text white via `bg-[#4f46e5]` class (bypasses index.css override)
+- "Quick Invest" section (renamed from "Sahi Research Picks") — lime Invest buttons with monthly SIP amount
+- Market status pill (green/red shaded, ping dot) with IST-hours tooltip
+- Watchlist hearts active by default; heart toggle on fund cards
 
-**Pages**
-- My Portfolios: quick-action row (Holdings / Compare / Overlap) per card (#9)
-- Explore MF: fixed the black-border flash on section switch (#15)
-- Baskets: removed featured ring/Popular focus, hover matches Explore cards, readable risk pills (#19, #20)
-- Overlap Lens: stronger pills, darkened gray headings, readable severity pills, sector-bar explainer, white search field, max-5 funds (#21–#26)
-- Scheme Detail: rank icons for 1st–5th, only rank 1 tagged, fixed ordinals (#11)
-- My Sahi Funds: active/first card now has hover feedback (#16)
-- Reports: removed MFPMS PDF section + sub-tab, renamed to "Reports & Disclosures", Tax promoted to its own nav item (#39, #38 partial)
-- Pricing: premium animated PRO/Elite cards + simulated purchase flow that returns the user to their previous page (#30)
+**Research / Scorecard**
+- `MFScorecard` — full expanded-row rewrite: `ScorecardRow` component with local open state. Left: Sahi Sabh-scales dim bars (6 dimensions). Centre: `RadarChart` 6-axis spider (Recharts). Right: top holdings weight bars. Full-width: Sahi Analysis + chips + verdict + SEBI Audit-Trail + "Deep-Analyze Fund" CTA. Category filter pills with correct `text-[#ffffff]` active state.
+- `SchemeDetail` rank cards — 5-tier color system (`RANK_TIER` map): Rank 1 green shine/glow, Rank 2 orange, Rank 3 slate, Rank 4 amber, 60px badge, `rounded-2xl`, winner banners.
+- `SchemeDetail` Riskometer — all 3 arcs (green/amber/red) always colored; active = opacity 1, inactive = opacity 0.4. No more grey-out on "High" risk segment.
 
-**Follow-up fixes**
-- Rotating 4-colour research/analysis border now actually renders (wrapper = conic-gradient ring, padding technique, with `@property` fallback)
-- Hid Numera / Thematic Baskets / ArqEd Learning / F&O / Credit from the side menu (kept until launch)
-- Sahi Research Note free-gate rebuilt — blurred preview + working "Unlock with Sahi PRO" overlay (was a mis-sized empty gate)
-- Rank cards: rank-tier tinted bg + border, icon scales with rank (44/36/28 px), rank-1 shine-gradient pill anchored top-center on the border
+**Analysis**
+- `FundComparison` — per-tab `sahiComparison()` plain-English panel in `AnimatedBorderCard` above tab content. "Add Fund" button hover fixed in light mode (indigo, not neon).
+- `MarketCapAllocation` — Rebalance simulator sliders: removed `appearance-none` (was hiding the track). Added Sahi research note (50% Large / 30% Mid / 20% Small rationale) above sliders.
+- `OverlapLens` — all section heading labels `#111827 uppercase`.
+
+**Pages / layout**
+- `ExploreFunds` — sidebar section buttons `outline-none focus:outline-none`; inactive hero filter tags `text-[#ffffff]` (bypasses index.css); "Sahi MF Funds" → "Sahi Picks"
+- `Portfolios` — bar chart lime → `#65a30d` in light mode; chart tick, legend, arrow hover colors fixed
+- `Login` — flag emoji removed from phone prefix
+- `VolatilityBadge` — bg opacity `/15 → /20`, darker text per risk level
+
+**Known footgun documented**
+- `src/index.css:231` global rule: `[data-theme="light"] .text-white { color: #18181B !important }` overrides white text on dark bg elements. Workaround used everywhere: `text-[#ffffff]` (arbitrary class, not targeted by rule). Task #11: harden this selector (pending).
 
 ### Pending ⏳
 
 **From the original 40-point review (still open)**
 
-- #10 Explore tags / search button (already white — verify against latest design)
 - #13/#37 Global grey→black text sweep across every remaining page
-- #14 Extract remaining buttons into shared state-driven components
+- #14 Extract remaining buttons into shared state-driven `<Button>` component
 - #17 Deeper detail view for *owned* Sahi funds vs scheme preview
-- #18 Reframe Sahi Funds as recommendations (schemes), not separate products
 - #22 Audit every remaining grey heading project-wide
-- #27 Per-tab "Sahi Comparison" insight section in Fund Comparison (PRO, highlighted border)
 - #28/#29 Unify page container widths + header-card style across all pages
-- #31 Market Cap: free-tier guidance, rebalance simulator UX, remove emoji, move Sahi analysis up
+- #31 Market Cap: free-tier guidance, drag handle pill, remove emoji, move Sahi analysis up
 - #32 Risk Analysis: free-tier guidance, bubble-chart tooltips, fill right-side gap with insight
-- #33 MF Scorecard: deeper per-fund scorecard analysis on row expand
 - #34 Merge SIP What-If into SIP, fix toggle, build Lumpsum/SWP/STP variants
 - #36 Goals & Plans: full design-system alignment (tabs, hover, tones)
-- Risk-label vocabulary unified to one scale project-wide (Low/Medium/High vs Moderate)
+- Risk-label vocabulary unified to SEBI 6-level project-wide
 - Mobile responsive (Batch 8) · Supabase integration (Batch 9)
 
 **New TODO — added verbatim (not yet started)**
@@ -307,10 +307,10 @@ This pass worked through a detailed 40-point design review. Status below.
 5. for aryan kapoor, we are showing he has sahi funds investment which should not be possible
 6. fix the container size for each page if they are in it. overlap lens has different from others, but we need to check others too
 7. sahi basket heading icon style, overlap lens heading icon style, and risk analysis heading icon styles and others, all have different styles
-8. risk odometer when gets risky has no color, make it red.
+8. *(done)* risk odometer when gets risky has no color, make it red. — **Fixed: all 3 arcs always colored, opacity-based active/inactive.**
 9. fix the buttons colors which should be fixed if we succesfully built the point 3 without any errors
-10. MF scorecard still not designed as i have asked, and same with market cap mis, the rebalance simulator card drag bar not visible. all pointers which i have shared are not done. get those same points here also if not done.
-11. the button which is placed to add more funds is compare page and other pages has hover effect which turns it neon which make it visibility to none.
+10. *(done — scorecard and rebalance slider fixed)* MF scorecard still not designed as i have asked, and same with market cap mis, the rebalance simulator card drag bar not visible. — **Fixed: full scorecard rewrite with radar chart + dim bars + audit trail. Slider track now visible (removed appearance-none).**
+11. *(done)* the button which is placed to add more funds is compare page and other pages has hover effect which turns it neon which make it visibility to none. — **Fixed: FundComparison "Add Fund" hover uses indigo in light mode.**
 12. Colors for light mode is the major change, if required we need to make the overhaul changes to everyhting and use a global color coded to everything correctly so things stays visible.
 13. calculator updates are also not done.
 14. whereever u have used the upgrade, upgrade to pro, or upgrade to sahi pro buttons should have that same animated button which u have just created.

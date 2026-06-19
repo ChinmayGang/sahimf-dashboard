@@ -100,7 +100,7 @@ export function TaxReport() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#0f1420]'
 
@@ -154,7 +154,7 @@ export function TaxReport() {
             label: 'ELSS tax saving (80C)',
             value: '₹0',
             sub: 'No ELSS in portfolio',
-            color: lm ? 'text-[#9CA3AF]' : 'text-[#64748b]',
+            color: lm ? 'text-[#6B7280]' : 'text-[#64748b]',
             icon: <InfoIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />,
           },
         ].map((s) => (

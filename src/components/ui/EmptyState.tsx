@@ -12,7 +12,7 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
 
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const iconBg = lm ? 'bg-[#F3F4F6] border border-[#E0E3E8] text-[#9CA3AF]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2]'
+  const iconBg = lm ? 'bg-[#F3F4F6] border border-[#E0E3E8] text-[#6B7280]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2]'
 
   return (
     <div className="flex flex-col items-center justify-center py-16 px-6 text-center">

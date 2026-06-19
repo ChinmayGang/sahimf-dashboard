@@ -23,7 +23,7 @@ import heroImg from '../../assets/explore-funds-header.jpg'
 const TAGS = ['Low Risk', 'ELSS', 'Free Access', 'New SahiMF', 'View All']
 
 const SECTIONS = [
-  { id: 'sahi', label: 'Sahi MF Funds', badge: 'Recommended', icon: <AutoAwesomeIcon size={16} weight="duotone" />, isSahi: true },
+  { id: 'sahi', label: 'Sahi Picks', badge: 'Recommended', icon: <AutoAwesomeIcon size={16} weight="duotone" />, isSahi: true },
   { id: 'trending', label: 'Trending Now', icon: <LocalFireDepartmentIcon size={16} weight="duotone" /> },
   { id: 'new', label: 'New Launches', icon: <NewReleasesIcon size={16} weight="duotone" /> },
   { id: 'popular', label: 'Most Popular', icon: <StarIcon size={16} weight="duotone" /> },
@@ -104,7 +104,7 @@ export function ExploreFunds() {
   const lm = lightMode
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#606060]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#606060]'
   const sidebarBg = lm ? '#FDFCFF' : '#0a0c0e'
   const sidebarBorder = lm ? '#E0E3E8' : '#1e2838'
   const divider = lm ? '#E0E3E8' : '#3c4653'
@@ -190,7 +190,7 @@ export function ExploreFunds() {
                   className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${
                     activeTag === tag
                       ? 'bg-[#d6fd70] text-black border-[#d6fd70] font-bold'
-                      : 'text-white border-white/25 hover:border-white/50'
+                      : 'text-[#ffffff] border-white/30 hover:border-white/60'
                   }`}
                   style={activeTag !== tag ? { background: 'rgba(255,255,255,0.1)' } : {}}
                 >
@@ -213,7 +213,7 @@ export function ExploreFunds() {
             <button
               key={sec.id}
               onClick={() => setActiveSection(sec.id)}
-              className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-[background-color,color] duration-150 text-sm font-medium ${sidebarItem(activeSection === sec.id)}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-[background-color,color] duration-150 text-sm font-medium outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4f46e5]/30 ${sidebarItem(activeSection === sec.id)}`}
             >
               <span className="flex-shrink-0">{sec.icon}</span>
               <span className="flex-1 truncate">{sec.label}</span>

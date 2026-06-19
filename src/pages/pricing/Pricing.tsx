@@ -5,25 +5,25 @@ import { useAuthStore } from '../../stores/authStore'
 import type { PlanTier } from '../../types'
 
 const FEATURES = [
-  { label: 'Overview Dashboard', free: true, pro: true, elite: true },
-  { label: 'My Portfolios', free: '1 portfolio', pro: 'Up to 5', elite: 'Unlimited' },
-  { label: 'Holdings Ledger', free: true, pro: true, elite: true },
-  { label: 'Transactions History', free: true, pro: true, elite: true },
-  { label: 'Search Schemes (list)', free: true, pro: true, elite: true },
-  { label: 'Scheme 3Y/5Y/MAX Returns', free: false, pro: true, elite: true },
-  { label: 'Explore Sahi Funds', free: 'Info only', pro: true, elite: true },
-  { label: 'Sahi Fund Holdings & Weights', free: false, pro: true, elite: true },
-  { label: 'Overlap Lens', free: false, pro: true, elite: true },
-  { label: 'Fund Comparison', free: false, pro: '3 funds', elite: '4 funds' },
-  { label: 'MF Scorecard & Sahi Score', free: 'Preview', pro: true, elite: true },
-  { label: 'Risk Analysis', free: false, pro: true, elite: true },
-  { label: 'Market Cap Allocation', free: false, pro: true, elite: true },
-  { label: 'SIP/Lumpsum Calculators', free: 'Basic SIP', pro: 'All tools', elite: 'All tools' },
-  { label: 'Tax Report (STCG/LTCG)', free: false, pro: true, elite: true },
-  { label: 'Sahi Research Notes', free: false, pro: true, elite: true },
-  { label: 'Sahi Baskets (Goal Baskets)', free: 'Free baskets', pro: 'All baskets', elite: 'All baskets' },
-  { label: 'Priority Support', free: false, pro: false, elite: true },
-  { label: 'Lifetime Access', free: false, pro: false, elite: true },
+  { label: 'Overview Dashboard', free: true, pro: true, wealth: true },
+  { label: 'My Portfolios', free: '1 portfolio', pro: 'Up to 5', wealth: 'Unlimited' },
+  { label: 'Holdings Ledger', free: true, pro: true, wealth: true },
+  { label: 'Transactions History', free: true, pro: true, wealth: true },
+  { label: 'Search Schemes (list)', free: true, pro: true, wealth: true },
+  { label: 'Scheme 3Y/5Y/MAX Returns', free: false, pro: true, wealth: true },
+  { label: 'Explore Sahi Funds', free: 'Info only', pro: true, wealth: true },
+  { label: 'Sahi Fund Holdings & Weights', free: false, pro: true, wealth: true },
+  { label: 'Overlap Lens', free: false, pro: true, wealth: true },
+  { label: 'Fund Comparison', free: false, pro: '3 funds', wealth: '4 funds' },
+  { label: 'MF Scorecard & Sahi Score', free: 'Preview', pro: true, wealth: true },
+  { label: 'Risk Analysis', free: false, pro: true, wealth: true },
+  { label: 'Market Cap Allocation', free: false, pro: true, wealth: true },
+  { label: 'SIP/Lumpsum Calculators', free: 'Basic SIP', pro: 'All tools', wealth: 'All tools' },
+  { label: 'Tax Report (STCG/LTCG)', free: false, pro: true, wealth: true },
+  { label: 'Sahi Research Notes', free: false, pro: true, wealth: true },
+  { label: 'Sahi Baskets (Goal Baskets)', free: 'Free baskets', pro: 'All baskets', wealth: 'All baskets' },
+  { label: 'Priority Support', free: false, pro: false, wealth: true },
+  { label: 'Lifetime Access', free: false, pro: false, wealth: true },
 ]
 
 function Cell({ value }: { value: boolean | string }) {
@@ -73,7 +73,7 @@ export function Pricing() {
             Start free. Upgrade only when you're ready. No hidden fees, no commissions — ever.
           </p>
           {user?.plan && user.plan !== 'free' && (
-            <p className="mt-3 text-xs font-semibold text-[#4f46e5]">You're currently on Sahi {user.plan === 'pro' ? 'PRO' : 'Elite'}.</p>
+            <p className="mt-3 text-xs font-semibold text-[#4f46e5]">You're currently on Sahi {user.plan === 'pro' ? 'PRO' : 'Wealth'}.</p>
           )}
         </div>
 
@@ -81,11 +81,11 @@ export function Pricing() {
         <div className="grid grid-cols-3 gap-5 mb-14 items-stretch">
           {/* Free — light card */}
           <div className="bg-white rounded-2xl border border-[#E0E3E8] p-6 flex flex-col">
-            <p className="text-xs font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Free</p>
+            <p className="text-xs font-bold text-[#6B7280] uppercase tracking-widest mb-1">Free</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-3xl font-black text-[#111827]">₹0</span>
             </div>
-            <p className="text-xs text-[#9CA3AF] mb-5">Forever free</p>
+            <p className="text-xs text-[#6B7280] mb-5">Forever free</p>
             <button
               onClick={() => purchase('free')}
               className="w-full py-2.5 rounded-full border border-[#E0E3E8] text-sm font-semibold text-[#374151] hover:bg-[#F9FAFB] transition-colors mb-5"
@@ -119,15 +119,15 @@ export function Pricing() {
             icon="sparkle"
           />
 
-          {/* Elite — premium animated card */}
+          {/* Wealth — premium animated card */}
           <PremiumPlanCard
-            title="Sahi Elite"
+            title="Sahi Wealth"
             price="₹3,999"
             priceSuffix="lifetime"
             paragraph="One-time payment, lifetime access. Everything in PRO plus unlimited scale and priority support."
             features={['Everything in Sahi PRO', 'Unlimited portfolios', 'Fund Comparison (4 funds)', 'Priority support', 'All future features — forever']}
-            ctaLabel={user?.plan === 'elite' ? 'Current Plan' : 'Get Sahi Elite'}
-            onCta={() => purchase('elite')}
+            ctaLabel={user?.plan === 'wealth' ? 'Current Plan' : 'Get Sahi Wealth'}
+            onCta={() => purchase('wealth')}
             accent="#f5b94d"
             icon="crown"
           />
@@ -139,7 +139,7 @@ export function Pricing() {
             <div className="p-4 col-span-1">
               <p className="text-xs font-bold text-[#374151] uppercase tracking-wider">Features</p>
             </div>
-            {[{ label: 'Free', color: '#6B7280' }, { label: 'PRO', color: '#4f46e5' }, { label: 'Elite', color: '#ea580c' }].map(t => (
+            {[{ label: 'Free', color: '#6B7280' }, { label: 'PRO', color: '#4f46e5' }, { label: 'Wealth', color: '#ea580c' }].map(t => (
               <div key={t.label} className="p-4 text-center">
                 <p className="text-xs font-bold uppercase tracking-wider" style={{ color: t.color }}>{t.label}</p>
               </div>
@@ -153,7 +153,7 @@ export function Pricing() {
               <div className="px-4 py-3 col-span-1">
                 <p className="text-xs text-[#374151]">{feature.label}</p>
               </div>
-              {([feature.free, feature.pro, feature.elite] as Array<boolean | string>).map((val, j) => (
+              {([feature.free, feature.pro, feature.wealth] as Array<boolean | string>).map((val, j) => (
                 <div key={j} className="px-4 py-3 flex items-center justify-center">
                   <Cell value={val} />
                 </div>
@@ -163,8 +163,8 @@ export function Pricing() {
         </div>
 
         {/* Footer note */}
-        <p className="text-center text-xs text-[#9CA3AF] max-w-xl mx-auto leading-relaxed">
-          SahiMF is powered by Arqentis. All plans include our core promise: <span className="font-bold text-[#374151]">NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.</span> SEBI RA: INH000009876.
+        <p className="text-center text-xs text-[#6B7280] max-w-xl mx-auto leading-relaxed">
+          SahiMF is powered by Arqentis. All plans include our core promise: <span className="font-bold text-[#374151]">NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.</span> SEBI Registered Research Analyst.
         </p>
       </div>
     </div>

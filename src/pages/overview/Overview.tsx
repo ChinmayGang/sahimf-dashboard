@@ -30,7 +30,6 @@ import { useWatchlistStore } from '../../stores/watchlistStore'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { mockFunds } from '../../data/funds'
 import type { UserInvestment } from '../../types'
-import paperplaneBg from '../../assets/paperplane.jpg'
 import pyramidBg from '../../assets/piramid-landingpage.png'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -137,10 +136,10 @@ const MARKETPLACE = [
 ]
 
 const RESEARCH_PICKS = [
-  { name: 'Parag Parikh Flexi Cap', score: '9.2/10', returns1Y: '+28.6%', up: true, category: 'Flexi Cap', reason: 'Global diversification + 14yr manager tenure' },
-  { name: 'Mirae Asset Large Cap', score: '8.8/10', returns1Y: '+17.0%', up: true, category: 'Large Cap', reason: 'Consistent alpha vs Nifty for 7 years' },
-  { name: 'SBI Small Cap', score: '8.5/10', returns1Y: '+31.2%', up: true, category: 'Small Cap', reason: 'Lowest expense ratio in category' },
-  { name: 'HDFC Mid-Cap Opps', score: '8.1/10', returns1Y: '+22.4%', up: true, category: 'Mid Cap', reason: 'Best risk-adjusted returns 5Y CAGR' },
+  { name: 'Parag Parikh Flexi Cap', returns1Y: '+28.6%', up: true, category: 'Flexi Cap', sip: 500 },
+  { name: 'Mirae Asset Large Cap', returns1Y: '+17.0%', up: true, category: 'Large Cap', sip: 1000 },
+  { name: 'SBI Small Cap', returns1Y: '+31.2%', up: true, category: 'Small Cap', sip: 500 },
+  { name: 'HDFC Mid-Cap Opps', returns1Y: '+22.4%', up: true, category: 'Mid Cap', sip: 500 },
 ]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -152,7 +151,7 @@ function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boole
   const ret = fund.returns['1Y'] ?? 0
   const tierColor = fund.accessTier === 'free' ? '#16a34a' : fund.accessTier === 'pro' ? '#4f46e5' : '#f59e0b'
   const tierBg = fund.accessTier === 'free' ? '#dcfce7' : fund.accessTier === 'pro' ? '#eeedfd' : '#fef9c3'
-  const tierLabel = fund.accessTier === 'free' ? 'Free' : fund.accessTier === 'pro' ? 'PRO' : 'Elite'
+  const tierLabel = fund.accessTier === 'free' ? 'Free' : fund.accessTier === 'pro' ? 'PRO' : 'Wealth'
 
   return (
     <div
@@ -188,13 +187,13 @@ function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boole
       <p className={`text-[11px] mb-3 line-clamp-2 ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>{fund.description}</p>
       <div className="flex items-center justify-between">
         <div>
-          <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>1Y Returns</p>
+          <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>1Y Returns</p>
           <p className={`text-sm font-bold ${ret >= 0 ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
             {ret >= 0 ? '+' : ''}{ret}%
           </p>
         </div>
         <div className="text-right">
-          <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>Min. Amount</p>
+          <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Min. Amount</p>
           <p className={`text-xs font-semibold ${lm ? 'text-[#374151]' : 'text-[#d1d5db]'}`}>₹{fund.minAmount.toLocaleString()}</p>
         </div>
       </div>
@@ -225,15 +224,15 @@ function InvestmentCard({ inv, lm }: { inv: UserInvestment; lm: boolean }) {
       </div>
       <div className="grid grid-cols-3 gap-3 mb-3">
         <div>
-          <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>Invested</p>
+          <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Invested</p>
           <p className={`text-sm font-semibold ${lm ? 'text-[#374151]' : 'text-[#d1d5db]'}`}>{formatINR(inv.investedAmount)}</p>
         </div>
         <div>
-          <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>Current</p>
+          <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Current</p>
           <p className={`text-sm font-semibold ${lm ? 'text-[#374151]' : 'text-[#d1d5db]'}`}>{formatINR(inv.currentValue)}</p>
         </div>
         <div>
-          <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>Gain/Loss</p>
+          <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Gain/Loss</p>
           <p className={`text-sm font-semibold ${isPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
             {isPositive ? '+' : ''}{formatINR(gain)}
           </p>
@@ -275,8 +274,8 @@ export function Overview() {
 
   // Styles
   const text = lm ? 'text-[#111827]' : 'text-white'
-  const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textSub = lm ? 'text-[#4B5563]' : 'text-[#8390a2]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const bgPage = lm ? '#ffffff' : '#0a0c0e'
 
@@ -406,14 +405,8 @@ export function Overview() {
           /* Case 1: New investor — onboarding CTA */
           <div
             className="rounded-3xl overflow-hidden relative"
-            style={{
-              backgroundImage: `url(${paperplaneBg})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
+            style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)' }}
           >
-            {/* Overlay — must be absolute so bg image shows through */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.97) 0%, rgba(79,70,229,0.92) 55%, rgba(79,70,229,0.82) 100%)' }} />
             <div className="relative" style={{ color: '#ffffff' }}>
               <div className="p-6 lg:p-8">
                 <div className="grid lg:grid-cols-2 gap-8">
@@ -499,24 +492,26 @@ export function Overview() {
                         Ask
                       </button>
                     </div>
-                    {/* Sahi Research Picks */}
-                    <p className="text-[10px] font-bold tracking-widest mb-2 uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>Sahi Research Picks</p>
+                    {/* Quick Invest */}
+                    <p className="text-[10px] font-bold tracking-widest mb-2 uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>Quick Invest</p>
                     <div className="space-y-2">
                       {RESEARCH_PICKS.map(f => (
                         <div
                           key={f.name}
-                          onClick={() => navigate('/mutual-funds/scorecard')}
-                          className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-white/10 transition-colors"
+                          className="flex items-center gap-3 px-3 py-2 rounded-xl transition-colors"
                           style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
                         >
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold truncate" style={{ color: '#ffffff' }}>{f.name}</p>
-                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} · {f.reason}</p>
+                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} · ₹{f.sip.toLocaleString('en-IN')}/mo</p>
                           </div>
-                          <div className="text-right flex-shrink-0">
-                            <span className="text-[10px] font-bold" style={{ color: f.up ? '#22c55e' : '#ef4444' }}>{f.returns1Y}</span>
-                            <p className="text-[10px]" style={{ color: '#d6fd70' }}>{f.score}</p>
-                          </div>
+                          <span className="text-[11px] font-bold flex-shrink-0" style={{ color: f.up ? '#4ade80' : '#f87171' }}>{f.returns1Y}</span>
+                          <button
+                            onClick={() => navigate('/auth/initialize')}
+                            className="flex-shrink-0 text-[11px] font-bold px-3 py-1.5 rounded-lg bg-[#d6fd70] text-[#0a0c0e] hover:bg-[#c2e85f] transition-colors"
+                          >
+                            Invest
+                          </button>
                         </div>
                       ))}
                     </div>
@@ -601,27 +596,27 @@ export function Overview() {
               const totalPct = (totalGain / totalInv) * 100
               return (
                 <div
-                  className="rounded-2xl p-5 mb-5 relative overflow-hidden"
+                  className="bg-[#4f46e5] rounded-2xl p-5 mb-5 relative overflow-hidden"
                   style={{ background: '#4F46E5' }}
                 >
                   <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${pyramidBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                   <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
-                      <p className="text-xs text-white/60 mb-0.5">Invested</p>
+                      <p className="text-xs text-white mb-0.5">Invested</p>
                       <p className="text-xl font-bold text-white">{formatINR(totalInv)}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-white/60 mb-0.5">Current Value</p>
+                      <p className="text-xs text-white mb-0.5">Current Value</p>
                       <p className="text-xl font-bold text-white">{formatINR(totalCur)}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-white/60 mb-0.5">Total Gain</p>
+                      <p className="text-xs text-white mb-0.5">Total Gain</p>
                       <p className={`text-xl font-bold ${totalGain >= 0 ? 'text-[#d6fd70]' : 'text-[#fca5a5]'}`}>
                         {totalGain >= 0 ? '+' : ''}{formatINR(totalGain)}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-white/60 mb-0.5">Overall Return</p>
+                      <p className="text-xs text-white mb-0.5">Overall Return</p>
                       <div className="flex items-center gap-1.5">
                         {totalPct >= 0
                           ? <TrendingUpIcon size={18} color="#d6fd70" weight="duotone" />
@@ -642,7 +637,7 @@ export function Overview() {
                     </button>
                     <button
                       onClick={() => navigate('/mutual-funds/overlap')}
-                      className="flex items-center gap-1.5 bg-white/15 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/25 border border-white/20 transition-colors"
+                      className="flex items-center gap-1.5 bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/30 border border-white/40 transition-colors"
                     >
                       Overlap Analysis <ArrowForwardIcon size={13} weight="bold" />
                     </button>
@@ -694,7 +689,7 @@ export function Overview() {
                 className={`rounded-2xl p-4 border relative overflow-hidden cursor-pointer transition-all hover:-translate-y-0.5 ${card}`}
               >
                 {item.comingSoon && (
-                  <span className={`absolute top-3 right-3 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#9CA3AF]' : 'bg-[#1e2838] text-[#64748b]'}`}>
+                  <span className={`absolute top-3 right-3 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#64748b]'}`}>
                     Soon
                   </span>
                 )}

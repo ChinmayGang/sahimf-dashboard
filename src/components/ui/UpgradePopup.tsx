@@ -89,13 +89,13 @@ export function UpgradePopup({ open, onClose, feature, description }: UpgradePop
               <div>
                 <div className="flex items-baseline gap-1">
                   <span className="text-2xl font-black text-[#111827]">₹1,999</span>
-                  <span className="text-xs text-[#9CA3AF]">/year</span>
+                  <span className="text-xs text-[#6B7280]">/year</span>
                 </div>
-                <p className="text-[10px] text-[#9CA3AF]">₹167/month · Cancel anytime</p>
+                <p className="text-[10px] text-[#6B7280]">₹167/month · Cancel anytime</p>
               </div>
               <div className="ml-auto flex items-center gap-1.5 text-[10px] font-bold text-[#ea580c] bg-[#fff7ed] px-2.5 py-1 rounded-full">
                 <CrownIcon size={11} weight="fill" />
-                Elite at ₹3,999 lifetime
+                Sahi Wealth at ₹3,999 lifetime
               </div>
             </div>
 
@@ -110,7 +110,7 @@ export function UpgradePopup({ open, onClose, feature, description }: UpgradePop
             </button>
             <button
               onClick={onClose}
-              className="w-full mt-2 py-2 rounded-xl text-xs font-medium text-[#9CA3AF] hover:text-[#374151] transition-colors"
+              className="w-full mt-2 py-2 rounded-xl text-xs font-medium text-[#6B7280] hover:text-[#374151] transition-colors"
             >
               Maybe later
             </button>

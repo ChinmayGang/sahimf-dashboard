@@ -13,13 +13,13 @@ interface Props {
 }
 
 const config: Record<RiskLevel, { color: string; bg: string; dot: string }> = {
-  'Low':            { color: 'text-[#16A34A]', bg: 'bg-[#16A34A]/15', dot: 'bg-[#16A34A]' },
-  'Low-Moderate':   { color: 'text-[#0D9488]', bg: 'bg-[#0D9488]/15', dot: 'bg-[#0D9488]' },
-  'Moderate':       { color: 'text-[#D97706]', bg: 'bg-[#D97706]/15', dot: 'bg-[#D97706]' },
-  'Medium':         { color: 'text-[#D97706]', bg: 'bg-[#D97706]/15', dot: 'bg-[#D97706]' },
-  'Moderately High':{ color: 'text-[#EA580C]', bg: 'bg-[#EA580C]/15', dot: 'bg-[#EA580C]' },
-  'High':           { color: 'text-[#DC2626]', bg: 'bg-[#DC2626]/15', dot: 'bg-[#DC2626]' },
-  'Very High':      { color: 'text-[#9B1C1C]', bg: 'bg-[#9B1C1C]/15', dot: 'bg-[#9B1C1C]' },
+  'Low':            { color: 'text-[#15803D]', bg: 'bg-[#16A34A]/20', dot: 'bg-[#16A34A]' },
+  'Low-Moderate':   { color: 'text-[#0F766E]', bg: 'bg-[#0D9488]/20', dot: 'bg-[#0D9488]' },
+  'Moderate':       { color: 'text-[#B45309]', bg: 'bg-[#D97706]/20', dot: 'bg-[#D97706]' },
+  'Medium':         { color: 'text-[#B45309]', bg: 'bg-[#D97706]/20', dot: 'bg-[#D97706]' },
+  'Moderately High':{ color: 'text-[#C2410C]', bg: 'bg-[#EA580C]/20', dot: 'bg-[#EA580C]' },
+  'High':           { color: 'text-[#B91C1C]', bg: 'bg-[#DC2626]/20', dot: 'bg-[#DC2626]' },
+  'Very High':      { color: 'text-[#7F1D1D]', bg: 'bg-[#9B1C1C]/20', dot: 'bg-[#9B1C1C]' },
 }
 
 export function VolatilityBadge({ level, size = 'sm' }: Props) {

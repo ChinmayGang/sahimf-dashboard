@@ -12,6 +12,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
+import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useUIStore } from '../../stores/uiStore'
 import { usePlan } from '../../hooks/usePlan'
@@ -136,6 +137,42 @@ function getFundVal(fund: typeof mockFunds[0], key: string): number {
   return ((fund as unknown) as Record<string, number>)[key] ?? 0
 }
 
+const short = (n: string) => n.split(' ').slice(0, 2).join(' ')
+
+/** Plain-English "Sahi Comparison" summary, derived live from the selected funds — the free taste before the PRO tables. */
+function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
+  if (funds.length < 2) return 'Add at least two funds to see a Sahi Comparison summary.'
+  switch (tab) {
+    case 'overview': {
+      const bestRet = [...funds].sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0))[0]
+      const cheapest = [...funds].sort((a, b) => a.expenseRatio - b.expenseRatio)[0]
+      const bestSharpe = [...funds].sort((a, b) => b.sharpeRatio - a.sharpeRatio)[0]
+      return `${short(bestRet.name)} leads on 1-year return at +${(bestRet.returns['1Y'] ?? 0).toFixed(1)}%, while ${short(cheapest.name)} is the cheapest to own at a ${cheapest.expenseRatio.toFixed(2)}% expense ratio. On a risk-adjusted basis ${short(bestSharpe.name)} looks strongest (Sharpe ${bestSharpe.sharpeRatio.toFixed(2)}). Lower costs compound over time, so weigh the expense gap against past performance rather than chasing returns alone.`
+    }
+    case 'manager': {
+      const top = funds.map(f => ({ f, e: parseInt(FUND_EXTENDED[f.id]?.manager.exp ?? '0') })).sort((a, b) => b.e - a.e)[0]
+      return `${short(top.f.name)} is run by the most experienced manager (${FUND_EXTENDED[top.f.id]?.manager.exp}). A longer tenure usually means a process tested across several market cycles — just confirm the manager who built the track record is still the one in charge.`
+    }
+    case 'holdings': {
+      const conc = funds.map(f => {
+        const hs = (f.constituents ?? []).flatMap(s => s.holdings)
+        const t5 = [...hs].sort((a, b) => b.weight - a.weight).slice(0, 5).reduce((s, h) => s + Math.max(h.weight, 0), 0)
+        return { f, t5 }
+      }).sort((a, b) => b.t5 - a.t5)[0]
+      return `${short(conc.f.name)} is the most concentrated — its top 5 holdings alone make up ${conc.t5.toFixed(1)}% of the portfolio. Higher concentration signals conviction but also more single-stock risk; pair it with a more diversified fund to balance.`
+    }
+    case 'portfolio': {
+      const lowPE = funds.map(f => ({ f, pe: FUND_EXTENDED[f.id]?.pe ?? 99 })).sort((a, b) => a.pe - b.pe)[0]
+      const lowBeta = funds.map(f => ({ f, b: FUND_EXTENDED[f.id]?.beta ?? 9 })).sort((a, b) => a.b - b.b)[0]
+      return `${short(lowPE.f.name)} holds the cheapest portfolio by P/E (${lowPE.pe}), while ${short(lowBeta.f.name)} is the most defensive with the lowest beta (${lowBeta.b.toFixed(2)}) — it should fall less than the others in a market drop.`
+    }
+    case 'fundinfo': {
+      const biggest = [...funds].sort((a, b) => b.fundSize - a.fundSize)[0]
+      return `${short(biggest.name)} is the largest by AUM (₹${biggest.fundSize.toLocaleString('en-IN')} Cr). Larger funds bring liquidity and stability, while smaller funds can move more nimbly in mid- and small-cap positions.`
+    }
+  }
+}
+
 export function FundComparison() {
   const [selectedIds, setSelectedIds] = useState<string[]>(['f001', 'f002'])
   const [showPicker, setShowPicker] = useState(false)
@@ -148,7 +185,7 @@ export function FundComparison() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const chipBg = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
@@ -210,7 +247,7 @@ export function FundComparison() {
           ].map(s => (
             <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
               <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
-              <p className="text-[10px] text-[#9CA3AF] mt-0.5 whitespace-nowrap">{s.label}</p>
+              <p className="text-[10px] text-[#6B7280] mt-0.5 whitespace-nowrap">{s.label}</p>
             </div>
           ))}
         </div>
@@ -230,7 +267,7 @@ export function FundComparison() {
           <div className="relative">
             <button
               onClick={() => setShowPicker(!showPicker)}
-              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'} border border-dashed hover:border-[#d6fd70] rounded-xl px-3 py-2 text-sm ${textMuted} hover:text-[#d6fd70] transition-all`}
+              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8] hover:border-[#4f46e5] hover:text-[#4f46e5]' : 'bg-[#14171c] border-[#1e2838] hover:border-[#d6fd70] hover:text-[#d6fd70]'} border border-dashed rounded-xl px-3 py-2 text-sm ${textMuted} transition-all`}
             >
               <AddIcon size={16} weight="duotone" /> Add Fund
             </button>
@@ -278,6 +315,13 @@ export function FundComparison() {
           )
         })}
       </div>
+
+      {/* Sahi Comparison — plain-English summary, adapts per tab (free taste before the PRO tables) */}
+      <AnimatedBorderCard badge="SAHI COMPARISON">
+        <div className="px-4 pb-4">
+          <p className="text-sm text-[#374151] leading-relaxed">{sahiComparison(activeTab, selectedFunds)}</p>
+        </div>
+      </AnimatedBorderCard>
 
       {/* ── OVERVIEW TAB ─────────────────────────────────────────────────────── */}
       {activeTab === 'overview' && (

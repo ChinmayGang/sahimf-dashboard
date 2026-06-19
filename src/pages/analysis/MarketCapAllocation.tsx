@@ -72,7 +72,7 @@ export function MarketCapAllocation() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const divider = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
 
@@ -126,7 +126,7 @@ export function MarketCapAllocation() {
           ].map(s => (
             <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
               <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
-              <p className="text-[10px] text-[#9CA3AF] mt-0.5 whitespace-nowrap">{s.label}</p>
+              <p className="text-[10px] text-[#6B7280] mt-0.5 whitespace-nowrap">{s.label}</p>
             </div>
           ))}
         </div>
@@ -344,6 +344,14 @@ export function MarketCapAllocation() {
           </div>
           <p className={`text-xs ${textSub}`}>Drag sliders to see how rebalancing to your target mix affects individual fund weights.</p>
 
+          {/* Sahi research — recommended composition note */}
+          <div className="rounded-xl px-3.5 py-3" style={{ background: lm ? '#F5F3FF' : 'rgba(79,70,229,0.08)', border: `1px solid ${lm ? '#ddd6fe' : 'rgba(79,70,229,0.2)'}` }}>
+            <p className="text-[11px] leading-relaxed" style={{ color: lm ? '#4338ca' : '#a5b4fc' }}>
+              <span className="font-bold" style={{ color: lm ? '#4f46e5' : '#c7d2fe' }}>Sahi research view — best composition: </span>
+              For a balanced growth investor we suggest <b style={{ color: MCAP_COLORS.large }}>{RECOMMENDED.large}% Large Cap</b>, <b style={{ color: MCAP_COLORS.mid }}>{RECOMMENDED.mid}% Mid Cap</b> and <b style={{ color: MCAP_COLORS.small }}>{RECOMMENDED.small}% Small Cap</b>. Large caps anchor stability, mid caps drive long-term growth, and a measured small-cap sleeve adds upside without over-concentrating risk. Use the sliders to model your own mix — your target must total 100%.
+            </p>
+          </div>
+
           <div className="space-y-4">
             {(['large', 'mid', 'small'] as const).map((cap) => {
               const labels = { large: 'Large Cap', mid: 'Mid Cap', small: 'Small Cap' }
@@ -365,7 +373,7 @@ export function MarketCapAllocation() {
                   <input
                     type="range" min={0} max={80} value={val}
                     onChange={(e) => setRebalanceTarget(prev => ({ ...prev, [cap]: Number(e.target.value) }))}
-                    className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+                    className="w-full h-2 cursor-pointer rebalance-slider"
                     style={{ accentColor: colors[cap] }}
                   />
                 </div>

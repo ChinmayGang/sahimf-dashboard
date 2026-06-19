@@ -43,7 +43,7 @@ export function Portfolios() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#1e2838] text-[#8390a2]'
   const tooltipStyle = {
     background: lm ? '#fff' : '#14171c',
@@ -51,7 +51,9 @@ export function Portfolios() {
     borderRadius: 8, fontSize: 12,
     color: lm ? '#111827' : '#fff',
   }
-  const chartTick = lm ? '#9CA3AF' : '#64748b'
+  const chartTick = lm ? '#6B7280' : '#64748b'
+  // Light mode: neon lime is invisible on white, so use a vivid lime-green for the "current" series
+  const barCurrent = lm ? '#65a30d' : '#d6fd70'
 
   const totalInvested = portfolios.reduce((s, p) => s + p.totalInvested, 0)
   const totalCurrent = portfolios.reduce((s, p) => s + p.currentValue, 0)
@@ -76,7 +78,7 @@ export function Portfolios() {
             canAddMore
               ? 'bg-[#d6fd70] hover:bg-[#b8d94a] text-black'
               : lm
-                ? 'bg-[#F3F4F6] text-[#9CA3AF] border border-[#E0E3E8] cursor-not-allowed'
+                ? 'bg-[#F3F4F6] text-[#6B7280] border border-[#E0E3E8] cursor-not-allowed'
                 : 'bg-[#14171c] text-[#64748b] border border-[#1e2838] cursor-not-allowed'
           }`}
         >
@@ -114,15 +116,16 @@ export function Portfolios() {
             <YAxis hide />
             <Tooltip
               contentStyle={tooltipStyle}
+              itemStyle={{ color: lm ? '#111827' : '#ffffff' }}
               formatter={(v) => [formatINR(Number(v))]}
             />
             <Bar dataKey="invested" fill="#4f46e5" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="current" fill="#d6fd70" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="current" fill={barCurrent} radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
         <div className="flex gap-4 mt-2">
           <div className="flex items-center gap-1.5"><span className="w-3 h-2.5 rounded bg-[#4f46e5]" /><span className={`text-xs ${textSub}`}>Invested</span></div>
-          <div className="flex items-center gap-1.5"><span className="w-3 h-2.5 rounded bg-[#d6fd70]" /><span className={`text-xs ${textSub}`}>Current</span></div>
+          <div className="flex items-center gap-1.5"><span className="w-3 h-2.5 rounded" style={{ background: barCurrent }} /><span className={`text-xs ${textSub}`}>Current</span></div>
         </div>
       </div>
 
@@ -155,7 +158,7 @@ export function Portfolios() {
                       <p className={`text-xs ${textSub}`}>{p.holdings.length} funds · since {new Date(p.createdAt).getFullYear()}</p>
                     </div>
                   </div>
-                  <ArrowForwardIosIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="bold" className="group-hover:text-[#d6fd70] transition-colors mt-1" />
+                  <ArrowForwardIosIcon size={14} weight="bold" className={`transition-colors mt-1 ${lm ? 'text-[#6B7280] group-hover:text-[#4f46e5]' : 'text-[#64748b] group-hover:text-[#d6fd70]'}`} />
                 </div>
 
                 <div className={`mt-5 pt-4 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>

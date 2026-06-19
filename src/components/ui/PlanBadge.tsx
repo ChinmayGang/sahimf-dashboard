@@ -17,7 +17,7 @@ export function PlanBadge({ tier, size = 'sm' }: Props) {
       text: lm ? 'text-[#6B7280]' : 'text-[#8390a2]',
     },
     pro: { label: 'Sahi PRO', bg: 'bg-[#4f46e5]', text: 'text-white' },
-    elite: { label: 'Sahi Elite', bg: 'bg-gradient-to-r from-[#d6fd70] to-[#b8d94a]', text: 'text-black' },
+    wealth: { label: 'Sahi Wealth', bg: 'bg-gradient-to-r from-[#d6fd70] to-[#b8d94a]', text: 'text-black' },
   }
 
   const { label, bg, text } = config[tier]

@@ -83,7 +83,7 @@ export function Goals() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const tooltipStyle = { background: lm ? '#fff' : '#14171c', border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`, borderRadius: 8, fontSize: 11, color: lm ? '#111827' : '#fff' }
 
   return (
@@ -174,7 +174,7 @@ export function Goals() {
                 <div key={i} className="rounded-xl px-3 py-2.5 bg-white/80 border border-black/5">
                   <p className="text-[10px] uppercase tracking-wide text-[#6B7280] mb-1">{s.label}</p>
                   <p className="text-base font-bold" style={{ color: s.color }}>{s.value}</p>
-                  {s.sub && <p className="text-[10px] text-[#9CA3AF] mt-0.5">{s.sub}</p>}
+                  {s.sub && <p className="text-[10px] text-[#6B7280] mt-0.5">{s.sub}</p>}
                 </div>
               ))}
             </div>

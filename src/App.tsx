@@ -35,15 +35,6 @@ import { useAuthStore } from './stores/authStore'
 
 const queryClient = new QueryClient()
 
-const ComingSoon = ({ name }: { name: string }) => (
-  <div className="flex items-center justify-center h-full min-h-64">
-    <div className="text-center">
-      <p className="text-[#8390a2] text-sm font-medium">{name}</p>
-      <p className="text-[#64748b] text-xs mt-1">Coming soon</p>
-    </div>
-  </div>
-)
-
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   if (!isAuthenticated) return <Navigate to="/auth/login" replace />
@@ -98,7 +89,6 @@ export default function App() {
             <Route path="mutual-funds/dividends" element={<Dividends />} />
             <Route path="mutual-funds/reports/tax" element={<TaxReport />} />
             <Route path="mutual-funds/reports/mfpms" element={<MFPMSDisclosures />} />
-            <Route path="investments" element={<ComingSoon name="Investments" />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

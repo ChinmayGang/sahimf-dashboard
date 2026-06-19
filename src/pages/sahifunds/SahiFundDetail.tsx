@@ -23,7 +23,7 @@ export function SahiFundDetail() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const chip = lm ? 'bg-[#F3F4F6] text-[#374151]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
@@ -281,7 +281,7 @@ export function SahiFundDetail() {
       )}
 
       {/* SEBI disclaimer */}
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#505d6f]'} text-center`}>
         Sahi MF Funds are model portfolios for educational purposes. Mutual Fund investments are subject to market risks.
         Past performance does not guarantee future returns. This is not investment advice.
         Please consult a SEBI-registered investment advisor before investing.

@@ -1,4 +1,4 @@
-export type PlanTier = 'free' | 'pro' | 'elite'
+export type PlanTier = 'free' | 'pro' | 'wealth'
 
 export interface UserInvestment {
   fundId: string
@@ -123,7 +123,7 @@ export interface SahiFund {
     '3Y'?: number
   }
   volatility: 'Low' | 'Medium' | 'High'
-  accessTier: 'free' | 'pro' | 'elite'
+  accessTier: 'free' | 'pro' | 'wealth'
   tags: string[]
   holdings?: SahiFundHolding[]
   holdingsDistribution?: { label: string; value: number; color: string }[]

@@ -373,7 +373,7 @@ export function DesignSystem() {
                     <StarIcon size={11} weight="regular" /> Sahi PRO
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #d6fd70, #b8d94a)', color: '#000' }}>
-                    <StarIcon size={11} weight="regular" /> Sahi Elite
+                    <StarIcon size={11} weight="regular" /> Sahi Wealth
                   </span>
                 </div>
               </div>

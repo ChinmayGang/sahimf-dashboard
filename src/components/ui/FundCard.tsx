@@ -50,7 +50,7 @@ export function FundCard({ fund, showReturns = true }: FundCardProps) {
 
       <div className={`flex items-center justify-between border-t pt-3 ${lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'}`}>
         <div>
-          <p className={`text-xs ${lm ? 'text-[#9CA3AF]' : 'text-[#8390a2]'}`}>NAV</p>
+          <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>NAV</p>
           <p className={`text-sm font-semibold ${lm ? 'text-[#111827]' : 'text-white'}`}>₹{fund.nav.toFixed(2)}</p>
           <p className={`text-xs ${fund.navChangePercent >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
             {fund.navChangePercent >= 0 ? '+' : ''}{fund.navChangePercent.toFixed(2)}%
@@ -59,7 +59,7 @@ export function FundCard({ fund, showReturns = true }: FundCardProps) {
 
         {showReturns && (
           <div className="text-right">
-            <p className={`text-xs ${lm ? 'text-[#9CA3AF]' : 'text-[#8390a2]'}`}>1Y Returns</p>
+            <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>1Y Returns</p>
             <PlanGate requiredTier="free" compact>
               <p className="text-sm font-semibold text-[#22C55E]">
                 {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : '—'}
@@ -70,7 +70,7 @@ export function FundCard({ fund, showReturns = true }: FundCardProps) {
 
         {showReturns && fund.returns['3Y'] && (
           <div className="text-right">
-            <p className={`text-xs ${lm ? 'text-[#9CA3AF]' : 'text-[#8390a2]'}`}>3Y CAGR</p>
+            <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>3Y CAGR</p>
             <PlanGate requiredTier="pro" compact>
               <p className="text-sm font-semibold text-[#22C55E]">
                 +{fund.returns['3Y']}%

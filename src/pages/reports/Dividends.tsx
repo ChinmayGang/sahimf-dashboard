@@ -27,7 +27,7 @@ export function Dividends() {
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const inputBg = lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#1a2130]'
   const rowBorder = lm ? 'border-[#F0F0F8]' : 'border-[#1e2838]'
@@ -119,7 +119,7 @@ export function Dividends() {
         ))}
       </div>
 
-      <p className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#505d6f]'} text-center`}>
+      <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#505d6f]'} text-center`}>
         Dividend data is for informational purposes only. IDCW payouts depend on the distributable surplus of the scheme.
         Past dividends do not guarantee future distributions. SEBI regulations apply.
       </p>

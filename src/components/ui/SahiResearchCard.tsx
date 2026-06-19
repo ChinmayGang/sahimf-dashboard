@@ -175,7 +175,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             >
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#374151]">Analyst Note</p>
               <p className={`text-[11px] leading-relaxed italic ${textSub}`}>{data.analystNote}</p>
-              <p className="text-[9px] mt-1.5 text-[#9CA3AF]">Updated {data.updatedAt} · For research purposes only</p>
+              <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} · For research purposes only</p>
             </div>
           </>
         )}

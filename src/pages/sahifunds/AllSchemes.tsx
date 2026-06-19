@@ -71,7 +71,7 @@ export function AllSchemes() {
   const lm = lightMode
   const text = lm ? 'text-[#111827]' : 'text-white'
   const textSub = lm ? 'text-[#6B7280]' : 'text-[#8390a2]'
-  const textMuted = lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'
+  const textMuted = lm ? 'text-[#6B7280]' : 'text-[#64748b]'
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'
   const inputBg = lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#3c4653]'
   const accent = lm ? '#4f46e5' : '#d6fd70'

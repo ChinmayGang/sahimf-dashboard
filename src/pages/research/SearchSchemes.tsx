@@ -185,7 +185,7 @@ export function SearchSchemes() {
           </div>
           <span className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>{filtered.length} funds</span>
           <div className="flex items-center gap-2 ml-auto">
-            <span className={`text-xs ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>Sort by</span>
+            <span className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Sort by</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -205,7 +205,7 @@ export function SearchSchemes() {
           ) : (
             <div className="space-y-2">
               {/* Table header */}
-              <div className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>
+              <div className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>
                 <span>Fund</span>
                 <span>NAV</span>
                 <span>1Y Returns</span>
@@ -227,7 +227,7 @@ export function SearchSchemes() {
                           {fund.name}
                         </p>
                         <div className="flex items-center gap-1 mt-0.5">
-                          <span className={`text-[10px] ${lm ? 'text-[#9CA3AF]' : 'text-[#64748b]'}`}>{fund.subCategory}</span>
+                          <span className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>{fund.subCategory}</span>
                           <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>·</span>
                           <span className={`text-[10px] px-1.5 py-0 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]'}`}>Direct</span>
                           <span className={`text-[10px] px-1.5 py-0 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]'}`}>Growth</span>
