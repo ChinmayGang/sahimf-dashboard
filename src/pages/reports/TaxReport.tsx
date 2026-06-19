@@ -8,11 +8,16 @@ import {
   Info as InfoIcon,
   LightbulbFilament as BulbIcon,
   ArrowRight as ArrowRightIcon,
+  UploadSimple as UploadIcon,
 } from '@phosphor-icons/react'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
+import { mockPortfolios } from '../../data/portfolios'
 import { usePlan } from '../../hooks/usePlan'
+import { ProButton } from '../../components/ui/ProButton'
 
 // ── Mock data ──────────────────────────────────────────────────────────────────
 
@@ -92,7 +97,9 @@ export function TaxReport() {
   const navigate = useNavigate()
   const lm = useUIStore((s) => s.lightMode)
   const { can } = usePlan()
+  const { user } = useAuthStore()
   const isPro = can('pro')
+  const hasInvestments = mockPortfolios.some(p => p.userId === (user?.id ?? '') && p.holdings.length > 0)
 
   const [harvestAmount, setHarvestAmount] = useState(0)
   const harvestTaxSaved = Math.round(Math.min(harvestAmount, LTCG_FREE_LIMIT) * 0.125)
@@ -104,6 +111,40 @@ export function TaxReport() {
   const dividerColor = lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'
   const rowHover = lm ? 'hover:bg-[#F9F9FF]' : 'hover:bg-[#0f1420]'
 
+  const gainSplit = [
+    { name: 'LTCG', value: LTCG_TOTAL, color: '#4f46e5' },
+    { name: 'STCG', value: STCG_GAIN, color: '#ef4444' },
+  ]
+
+  // No holdings → guide the user to add a portfolio instead of showing mock tax data.
+  if (!hasInvestments) {
+    return (
+      <div className="p-6 max-w-7xl mx-auto space-y-6">
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 rounded-xl ${card} flex items-center justify-center`}>
+            <ReceiptIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          </div>
+          <div>
+            <h1 className={`text-lg font-bold ${text}`}>Tax Optimizer</h1>
+            <p className={`text-xs ${textMuted}`}>LTCG + STCG + 80C analysis on your holdings</p>
+          </div>
+        </div>
+        <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+            style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)' }}>
+            <UploadIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          </div>
+          <p className={`text-base font-bold ${text} mb-1`}>No investments found</p>
+          <p className={`text-sm ${textSub} max-w-md mb-5`}>
+            Add a portfolio or import your CAS statement and we'll surface your LTCG/STCG split,
+            tax-harvesting headroom and 80C gaps — with deadlines flagged before March 31.
+          </p>
+          <ProButton label="Add Portfolio" onClick={() => navigate('/mutual-funds/portfolios')} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
@@ -114,7 +155,7 @@ export function TaxReport() {
             <ReceiptIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
           </div>
           <div>
-            <h1 className={`text-lg font-bold ${text}`}>Tax Optimisation & Efficiency</h1>
+            <h1 className={`text-lg font-bold ${text}`}>Tax Optimizer</h1>
             <p className={`text-xs ${textMuted}`}>FY 2025–26 · LTCG + STCG + 80C analysis</p>
           </div>
         </div>
@@ -169,6 +210,64 @@ export function TaxReport() {
         ))}
       </div>
 
+      {/* ── Gains split doughnut + holding-period explainer ── */}
+      <div className="grid md:grid-cols-2 gap-4">
+        {/* Doughnut — LTCG vs STCG */}
+        <div className={`${card} rounded-2xl p-5`}>
+          <p className={`text-sm font-bold ${text} mb-1`}>Gains split — LTCG vs STCG</p>
+          <p className={`text-xs ${textMuted} mb-3`}>Of {formatINR(TOTAL_UNREALISED)} total unrealised gains</p>
+          <div className="flex items-center gap-5">
+            <div className="relative" style={{ width: 130, height: 130 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={gainSplit} dataKey="value" cx="50%" cy="50%" innerRadius={42} outerRadius={62} strokeWidth={0} paddingAngle={2}>
+                    {gainSplit.map((d, i) => <Cell key={i} fill={d.color} />)}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className={`text-[10px] ${textMuted}`}>Tax</span>
+                <span className="text-sm font-black text-[#ef4444]">{formatINR(TOTAL_TAX)}</span>
+              </div>
+            </div>
+            <div className="space-y-2 flex-1">
+              {gainSplit.map(d => (
+                <div key={d.name} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-sm" style={{ background: d.color }} />
+                    <span className={`text-xs ${textSub}`}>{d.name}</span>
+                  </div>
+                  <span className={`text-xs font-bold ${text}`}>{formatINR(d.value)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* STCG vs LTCG holding-period graphic */}
+        <div className={`${card} rounded-2xl p-5`}>
+          <p className={`text-sm font-bold ${text} mb-1`}>STCG vs LTCG — the 12-month line</p>
+          <p className={`text-xs ${textMuted} mb-4`}>Equity funds held 12 months+ qualify for lower LTCG tax</p>
+          <div className="relative h-9 rounded-lg overflow-hidden flex">
+            <div className="flex items-center justify-center" style={{ width: '40%', background: 'rgba(239,68,68,0.18)' }}>
+              <span className="text-[10px] font-bold text-[#ef4444]">STCG · 20%</span>
+            </div>
+            <div className="flex items-center justify-center flex-1" style={{ background: 'rgba(79,70,229,0.15)' }}>
+              <span className="text-[10px] font-bold text-[#4f46e5]">LTCG · 12.5% (₹1L free)</span>
+            </div>
+            <div className="absolute top-0 bottom-0" style={{ left: '40%', width: 2, background: lm ? '#111827' : '#fff' }} />
+          </div>
+          <div className="flex justify-between mt-1.5">
+            <span className={`text-[10px] ${textMuted}`}>0</span>
+            <span className={`text-[10px] font-semibold ${text}`} style={{ marginLeft: '-10%' }}>12 months</span>
+            <span className={`text-[10px] ${textMuted}`}>longer holding →</span>
+          </div>
+          <p className={`text-[11px] mt-3 ${textSub} leading-relaxed`}>
+            Crossing 12 months moves a fund from <b className="text-[#ef4444]">20% STCG</b> to <b className="text-[#4f46e5]">12.5% LTCG</b> with a ₹1,00,000 annual exemption — a strong reason to delay redemptions near the line.
+          </p>
+        </div>
+      </div>
+
       {/* ── Fund-level breakdown ── */}
       <div className={`${card} rounded-2xl overflow-hidden`}>
         <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
@@ -179,7 +278,7 @@ export function TaxReport() {
           <thead>
             <tr className={`border-b ${dividerColor} ${lm ? 'bg-[#F9F9FF]' : 'bg-[#0f1420]'}`}>
               {['Fund', 'Gain', 'Holding', 'Tax type', 'Tax outgo'].map(h => (
-                <th key={h} className={`text-left px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-[#374151]`}>{h}</th>
+                <th key={h} className={`text-left px-5 py-3 text-[11px] font-semibold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>{h}</th>
               ))}
             </tr>
           </thead>
