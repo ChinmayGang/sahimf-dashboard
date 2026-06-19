@@ -282,21 +282,32 @@ This pass worked through a detailed 40-point design review + ongoing session fix
 **Known footgun documented**
 - `src/index.css:231` global rule: `[data-theme="light"] .text-white { color: #18181B !important }` overrides white text on dark bg elements. Workaround used everywhere: `text-[#ffffff]` (arbitrary class, not targeted by rule). Task #11: harden this selector (pending).
 
+**Batch 6 — Sahi Funds / Baskets / Goals (done)**
+- `MySahiFunds`: no card pre-selected (`activeIdx -1`) so all cards share the same neutral→indigo-border hover (#16)
+- `SahiFundDetail`: subscriber deep view for owned baskets — SIP tracker + alpha chip, next-rebalance countdown, rebalance-history timeline; non-owners get a "Start investing" CTA (#17)
+- `Baskets`: "Set your first goal" empty state; ExploreFunds hover pattern + solid `#4f46e5` View Details buttons (#19/#20)
+- `Goals`: predefined goal tabs → white/`#4f46e5` border+text/`#EEF2FF` hover; all section headings `#111827` (#36)
+
+**Batch 7 — New pages / tools / reports (done)**
+- `ProButton` wired into `UpgradePopup` ("Unlock with Sahi PRO" + "See all plan details →") and `PlanGate` full CTA (#14 partial)
+- `Calculator`: merged tabbed page — SIP / Lumpsum / SWP / STP / What-If segmented control (`?tab=` URL sync), SWP + STP formulas, embedded `<SIPWhatIf>`; sidebar collapsed to one "SIP Calculator" item (#34)
+- `MarketCapAllocation`: zero-investment guidance gate, Sahi Analysis moved above fund table, filled-track pill rebalance sliders, `#111827` headings (#31)
+- `RiskAnalysis`: zero-investment guidance gate, bubble `<title>` tooltips, `<AnimatedBorderCard>` Sahi Insight panel (#32)
+- `TaxReport` → "Tax Optimizer": empty state, LTCG/STCG gains doughnut + 12-month holding-period graphic
+- `Reports & Disclosures`: emoji glyphs → Phosphor icons; "Investment Adviser" → "Research Analyst" (RA-only brand)
+- `/pricing` confirmed full-screen (no sidebar), Free / PRO / Wealth tiers
+
 ### Pending ⏳
 
-**From the original 40-point review (still open)**
+**Still open**
 
 - #13/#37 Global grey→black text sweep across every remaining page
-- #14 Extract remaining buttons into shared state-driven `<Button>` component
-- #17 Deeper detail view for *owned* Sahi funds vs scheme preview
+- B2-1 Extract remaining inline buttons into a shared state-driven `<Button>` component
 - #22 Audit every remaining grey heading project-wide
 - #28/#29 Unify page container widths + header-card style across all pages
-- #31 Market Cap: free-tier guidance, drag handle pill, remove emoji, move Sahi analysis up
-- #32 Risk Analysis: free-tier guidance, bubble-chart tooltips, fill right-side gap with insight
-- #34 Merge SIP What-If into SIP, fix toggle, build Lumpsum/SWP/STP variants
-- #36 Goals & Plans: full design-system alignment (tabs, hover, tones)
-- Risk-label vocabulary unified to SEBI 6-level project-wide
-- Mobile responsive (Batch 8) · Supabase integration (Batch 9)
+- Risk-label vocabulary unified to SEBI 6-level project-wide (B5-2)
+- Batch 8 — Mobile responsive · Batch 9 — Supabase integration
+- Task #11 — harden the `index.css` `.text-white` light-mode override
 
 **New TODO — added verbatim (not yet started)**
 
