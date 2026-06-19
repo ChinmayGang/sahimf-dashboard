@@ -1,14 +1,14 @@
 ﻿import { FileText as ArticleIcon } from '@phosphor-icons/react'
 import { DownloadSimple as DownloadIcon } from '@phosphor-icons/react'
 import { ArrowSquareOut as OpenInNewIcon } from '@phosphor-icons/react'
-import { SealCheck as VerifiedIcon } from '@phosphor-icons/react'
+import { SealCheck as VerifiedIcon, CheckCircle as CheckIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 
 const DISCLOSURES = [
   {
     category: 'SEBI Compliance',
     docs: [
-      { title: 'SEBI Investment Adviser Registration Certificate', date: 'Mar 2024', type: 'PDF', size: '248 KB' },
+      { title: 'SEBI Research Analyst Registration Certificate', date: 'Mar 2024', type: 'PDF', size: '248 KB' },
       { title: 'Annual Compliance Report – FY 2024–25', date: 'Apr 2025', type: 'PDF', size: '1.2 MB' },
       { title: 'Client Grievance Redressal Policy', date: 'Jan 2024', type: 'PDF', size: '180 KB' },
     ],
@@ -39,10 +39,10 @@ const DISCLOSURES = [
 ]
 
 const HIGHLIGHTS = [
-  { icon: '₹0', label: 'Commission Received', sub: 'From any Indian MF house. Ever.' },
-  { icon: '✓', label: 'SEBI Registered IA', sub: 'SEBI/IA/0000/2024' },
-  { icon: '✓', label: 'Direct Plan Only', sub: 'Never regular plans' },
-  { icon: '✓', label: 'Full Disclosure', sub: 'Fee-only advisory model' },
+  { icon: '₹0', check: false, label: 'Commission Received', sub: 'From any Indian MF house. Ever.' },
+  { icon: null, check: true, label: 'SEBI Registered RA', sub: 'SEBI Registered Research Analyst' },
+  { icon: null, check: true, label: 'Direct Plan Only', sub: 'Never regular plans' },
+  { icon: null, check: true, label: 'Full Disclosure', sub: 'Fee-only advisory model' },
 ]
 
 export function MFPMSDisclosures() {
@@ -76,7 +76,11 @@ export function MFPMSDisclosures() {
       <div className="grid grid-cols-4 gap-4">
         {HIGHLIGHTS.map((h) => (
           <div key={h.label} className={`${card} rounded-xl px-4 py-3 text-center`}>
-            <p className={`text-xl font-black mb-1 ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{h.icon}</p>
+            <div className="flex items-center justify-center h-7 mb-1">
+              {h.check
+                ? <CheckIcon size={24} weight="duotone" color={lm ? '#4f46e5' : '#d6fd70'} />
+                : <p className={`text-xl font-black ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{h.icon}</p>}
+            </div>
             <p className={`text-xs font-semibold ${text} mb-0.5`}>{h.label}</p>
             <p className={`text-[10px] ${textMuted}`}>{h.sub}</p>
           </div>
@@ -90,7 +94,7 @@ export function MFPMSDisclosures() {
           <p className={`${text} font-semibold text-sm`}>
             NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.
           </p>
-          <p>SahiMF operates as a SEBI-registered Investment Adviser under the fee-only model. We charge clients directly. We do not receive trail commissions, upfront fees, or any form of compensation from AMCs or distributors. All recommendations are direct-plan only.</p>
+          <p>SahiMF operates as a SEBI-registered Research Analyst under the fee-only model. We charge clients directly. We do not receive trail commissions, upfront fees, or any form of compensation from AMCs or distributors. All research covers direct plans only.</p>
           <p className={textMuted}>Mutual Fund investments are subject to market risks. Read all scheme-related documents carefully before investing. Past performance is not indicative of future returns.</p>
         </div>
       </div>
