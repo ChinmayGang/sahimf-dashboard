@@ -121,7 +121,7 @@ export function Goals() {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold flex-shrink-0 transition-all ${
                 active
                   ? 'shadow-sm'
-                  : lm ? 'bg-white border border-[#E0E3E8] text-[#374151] hover:border-[#4f46e5]/40' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2] hover:border-[#4f46e5]/40'
+                  : lm ? 'bg-white border border-[#4f46e5] text-[#4f46e5] hover:bg-[#EEF2FF]' : 'bg-[#14171c] border border-[#1e2838] text-[#8390a2] hover:border-[#4f46e5]/40'
               }`}
               style={active ? { background: g.color, color: '#ffffff' } : {}}
             >
@@ -182,7 +182,7 @@ export function Goals() {
 
           {/* Retirement timeline bar */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-3`}>RETIREMENT TIMELINE</p>
+            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-3`}>RETIREMENT TIMELINE</p>
             <div className="flex rounded-xl overflow-hidden h-8 mb-2">
               <div className="flex items-center justify-center text-xs font-bold text-white" style={{ width: `${(retAge - 38) / (retAge - 38 + 25) * 100}%`, background: '#4f46e5' }}>
                 Accumulation {retAge - 38} yrs
@@ -203,7 +203,7 @@ export function Goals() {
 
           {/* Corpus projection chart */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-1`}>CORPUS PROJECTION — YEAR BY YEAR</p>
+            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-1`}>CORPUS PROJECTION — YEAR BY YEAR</p>
             <p className={`text-xs ${textMuted} mb-4`}>(₹ in Lakhs)</p>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={result.yearlyData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -231,7 +231,7 @@ export function Goals() {
 
           {/* Assumption sliders */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-4`}>ADJUST YOUR ASSUMPTIONS</p>
+            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-4`}>ADJUST YOUR ASSUMPTIONS</p>
             <div className="space-y-4">
               {[
                 { label: 'Monthly SIP (₹)', value: sip, min: 1000, max: 200000, step: 1000, onChange: setSip, fmt: (v: number) => `₹${v.toLocaleString('en-IN')}` },
@@ -259,7 +259,7 @@ export function Goals() {
 
           {/* Monthly withdrawal sustainability */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider text-[#374151] mb-3`}>MONTHLY WITHDRAWAL SUSTAINABILITY</p>
+            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-3`}>MONTHLY WITHDRAWAL SUSTAINABILITY</p>
             <p className={`text-xs ${textSub} mb-4`}>At {formatINR(result.inflatedExpense)}/month withdrawal, assuming 7% post-retirement return:</p>
 
             <div className="flex items-baseline gap-2 mb-1">

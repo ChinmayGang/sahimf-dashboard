@@ -34,7 +34,9 @@ function formatINR(n: number) {
 export function MySahiFunds() {
   const navigate = useNavigate()
   const myFunds = mockSahiFunds.filter((f) => MY_FUNDS.includes(f.id))
-  const [activeIdx, setActiveIdx] = useState(0)
+  // No card is pre-selected — every card starts neutral and reveals the same
+  // hover feedback (indigo border + lift) as the rest of the app.
+  const [activeIdx, setActiveIdx] = useState(-1)
   const lm = useUIStore((s) => s.lightMode)
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-transparent'

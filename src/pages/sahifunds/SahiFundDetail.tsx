@@ -3,6 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
 import { Info as InfoOutlinedIcon } from '@phosphor-icons/react'
 import { CalendarDots as EventIcon } from '@phosphor-icons/react'
+import {
+  Wallet as WalletIcon,
+  ArrowsClockwise as RebalanceIcon,
+  ArrowUpRight as ArrowUpRightIcon,
+  RocketLaunch as RocketIcon,
+} from '@phosphor-icons/react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { mockSahiFunds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -13,6 +19,20 @@ const NAV_HISTORY = Array.from({ length: 24 }, (_, i) => ({
   month: new Date(2024, i, 1).toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }),
   value: 100 + i * 2.4 + Math.sin(i * 0.6) * 4,
 }))
+
+// Funds the demo user actively holds (mirrors MySahiFunds). Only these show
+// the subscriber deep view — everyone else sees a "Start investing" CTA.
+const OWNED_DATA: Record<string, { units: number; invested: number; current: number; sip: number; xirr: number; alpha: number }> = {
+  sf001: { units: 1284.52, invested: 38000, current: 44820, sip: 5000, xirr: 21.4, alpha: 3.2 },
+  sf002: { units: 2105.18, invested: 55000, current: 72450, sip: 8000, xirr: 24.8, alpha: 4.6 },
+}
+
+// Last 3 rebalances — date + net change + plain-English rationale.
+const REBALANCE_HISTORY = [
+  { date: '2026-04-01', change: '+2.3% large-cap', note: 'Trimmed small-cap into large-cap as valuations stretched.' },
+  { date: '2026-01-02', change: '+1.5% flexi-cap', note: 'Added flexi-cap on improved earnings visibility.' },
+  { date: '2025-10-01', change: '+1.0% hybrid', note: 'Introduced a BAF sleeve for downside protection.' },
+]
 
 export function SahiFundDetail() {
   const { id } = useParams<{ id: string }>()
@@ -38,6 +58,11 @@ export function SahiFundDetail() {
   const chartTick = lm ? '#9CA3AF' : '#64748b'
 
   const fund = mockSahiFunds.find((f) => f.id === id)
+
+  const owned = id ? OWNED_DATA[id] : undefined
+  const gain = owned ? owned.current - owned.invested : 0
+  const gainPct = owned ? ((gain / owned.invested) * 100).toFixed(1) : '0'
+  const daysToRebalance = fund ? Math.max(0, Math.ceil((new Date(fund.nextRebalance).getTime() - Date.now()) / 86400000)) : 0
 
   if (!fund) {
     return (
@@ -104,6 +129,96 @@ export function SahiFundDetail() {
           </div>
         ))}
       </div>
+
+      {/* ── Subscriber deep view (B6-2) — only when the user holds this basket ── */}
+      {owned ? (
+        <>
+          <div className="grid grid-cols-3 gap-4">
+            {/* SIP tracker */}
+            <div className={`col-span-2 ${card} rounded-2xl p-5`}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className={`text-sm font-semibold ${text} flex items-center gap-2`}>
+                  <WalletIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" /> Your Investment
+                </h2>
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#16a34a' }}>
+                  +{owned.alpha}% alpha vs category
+                </span>
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                {[
+                  { label: 'Units Held', value: owned.units.toLocaleString('en-IN', { maximumFractionDigits: 2 }) },
+                  { label: 'Total Invested', value: `₹${owned.invested.toLocaleString('en-IN')}` },
+                  { label: 'Current Value', value: `₹${owned.current.toLocaleString('en-IN')}`, tone: 'green' },
+                  { label: 'XIRR', value: `+${owned.xirr}%`, tone: 'brand' },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p className={`text-[11px] ${textMuted} mb-1`}>{s.label}</p>
+                    <p className={`text-base font-bold ${s.tone === 'green' ? 'text-[#22C55E]' : s.tone === 'brand' ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>{s.value}</p>
+                  </div>
+                ))}
+              </div>
+              <div className={`mt-4 pt-4 border-t ${dividerColor} flex items-center justify-between`}>
+                <p className={`text-xs ${textSub} flex items-center gap-1.5`}>
+                  <ArrowUpRightIcon size={13} color="#22C55E" weight="bold" />
+                  Total gain <span className="text-[#22C55E] font-semibold">+₹{gain.toLocaleString('en-IN')} ({gainPct}%)</span>
+                  <span className={textMuted}>· Active SIP ₹{owned.sip.toLocaleString('en-IN')}/mo</span>
+                </p>
+                <button className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${lm ? 'bg-[#EEF2FF] text-[#4f46e5] hover:bg-[#e0e7ff]' : 'bg-[#1e2838] text-[#d6fd70] hover:bg-[#26303f]'}`}>
+                  Manage SIP
+                </button>
+              </div>
+            </div>
+
+            {/* Next rebalance countdown */}
+            <div className={`${card} rounded-2xl p-5 flex flex-col justify-center`}>
+              <p className={`text-[11px] ${textMuted} mb-1`}>Next rebalance in</p>
+              <p className={`text-3xl font-black ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>{daysToRebalance} days</p>
+              <p className={`text-xs ${textSub} mt-1`}>{new Date(fund.nextRebalance).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+              <p className={`text-[11px] ${textMuted} mt-3 leading-relaxed`}>We'll notify you 7 days before so you can review the changes.</p>
+            </div>
+          </div>
+
+          {/* Rebalance history timeline */}
+          <div className={`${card} rounded-2xl p-5`}>
+            <h2 className={`text-sm font-semibold ${text} mb-4 flex items-center gap-2`}>
+              <RebalanceIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" /> Rebalance History
+            </h2>
+            <div>
+              {REBALANCE_HISTORY.map((r, i) => (
+                <div key={r.date} className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className="w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0" style={{ background: lm ? '#4f46e5' : '#d6fd70' }} />
+                    {i < REBALANCE_HISTORY.length - 1 && <div className="w-px flex-1" style={{ background: chartGrid }} />}
+                  </div>
+                  <div className="pb-4">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className={`text-xs font-semibold ${text}`}>{new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${lm ? 'bg-[#EEF2FF] text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>{r.change}</span>
+                    </div>
+                    <p className={`text-[11px] ${textSub} mt-0.5`}>{r.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        /* Free preview — not invested yet */
+        <div className="rounded-2xl p-6 flex items-center gap-5" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)' }}>
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.12)' }}>
+            <RocketIcon size={24} color="#d6fd70" weight="duotone" />
+          </div>
+          <div className="flex-1">
+            <p className="text-base font-black text-[#ffffff] mb-0.5">Start investing in {fund.name}</p>
+            <p className="text-xs text-[#ffffff]/85 leading-relaxed">
+              Subscribe to unlock your SIP tracker, rebalance history, next-rebalance countdown and live alpha vs category.
+            </p>
+          </div>
+          <button className="flex-shrink-0 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-bold px-5 py-2.5 rounded-full transition-colors">
+            Start investing
+          </button>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className={`flex gap-0 ${lm ? 'bg-[#F3F4F6] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} rounded-xl p-1 w-fit`}>

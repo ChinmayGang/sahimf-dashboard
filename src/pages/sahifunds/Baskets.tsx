@@ -240,9 +240,9 @@ export function Baskets() {
             <TargetIcon size={22} color="#d6fd70" weight="duotone" />
           </div>
           <div className="flex-1">
-            <p className="text-base font-black text-[#1e0845] mb-0.5">Track your goals with Sahi Baskets</p>
+            <p className="text-base font-black text-[#1e0845] mb-0.5">Set your first goal</p>
             <p className="text-xs text-[#5b3f8a] leading-relaxed">
-              Add baskets to your portfolio, set targets, and watch your progress — retirement, education, home or any goal.
+              You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress — retirement, education, home or any goal.
             </p>
           </div>
           <button
@@ -312,7 +312,7 @@ export function Baskets() {
             return (
               <div
                 key={basket.id}
-                className={`bg-white border border-[#E0E3E8] rounded-2xl p-5 transition-all duration-200 hover:border-[#4f46e5] hover:-translate-y-1 cursor-pointer relative`}
+                className={`group ${card} rounded-2xl p-5 transition-all duration-200 hover:border-[#4f46e5] hover:-translate-y-1 hover:shadow-xl cursor-pointer relative`}
                 onClick={() => { setSelectedBasket(basket); if (!isLocked) setShowMethodology(true) }}
               >
                 {isLocked && (
@@ -326,7 +326,7 @@ export function Baskets() {
                     {basket.icon}
                   </div>
                   <div>
-                    <p className={`text-sm font-bold ${text}`}>{basket.name}</p>
+                    <p className={`text-sm font-bold ${text} transition-colors duration-200 group-hover:text-[#4f46e5]`}>{basket.name}</p>
                     <p className={`text-[10px] ${textMuted}`}>{basket.goal}</p>
                   </div>
                 </div>
@@ -351,14 +351,14 @@ export function Baskets() {
                   </span>
                   {isLocked ? (
                     <button
-                      className="flex items-center gap-1 text-xs font-semibold text-[#6366f1] hover:underline"
-                      onClick={e => { e.stopPropagation(); navigate('/mutual-funds/scorecard') }}
+                      className="flex items-center gap-1 text-xs font-semibold text-white bg-[#4f46e5] hover:bg-[#4338ca] px-3 py-1.5 rounded-lg transition-colors"
+                      onClick={e => { e.stopPropagation(); navigate('/pricing') }}
                     >
                       Upgrade to PRO <ArrowRightIcon size={11} weight="bold" />
                     </button>
                   ) : (
                     <button
-                      className="flex items-center gap-1 text-xs font-semibold text-[#4f46e5] hover:underline"
+                      className="flex items-center gap-1 text-xs font-semibold text-white bg-[#4f46e5] hover:bg-[#4338ca] px-3 py-1.5 rounded-lg transition-colors"
                       onClick={e => { e.stopPropagation(); setSelectedBasket(basket); setShowMethodology(true) }}
                     >
                       View Details <ArrowRightIcon size={11} weight="bold" />
