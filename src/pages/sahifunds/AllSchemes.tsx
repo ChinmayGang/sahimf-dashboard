@@ -299,7 +299,8 @@ export function AllSchemes() {
             filteredOpen.length === 0 ? (
               <div className={`flex items-center justify-center h-48 text-sm ${textMuted}`}>No funds match your filters</div>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-0">
+                {/* Flush stacked listing — 0 gap, no radius, no L/R border; full blue border + lift on hover (R2-5) */}
                 {/* Table header */}
                 <div
                   className="grid px-4 py-2 text-[10px] font-bold uppercase tracking-wider"
@@ -317,7 +318,7 @@ export function AllSchemes() {
                   <div
                     key={fund.id}
                     onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
-                    className={`${card} rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#4f46e5] hover:-translate-y-0.5' : 'hover:border-[#d6fd70] hover:-translate-y-0.5'}`}
+                    className={`${lm ? 'bg-white' : 'bg-[#14171c]'} rounded-none border border-transparent ${lm ? 'border-b-[#E0E3E8]' : 'border-b-[#1e2838]'} px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#4f46e5]' : 'hover:border-[#d6fd70]'} hover:-translate-y-0.5 hover:relative hover:z-10`}
                     style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px' }}
                   >
                     <div className="flex items-center gap-3 min-w-0">

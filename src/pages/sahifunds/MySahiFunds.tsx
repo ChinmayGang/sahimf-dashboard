@@ -4,9 +4,10 @@ import { Diamond as DiamondIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { Plus as AddIcon } from '@phosphor-icons/react'
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
-import { mockSahiFunds } from '../../data/sahiFunds'
+import { mockSahiFunds, getOwnedSahiFundIds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
 
 const ORIGAMI_ICONS = [
   'bat-origami-4895697.svg','bee-origami-4895698.svg','butterfly-origami-4895700.svg',
@@ -24,8 +25,6 @@ const ICON_PALETTES = [
   { bg: '#F0F9FF' }, { bg: '#F5F3FF' },
 ]
 
-const MY_FUNDS = ['sf001', 'sf002']
-
 function formatINR(n: number) {
   if (n >= 100000) return `₹${(n / 100000).toFixed(2)}L`
   return `₹${n.toLocaleString('en-IN')}`
@@ -33,7 +32,10 @@ function formatINR(n: number) {
 
 export function MySahiFunds() {
   const navigate = useNavigate()
-  const myFunds = mockSahiFunds.filter((f) => MY_FUNDS.includes(f.id))
+  const { user } = useAuthStore()
+  // Ownership is per-user — only personas who actually hold Sahi funds see them here. (R2-1)
+  const ownedIds = getOwnedSahiFundIds(user?.id)
+  const myFunds = mockSahiFunds.filter((f) => ownedIds.includes(f.id))
   // No card is pre-selected — every card starts neutral and reveals the same
   // hover feedback (indigo border + lift) as the rest of the app.
   const [activeIdx, setActiveIdx] = useState(-1)
@@ -48,6 +50,40 @@ export function MySahiFunds() {
 
   const mockInvested = [38000, 55000]
   const mockCurrent = [44820, 72450]
+
+  // Personas who hold no Sahi funds get a clear "explore" empty state — never a fake invested view. (R2-1)
+  if (myFunds.length === 0) {
+    return (
+      <div className="p-6 max-w-7xl mx-auto space-y-6">
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
+            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          </div>
+          <div>
+            <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
+            <p className={`text-xs ${textMuted}`}>No baskets yet</p>
+          </div>
+        </div>
+        <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style={{ background: lm ? '#eeedfd' : 'rgba(214,253,112,0.1)' }}>
+            <DiamondIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          </div>
+          <p className={`text-base font-bold ${text} mb-1`}>You haven't invested in any Sahi Funds yet</p>
+          <p className={`text-sm ${textSub} max-w-md mb-5`}>
+            Sahi Funds are curated, research-built fund baskets. Explore them, pick one that fits your goal,
+            and start an SIP — your holdings will then track here.
+          </p>
+          <button
+            onClick={() => navigate('/mutual-funds/explore')}
+            className="flex items-center gap-1.5 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+          >
+            <AddIcon size={14} weight="regular" />
+            Explore Sahi Funds
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">

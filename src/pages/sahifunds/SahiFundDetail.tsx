@@ -10,10 +10,11 @@ import {
   RocketLaunch as RocketIcon,
 } from '@phosphor-icons/react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { mockSahiFunds } from '../../data/sahiFunds'
+import { mockSahiFunds, getOwnedSahiFundIds } from '../../data/sahiFunds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { useUIStore } from '../../stores/uiStore'
+import { useAuthStore } from '../../stores/authStore'
 
 const NAV_HISTORY = Array.from({ length: 24 }, (_, i) => ({
   month: new Date(2024, i, 1).toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }),
@@ -39,6 +40,7 @@ export function SahiFundDetail() {
   const navigate = useNavigate()
   const [tab, setTab] = useState<'overview' | 'funds'>('overview')
   const lm = useUIStore((s) => s.lightMode)
+  const { user } = useAuthStore()
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'
@@ -59,7 +61,9 @@ export function SahiFundDetail() {
 
   const fund = mockSahiFunds.find((f) => f.id === id)
 
-  const owned = id ? OWNED_DATA[id] : undefined
+  // Owned only if THIS user actually holds the fund — not just because mock data exists for it. (R2-1)
+  const ownedIds = getOwnedSahiFundIds(user?.id)
+  const owned = id && ownedIds.includes(id) ? OWNED_DATA[id] : undefined
   const gain = owned ? owned.current - owned.invested : 0
   const gainPct = owned ? ((gain / owned.invested) * 100).toFixed(1) : '0'
   const daysToRebalance = fund ? Math.max(0, Math.ceil((new Date(fund.nextRebalance).getTime() - Date.now()) / 86400000)) : 0

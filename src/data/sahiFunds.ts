@@ -1,5 +1,16 @@
 import type { SahiFund } from '../types'
 
+// Which Sahi funds each persona actually holds. Only Rohit (Sahi PRO, sahiFundCount 2)
+// owns any — Aryan and Priya own none, so they must see the "explore / invest" state,
+// never the "invested / owned" state. (R2-1)
+export const OWNED_SAHI_FUNDS_BY_USER: Record<string, string[]> = {
+  u003: ['sf001', 'sf002'],
+}
+
+export function getOwnedSahiFundIds(userId?: string | null): string[] {
+  return userId ? (OWNED_SAHI_FUNDS_BY_USER[userId] ?? []) : []
+}
+
 export const mockSahiFunds: SahiFund[] = [
   {
     id: 'sf001',

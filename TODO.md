@@ -185,6 +185,17 @@
 
 ---
 
+## Round 2 — Follow-up Fixes
+*Reported after the Batch 6–7 pass. UI/UX corrections across explore, pricing, baskets, tools and schemes.*
+
+- [x] **R2-1** `ExploreFunds` / `ExploreSahiFunds` In Explore Mutual Funds, Sahi Funds the user has **not** invested in are being shown as already invested. Only funds actually held (in `MySahiFunds` / `sahi_subscriptions`) should render the "invested / owned" state — everyone else sees the default "explore / invest" state. Fix the ownership check so un-owned Sahi funds don't show an invested badge/status. (Relates to the Aryan "shows Sahi funds investment" bug.) *(Done: added `getOwnedSahiFundIds(userId)` in `data/sahiFunds.ts` (only Rohit/u003 owns sf001/sf002). `MySahiFunds` filters by it + shows an "explore" empty state for non-owners; `SahiFundDetail` gates the owned deep-view on it (non-owners get "Start investing"). Verified: Aryan → empty/Start-investing, Rohit → 2 owned funds.)*
+- [ ] **R2-2** `Pricing` Fix the plan page layout: align the text across the 3 plan cards (consistent baselines / equal-height sections so feature rows line up), and fix the divider/breaker line so it sits correctly (consistent position, full width, not misaligned between cards).
+- [x] **R2-3** `Baskets` The "Upgrade to PRO" button text is rendering in **black** — make it **white** on the indigo button (ensure `text-white` / `text-[#ffffff]` isn't being overridden by the light-mode `.text-white` rule). *(Done: root cause was `text-white` + an inline-gradient bg, so the light-mode `.text-white` override turned it black. Replaced the button with the `<ProButton>` glow component (always-white text) — verified `color: rgb(255,255,255)`.)*
+- [ ] **R2-4** `Calculator (SIP)` Merge the What-If fund table onto the **same** SIP Calculator page: a single input/customisation menu drives both the SIP calculation **and** the fund-comparison table shown directly **below** it. When the user adjusts the SIP inputs, the calculator result updates and the table of funds re-ranks below it — one page, one set of controls, no separate What-If page/tab.
+- [x] **R2-5** `AllSchemes` In the fund listing on the All Open Schemes page, change each fund card: `border-radius: 0`, remove left & right borders, and set the spacing between listings to `0` (cards flush/stacked). On **hover**, show a full all-side border in the same blue (`#4f46e5`) plus the push-up (`-translate-y`) animation. *(Done: Open Schemes rows now `rounded-none`, container `space-y-0` (flush), default `border border-transparent` with only a colored `border-b` separator (no visible L/R border); hover sets full `border-[#4f46e5]` + `-translate-y-0.5` + `z-10`. Verified computed: radius 0, L/R border transparent, 0 gap, hover classes present.)*
+
+---
+
 ## Cross-Cutting Decisions (Locked)
 
 | Decision | Choice |

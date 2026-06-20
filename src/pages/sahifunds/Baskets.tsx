@@ -10,6 +10,7 @@ import {
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { usePlan } from '../../hooks/usePlan'
+import { ProButton } from '../../components/ui/ProButton'
 
 interface Basket {
   id: string
@@ -245,14 +246,7 @@ export function Baskets() {
               You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress — retirement, education, home or any goal.
             </p>
           </div>
-          <button
-            onClick={() => window.location.href = '/pricing'}
-            className="flex-shrink-0 flex items-center gap-2 text-sm font-bold text-white px-5 py-2.5 rounded-full transition-opacity hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #8c34ee 0%, #4f46e5 100%)', boxShadow: '0 4px 16px rgba(140,52,238,0.3)' }}
-          >
-            <SparkleIcon size={14} weight="fill" />
-            Upgrade to PRO
-          </button>
+          <ProButton label="Upgrade to PRO" className="flex-shrink-0" onClick={() => navigate('/pricing')} />
         </div>
       )}
       {trackedBaskets.length > 0 && (
