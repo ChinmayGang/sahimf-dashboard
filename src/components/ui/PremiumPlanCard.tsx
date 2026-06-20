@@ -1,4 +1,5 @@
 import { Check as CheckIcon, Sparkle as SparkleIcon, Crown as CrownIcon } from '@phosphor-icons/react'
+import { Sparkles } from './Sparkles'
 
 export interface PremiumPlanCardProps {
   title: string
@@ -32,7 +33,19 @@ export function PremiumPlanCard({
 }: PremiumPlanCardProps) {
   return (
     <div className="premium-plan-card w-full">
-      <div className="premium-plan-card__border" />
+      {/* Drifting sparkles layer — sits behind the content (z-0) */}
+      <div className="inset-0 rounded-2xl overflow-hidden" style={{ position: 'absolute', zIndex: 0 }}>
+        <Sparkles
+          className="absolute inset-0"
+          color={accent}
+          density={420}
+          size={1.3}
+          minSize={0.4}
+          speed={0.6}
+          opacity={0.8}
+          opacitySpeed={2.5}
+        />
+      </div>
 
       {/* Title */}
       <div>

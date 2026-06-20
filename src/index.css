@@ -96,51 +96,8 @@
   box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.12) inset;
   overflow: hidden;
 }
-/* Higher specificity than `.premium-plan-card > *` (below) so the animated border
-   stays absolutely positioned and out of flow — otherwise it gets pulled into the
-   flex column and shoves card content down inconsistently (R2-2). */
-.premium-plan-card > .premium-plan-card__border {
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% + 2px);
-  height: calc(100% + 2px);
-  background-image: linear-gradient(0deg, #1a1d24 -50%, #0a0c0e 100%);
-  border-radius: 1rem;
-}
-.premium-plan-card__border::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  transform-origin: center;
-  width: 200%;
-  height: 5rem;
-  background-image: linear-gradient(
-    0deg,
-    rgba(140, 52, 238, 0) 0%,
-    rgba(140, 52, 238, 0.22) 44%,
-    rgba(214, 253, 112, 0.42) 50%,
-    rgba(140, 52, 238, 0.22) 56%,
-    rgba(140, 52, 238, 0) 100%
-  );
-  filter: blur(2px);
-  animation: premium-rotate 7s linear infinite;
-}
-@keyframes premium-rotate {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
+/* Content sits above the sparkles particle layer (rendered as the first child). */
 .premium-plan-card > * { position: relative; z-index: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .premium-plan-card__border::before { animation: none; }
-}
 
 /* ─── Glow PRO button (point 3) ─── */
 .glow-btn {
