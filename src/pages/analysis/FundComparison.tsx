@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { ArrowsLeftRight as CompareArrowsIcon } from '@phosphor-icons/react'
 import { Plus as AddIcon } from '@phosphor-icons/react'
 import { X as CloseIcon } from '@phosphor-icons/react'
@@ -174,7 +175,14 @@ function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
 }
 
 export function FundComparison() {
-  const [selectedIds, setSelectedIds] = useState<string[]>(['f001', 'f002'])
+  // Pre-seed from a ?funds=id1,id2 deep-link (e.g. the Compare chip on a portfolio card, B1-6).
+  const [params] = useSearchParams()
+  const seeded = (params.get('funds') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter((id) => mockFunds.some((f) => f.id === id))
+    .slice(0, 4)
+  const [selectedIds, setSelectedIds] = useState<string[]>(seeded.length >= 2 ? seeded : ['f001', 'f002'])
   const [showPicker, setShowPicker] = useState(false)
   const [search, setSearch] = useState('')
   const [activeTab, setActiveTab] = useState<TabKey>('overview')

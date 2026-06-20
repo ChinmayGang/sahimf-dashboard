@@ -240,7 +240,8 @@ export function Portfolios() {
                 <div className={`flex gap-2 mt-4 pt-3 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>
                   {[
                     { label: 'View Holdings', to: `/mutual-funds/portfolios/${p.id}` },
-                    { label: 'Compare', to: '/mutual-funds/compare' },
+                    // Compare pre-seeded with this portfolio's top holdings (B1-6)
+                    { label: 'Compare', to: `/mutual-funds/compare?funds=${p.holdings.slice(0, 3).map((h) => h.fundId).join(',')}` },
                     { label: 'Overlap', to: '/mutual-funds/overlap' },
                   ].map((a) => (
                     <button
