@@ -22,11 +22,11 @@ const CAT_VOL: Record<string, number> = {
 }
 function getRiskLabel(score: number): string {
   if (score < 2.5) return 'Low'
-  if (score < 4) return 'Medium'
+  if (score < 4) return 'Moderate'
   return 'High'
 }
 
-const RISK3_LABELS = ['Low', 'Medium', 'High']
+const RISK3_LABELS = ['Low', 'Moderate', 'High']
 const RISK3_COLORS = ['#22c55e', '#f59e0b', '#ef4444']
 
 function getRiskLabelIdx(label: string): number {
@@ -41,14 +41,14 @@ function riskScoreToColor(score: number): string {
 }
 
 const RISK3_CONFIG: Record<string, { idx: number; color: string }> = {
-  'Low':    { idx: 0, color: '#22c55e' },
-  'Medium': { idx: 1, color: '#f59e0b' },
-  'High':   { idx: 2, color: '#ef4444' },
+  'Low':      { idx: 0, color: '#22c55e' },
+  'Moderate': { idx: 1, color: '#f59e0b' },
+  'High':     { idx: 2, color: '#ef4444' },
 }
 
 // ─── Riskometer SVG ───────────────────────────────────────────────────────────
 function Riskometer({ label, lm }: { label: string; lm: boolean }) {
-  const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Medium']
+  const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Moderate']
   const { idx, color } = cfg
   // Arc spans 180°→360° (LEFT→UP→RIGHT). Needle at center of each 60° segment.
   const angleDeg = 180 + (idx + 0.5) * 60
@@ -142,7 +142,7 @@ function RiskReturnBubbles({
         const r = 8 + f.alloc * 0.4
         const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
         return (
-          <g key={f.name} style={{ cursor: 'pointer' }}>
+          <g key={`${f.name}-${_i}`} style={{ cursor: 'pointer' }}>
             <title>{`${f.name} · ${f.alloc.toFixed(0)}% allocation · ${f.xirr.toFixed(1)}% XIRR · ${f.vol}% volatility`}</title>
             <circle
               cx={cx} cy={cy} r={r}

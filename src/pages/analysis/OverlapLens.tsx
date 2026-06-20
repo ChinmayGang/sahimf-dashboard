@@ -158,7 +158,7 @@ export function OverlapLens() {
   // ── New investor state ─────────────────────────────────────────────────────
   if (investCount === 0) {
     return (
-      <div className="p-6 max-w-5xl mx-auto" style={{ background: bg }}>
+      <div className="p-6 max-w-7xl mx-auto" style={{ background: bg }}>
         <div className="flex items-center gap-3 mb-8">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
             <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />

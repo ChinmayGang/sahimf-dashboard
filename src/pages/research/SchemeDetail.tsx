@@ -75,19 +75,13 @@ const holdingsDist = [
 
 type RiskLevel = 'Low' | 'Low-Moderate' | 'Moderate' | 'Moderately High' | 'High' | 'Very High'
 
-function volatilityToRisk(v: 'Low' | 'Medium' | 'High'): RiskLevel {
-  if (v === 'Low') return 'Moderate'
-  if (v === 'Medium') return 'Moderately High'
-  return 'High'
-}
-
 const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string }> = {
-  'Low':            { label: 'Low',    idx: 0, color: '#22C55E' },
-  'Low-Moderate':   { label: 'Low',    idx: 0, color: '#22C55E' },
-  'Moderate':       { label: 'Medium', idx: 1, color: '#f59e0b' },
-  'Moderately High':{ label: 'Medium', idx: 1, color: '#f59e0b' },
-  'High':           { label: 'High',   idx: 2, color: '#ef4444' },
-  'Very High':      { label: 'High',   idx: 2, color: '#ef4444' },
+  'Low':            { label: 'Low',      idx: 0, color: '#22C55E' },
+  'Low-Moderate':   { label: 'Low',      idx: 0, color: '#22C55E' },
+  'Moderate':       { label: 'Moderate', idx: 1, color: '#f59e0b' },
+  'Moderately High':{ label: 'Moderate', idx: 1, color: '#f59e0b' },
+  'High':           { label: 'High',     idx: 2, color: '#ef4444' },
+  'Very High':      { label: 'High',     idx: 2, color: '#ef4444' },
 }
 
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
@@ -191,7 +185,7 @@ export function SchemeDetail() {
   const niftyReturn = (((niftyData[niftyData.length - 1]?.nifty ?? startVal) - startVal) / startVal * 100).toFixed(2)
   const alpha = (Number(totalReturn) - Number(niftyReturn)).toFixed(1)
 
-  const riskLevel = volatilityToRisk(fund.volatility)
+  const riskLevel = fund.volatility
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null)
   const fundNews = FUND_NEWS[fund.id] ?? []
 
@@ -755,8 +749,8 @@ export function SchemeDetail() {
                 <Riskometer level={riskLevel} lm={lm} />
               </div>
               <div className="mt-3 flex justify-around">
-                {(['Low', 'Medium', 'High'] as const).map((lvl) => {
-                  const cfg = { Low: '#22C55E', Medium: '#f59e0b', High: '#ef4444' }
+                {(['Low', 'Moderate', 'High'] as const).map((lvl) => {
+                  const cfg = { Low: '#22C55E', Moderate: '#f59e0b', High: '#ef4444' }
                   const active = RISK_3_MAP[riskLevel]?.label === lvl
                   return (
                     <div key={lvl} className="flex items-center gap-1.5">

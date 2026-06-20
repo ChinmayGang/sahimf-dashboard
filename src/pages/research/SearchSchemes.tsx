@@ -117,7 +117,7 @@ export function SearchSchemes() {
 
         {/* Volatility */}
         <FilterSection title="Volatility">
-          {(['Low', 'Medium', 'High'] as const).map((v) => (
+          {(['Low', 'Moderate', 'High'] as const).map((v) => (
             <label key={v} className="flex items-center gap-2 cursor-pointer py-1 group">
               <input
                 type="checkbox"

@@ -83,7 +83,7 @@ function MetricCard({ label, value, sub, change, accent }: { label: string; valu
 /* ─── Sample data ─────────────────────────────────────────────── */
 const FUNDS = [
   { name: 'Mirae Asset Large Cap Fund', amc: 'Mirae Asset', cat: 'Large Cap', nav: 107.42, change: 0.34, r1y: 18.7, r3y: 14.2, vol: 'Low' as const },
-  { name: 'Parag Parikh Flexi Cap Fund', amc: 'PPFAS', cat: 'Flexi Cap', nav: 84.15, change: -0.12, r1y: 22.3, r3y: 19.8, vol: 'Medium' as const },
+  { name: 'Parag Parikh Flexi Cap Fund', amc: 'PPFAS', cat: 'Flexi Cap', nav: 84.15, change: -0.12, r1y: 22.3, r3y: 19.8, vol: 'Moderate' as const },
   { name: 'HDFC Mid-Cap Opportunities', amc: 'HDFC', cat: 'Mid Cap', nav: 153.67, change: 0.91, r1y: 31.5, r3y: 24.1, vol: 'High' as const },
 ]
 

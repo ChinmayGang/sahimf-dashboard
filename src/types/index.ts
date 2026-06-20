@@ -42,7 +42,7 @@ export interface Fund {
     '5Y'?: number
     MAX?: number
   }
-  volatility: 'Low' | 'Medium' | 'High'
+  volatility: 'Low' | 'Low-Moderate' | 'Moderate' | 'Moderately High' | 'High' | 'Very High'
   expenseRatio: number
   exitLoad: number
   sharpeRatio: number
@@ -122,7 +122,7 @@ export interface SahiFund {
     '1Y'?: number
     '3Y'?: number
   }
-  volatility: 'Low' | 'Medium' | 'High'
+  volatility: 'Low' | 'Low-Moderate' | 'Moderate' | 'Moderately High' | 'High' | 'Very High'
   accessTier: 'free' | 'pro' | 'wealth'
   tags: string[]
   holdings?: SahiFundHolding[]

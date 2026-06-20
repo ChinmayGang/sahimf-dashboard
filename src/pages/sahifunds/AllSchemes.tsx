@@ -212,7 +212,7 @@ export function AllSchemes() {
             </FilterSection>
 
             <FilterSection title="Volatility">
-              {(['Low', 'Medium', 'High'] as const).map((v) => (
+              {(['Low', 'Moderate', 'High'] as const).map((v) => (
                 <label key={v} className="flex items-center gap-2 cursor-pointer py-1">
                   <input type="checkbox" checked={selectedVolatility.includes(v)} onChange={() => toggleVol(v)} className="w-3 h-3" style={{ accentColor: accent }} />
                   <VolatilityBadge level={v} />

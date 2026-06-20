@@ -86,7 +86,7 @@ export const mockSahiFunds: SahiFund[] = [
     lastRebalance: '2026-04-01',
     nextRebalance: '2027-04-01',
     returns: { '1M': 2.4, '3M': 7.2, '6M': 12.8, '1Y': 21.4, '3Y': 17.6 },
-    volatility: 'Medium',
+    volatility: 'Moderate',
     accessTier: 'free',
     tags: ['ELSS', 'Tax Saving', '80C', 'Equity'],
     holdingsDistribution: [
@@ -108,7 +108,7 @@ export const mockSahiFunds: SahiFund[] = [
     lastRebalance: '2026-01-01',
     nextRebalance: '2027-01-01',
     returns: { '1M': 2.1, '3M': 6.4, '6M': 11.2, '1Y': 19.8, '3Y': 15.4 },
-    volatility: 'Medium',
+    volatility: 'Moderate',
     accessTier: 'pro',
     tags: ['Index', 'Passive', 'Low Cost', 'Nifty 50'],
     holdingsDistribution: [
@@ -273,7 +273,7 @@ export const mockSahiFunds: SahiFund[] = [
     lastRebalance: '2026-01-01',
     nextRebalance: '2027-01-01',
     returns: { '1M': 3.1, '3M': 9.2, '6M': 15.6, '1Y': 24.2, '3Y': 19.4 },
-    volatility: 'Medium',
+    volatility: 'Moderate',
     accessTier: 'free',
     tags: ['ELSS', 'Tax Saving', '80C'],
     holdingsDistribution: [
@@ -328,7 +328,7 @@ export const mockSahiFunds: SahiFund[] = [
     lastRebalance: '2026-01-01',
     nextRebalance: '2026-07-01',
     returns: { '1M': 2.2, '3M': 6.4, '6M': 11.2, '1Y': 18.9, '3Y': 15.1 },
-    volatility: 'Medium',
+    volatility: 'Moderate',
     accessTier: 'free',
     tags: ['Large Cap', 'Bluechip', 'Core'],
     holdingsDistribution: [
