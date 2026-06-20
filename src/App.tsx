@@ -82,7 +82,7 @@ export default function App() {
             <Route path="mutual-funds/goals" element={<Goals />} />
             {/* All tools merged into one tabbed page; legacy paths deep-link to a tab */}
             <Route path="mutual-funds/tools/sip" element={<Calculator />} />
-            <Route path="mutual-funds/tools/sip-whatif" element={<Navigate to="/mutual-funds/tools/sip?tab=whatif" replace />} />
+            <Route path="mutual-funds/tools/sip-whatif" element={<Navigate to="/mutual-funds/tools/sip" replace />} />
             <Route path="mutual-funds/tools/lumpsum" element={<Navigate to="/mutual-funds/tools/sip?tab=lumpsum" replace />} />
             <Route path="mutual-funds/tools/swp" element={<Navigate to="/mutual-funds/tools/sip?tab=swp" replace />} />
             <Route path="mutual-funds/tools/stp" element={<Navigate to="/mutual-funds/tools/sip?tab=stp" replace />} />

@@ -26,13 +26,19 @@ function formatINR(n: number) {
 const CHART_COLORS = ['#d6fd70', '#6366f1', '#22c55e', '#f59e0b', '#0891b2', '#ec4899', '#14b8a6', '#a855f7', '#f97316', '#ef4444']
 const NIFTY_COLOR = '#64748b'
 
-export function SIPWhatIf({ embedded = false }: { embedded?: boolean } = {}) {
+export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: yearsProp }: { embedded?: boolean; monthly?: number; years?: number } = {}) {
   const lm = useUIStore((s) => s.lightMode)
   const { can } = usePlan()
   const isPro = can('pro')
 
-  const [monthly, setMonthly] = useState(5000)
-  const [years, setYears] = useState(5)
+  // When monthly/years are supplied by a parent (e.g. the merged SIP Calculator),
+  // this view is "controlled" — it drops its own SIP/duration sliders and just
+  // re-ranks funds for the parent's inputs. (R2-4)
+  const controlled = monthlyProp !== undefined && yearsProp !== undefined
+  const [monthlyState, setMonthly] = useState(5000)
+  const [yearsState, setYears] = useState(5)
+  const monthly = controlled ? monthlyProp! : monthlyState
+  const years = controlled ? yearsProp! : yearsState
   const [category, setCategory] = useState('All')
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
@@ -85,35 +91,46 @@ export function SIPWhatIf({ embedded = false }: { embedded?: boolean } = {}) {
       <div className="grid grid-cols-3 gap-5">
         {/* Left: controls */}
         <div className={`${card} rounded-xl p-5 space-y-5`}>
-          {/* Monthly SIP */}
-          <div>
-            <div className="flex justify-between mb-2">
-              <label className={`text-xs font-medium ${textSub}`}>Monthly SIP</label>
-              <span className={`text-xs font-bold ${accentText}`}>₹{monthly.toLocaleString('en-IN')}</span>
+          {/* Monthly SIP + Duration — hidden when driven by the SIP Calculator above (R2-4) */}
+          {controlled ? (
+            <div className="rounded-lg px-3 py-2.5" style={{ background: lm ? '#F5F3FF' : 'rgba(79,70,229,0.08)', border: `1px solid ${lm ? '#ddd6fe' : 'rgba(79,70,229,0.2)'}` }}>
+              <p className={`text-[11px] leading-relaxed ${textSub}`}>
+                Ranking funds for your SIP above — <span className={`font-bold ${accentText}`}>₹{monthly.toLocaleString('en-IN')}/mo</span> over <span className={`font-bold ${accentText}`}>{years}Y</span>. Adjust the calculator to update.
+              </p>
             </div>
-            <input type="range" min={500} max={50000} step={500} value={monthly}
-              onChange={e => setMonthly(Number(e.target.value))} className="w-full accent-[#4f46e5]" />
-            <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
-              <span>₹500</span><span>₹50K</span>
-            </div>
-          </div>
+          ) : (
+            <>
+              {/* Monthly SIP */}
+              <div>
+                <div className="flex justify-between mb-2">
+                  <label className={`text-xs font-medium ${textSub}`}>Monthly SIP</label>
+                  <span className={`text-xs font-bold ${accentText}`}>₹{monthly.toLocaleString('en-IN')}</span>
+                </div>
+                <input type="range" min={500} max={50000} step={500} value={monthly}
+                  onChange={e => setMonthly(Number(e.target.value))} className="w-full accent-[#4f46e5]" />
+                <div className={`flex justify-between text-[10px] ${textMuted} mt-1`}>
+                  <span>₹500</span><span>₹50K</span>
+                </div>
+              </div>
 
-          {/* Duration */}
-          <div>
-            <label className={`text-xs font-medium ${textSub} block mb-2`}>Duration</label>
-            <div className="flex gap-1.5 flex-wrap">
-              {[1, 3, 5, 10, 15, 20].map(y => (
-                <button
-                  key={y}
-                  onClick={() => setYears(y)}
-                  className={`text-xs px-2.5 py-1 rounded-full transition-colors font-medium ${years === y ? 'bg-[#4f46e5] text-white' : `${textSub} border`}`}
-                  style={years !== y ? { borderColor: divider } : {}}
-                >
-                  {y}Y
-                </button>
-              ))}
-            </div>
-          </div>
+              {/* Duration */}
+              <div>
+                <label className={`text-xs font-medium ${textSub} block mb-2`}>Duration</label>
+                <div className="flex gap-1.5 flex-wrap">
+                  {[1, 3, 5, 10, 15, 20].map(y => (
+                    <button
+                      key={y}
+                      onClick={() => setYears(y)}
+                      className={`text-xs px-2.5 py-1 rounded-full transition-colors font-medium ${years === y ? 'bg-[#4f46e5] text-white' : `${textSub} border`}`}
+                      style={years !== y ? { borderColor: divider } : {}}
+                    >
+                      {y}Y
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
 
           {/* Category */}
           <div>

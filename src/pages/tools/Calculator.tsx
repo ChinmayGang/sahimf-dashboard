@@ -5,14 +5,13 @@ import { Calculator as CalculateIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { SIPWhatIf } from './SIPWhatIf'
 
-type ToolType = 'sip' | 'lumpsum' | 'swp' | 'stp' | 'whatif'
+type ToolType = 'sip' | 'lumpsum' | 'swp' | 'stp'
 
 const TABS: { key: ToolType; label: string }[] = [
   { key: 'sip', label: 'SIP' },
   { key: 'lumpsum', label: 'Lumpsum' },
   { key: 'swp', label: 'SWP' },
   { key: 'stp', label: 'STP' },
-  { key: 'whatif', label: 'What-If' },
 ]
 
 function formatINR(n: number) {
@@ -133,13 +132,13 @@ export function Calculator() {
 
   const calc = tab === 'sip' ? sip : tab === 'lumpsum' ? lumpsum : tab === 'swp' ? swp : stp
 
-  const toolLabels: Record<Exclude<ToolType, 'whatif'>, string> = {
+  const toolLabels: Record<ToolType, string> = {
     sip: 'SIP Calculator',
     lumpsum: 'Lumpsum Calculator',
     swp: 'SWP Calculator',
     stp: 'STP Calculator',
   }
-  const toolDescriptions: Record<Exclude<ToolType, 'whatif'>, string> = {
+  const toolDescriptions: Record<ToolType, string> = {
     sip: 'Calculate wealth created by investing a fixed amount every month.',
     lumpsum: 'See how a one-time investment grows over time at a given rate.',
     swp: 'Plan systematic withdrawals from your corpus without depleting it early.',
@@ -158,8 +157,8 @@ export function Calculator() {
           <CalculateIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
         </div>
         <div>
-          <h1 className={`text-lg font-semibold ${text}`}>{tab === 'whatif' ? 'SIP What-If Calculator' : toolLabels[tab]}</h1>
-          <p className={`text-xs ${textSub}`}>{tab === 'whatif' ? 'Compare how top funds would have grown your SIP — side by side.' : toolDescriptions[tab]}</p>
+          <h1 className={`text-lg font-semibold ${text}`}>{toolLabels[tab]}</h1>
+          <p className={`text-xs ${textSub}`}>{toolDescriptions[tab]}</p>
         </div>
       </div>
 
@@ -179,9 +178,6 @@ export function Calculator() {
         ))}
       </div>
 
-      {tab === 'whatif' ? (
-        <SIPWhatIf embedded />
-      ) : (
       <div className="grid grid-cols-5 gap-6">
         {/* Inputs */}
         <div className={`col-span-2 ${card} rounded-xl p-5 space-y-5`}>
@@ -287,6 +283,16 @@ export function Calculator() {
           </div>
         </div>
       </div>
+
+      {/* What-If fund comparison merged onto the SIP page — the same SIP inputs drive it (R2-4) */}
+      {tab === 'sip' && (
+        <div className="space-y-3 pt-2">
+          <div>
+            <h2 className={`text-base font-bold ${text}`}>How top funds would have grown this SIP</h2>
+            <p className={`text-xs ${textSub}`}>Ranked for ₹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR — adjust the calculator above to update.</p>
+          </div>
+          <SIPWhatIf embedded monthly={monthly} years={years} />
+        </div>
       )}
 
       <p className={`text-[10px] ${textMuted} text-center`}>
