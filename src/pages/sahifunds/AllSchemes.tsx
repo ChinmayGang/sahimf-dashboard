@@ -318,7 +318,7 @@ export function AllSchemes() {
                   <div
                     key={fund.id}
                     onClick={() => navigate(`/mutual-funds/search/${fund.id}`)}
-                    className={`${lm ? 'bg-white' : 'bg-[#14171c]'} rounded-none border border-transparent ${lm ? 'border-b-[#E0E3E8]' : 'border-b-[#1e2838]'} px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#4f46e5]' : 'hover:border-[#d6fd70]'} hover:-translate-y-0.5 hover:relative hover:z-10`}
+                    className={`${lm ? 'bg-white' : 'bg-[#14171c]'} rounded-none hover:rounded-xl border border-transparent ${lm ? 'border-b-[#E0E3E8]' : 'border-b-[#1e2838]'} px-4 py-3 cursor-pointer transition-all duration-200 grid items-center group ${lm ? 'hover:border-[#4f46e5]' : 'hover:border-[#d6fd70]'} hover:-translate-y-0.5 hover:relative hover:z-10`}
                     style={{ gridTemplateColumns: '2fr 80px 80px 80px 80px 100px' }}
                   >
                     <div className="flex items-center gap-3 min-w-0">

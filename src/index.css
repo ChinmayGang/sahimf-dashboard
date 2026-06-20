@@ -122,15 +122,16 @@
   transform: translate(-50%, -50%) rotate(0deg);
   transform-origin: center;
   width: 200%;
-  height: 10rem;
+  height: 5rem;
   background-image: linear-gradient(
     0deg,
     rgba(140, 52, 238, 0) 0%,
-    #8c34ee 40%,
-    #d6fd70 50%,
-    #8c34ee 60%,
+    rgba(140, 52, 238, 0.22) 44%,
+    rgba(214, 253, 112, 0.42) 50%,
+    rgba(140, 52, 238, 0.22) 56%,
     rgba(140, 52, 238, 0) 100%
   );
+  filter: blur(2px);
   animation: premium-rotate 7s linear infinite;
 }
 @keyframes premium-rotate {
