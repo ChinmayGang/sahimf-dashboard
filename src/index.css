@@ -96,7 +96,10 @@
   box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.12) inset;
   overflow: hidden;
 }
-.premium-plan-card__border {
+/* Higher specificity than `.premium-plan-card > *` (below) so the animated border
+   stays absolutely positioned and out of flow — otherwise it gets pulled into the
+   flex column and shoves card content down inconsistently (R2-2). */
+.premium-plan-card > .premium-plan-card__border {
   overflow: hidden;
   pointer-events: none;
   position: absolute;

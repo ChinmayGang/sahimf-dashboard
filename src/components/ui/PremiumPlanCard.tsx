@@ -53,13 +53,13 @@ export function PremiumPlanCard({
           <span className="text-3xl font-black text-white">{price}</span>
           {priceSuffix && <span className="text-xs text-white/50">{priceSuffix}</span>}
         </div>
-        <p className="mt-2 text-xs text-white/55 leading-relaxed">{paragraph}</p>
+        <p className="mt-2 text-xs text-white/55 leading-relaxed min-h-[3.75rem]">{paragraph}</p>
       </div>
 
       <hr className="border-0 h-px w-full" style={{ background: 'rgba(255,255,255,0.12)' }} />
 
-      {/* Features */}
-      <ul className="flex flex-col gap-2.5">
+      {/* Features — flex-1 so the CTA pins to the bottom and lines up across cards */}
+      <ul className="flex flex-col gap-2.5 flex-1">
         {features.map((f) => (
           <li key={f} className="flex items-center gap-2.5">
             <span className="flex items-center justify-center w-4 h-4 rounded-full flex-shrink-0" style={{ background: accent }}>

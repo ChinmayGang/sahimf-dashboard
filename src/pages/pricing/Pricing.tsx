@@ -79,21 +79,30 @@ export function Pricing() {
 
         {/* Plan cards */}
         <div className="grid grid-cols-3 gap-5 mb-14 items-stretch">
-          {/* Free — light card */}
-          <div className="bg-white rounded-2xl border border-[#E0E3E8] p-6 flex flex-col">
-            <p className="text-xs font-bold text-[#6B7280] uppercase tracking-widest mb-1">Free</p>
-            <div className="flex items-end gap-1 mb-1">
-              <span className="text-3xl font-black text-[#111827]">₹0</span>
+          {/* Free — light card. Structure mirrors PremiumPlanCard 1:1 (flex-col gap-4:
+              header block → divider → features → CTA) so titles, prices, the breaker
+              line and CTAs line up across all three columns (R2-2). */}
+          <div className="bg-white rounded-2xl border border-[#E0E3E8] p-6 flex flex-col gap-4">
+            {/* Header block — same internal spacing as the premium cards */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#F3F4F6' }}>
+                  <SparkleIcon size={20} color="#9CA3AF" weight="fill" />
+                </div>
+              </div>
+              <span className="text-base font-bold text-[#111827]">Free</span>
+              <div className="flex items-baseline gap-1 mt-2">
+                <span className="text-3xl font-black text-[#111827]">₹0</span>
+                <span className="text-xs text-[#9CA3AF]">forever</span>
+              </div>
+              <p className="mt-2 text-xs text-[#6B7280] leading-relaxed min-h-[3.75rem]">
+                Everything you need to start — research, fund search and a basic SIP calculator, free for life.
+              </p>
             </div>
-            <p className="text-xs text-[#6B7280] mb-5">Forever free</p>
-            <button
-              onClick={() => purchase('free')}
-              className="w-full py-2.5 rounded-full border border-[#E0E3E8] text-sm font-semibold text-[#374151] hover:bg-[#F9FAFB] transition-colors mb-5"
-            >
-              {user?.plan === 'free' ? 'Current Plan' : 'Switch to Free'}
-            </button>
-            <hr className="border-0 h-px w-full bg-[#F0F0F0] mb-4" />
-            <ul className="space-y-2.5 text-xs text-[#374151]">
+
+            <hr className="border-0 h-px w-full bg-[#F0F0F0]" />
+
+            <ul className="flex flex-col gap-2.5 text-xs text-[#374151] flex-1">
               {['Overview dashboard', '1 portfolio', 'Fund search & scheme details', 'SIP calculator (basic)', 'Sahi Funds info view'].map(f => (
                 <li key={f} className="flex items-center gap-2.5">
                   <span className="flex items-center justify-center w-4 h-4 rounded-full bg-[#dcfce7] flex-shrink-0">
@@ -103,6 +112,13 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
+
+            <button
+              onClick={() => purchase('free')}
+              className="mt-1 w-full py-2.5 rounded-full border border-[#E0E3E8] text-sm font-semibold text-[#374151] hover:bg-[#F9FAFB] transition-colors"
+            >
+              {user?.plan === 'free' ? 'Current Plan' : 'Switch to Free'}
+            </button>
           </div>
 
           {/* PRO — premium animated card */}
