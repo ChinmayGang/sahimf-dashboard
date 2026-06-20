@@ -188,13 +188,12 @@ select.appearance-none {
 [data-theme="light"] [class~="border-[#1e2838]"] { border-color: #F0F0F0 !important; }
 [data-theme="light"] [class~="border-[#14171c]"] { border-color: #F0F0F0 !important; }
 
-/* Primary text — white becomes near-black */
-[data-theme="light"] .text-white { color: #18181B !important; }
-
-/* Keep white text on intentionally colored backgrounds */
-[data-theme="light"] [class~="bg-[#4f46e5]"] .text-white,
-[data-theme="light"] [class~="bg-[#4f46e5]"][class~="text-white"] { color: #FFFFFF !important; }
-[data-theme="light"] .bg-black\/40 .text-white { color: #FFFFFF !important; }
+/* `text-white` always stays white. It is only ever used on dark / coloured
+   surfaces (indigo buttons, badges, gradient bars, dark cards). Surfaces that
+   need to flip between themes use a theme-aware token instead
+   (e.g. `lm ? 'text-[#111827]' : 'text-white'`), so no blanket light-mode
+   override is needed. This removes the long-standing footgun where `text-white`
+   on an inline-gradient background silently turned near-black. (#11) */
 
 /* Secondary / muted text */
 [data-theme="light"] [class~="text-[#8390a2]"] { color: #52525B !important; }
@@ -205,9 +204,6 @@ select.appearance-none {
 [data-theme="light"] [class~="hover:bg-[#1e2838]"]:hover { background-color: #F0F0F0 !important; }
 [data-theme="light"] [class~="hover:bg-[#14171c]"]:hover { background-color: #F5F5F5 !important; }
 [data-theme="light"] [class~="hover:bg-[#3c4653]"]:hover { background-color: #EBEBEB !important; }
-
-/* Hover text — prevent white-on-white */
-[data-theme="light"] [class~="hover:text-white"]:hover { color: #18181B !important; }
 
 /* Hover borders */
 [data-theme="light"] [class~="hover:border-[#3c4653]"]:hover { border-color: #D1D5DB !important; }

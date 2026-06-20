@@ -214,7 +214,7 @@
 | Database | Supabase (Postgres + Auth + Edge Functions) |
 | Mobile breakpoint | 768px — bottom tab bar, 1-col layouts |
 | Plan tiers | `free \| pro \| wealth` (not elite — renamed to Sahi Wealth) |
-| `text-white` light-mode footgun | Use `text-[#ffffff]` (arbitrary class) on dark bg elements inside light mode — bypasses `[data-theme="light"] .text-white { color: #18181B !important }` override in `index.css` |
+| `text-white` light-mode footgun | RESOLVED (#11) — the blanket `[data-theme="light"] .text-white` override was removed. `text-white` now always renders white (only used on dark/coloured surfaces); surfaces that flip use a theme-aware token (`lm ? 'text-[#111827]' : 'text-white'`). Existing `text-[#ffffff]` workarounds still work but are no longer required. |
 
 ---
 
