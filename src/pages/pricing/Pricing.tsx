@@ -153,7 +153,7 @@ export function Pricing() {
         <div className="bg-white rounded-2xl border border-[#E0E3E8] overflow-hidden mb-10">
           <div className="grid grid-cols-4 border-b border-[#E0E3E8]">
             <div className="p-4 col-span-1">
-              <p className="text-xs font-bold text-[#374151] uppercase tracking-wider">Features</p>
+              <p className="text-xs font-bold text-[#111827] uppercase tracking-wider">Features</p>
             </div>
             {[{ label: 'Free', color: '#6B7280' }, { label: 'PRO', color: '#4f46e5' }, { label: 'Wealth', color: '#ea580c' }].map(t => (
               <div key={t.label} className="p-4 text-center">

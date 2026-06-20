@@ -102,7 +102,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             >
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]">Key Strengths</p>
+                  <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Key Strengths</p>
                   {data.strengths.map((s, i) => (
                     <div key={i} className="flex items-start gap-1.5 mb-1.5">
                       <CheckIcon size={11} color="#22c55e" weight="bold" style={{ flexShrink: 0, marginTop: 2 }} />
@@ -111,7 +111,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
                   ))}
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]">Watch Points</p>
+                  <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Watch Points</p>
                   {data.concerns.map((c, i) => (
                     <div key={i} className="flex items-start gap-1.5 mb-1.5">
                       <WarnIcon size={11} color="#f59e0b" weight="fill" style={{ flexShrink: 0, marginTop: 2 }} />
@@ -141,7 +141,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           <>
             <div className="mt-3 grid grid-cols-2 gap-3">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]">Key Strengths</p>
+                <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Key Strengths</p>
                 {data.strengths.map((s, i) => (
                   <div key={i} className="flex items-start gap-1.5 mb-1.5">
                     <CheckIcon size={11} color="#16a34a" weight="bold" style={{ flexShrink: 0, marginTop: 2 }} />
@@ -150,7 +150,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
                 ))}
               </div>
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]">Watch Points</p>
+                <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Watch Points</p>
                 {data.concerns.map((c, i) => (
                   <div key={i} className="flex items-start gap-1.5 mb-1.5">
                     <WarnIcon size={11} color="#f59e0b" weight="fill" style={{ flexShrink: 0, marginTop: 2 }} />
@@ -161,7 +161,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             </div>
 
             <div className="mt-4 pt-4 border-t border-[#E0E3E8]">
-              <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#374151]">Sahi Score Breakdown</p>
+              <p className={`text-[10px] font-semibold uppercase tracking-wider mb-3 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Sahi Score Breakdown</p>
               <div className="space-y-2">
                 {data.subScores.map((s) => (
                   <ScoreBar key={s.label} label={s.label} value={s.value} lm={lm} />
@@ -173,7 +173,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
               className="mt-4 rounded-xl px-3 py-2.5"
               style={{ background: '#F8F6FF', border: '1px solid #ede9fe' }}
             >
-              <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#374151]">Analyst Note</p>
+              <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Analyst Note</p>
               <p className={`text-[11px] leading-relaxed italic ${textSub}`}>{data.analystNote}</p>
               <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} · For research purposes only</p>
             </div>

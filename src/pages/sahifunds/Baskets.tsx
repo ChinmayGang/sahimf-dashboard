@@ -192,7 +192,7 @@ export function Baskets() {
               <button onClick={() => setShowMethodology(false)}><CloseIcon size={18} weight="bold" color={lm ? '#9CA3AF' : '#64748b'} /></button>
             </div>
             <div>
-              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-2`}>Fund Composition</p>
+              <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-2`}>Fund Composition</p>
               <div className="space-y-1.5">
                 {selectedBasket.fundNames.map((fn, i) => (
                   <div key={fn} className="flex items-center gap-2">
@@ -204,7 +204,7 @@ export function Baskets() {
               </div>
             </div>
             <div>
-              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-2`}>How it works</p>
+              <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-2`}>How it works</p>
               <p className={`text-xs leading-relaxed ${textSub}`}>{selectedBasket.methodology}</p>
             </div>
             <p className={`text-[10px] ${textMuted}`}>Past CAGR range is for illustrative purposes only. Not a guarantee of returns. SEBI Registered Research Analyst.</p>

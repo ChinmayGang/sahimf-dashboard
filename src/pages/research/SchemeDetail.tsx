@@ -372,7 +372,7 @@ export function SchemeDetail() {
             )}
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="text-[11px] font-bold text-[#374151] uppercase tracking-wider mb-1">{item.label}</p>
+                <p className="text-[11px] font-bold text-[#111827] uppercase tracking-wider mb-1">{item.label}</p>
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-3xl font-black leading-none" style={{ color: tier.color }}>
                     {item.rank}<span className="text-base font-bold">{ordinal(item.rank).replace(String(item.rank), '')}</span>
@@ -499,7 +499,7 @@ export function SchemeDetail() {
 
             {/* Risk metrics row */}
             <div className={`${card} rounded-xl p-4`}>
-              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Risk Metrics</p>
+              <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Risk Metrics</p>
               <div className="grid grid-cols-4 gap-3">
                 {[
                   { label: 'Alpha (1Y)', value: alpha, suffix: '%', color: Number(alpha) >= 0 ? '#22c55e' : '#ef4444', free: true },
@@ -744,7 +744,7 @@ export function SchemeDetail() {
 
             {/* Riskometer */}
             <div className={`${card} rounded-xl p-5`}>
-              <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Risk Level</p>
+              <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Risk Level</p>
               <div className="flex justify-center">
                 <Riskometer level={riskLevel} lm={lm} />
               </div>
@@ -849,7 +849,7 @@ export function SchemeDetail() {
               </div>
               <div className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2 border-b`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
                 {['Ex-Date', 'Record Date', 'NAV', 'Amount', 'Type'].map(h => (
-                  <span key={h} className={`text-[10px] font-bold uppercase tracking-wider text-[#374151]`}>{h}</span>
+                  <span key={h} className={`text-[10px] font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>{h}</span>
                 ))}
               </div>
               {dividends.map((d) => (

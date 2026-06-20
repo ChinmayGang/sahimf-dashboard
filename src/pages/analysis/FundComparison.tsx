@@ -379,7 +379,7 @@ export function FundComparison() {
           {/* Metrics table */}
           <div className={`${card} rounded-2xl overflow-hidden`}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
-              <div className={`px-5 py-3 text-[11px] font-semibold text-[#374151] uppercase tracking-wider`}>Metric</div>
+              <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Metric</div>
               {selectedFunds.map((f, idx) => (
                 <div key={f.id} className="px-4 py-3 text-center">
                   <div className="w-2 h-2 rounded-full mx-auto mb-1" style={{ background: COLORS[idx] }} />
@@ -448,7 +448,7 @@ export function FundComparison() {
       {activeTab === 'manager' && (
         <div className={`${card} rounded-2xl overflow-hidden`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
-            <div className={`px-5 py-3 text-[11px] font-semibold text-[#374151] uppercase tracking-wider`}>Fund Manager</div>
+            <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Manager</div>
             {selectedFunds.map((f, idx) => (
               <div key={f.id} className="px-4 py-3 text-center">
                 <div className="w-2 h-2 rounded-full mx-auto mb-1" style={{ background: COLORS[idx] }} />
@@ -474,7 +474,7 @@ export function FundComparison() {
 
           {/* Pros & Cons */}
           <div className={`px-5 py-4 border-t ${dividerColor}`}>
-            <p className={`text-[11px] font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Pros & Cons</p>
+            <p className={`text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Pros & Cons</p>
             <div style={{ display: 'grid', gridTemplateColumns: `repeat(${selectedFunds.length}, 1fr)`, gap: '1rem' }}>
               {selectedFunds.map((f, idx) => {
                 const ext = FUND_EXTENDED[f.id]
@@ -510,7 +510,7 @@ export function FundComparison() {
         <PlanGate requiredTier="pro" label="Portfolio Details — Sahi PRO">
           <div className={`${card} rounded-2xl overflow-hidden`}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
-              <div className={`px-5 py-3 text-[11px] font-semibold text-[#374151] uppercase tracking-wider`}>Portfolio Metric</div>
+              <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Portfolio Metric</div>
               {selectedFunds.map((f, idx) => (
                 <div key={f.id} className="px-4 py-3 text-center">
                   <div className="w-2 h-2 rounded-full mx-auto mb-1" style={{ background: COLORS[idx] }} />
@@ -567,7 +567,7 @@ export function FundComparison() {
 
             {/* Equity/Cash bars */}
             <div className={`px-5 py-4 border-t ${dividerColor}`}>
-              <p className={`text-[11px] font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Equity vs Cash Split</p>
+              <p className={`text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Equity vs Cash Split</p>
               <div style={{ display: 'grid', gridTemplateColumns: `repeat(${selectedFunds.length}, 1fr)`, gap: '1rem' }}>
                 {selectedFunds.map((f, idx) => {
                   const ext = FUND_EXTENDED[f.id]
@@ -656,7 +656,7 @@ export function FundComparison() {
       {activeTab === 'fundinfo' && (
         <div className={`${card} rounded-2xl overflow-hidden`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
-            <div className={`px-5 py-3 text-[11px] font-semibold text-[#374151] uppercase tracking-wider`}>Fund Information</div>
+            <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Information</div>
             {selectedFunds.map((f, idx) => (
               <div key={f.id} className="px-4 py-3 text-center">
                 <div className="w-2 h-2 rounded-full mx-auto mb-1" style={{ background: COLORS[idx] }} />
@@ -692,7 +692,7 @@ export function FundComparison() {
 
           {/* Tags */}
           <div className={`px-5 py-4 border-t ${dividerColor}`}>
-            <p className={`text-[11px] font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Tags</p>
+            <p className={`text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Tags</p>
             <div style={{ display: 'grid', gridTemplateColumns: `repeat(${selectedFunds.length}, 1fr)`, gap: '1rem' }}>
               {selectedFunds.map((f) => (
                 <div key={f.id} className="flex flex-wrap gap-1">

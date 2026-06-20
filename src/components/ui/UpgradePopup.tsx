@@ -74,7 +74,7 @@ export function UpgradePopup({ open, onClose, feature, description }: UpgradePop
 
           {/* Body */}
           <div className="px-6 py-5">
-            <p className="text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3">What you unlock with Sahi PRO</p>
+            <p className="text-xs font-semibold text-[#111827] uppercase tracking-wider mb-3">What you unlock with Sahi PRO</p>
             <ul className="space-y-2 mb-5">
               {PRO_HIGHLIGHTS.map(item => (
                 <li key={item} className="flex items-center gap-2 text-sm text-[#374151]">

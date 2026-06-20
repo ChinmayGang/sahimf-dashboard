@@ -357,7 +357,7 @@ export function SahiFundDetail() {
               <div className={`${card} rounded-2xl overflow-hidden`}>
                 <div className={`grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
                   {['Fund Name', 'Weight', '1Y Return'].map((h) => (
-                    <span key={h} className={`text-[11px] font-semibold text-[#374151] uppercase tracking-wider`}>{h}</span>
+                    <span key={h} className={`text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>{h}</span>
                   ))}
                 </div>
                 {(fund.holdings ?? []).map((h, i) => (

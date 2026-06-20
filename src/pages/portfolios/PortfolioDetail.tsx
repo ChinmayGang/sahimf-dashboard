@@ -97,7 +97,7 @@ export function PortfolioDetail() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* XIRR vs Nifty */}
         <div className={`${card} rounded-xl p-4`}>
-          <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider mb-3`}>Portfolio XIRR vs Benchmark</p>
+          <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Portfolio XIRR vs Benchmark</p>
           {(() => {
             const nifty3Y = 14.2
             const alpha = (portfolio.xirr - nifty3Y).toFixed(1)
@@ -131,7 +131,7 @@ export function PortfolioDetail() {
         {/* Sector spread */}
         <div className={`${card} rounded-xl p-4`}>
           <div className="flex items-center justify-between mb-3">
-            <p className={`text-xs font-semibold text-[#374151] uppercase tracking-wider`}>Sector spread</p>
+            <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Sector spread</p>
             <button
               onClick={() => window.location.href = '/mutual-funds/overlap'}
               className="text-[10px] font-semibold px-2 py-1 rounded-lg transition-colors"
@@ -278,7 +278,7 @@ export function PortfolioDetail() {
 
                   {/* Peer cards */}
                   <div className="px-5 py-3 space-y-2">
-                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 text-[#374151]`}>Category peers with better Sahi Score</p>
+                    <p className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Category peers with better Sahi Score</p>
                     {visiblePeers.map(peer => (
                       <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
                         <div className="flex-1 min-w-0">

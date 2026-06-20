@@ -248,7 +248,7 @@ export function OverlapLens() {
       {/* Fund Picker */}
       <div className={`rounded-2xl p-4 ${card}`}>
         <div className="flex items-center justify-between mb-3">
-          <p className={`text-xs font-semibold uppercase tracking-wider text-[#374151]`}>Funds being analysed</p>
+          <p className={`text-xs font-semibold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Funds being analysed</p>
           <button
             onClick={() => selectedIds.length < 5 && setPickerOpen(p => !p)}
             disabled={selectedIds.length >= 5}

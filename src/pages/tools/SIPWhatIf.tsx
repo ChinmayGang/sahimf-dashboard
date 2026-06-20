@@ -215,7 +215,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
           <div className={`${card} rounded-xl overflow-hidden`}>
             <div className={`grid grid-cols-[24px_1fr_80px_90px_90px_90px] gap-3 px-4 py-2.5 border-b`} style={{ borderColor: divider }}>
               {['#', 'Fund', 'Category', 'Rate', 'Final Corpus', 'vs Nifty'].map(h => (
-                <span key={h} className={`text-[10px] font-bold uppercase tracking-wider text-[#374151]`}>{h}</span>
+                <span key={h} className={`text-[10px] font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>{h}</span>
               ))}
             </div>
 
