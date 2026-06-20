@@ -2,6 +2,8 @@ import { useEffect, useId, useState } from 'react'
 import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
 
+type SparkleDirection = 'none' | 'top' | 'bottom' | 'left' | 'right'
+
 interface SparklesProps {
   className?: string
   size?: number
@@ -14,6 +16,8 @@ interface SparklesProps {
   minOpacity?: number | null
   color?: string
   background?: string
+  /** Drift direction for the particles (default: 'none' = random). */
+  direction?: SparkleDirection
   options?: Record<string, unknown>
 }
 
@@ -36,6 +40,7 @@ export function Sparkles({
   minOpacity = null,
   color = '#FFFFFF',
   background = 'transparent',
+  direction = 'none',
   options = {},
 }: SparklesProps) {
   const [isReady, setIsReady] = useState(false)
@@ -58,9 +63,11 @@ export function Sparkles({
       color: { value: color },
       move: {
         enable: true,
-        direction: 'none',
+        direction,
         speed: { min: minSpeed || speed / 10, max: speed },
         straight: false,
+        // When rising/falling, respawn off the opposite edge for a continuous stream.
+        outModes: direction === 'none' ? { default: 'out' } : { default: 'out', top: 'destroy', bottom: 'none' },
       },
       number: { value: density },
       opacity: {

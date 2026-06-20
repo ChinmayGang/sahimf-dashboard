@@ -33,18 +33,40 @@ export function PremiumPlanCard({
 }: PremiumPlanCardProps) {
   return (
     <div className="premium-plan-card w-full">
-      {/* Drifting sparkles layer — sits behind the content (z-0) */}
+      {/* Sparkles emit from a glowing baseline at the bottom and rise + dissolve
+          toward the top (z-0, behind the content). */}
       <div className="inset-0 rounded-2xl overflow-hidden" style={{ position: 'absolute', zIndex: 0 }}>
-        <Sparkles
-          className="absolute inset-0"
-          color={accent}
-          density={420}
-          size={1.3}
-          minSize={0.4}
-          speed={0.6}
-          opacity={0.8}
-          opacitySpeed={2.5}
+        {/* Bottom radial glow */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2"
+          style={{ width: '140%', height: '55%', background: `radial-gradient(50% 60% at 50% 100%, ${accent}33 0%, transparent 72%)` }}
         />
+        {/* Bright horizon line */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2"
+          style={{ width: '70%', height: '1px', background: `linear-gradient(90deg, transparent, ${accent}, transparent)`, boxShadow: `0 0 8px ${accent}` }}
+        />
+        {/* Rising particles, masked so they fade out as they reach the top */}
+        <div
+          className="absolute inset-0"
+          style={{
+            maskImage: 'linear-gradient(to top, #000 0%, #000 25%, transparent 85%)',
+            WebkitMaskImage: 'linear-gradient(to top, #000 0%, #000 25%, transparent 85%)',
+          }}
+        >
+          <Sparkles
+            className="absolute inset-0"
+            color={accent}
+            direction="top"
+            density={120}
+            size={1.4}
+            minSize={0.5}
+            speed={1.4}
+            minSpeed={0.4}
+            opacity={0.9}
+            opacitySpeed={2}
+          />
+        </div>
       </div>
 
       {/* Title */}
