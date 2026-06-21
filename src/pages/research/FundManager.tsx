@@ -116,8 +116,8 @@ export function FundManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          <div className={`w-10 h-10 rounded-xl ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'} flex items-center justify-center`}>
+            <AccountBalanceIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Manager / AMFI</h1>
