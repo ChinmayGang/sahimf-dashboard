@@ -95,7 +95,7 @@ export function ExploreSahiFunds() {
               <div className={`grid grid-cols-3 gap-3 pt-4 border-t ${divider}`}>
                 <div>
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>Min Amount</p>
-                  <p className={`text-xs font-semibold ${text}`}>�‚�{fund.minAmount.toLocaleString('en-IN')}</p>
+                  <p className={`text-xs font-semibold ${text}`}>₹{fund.minAmount.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>{fund.fundCount} Funds</p>

@@ -103,7 +103,7 @@ export function DesignSystem() {
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full text-xs font-semibold"
             style={{ background: `${ACCENT}20`, color: '#3B5E00' }}>
             <AutoAwesomeIcon size={12} weight="regular" />
-            For approval � v1.0
+            For approval · v1.0
           </div>
           <h1 className="text-4xl font-bold mb-2" style={{ color: T1 }}>SahiMF Design System</h1>
           <p className="text-base" style={{ color: T2 }}>
@@ -121,10 +121,10 @@ export function DesignSystem() {
             <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: T3 }}>Surfaces</p>
             <div className="grid grid-cols-4 gap-3">
               {[
-                { label: 'Page BG', bg: PAGE_BG, border: false, desc: 'Purple-lavender gradient � main content area' },
-                { label: 'Card', bg: CARD, border: true, desc: 'White � all cards and panels' },
-                { label: 'Surface 2', bg: SURFACE_2, border: true, desc: '#F9FAFB � table rows, alt bg' },
-                { label: 'Sidebar', bg: '#111111', border: false, desc: '#111111 � always dark, never themed' },
+                { label: 'Page BG', bg: PAGE_BG, border: false, desc: 'Purple-lavender gradient · main content area' },
+                { label: 'Card', bg: CARD, border: true, desc: 'White · all cards and panels' },
+                { label: 'Surface 2', bg: SURFACE_2, border: true, desc: '#F9FAFB · table rows, alt bg' },
+                { label: 'Sidebar', bg: '#111111', border: false, desc: '#111111 · always dark, never themed' },
               ].map(s => (
                 <div key={s.label}>
                   <div className="h-16 rounded-xl mb-2" style={{ background: s.bg, border: s.border ? `1px solid ${CARD_BORDER}` : 'none', boxShadow: CARD_SHADOW }} />
@@ -170,8 +170,8 @@ export function DesignSystem() {
                 { label: 'Section Title', size: 'text-xl',    weight: 'font-semibold',  sample: 'My Portfolios',          token: 'text-xl / 600' },
                 { label: 'Card Title',    size: 'text-base',  weight: 'font-semibold',  sample: 'Portfolio Performance',  token: 'text-base / 600' },
                 { label: 'Body',          size: 'text-sm',    weight: 'font-normal',    sample: 'Mutual funds are subject to market risks. Read all scheme documents carefully.', token: 'text-sm / 400' },
-                { label: 'Label / Meta',  size: 'text-xs',    weight: 'font-medium',    sample: 'TOTAL INVESTED � 24 FUNDS � XIRR 14.2%', token: 'text-xs / 500 � uppercase tracking-wider' },
-                { label: 'Micro',         size: 'text-[10px]',weight: 'font-semibold',  sample: 'LARGE CAP � DIRECT � GROWTH',  token: '10px / 600 � pills' },
+                { label: 'Label / Meta',  size: 'text-xs',    weight: 'font-medium',    sample: 'TOTAL INVESTED · 24 FUNDS · XIRR 14.2%', token: 'text-xs / 500 · uppercase tracking-wider' },
+                { label: 'Micro',         size: 'text-[10px]',weight: 'font-semibold',  sample: 'LARGE CAP · DIRECT · GROWTH',  token: '10px / 600 · pills' },
               ].map(t => (
                 <div key={t.label} className="flex items-baseline gap-6 pt-4 first:pt-0">
                   <div className="w-32 flex-shrink-0">
@@ -189,7 +189,7 @@ export function DesignSystem() {
         {/* ══════════════════════════════════════════════════════════
             3. CARDS
         ══════════════════════════════════════════════════════════ */}
-        <Section title="3. Card Patterns" desc="Four card variants used throughout. All: rounded-2xl � white � 1px border #E5E7EB �.">
+        <Section title="3. Card Patterns" desc="Four card variants used throughout. All: rounded-2xl · white · 1px border #E5E7EB ·.">
 
           {/* Metric cards */}
           <div className="mb-4">
@@ -209,7 +209,7 @@ export function DesignSystem() {
               <div className="px-5 py-4 flex items-center justify-between border-b" style={{ borderColor: CARD_BORDER }}>
                 <div>
                   <h3 className="text-sm font-semibold" style={{ color: T1 }}>Portfolio Value Over Time</h3>
-                  <p className="text-xs mt-0.5" style={{ color: T3 }}>Invested vs Current � 24 months</p>
+                  <p className="text-xs mt-0.5" style={{ color: T3 }}>Invested vs Current · 24 months</p>
                 </div>
                 <div className="flex items-center gap-2">
                   {['1M','6M','1Y','3Y','MAX'].map(p => (
@@ -317,7 +317,7 @@ export function DesignSystem() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs font-semibold truncate" style={{ color: T1 }}>{f.name}</p>
-                      <p className="text-[10px] mt-0.5" style={{ color: T3 }}>{f.amc} � {f.cat}</p>
+                      <p className="text-[10px] mt-0.5" style={{ color: T3 }}>{f.amc} · {f.cat}</p>
                     </div>
                   </div>
                   {/* NAV */}
@@ -510,7 +510,7 @@ export function DesignSystem() {
         {/* ══════════════════════════════════════════════════════════
             7. FORM ELEMENTS
         ══════════════════════════════════════════════════════════ */}
-        <Section title="7. Form Elements" desc="All inputs use white bg � 1px border � rounded-xl � focus ring uses accent color.">
+        <Section title="7. Form Elements" desc="All inputs use white bg · 1px border · rounded-xl · focus ring uses accent color.">
           <Card>
             <div className="p-6 grid grid-cols-2 gap-6">
               {/* Search */}

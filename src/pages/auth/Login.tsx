@@ -9,7 +9,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { DEMO_USERS } from '../../data/users'
 import { HighlightWord } from '../../components/ui/HighlightWord'
 
-const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF � Arqentis'
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
 const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
 
 const PERSONAS = [
@@ -29,7 +29,7 @@ const PERSONAS = [
     tag: 'First Fund',
     tagColor: '#16a34a',
     tagBg: '#dcfce7',
-    desc: '1 MF � ₹10,000 invested',
+    desc: '1 MF · ₹10,000 invested',
     avatar: 'PS',
     avatarBg: '#0891b2',
   },
@@ -39,7 +39,7 @@ const PERSONAS = [
     tag: 'Sahi PRO',
     tagColor: '#7c3aed',
     tagBg: '#f5f3ff',
-    desc: '3 MF � 2 Sahi Funds',
+    desc: '3 MF · 2 Sahi Funds',
     avatar: 'RS',
     avatarBg: '#d6fd70',
   },
@@ -100,7 +100,7 @@ export function Login() {
         {/* Content — no box/border/bg */}
         <div className="flex-1 flex flex-col items-center justify-center px-10 text-center">
           <p className="text-xs font-semibold tracking-widest mb-5" style={{ color: '#64748b' }}>
-            — ZERO COMMISSIONS � SEBI PA DIRECT PLAN —
+            — ZERO COMMISSIONS · SEBI PA DIRECT PLAN —
           </p>
           <h1 className="text-4xl font-bold leading-tight mb-4" style={{ color: '#FFFFFF' }}>
             Kaunsa{' '}

@@ -15,9 +15,9 @@ import { useUIStore } from '../../stores/uiStore'
 import { usePlan } from '../../hooks/usePlan'
 
 function formatINR(n: number) {
-  if (n >= 10000000) return `�‚�${(n / 10000000).toFixed(2)} Cr`
-  if (n >= 100000) return `�‚�${(n / 100000).toFixed(2)} L`
-  return `�‚�${n.toLocaleString('en-IN')}`
+  if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`
+  if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
+  return `₹${n.toLocaleString('en-IN')}`
 }
 
 const GOAL_TEMPLATES = [
@@ -157,8 +157,8 @@ export function Goals() {
                   }
                 </p>
                 <p className="text-sm mt-0.5 text-[#374151]">
-                  Your �‚�{(sip / 1000).toFixed(0)}K/month SIP projects {formatINR(result.projectedCorpus)} by age {retAge},
-                  but you need {formatINR(result.requiredCorpus)} to sustain �‚�{formatINR(result.inflatedExpense)}/month in retirement.
+                  Your ₹{(sip / 1000).toFixed(0)}K/month SIP projects {formatINR(result.projectedCorpus)} by age {retAge},
+                  but you need {formatINR(result.requiredCorpus)} to sustain ₹{formatINR(result.inflatedExpense)}/month in retirement.
                 </p>
               </div>
             </div>
@@ -169,7 +169,7 @@ export function Goals() {
                 { label: 'Projected corpus at ' + retAge, value: formatINR(result.projectedCorpus), color: hasShortfall ? '#DC2626' : '#16A34A' },
                 { label: 'Corpus needed', value: formatINR(result.requiredCorpus), color: '#111827', sub: 'For 25 yrs post-retirement' },
                 { label: hasShortfall ? 'Shortfall' : 'Surplus', value: formatINR(Math.abs(result.shortfall)), color: hasShortfall ? '#DC2626' : '#16A34A', sub: hasShortfall ? 'Action needed' : 'On track!' },
-                { label: 'SIP needed to close gap', value: `�‚�${(sip + result.sipNeeded).toLocaleString('en-IN')}/mo`, color: '#4f46e5', sub: `vs current �‚�${(sip / 1000).toFixed(0)}K/mo` },
+                { label: 'SIP needed to close gap', value: `₹${(sip + result.sipNeeded).toLocaleString('en-IN')}/mo`, color: '#4f46e5', sub: `vs current ₹${(sip / 1000).toFixed(0)}K/mo` },
               ].map((s, i) => (
                 <div key={i} className="rounded-xl px-3 py-2.5 bg-white/80 border border-black/5">
                   <p className="text-[10px] uppercase tracking-wide text-[#6B7280] mb-1">{s.label}</p>
@@ -204,14 +204,14 @@ export function Goals() {
           {/* Corpus projection chart */}
           <div className={`${card} rounded-2xl p-5`}>
             <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-1`}>CORPUS PROJECTION — YEAR BY YEAR</p>
-            <p className={`text-xs ${textMuted} mb-4`}>(�‚� in Lakhs)</p>
+            <p className={`text-xs ${textMuted} mb-4`}>(₹ in Lakhs)</p>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={result.yearlyData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                 <XAxis dataKey="age" tick={{ fontSize: 10, fill: lm ? '#9CA3AF' : '#64748b' }} tickLine={false} axisLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: lm ? '#9CA3AF' : '#64748b' }} tickLine={false} axisLine={false} tickFormatter={v => `�‚�${v}L`} />
+                <YAxis tick={{ fontSize: 10, fill: lm ? '#9CA3AF' : '#64748b' }} tickLine={false} axisLine={false} tickFormatter={v => `₹${v}L`} />
                 <Tooltip
                   contentStyle={tooltipStyle}
-                  formatter={(v, name) => [`�‚�${Number(v)}L`, name === 'corpus' ? 'Your projected corpus' : 'Required corpus'] as [string, string]}
+                  formatter={(v, name) => [`₹${Number(v)}L`, name === 'corpus' ? 'Your projected corpus' : 'Required corpus'] as [string, string]}
                   labelFormatter={l => `Age ${l}`}
                 />
                 <ReferenceLine x={retAge} stroke={lm ? '#E0E3E8' : '#1e2838'} strokeDasharray="4 2" />
@@ -234,10 +234,10 @@ export function Goals() {
             <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-4`}>ADJUST YOUR ASSUMPTIONS</p>
             <div className="space-y-4">
               {[
-                { label: 'Monthly SIP (�‚�)', value: sip, min: 1000, max: 200000, step: 1000, onChange: setSip, fmt: (v: number) => `�‚�${v.toLocaleString('en-IN')}` },
+                { label: 'Monthly SIP (₹)', value: sip, min: 1000, max: 200000, step: 1000, onChange: setSip, fmt: (v: number) => `₹${v.toLocaleString('en-IN')}` },
                 { label: 'Expected return (%)', value: returnRate, min: 6, max: 20, step: 0.5, onChange: setReturnRate, fmt: (v: number) => `${v}%` },
                 { label: 'Retirement age', value: retAge, min: 45, max: 75, step: 1, onChange: setRetAge, fmt: (v: number) => `Age ${v}` },
-                { label: 'Monthly expenses at retirement (�‚�)', value: monthlyExp, min: 20000, max: 500000, step: 5000, onChange: setMonthlyExp, fmt: (v: number) => `�‚�${v.toLocaleString('en-IN')}` },
+                { label: 'Monthly expenses at retirement (₹)', value: monthlyExp, min: 20000, max: 500000, step: 5000, onChange: setMonthlyExp, fmt: (v: number) => `₹${v.toLocaleString('en-IN')}` },
                 { label: 'Inflation rate (%)', value: inflation, min: 3, max: 12, step: 0.5, onChange: setInflation, fmt: (v: number) => `${v}%` },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-4">
@@ -299,8 +299,8 @@ export function Goals() {
                 <div className="flex items-start gap-2">
                   <WarningIcon size={14} color="#ef4444" weight="fill" className="flex-shrink-0 mt-0.5" />
                   <p className="text-xs" style={{ color: lm ? '#7f1d1d' : '#fca5a5' }}>
-                    <strong>Shortfall of {formatINR(result.shortfall)}.</strong> You need to increase your SIP by �‚�{result.sipNeeded.toLocaleString('en-IN')}/month
-                    (to �‚�{(sip + result.sipNeeded).toLocaleString('en-IN')} total) to close the gap at your current return assumption.
+                    <strong>Shortfall of {formatINR(result.shortfall)}.</strong> You need to increase your SIP by ₹{result.sipNeeded.toLocaleString('en-IN')}/month
+                    (to ₹{(sip + result.sipNeeded).toLocaleString('en-IN')} total) to close the gap at your current return assumption.
                   </p>
                 </div>
               </div>
@@ -313,7 +313,7 @@ export function Goals() {
                   <strong>Step-up SIP is the smarter fix.</strong> Instead of jumping SIP immediately, increasing it by 10% every year
                   gets you to the same corpus with a much lower starting burden.
                   <button className="ml-1.5 font-bold underline underline-offset-2 hover:opacity-80 transition-opacity">
-                    Try the step-up plan below �†'
+                    Try the step-up plan below ·†'
                   </button>
                 </p>
               </div>

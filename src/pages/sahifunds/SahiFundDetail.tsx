@@ -165,7 +165,7 @@ export function SahiFundDetail() {
                 <p className={`text-xs ${textSub} flex items-center gap-1.5`}>
                   <ArrowUpRightIcon size={13} color="#22C55E" weight="bold" />
                   Total gain <span className="text-[#22C55E] font-semibold">+₹{gain.toLocaleString('en-IN')} ({gainPct}%)</span>
-                  <span className={textMuted}>� Active SIP ₹{owned.sip.toLocaleString('en-IN')}/mo</span>
+                  <span className={textMuted}>· Active SIP ₹{owned.sip.toLocaleString('en-IN')}/mo</span>
                 </p>
                 <button className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${lm ? 'bg-[#EEF2FF] text-[#4f46e5] hover:bg-[#e0e7ff]' : 'bg-[#1e2838] text-[#d6fd70] hover:bg-[#26303f]'}`}>
                   Manage SIP

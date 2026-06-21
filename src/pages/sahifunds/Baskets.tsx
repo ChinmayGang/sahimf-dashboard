@@ -186,7 +186,7 @@ export function Baskets() {
                 </div>
                 <div>
                   <h2 className={`text-sm font-bold ${text}`}>{selectedBasket.name} — Methodology</h2>
-                  <p className={`text-xs ${textMuted}`}>{selectedBasket.horizon} Â� {selectedBasket.funds} funds</p>
+                  <p className={`text-xs ${textMuted}`}>{selectedBasket.horizon} · {selectedBasket.funds} funds</p>
                 </div>
               </div>
               <button onClick={() => setShowMethodology(false)}><CloseIcon size={18} weight="bold" color={lm ? '#9CA3AF' : '#64748b'} /></button>

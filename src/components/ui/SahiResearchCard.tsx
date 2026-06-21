@@ -63,7 +63,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           <SparkleIcon size={13} weight="fill" color="#4f46e5" />
           <span className="text-xs font-bold text-[#4f46e5]">SAHI RESEARCH NOTE</span>
           <span className="text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-[#eeedfd] text-[#7c3aed]">
-            Generic Â� Not Personalised
+            Generic · Not Personalised
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -175,7 +175,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             >
               <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Analyst Note</p>
               <p className={`text-[11px] leading-relaxed italic ${textSub}`}>{data.analystNote}</p>
-              <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} Â� For research purposes only</p>
+              <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} · For research purposes only</p>
             </div>
           </>
         )}

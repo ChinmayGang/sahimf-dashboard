@@ -13,7 +13,7 @@ interface ProTrialBannerProps {
 
 export function ProTrialBanner({
   headline = 'Unlock the full picture with Sahi PRO',
-  subtext = 'No credit card required Â� Cancel anytime',
+  subtext = 'No credit card required · Cancel anytime',
   features = [],
   featureDesc,
 }: ProTrialBannerProps) {

@@ -234,7 +234,7 @@ export function OverlapLens() {
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
-            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected Â� {worstPairs.length} pairs analysed</p>
+            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected · {worstPairs.length} pairs analysed</p>
           </div>
         </div>
         {highOverlapCount > 0 && (
@@ -423,7 +423,7 @@ export function OverlapLens() {
                         <span className={`text-xs font-bold w-5 ${textMuted}`}>{i + 1}</span>
                         <div className="flex-1 min-w-0">
                           <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
-                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} Â� {fb?.category}</p>
+                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} · {fb?.category}</p>
                         </div>
                         <div
                           className="px-3 py-1 rounded-lg text-xs font-bold"
@@ -529,11 +529,11 @@ export function OverlapLens() {
                       : { label: 'Healthy', color: '#22c55e', bg: '#dcfce7', text: '#15803d' }
                     const stocksShared = Math.round(pair.val * 0.5)
                     const desc = pair.val >= 30
-                      ? `${stocksShared} of 50 stocks shared Â� Both ${fa?.category ?? ''} mandated`
+                      ? `${stocksShared} of 50 stocks shared · Both ${fa?.category ?? ''} mandated`
                       : pair.val >= 18
-                      ? `${stocksShared} of 50 stocks shared Â� Top Nifty names overlap`
+                      ? `${stocksShared} of 50 stocks shared · Top Nifty names overlap`
                       : pair.val >= 8
-                      ? `${stocksShared} of 50 stocks shared Â� Partial sector overlap`
+                      ? `${stocksShared} of 50 stocks shared · Partial sector overlap`
                       : 'Minimal overlap — different market universe'
                     return (
                       <div key={`${pair.a}-${pair.b}`} className="px-5 py-4">
@@ -590,7 +590,7 @@ export function OverlapLens() {
                             </div>
                           </div>
                           <p className={`text-[10px] ${textMuted}`}>
-                            {s.fundCount} funds Â� {s.totalPct.toFixed(1)}% of portfolio
+                            {s.fundCount} funds · {s.totalPct.toFixed(1)}% of portfolio
                           </p>
                         </div>
                       ))}
@@ -771,7 +771,7 @@ export function OverlapLens() {
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>High concentration</span>
                             )}
                           </div>
-                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} Â� {pct}%</span>
+                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} · {pct}%</span>
                         </div>
                         <div className="h-3 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
                           <div

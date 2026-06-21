@@ -330,7 +330,7 @@ export function AllSchemes() {
                       </div>
                       <div className="min-w-0">
                         <p className={`text-xs font-bold ${text} truncate transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>{fund.name}</p>
-                        <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} � Direct</p>
+                        <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct</p>
                       </div>
                     </div>
                     <div className="text-center">

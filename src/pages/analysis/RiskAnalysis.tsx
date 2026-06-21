@@ -50,7 +50,7 @@ const RISK3_CONFIG: Record<string, { idx: number; color: string }> = {
 function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Moderate']
   const { idx, color } = cfg
-  // Arc spans 180Â�â†'360Â� (LEFTâ†'UPâ†'RIGHT). Needle at center of each 60Â� segment.
+  // Arc spans 180·â†'360· (LEFTâ†'UPâ†'RIGHT). Needle at center of each 60· segment.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 110, cy = 90, r = 75
   const rad = (angleDeg * Math.PI) / 180
@@ -143,7 +143,7 @@ function RiskReturnBubbles({
         const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
         return (
           <g key={`${f.name}-${_i}`} style={{ cursor: 'pointer' }}>
-            <title>{`${f.name} Â� ${f.alloc.toFixed(0)}% allocation Â� ${f.xirr.toFixed(1)}% XIRR Â� ${f.vol}% volatility`}</title>
+            <title>{`${f.name} · ${f.alloc.toFixed(0)}% allocation · ${f.xirr.toFixed(1)}% XIRR · ${f.vol}% volatility`}</title>
             <circle
               cx={cx} cy={cy} r={r}
               fill={color}

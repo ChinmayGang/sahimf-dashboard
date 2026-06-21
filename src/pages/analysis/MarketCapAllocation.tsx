@@ -178,7 +178,7 @@ export function MarketCapAllocation() {
               {driftAlerts.length} fund{driftAlerts.length > 1 ? 's have' : ' has'} drifted from expected market cap mix
             </p>
             <p className={`text-[11px] mt-0.5 ${lm ? 'text-[#b45309]' : 'text-[#d97706]'}`}>
-              {driftAlerts.map(f => f.name).join(' Â� ')} — review rebalancing below
+              {driftAlerts.map(f => f.name).join(' · ')} — review rebalancing below
             </p>
           </div>
         </div>
@@ -314,7 +314,7 @@ export function MarketCapAllocation() {
                     <div className="flex items-center gap-2">
                       <div>
                         <p className={`text-sm font-medium ${text}`}>{f.name}</p>
-                        <p className={`text-[11px] ${textMuted}`}>{f.category} Â� AUM {f.aum} Â� Sahi Score {f.score}</p>
+                        <p className={`text-[11px] ${textMuted}`}>{f.category} · AUM {f.aum} · Sahi Score {f.score}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">

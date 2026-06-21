@@ -299,7 +299,7 @@ export function MFScorecard() {
               Funds graded <span style={{ color: lm ? '#4f46e5' : '#d6fd70' }}>{topGrade}</span> on SahiMF Scorecard (score {topScore}+) beat Nifty 50 by an average of <span style={{ color: '#22c55e' }}>4.2% per year</span> over the last 3 years.
             </p>
             <p className={`text-[10px] ${textMuted} mt-0.5`}>
-              Showing top {FREE_ROWS} of {SCORECARDS.length} ranked funds Â� Unlock all {SCORECARDS.length} with PRO
+              Showing top {FREE_ROWS} of {SCORECARDS.length} ranked funds · Unlock all {SCORECARDS.length} with PRO
             </p>
           </div>
         </div>
@@ -310,7 +310,7 @@ export function MFScorecard() {
         <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" style={{ flexShrink: 0, marginTop: '1px' }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> — Funds are scored on 5 dimensions across a 100-point scale.</p>
-          <p>Returns (35%) Â� Consistency (25%) Â� Risk-Adjusted Returns (20%) Â� Manager Quality (10%) Â� Cost Efficiency (10%)</p>
+          <p>Returns (35%) · Consistency (25%) · Risk-Adjusted Returns (20%) · Manager Quality (10%) · Cost Efficiency (10%)</p>
           <p className={textMuted}>Scores are recalculated monthly based on trailing 3Y data. NOT personalized recommendations.</p>
         </div>
       </div>
@@ -392,7 +392,7 @@ export function MFScorecard() {
                   Try PRO — 14 days free
                 </button>
               </div>
-              <p className={`text-[10px] ${textMuted}`}>No credit card required Â� Cancel anytime</p>
+              <p className={`text-[10px] ${textMuted}`}>No credit card required · Cancel anytime</p>
             </div>
           </div>
         )}

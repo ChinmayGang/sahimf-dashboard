@@ -87,7 +87,7 @@ const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string 
 
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
   const { label, idx, color } = RISK_3_MAP[level]
-  // Arc spans 180Â�—360Â� (left â†' top â†' right). 3 segments Ã— 60Â� each.
+  // Arc spans 180·—360· (left â†' top â†' right). 3 segments Ã— 60· each.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 80, cy = 82, r = 68
   const SEGS = [
@@ -295,7 +295,7 @@ export function SchemeDetail() {
               <h1 className={`text-base font-semibold ${text}`}>{fund.name}</h1>
               <div className="flex items-center gap-2 mt-1">
                 <span className={`text-xs ${textSub}`}>{fund.category}</span>
-                <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>Â�</span>
+                <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>·</span>
                 <span className={`text-xs ${textSub}`}>{fund.subCategory}</span>
                 {fund.tags.slice(0, 2).map((t) => (
                   <span key={t} className={`text-xs ${chip} px-2 py-0.5 rounded-full`}>{t}</span>
@@ -348,7 +348,7 @@ export function SchemeDetail() {
             topTag: 'Lowest Risk',
           },
         ].map((item) => {
-          // Per-rank medal styling matching the reference: 1 green Â� 2 orange Â� 3 slate Â� 4 amber Â� 5 slate
+          // Per-rank medal styling matching the reference: 1 green · 2 orange · 3 slate · 4 amber · 5 slate
           const RANK_TIER: Record<number, { color: string; tintBg: string; tintBorder: string; shine: string; shadow: string }> = {
             1: { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' },
             2: { color: '#ea580c', tintBg: '#fff7ed', tintBorder: '#fdba74', shine: '', shadow: '' },
@@ -740,7 +740,7 @@ export function SchemeDetail() {
                 Invest Lumpsum
               </button>
               <p className="text-[9px] text-center" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
-                Min SIP â‚¹{fund.minSIP} Â� Lock-in: {fund.lockIn}
+                Min SIP â‚¹{fund.minSIP} · Lock-in: {fund.lockIn}
               </p>
             </div>
 
@@ -846,7 +846,7 @@ export function SchemeDetail() {
                   <h3 className={`text-sm font-semibold ${text}`}>Dividend History</h3>
                 </div>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold`} style={{ background: lm ? 'rgba(79,70,229,0.08)' : 'rgba(214,253,112,0.1)', color: lm ? '#4f46e5' : '#d6fd70' }}>
-                  {dividends.length} payouts Â� 3 years
+                  {dividends.length} payouts · 3 years
                 </span>
               </div>
               <div className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2 border-b`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>

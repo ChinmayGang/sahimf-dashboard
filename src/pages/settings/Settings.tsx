@@ -160,7 +160,7 @@ export function Settings() {
         </button>
 
         <p className={`text-center text-[11px] mt-6 ${textSub}`}>
-          SahiMF v1.0.0 � Mumbai, India � © 2026 Arqentis
+          SahiMF v1.0.0 · Mumbai, India · © 2026 Arqentis
         </p>
       </div>
     </div>

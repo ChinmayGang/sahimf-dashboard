@@ -15,9 +15,9 @@ const TABS: { key: ToolType; label: string }[] = [
 ]
 
 function formatINR(n: number) {
-  if (n >= 10000000) return `�‚�${(n / 10000000).toFixed(2)} Cr`
-  if (n >= 100000) return `�‚�${(n / 100000).toFixed(2)} L`
-  return `�‚�${Math.round(n).toLocaleString('en-IN')}`
+  if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`
+  if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
+  return `₹${Math.round(n).toLocaleString('en-IN')}`
 }
 
 /** Each calculator normalises to { data:[{label,invested,value}], totalInvested, maturity, gain }. */
@@ -182,19 +182,19 @@ export function Calculator() {
         {/* Inputs */}
         <div className={`col-span-2 ${card} rounded-xl p-5 space-y-5`}>
           {tab === 'sip' && (
-            <Slider label="Monthly SIP Amount" value={monthly} min={500} max={100000} step={500} onChange={setMonthly} fmt={v => `�‚�${v.toLocaleString('en-IN')}`} loFmt="�‚�500" hiFmt="�‚�1 L" lm={lm} />
+            <Slider label="Monthly SIP Amount" value={monthly} min={500} max={100000} step={500} onChange={setMonthly} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹500" hiFmt="₹1 L" lm={lm} />
           )}
           {(tab === 'lumpsum' || tab === 'stp') && (
-            <Slider label={tab === 'stp' ? 'Source Amount' : 'Investment Amount'} value={principal} min={10000} max={10000000} step={10000} onChange={setPrincipal} fmt={v => `�‚�${v.toLocaleString('en-IN')}`} loFmt="�‚�10K" hiFmt="�‚�1 Cr" lm={lm} />
+            <Slider label={tab === 'stp' ? 'Source Amount' : 'Investment Amount'} value={principal} min={10000} max={10000000} step={10000} onChange={setPrincipal} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹10K" hiFmt="₹1 Cr" lm={lm} />
           )}
           {tab === 'swp' && (
             <>
-              <Slider label="Starting Corpus" value={corpus} min={100000} max={50000000} step={100000} onChange={setCorpus} fmt={v => formatINR(v)} loFmt="�‚�1 L" hiFmt="�‚�5 Cr" lm={lm} />
-              <Slider label="Monthly Withdrawal" value={withdrawal} min={1000} max={500000} step={1000} onChange={setWithdrawal} fmt={v => `�‚�${v.toLocaleString('en-IN')}`} loFmt="�‚�1K" hiFmt="�‚�5 L" lm={lm} />
+              <Slider label="Starting Corpus" value={corpus} min={100000} max={50000000} step={100000} onChange={setCorpus} fmt={v => formatINR(v)} loFmt="₹1 L" hiFmt="₹5 Cr" lm={lm} />
+              <Slider label="Monthly Withdrawal" value={withdrawal} min={1000} max={500000} step={1000} onChange={setWithdrawal} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹1K" hiFmt="₹5 L" lm={lm} />
             </>
           )}
           {tab === 'stp' && (
-            <Slider label="Monthly Transfer to Equity" value={transfer} min={1000} max={200000} step={1000} onChange={setTransfer} fmt={v => `�‚�${v.toLocaleString('en-IN')}`} loFmt="�‚�1K" hiFmt="�‚�2 L" lm={lm} />
+            <Slider label="Monthly Transfer to Equity" value={transfer} min={1000} max={200000} step={1000} onChange={setTransfer} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹1K" hiFmt="₹2 L" lm={lm} />
           )}
 
           <Slider label={tab === 'stp' ? 'Equity Return Rate (p.a.)' : 'Expected Return Rate (p.a.)'} value={rate} min={4} max={30} step={0.5} onChange={setRate} fmt={v => `${v}%`} loFmt="4%" hiFmt="30%" lm={lm} />
@@ -289,7 +289,7 @@ export function Calculator() {
         <div className="space-y-3 pt-2">
           <div>
             <h2 className={`text-base font-bold ${text}`}>How top funds would have grown this SIP</h2>
-            <p className={`text-xs ${textSub}`}>Ranked for �‚�{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR — adjust the calculator above to update.</p>
+            <p className={`text-xs ${textSub}`}>Ranked for ₹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR — adjust the calculator above to update.</p>
           </div>
           <SIPWhatIf embedded monthly={monthly} years={years} />
         </div>

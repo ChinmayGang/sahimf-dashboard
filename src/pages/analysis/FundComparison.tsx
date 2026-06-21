@@ -60,7 +60,7 @@ const FUND_EXTENDED: Record<string, {
     amcOwner: 'DSP Group (India, family-owned)',
     registrar: 'CAMS (Computer Age Management Services)',
     custodian: 'HDFC Bank Ltd',
-    lastDividend: 'Mar 2024 Â� â‚¹1.20/unit',
+    lastDividend: 'Mar 2024 · â‚¹1.20/unit',
     pe: 18.6, pb: 2.7, turnover: 35, cashPct: 13, equityPct: 78,
     beta: 1.08, sd: 17.4,
     pros: ['Pure sectoral play on energy transition', 'International FoF exposure to global energy', 'Low AUM — nimble portfolio'],

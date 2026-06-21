@@ -5,7 +5,7 @@ import paperplane from '../../assets/paperplane.jpg'
 
 const OTP_LENGTH = 6
 const RESEND_SECONDS = 30
-const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF � Arqentis'
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
 const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
 
 export function VerifyEmail() {

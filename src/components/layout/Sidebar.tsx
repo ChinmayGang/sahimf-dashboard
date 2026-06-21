@@ -214,7 +214,7 @@ export function Sidebar() {
                 <Tooltip.Portal>
                   <Tooltip.Content side="right" sideOffset={12} className="z-50">
                     <div className="rounded-lg px-2.5 py-1.5 text-xs font-medium shadow-md" style={{ background: S.tooltipBg, border: `1px solid ${S.tooltipBorder}`, color: S.text }}>
-                      {user?.name} Â� {planLabel}
+                      {user?.name} · {planLabel}
                     </div>
                   </Tooltip.Content>
                 </Tooltip.Portal>

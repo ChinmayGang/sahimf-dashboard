@@ -157,7 +157,7 @@ export function TaxReport() {
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Tax Optimizer</h1>
-            <p className={`text-xs ${textMuted}`}>FY 2025—26 Â� LTCG + STCG + 80C analysis</p>
+            <p className={`text-xs ${textMuted}`}>FY 2025—26 · LTCG + STCG + 80C analysis</p>
           </div>
         </div>
         <PlanGate requiredTier="pro" compact>
@@ -251,10 +251,10 @@ export function TaxReport() {
           <p className={`text-xs ${textMuted} mb-4`}>Equity funds held 12 months+ qualify for lower LTCG tax</p>
           <div className="relative h-9 rounded-lg overflow-hidden flex">
             <div className="flex items-center justify-center" style={{ width: '40%', background: 'rgba(239,68,68,0.18)' }}>
-              <span className="text-[10px] font-bold text-[#ef4444]">STCG Â� 20%</span>
+              <span className="text-[10px] font-bold text-[#ef4444]">STCG · 20%</span>
             </div>
             <div className="flex items-center justify-center flex-1" style={{ background: 'rgba(79,70,229,0.15)' }}>
-              <span className="text-[10px] font-bold text-[#4f46e5]">LTCG Â� 12.5% (â‚¹1L free)</span>
+              <span className="text-[10px] font-bold text-[#4f46e5]">LTCG · 12.5% (â‚¹1L free)</span>
             </div>
             <div className="absolute top-0 bottom-0" style={{ left: '40%', width: 2, background: lm ? '#111827' : '#fff' }} />
           </div>
@@ -452,7 +452,7 @@ export function TaxReport() {
                   <div key={f.fundId}>
                     <div className="flex items-center justify-between mb-1">
                       <p className={`text-xs font-medium ${text}`}>{f.name}</p>
-                      <p className={`text-[10px] ${textMuted}`}>LTCG: {formatINR(f.gain)} Â� {f.avgHold} held</p>
+                      <p className={`text-[10px] ${textMuted}`}>LTCG: {formatINR(f.gain)} · {f.avgHold} held</p>
                     </div>
                     <div className="h-1.5 rounded-full" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
                       <div className="h-full rounded-full bg-[#4f46e5]" style={{ width: `${harvestPct}%` }} />
@@ -511,7 +511,7 @@ export function TaxReport() {
         <p className={`text-xs font-semibold ${textSub} mb-2`}>80C utilisation this year</p>
         <div className="flex items-center justify-between text-xs mb-1.5">
           <span className={textMuted}>â‚¹60,000 used (PPF + EPF)</span>
-          <span className={textMuted}>â‚¹1,50,000 limit Â� â‚¹{ELSS_80C_REMAINING.toLocaleString('en-IN')} remaining</span>
+          <span className={textMuted}>â‚¹1,50,000 limit · â‚¹{ELSS_80C_REMAINING.toLocaleString('en-IN')} remaining</span>
         </div>
         <div className="h-2 rounded-full mb-4" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
           <div className="h-full rounded-full bg-[#4f46e5]" style={{ width: '40%' }} />

@@ -5,7 +5,7 @@ import { Envelope as EmailOutlinedIcon } from '@phosphor-icons/react'
 import { User as PersonOutlineIcon } from '@phosphor-icons/react'
 import paperplane from '../../assets/paperplane.jpg'
 
-const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF � Arqentis'
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
 const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
 
 export function CreateProfile() {

@@ -228,7 +228,7 @@ export function SearchSchemes() {
                         </p>
                         <div className="flex items-center gap-1 mt-0.5">
                           <span className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>{fund.subCategory}</span>
-                          <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>�</span>
+                          <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>·</span>
                           <span className={`text-[10px] px-1.5 py-0 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]'}`}>Direct</span>
                           <span className={`text-[10px] px-1.5 py-0 rounded-full ${lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]'}`}>Growth</span>
                         </div>
