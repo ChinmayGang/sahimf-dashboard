@@ -111,9 +111,8 @@ export function MarketCapAllocation() {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="fill" /></span>
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <ChartPieSlice size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
           </div>
           <div>
             <h1 className={`text-xl font-black tracking-tight ${text}`}>Market Cap Allocation</h1>
@@ -143,9 +142,8 @@ export function MarketCapAllocation() {
       {/* Page Header */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="fill" /></span>
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <ChartPieSlice size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">

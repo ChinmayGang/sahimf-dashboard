@@ -160,8 +160,8 @@ export function OverlapLens() {
     return (
       <div className="p-6 max-w-7xl mx-auto" style={{ background: bg }}>
         <div className="flex items-center gap-3 mb-8">
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <BlurOnIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
@@ -229,8 +229,8 @@ export function OverlapLens() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <BlurOnIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>

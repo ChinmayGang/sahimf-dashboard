@@ -63,8 +63,8 @@ export function MFPMSDisclosures() {
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-          <ArticleIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+          <ArticleIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
         </div>
         <div>
           <h1 className={`text-lg font-bold ${text}`}>Reports &amp; Disclosures</h1>
