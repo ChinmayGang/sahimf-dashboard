@@ -82,7 +82,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
         </div>
       </div>
 
-      <div className="border-t border-[#E0E3E8]" />
+      <div className="border-t" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }} />
 
       {/* Always-visible: summary teaser */}
       <div className="px-5 py-4">
@@ -124,13 +124,23 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             {/* Unlock overlay */}
             <div
               className="absolute inset-0 flex flex-col items-center justify-center text-center gap-2 px-6"
-              style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.92) 55%)' }}
+              style={{
+                background: lm
+                  ? 'linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.92) 55%)'
+                  : 'linear-gradient(to bottom, rgba(20,23,28,0.55) 0%, rgba(20,23,28,0.94) 55%)',
+              }}
             >
-              <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: '#eeedfd', border: '1px solid rgba(79,70,229,0.25)' }}>
-                <LockIcon size={16} color="#4f46e5" weight="fill" />
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center"
+                style={{
+                  background: lm ? '#eeedfd' : 'rgba(214,253,112,0.08)',
+                  border: `1px solid ${lm ? 'rgba(79,70,229,0.25)' : 'rgba(214,253,112,0.2)'}`,
+                }}
+              >
+                <LockIcon size={16} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
               </div>
-              <p className="text-xs font-semibold text-[#111827]">Full research note is a Sahi PRO feature</p>
-              <p className="text-[11px] text-[#6B7280] max-w-xs">Strengths, watch points, Sahi Score breakdown and the analyst note.</p>
+              <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-white'}`}>Full research note is a Sahi PRO feature</p>
+              <p className={`text-[11px] max-w-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>Strengths, watch points, Sahi Score breakdown and the analyst note.</p>
               <ProButton label="Unlock with Sahi PRO" size="sm" className="mt-1" onClick={() => setShowUpgrade(true)} />
             </div>
           </div>
@@ -160,7 +170,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-[#E0E3E8]">
+            <div className="mt-4 pt-4 border-t" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
               <p className={`text-[10px] font-semibold uppercase tracking-wider mb-3 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Sahi Score Breakdown</p>
               <div className="space-y-2">
                 {data.subScores.map((s) => (
@@ -171,7 +181,10 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
 
             <div
               className="mt-4 rounded-xl px-3 py-2.5"
-              style={{ background: '#F8F6FF', border: '1px solid #ede9fe' }}
+              style={{
+                background: lm ? '#F8F6FF' : '#0f1420',
+                border: `1px solid ${lm ? '#ede9fe' : '#1e2838'}`,
+              }}
             >
               <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Analyst Note</p>
               <p className={`text-[11px] leading-relaxed italic ${textSub}`}>{data.analystNote}</p>
