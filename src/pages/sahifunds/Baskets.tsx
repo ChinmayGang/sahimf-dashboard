@@ -39,10 +39,10 @@ const BASKETS: Basket[] = [
     icon: <HouseIcon size={22} weight="fill" />,
     iconColor: '#4f46e5',
     iconBg: '#eeedfd',
-    horizon: '7â€“10 years',
+    horizon: '7â€"10 years',
     minSIP: 5000,
     funds: 4,
-    cagr: '13â€“16%',
+    cagr: '13â€"16%',
     riskLevel: 'Moderate',
     description: 'A balanced mix of large-cap and hybrid funds to grow a down-payment corpus with controlled volatility.',
     fundNames: ['Mirae Asset Large Cap', 'HDFC Mid-Cap Opportunities', 'ICICI Prudential BAF', 'Parag Parikh Flexi Cap'],
@@ -57,14 +57,14 @@ const BASKETS: Basket[] = [
     icon: <EducationIcon size={22} weight="fill" />,
     iconColor: '#0891b2',
     iconBg: '#e0f2fe',
-    horizon: '10â€“15 years',
+    horizon: '10â€"15 years',
     minSIP: 3000,
     funds: 5,
-    cagr: '14â€“17%',
+    cagr: '14â€"17%',
     riskLevel: 'Moderate',
     description: 'Long-horizon multi-cap strategy with a gradual de-risking glide path as the goal date approaches.',
     fundNames: ['PPFAS Flexi Cap', 'HDFC Mid-Cap', 'Axis Bluechip', 'SBI Small Cap', 'Kotak Gilt'],
-    methodology: 'Starts equity-heavy (80%) in years 1â€“8, then automatically shifts toward debt and balanced funds in years 9â€“15. International allocation via PPFAS provides INR hedging against tuition cost inflation abroad.',
+    methodology: 'Starts equity-heavy (80%) in years 1â€"8, then automatically shifts toward debt and balanced funds in years 9â€"15. International allocation via PPFAS provides INR hedging against tuition cost inflation abroad.',
     tier: 'free',
   },
   {
@@ -74,10 +74,10 @@ const BASKETS: Basket[] = [
     icon: <RetirementIcon size={22} weight="fill" />,
     iconColor: '#16a34a',
     iconBg: '#dcfce7',
-    horizon: '20â€“30 years',
+    horizon: '20â€"30 years',
     minSIP: 10000,
     funds: 6,
-    cagr: '15â€“18%',
+    cagr: '15â€"18%',
     riskLevel: 'High',
     description: 'Aggressive long-term wealth builder using proven multi-cap and small-cap compounders.',
     fundNames: ['PPFAS Flexi Cap', 'SBI Small Cap', 'HDFC Mid-Cap', 'Mirae Asset Large Cap', 'DSP Natural Resources', 'Axis Bluechip'],
@@ -88,14 +88,14 @@ const BASKETS: Basket[] = [
   {
     id: 'car',
     name: 'New Car',
-    goal: 'Buy your dream car in 3â€“5 years',
+    goal: 'Buy your dream car in 3â€"5 years',
     icon: <CarIcon size={22} weight="fill" />,
     iconColor: '#ea580c',
     iconBg: '#ffedd5',
-    horizon: '3â€“5 years',
+    horizon: '3â€"5 years',
     minSIP: 8000,
     funds: 3,
-    cagr: '11â€“13%',
+    cagr: '11â€"13%',
     riskLevel: 'Low',
     description: 'Conservative short-to-medium term strategy with flexi-cap and hybrid allocation.',
     fundNames: ['ICICI Prudential BAF', 'Axis Bluechip', 'Kotak Gilt'],
@@ -109,10 +109,10 @@ const BASKETS: Basket[] = [
     icon: <TravelIcon size={22} weight="fill" />,
     iconColor: '#7c3aed',
     iconBg: '#f5f3ff',
-    horizon: '1â€“3 years',
+    horizon: '1â€"3 years',
     minSIP: 2000,
     funds: 2,
-    cagr: '8â€“11%',
+    cagr: '8â€"11%',
     riskLevel: 'Low',
     description: 'Short-term goal basket with liquid and ultra-short debt to protect capital.',
     fundNames: ['ICICI Prudential BAF', 'Kotak Gilt'],
@@ -129,7 +129,7 @@ const BASKETS: Basket[] = [
     horizon: '5+ years',
     minSIP: 15000,
     funds: 5,
-    cagr: '17â€“22%',
+    cagr: '17â€"22%',
     riskLevel: 'High',
     description: 'Curated high-conviction basket built to deliver meaningful alpha over index funds.',
     fundNames: ['PPFAS Flexi Cap', 'HDFC Mid-Cap', 'SBI Small Cap', 'DSP Natural Resources', 'Mirae Asset Large Cap'],
@@ -185,7 +185,7 @@ export function Baskets() {
                   {selectedBasket.icon}
                 </div>
                 <div>
-                  <h2 className={`text-sm font-bold ${text}`}>{selectedBasket.name} â€” Methodology</h2>
+                  <h2 className={`text-sm font-bold ${text}`}>{selectedBasket.name} â€" Methodology</h2>
                   <p className={`text-xs ${textMuted}`}>{selectedBasket.horizon} Â· {selectedBasket.funds} funds</p>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export function Baskets() {
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Sahi Baskets</h1>
-            <p className={`text-xs ${textMuted}`}>Goal-based fund baskets â€” curated by the SahiMF research team</p>
+            <p className={`text-xs ${textMuted}`}>Goal-based fund baskets â€" curated by the SahiMF research team</p>
           </div>
         </div>
         <div
@@ -233,7 +233,7 @@ export function Baskets() {
         </div>
       </div>
 
-      {/* Active goal trackers â€” PRO users / empty CTA for free */}
+      {/* Active goal trackers â€" PRO users / empty CTA for free */}
       {trackedBaskets.length === 0 && !isPro && (
         <div className="rounded-2xl p-6 flex items-center gap-5" style={{ background: 'linear-gradient(135deg, #f5f0ff 0%, #eee8ff 100%)', border: '1px solid #d4c5ff' }}>
           <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
@@ -243,7 +243,7 @@ export function Baskets() {
           <div className="flex-1">
             <p className="text-base font-black text-[#1e0845] mb-0.5">Set your first goal</p>
             <p className="text-xs text-[#5b3f8a] leading-relaxed">
-              You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress â€” retirement, education, home or any goal.
+              You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress â€" retirement, education, home or any goal.
             </p>
           </div>
           <ProButton label="Upgrade to PRO" className="flex-shrink-0" onClick={() => navigate('/pricing')} />

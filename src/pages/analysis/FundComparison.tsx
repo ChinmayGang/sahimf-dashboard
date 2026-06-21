@@ -20,7 +20,7 @@ import { usePlan } from '../../hooks/usePlan'
 
 const COLORS = ['#d6fd70', '#4f46e5', '#22C55E', '#F59E0B']
 
-// â”€â”€â”€ Extended mock data for comparison â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Extended mock data for comparison â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 const FUND_EXTENDED: Record<string, {
   manager: { name: string; exp: string; edu: string; aum: string }
   amcOwner: string
@@ -63,7 +63,7 @@ const FUND_EXTENDED: Record<string, {
     lastDividend: 'Mar 2024 Â· â‚¹1.20/unit',
     pe: 18.6, pb: 2.7, turnover: 35, cashPct: 13, equityPct: 78,
     beta: 1.08, sd: 17.4,
-    pros: ['Pure sectoral play on energy transition', 'International FoF exposure to global energy', 'Low AUM â€” nimble portfolio'],
+    pros: ['Pure sectoral play on energy transition', 'International FoF exposure to global energy', 'Low AUM â€" nimble portfolio'],
     cons: ['Sectoral concentration risk', 'High beta 1.08', 'International exposure adds currency risk'],
   },
   f004: {
@@ -86,7 +86,7 @@ const FUND_EXTENDED: Record<string, {
     pe: 32.4, pb: 5.1, turnover: 28, cashPct: 6, equityPct: 94,
     beta: 1.12, sd: 18.9,
     pros: ['Lowest expense ratio in small-cap category (0.66%)', 'Strong 10Y track record', 'Diversified across 80+ small-cap stocks'],
-    cons: ['High beta 1.12 â€” amplifies drawdowns', 'Liquidity risk in small-caps', 'Very high P/E 32.4 â€” priced for perfection'],
+    cons: ['High beta 1.12 â€" amplifies drawdowns', 'Liquidity risk in small-caps', 'Very high P/E 32.4 â€" priced for perfection'],
   },
   f006: {
     manager: { name: 'Neelesh Surana', exp: '19 yrs', edu: 'MBA, CMA', aum: 'â‚¹44,200 Cr' },
@@ -140,7 +140,7 @@ function getFundVal(fund: typeof mockFunds[0], key: string): number {
 
 const short = (n: string) => n.split(' ').slice(0, 2).join(' ')
 
-/** Plain-English "Sahi Comparison" summary, derived live from the selected funds â€” the free taste before the PRO tables. */
+/** Plain-English "Sahi Comparison" summary, derived live from the selected funds â€" the free taste before the PRO tables. */
 function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
   if (funds.length < 2) return 'Add at least two funds to see a Sahi Comparison summary.'
   switch (tab) {
@@ -152,7 +152,7 @@ function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
     }
     case 'manager': {
       const top = funds.map(f => ({ f, e: parseInt(FUND_EXTENDED[f.id]?.manager.exp ?? '0') })).sort((a, b) => b.e - a.e)[0]
-      return `${short(top.f.name)} is run by the most experienced manager (${FUND_EXTENDED[top.f.id]?.manager.exp}). A longer tenure usually means a process tested across several market cycles â€” just confirm the manager who built the track record is still the one in charge.`
+      return `${short(top.f.name)} is run by the most experienced manager (${FUND_EXTENDED[top.f.id]?.manager.exp}). A longer tenure usually means a process tested across several market cycles â€" just confirm the manager who built the track record is still the one in charge.`
     }
     case 'holdings': {
       const conc = funds.map(f => {
@@ -160,12 +160,12 @@ function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
         const t5 = [...hs].sort((a, b) => b.weight - a.weight).slice(0, 5).reduce((s, h) => s + Math.max(h.weight, 0), 0)
         return { f, t5 }
       }).sort((a, b) => b.t5 - a.t5)[0]
-      return `${short(conc.f.name)} is the most concentrated â€” its top 5 holdings alone make up ${conc.t5.toFixed(1)}% of the portfolio. Higher concentration signals conviction but also more single-stock risk; pair it with a more diversified fund to balance.`
+      return `${short(conc.f.name)} is the most concentrated â€" its top 5 holdings alone make up ${conc.t5.toFixed(1)}% of the portfolio. Higher concentration signals conviction but also more single-stock risk; pair it with a more diversified fund to balance.`
     }
     case 'portfolio': {
       const lowPE = funds.map(f => ({ f, pe: FUND_EXTENDED[f.id]?.pe ?? 99 })).sort((a, b) => a.pe - b.pe)[0]
       const lowBeta = funds.map(f => ({ f, b: FUND_EXTENDED[f.id]?.beta ?? 9 })).sort((a, b) => a.b - b.b)[0]
-      return `${short(lowPE.f.name)} holds the cheapest portfolio by P/E (${lowPE.pe}), while ${short(lowBeta.f.name)} is the most defensive with the lowest beta (${lowBeta.b.toFixed(2)}) â€” it should fall less than the others in a market drop.`
+      return `${short(lowPE.f.name)} holds the cheapest portfolio by P/E (${lowPE.pe}), while ${short(lowBeta.f.name)} is the most defensive with the lowest beta (${lowBeta.b.toFixed(2)}) â€" it should fall less than the others in a market drop.`
     }
     case 'fundinfo': {
       const biggest = [...funds].sort((a, b) => b.fundSize - a.fundSize)[0]
@@ -244,7 +244,7 @@ export function FundComparison() {
               <h1 className="text-xl font-black tracking-tight text-[#111827]">Fund Comparison</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Compare up to 4 funds side-by-side â€” manager profile, top holdings, portfolio ratios &amp; more</p>
+            <p className="text-xs text-[#6B7280]">Compare up to 4 funds side-by-side â€" manager profile, top holdings, portfolio ratios &amp; more</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">
@@ -324,8 +324,8 @@ export function FundComparison() {
         })}
       </div>
 
-      {/* Sahi Comparison â€” PRO only */}
-      <PlanGate requiredTier="pro" label="Sahi Comparison â€” PRO" feature="Sahi Comparison" featureDesc="Plain-English fund analysis generated by SahiMF research desk.">
+      {/* Sahi Comparison â€" PRO only */}
+      <PlanGate requiredTier="pro" label="Sahi Comparison â€" PRO" feature="Sahi Comparison" featureDesc="Plain-English fund analysis generated by SahiMF research desk.">
         <AnimatedBorderCard badge="SAHI COMPARISON">
           <div className="px-4 pb-4">
             <p className="text-sm text-[#374151] leading-relaxed">{sahiComparison(activeTab, selectedFunds)}</p>
@@ -333,7 +333,7 @@ export function FundComparison() {
         </AnimatedBorderCard>
       </PlanGate>
 
-      {/* â”€â”€ OVERVIEW TAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â"€â"€ OVERVIEW TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'overview' && (
         <>
           {/* Performance Chart */}
@@ -430,7 +430,7 @@ export function FundComparison() {
                   return (
                     <div key={fund.id} className="px-4 py-3 text-center">
                       {needsGate ? (
-                        <span className={`text-xs ${proPlaceholder}`}>â€” PRO</span>
+                        <span className={`text-xs ${proPlaceholder}`}>â€" PRO</span>
                       ) : (
                         <span className={`text-sm font-semibold ${isBest ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>
                           {m.format(val)}
@@ -446,7 +446,7 @@ export function FundComparison() {
         </>
       )}
 
-      {/* â”€â”€ FUND MANAGER TAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â"€â"€ FUND MANAGER TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'manager' && (
         <div className={`${card} rounded-2xl overflow-hidden`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
@@ -469,7 +469,7 @@ export function FundComparison() {
               <div className={`px-5 py-3 text-sm ${textSub}`}>{row.label}</div>
               {selectedFunds.map((f) => {
                 const ext = FUND_EXTENDED[f.id]
-                return <div key={f.id} className="px-4 py-3 text-center">{ext ? row.render(ext) : <span className={textMuted}>â€”</span>}</div>
+                return <div key={f.id} className="px-4 py-3 text-center">{ext ? row.render(ext) : <span className={textMuted}>â€"</span>}</div>
               })}
             </div>
           ))}
@@ -507,9 +507,9 @@ export function FundComparison() {
         </div>
       )}
 
-      {/* â”€â”€ PORTFOLIO DETAILS TAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â"€â"€ PORTFOLIO DETAILS TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'portfolio' && (
-        <PlanGate requiredTier="pro" label="Portfolio Details â€” Sahi PRO">
+        <PlanGate requiredTier="pro" label="Portfolio Details â€" Sahi PRO">
           <div className={`${card} rounded-2xl overflow-hidden`}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Portfolio Metric</div>
@@ -557,7 +557,7 @@ export function FundComparison() {
                     return (
                       <div key={f.id} className="px-4 py-3 text-center">
                         <span className={`text-sm font-semibold ${isBest ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>
-                          {row.format ? row.format(val) : 'â€”'}
+                          {row.format ? row.format(val) : 'â€"'}
                           {isBest && <span className="text-[10px] ml-1">â˜…</span>}
                         </span>
                       </div>
@@ -604,7 +604,7 @@ export function FundComparison() {
         </PlanGate>
       )}
 
-      {/* â”€â”€ TOP HOLDINGS TAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â"€â"€ TOP HOLDINGS TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'holdings' && (
         <div className="space-y-4">
           {selectedFunds.map((f, idx) => {
@@ -643,7 +643,7 @@ export function FundComparison() {
                         </div>
                       </div>
                       <span className={`text-sm font-bold w-12 text-right ${h.weight < 0 ? (lm ? 'text-[#dc2626]' : 'text-[#f87171]') : text}`}>
-                        {h.weight > 0 ? `${h.weight.toFixed(2)}%` : 'â€”'}
+                        {h.weight > 0 ? `${h.weight.toFixed(2)}%` : 'â€"'}
                       </span>
                     </div>
                   </div>
@@ -654,7 +654,7 @@ export function FundComparison() {
         </div>
       )}
 
-      {/* â”€â”€ FUND INFO TAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â"€â"€ FUND INFO TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'fundinfo' && (
         <div className={`${card} rounded-2xl overflow-hidden`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
@@ -669,7 +669,7 @@ export function FundComparison() {
 
           {[
             { label: 'AMC Name', render: (f: typeof mockFunds[0]) => f.amcName },
-            { label: 'AMC Owner / Group', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.amcOwner ?? 'â€”' },
+            { label: 'AMC Owner / Group', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.amcOwner ?? 'â€"' },
             { label: 'Inception Date', render: (f: typeof mockFunds[0]) => new Date(f.launchedOn).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) },
             { label: 'AUM', render: (f: typeof mockFunds[0]) => `â‚¹${f.fundSize.toLocaleString('en-IN')} Cr` },
             { label: 'NAV', render: (f: typeof mockFunds[0]) => `â‚¹${f.nav.toFixed(2)}` },
@@ -679,8 +679,8 @@ export function FundComparison() {
             { label: 'Exit Load', render: (f: typeof mockFunds[0]) => `${f.exitLoad}% (within 1Y)` },
             { label: 'Lock-in Period', render: (f: typeof mockFunds[0]) => f.lockIn },
             { label: 'Last Dividend', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.lastDividend ?? 'N/A (Growth plan)' },
-            { label: 'Registrar', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.registrar ?? 'â€”' },
-            { label: 'Custodian', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.custodian ?? 'â€”' },
+            { label: 'Registrar', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.registrar ?? 'â€"' },
+            { label: 'Custodian', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.custodian ?? 'â€"' },
           ].map(row => (
             <div key={row.label} className={`border-b ${rowBorder} last:border-0 ${rowHover} transition-colors`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-sm ${textSub}`}>{row.label}</div>

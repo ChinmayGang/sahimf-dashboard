@@ -46,7 +46,7 @@ export function ProTrialBanner({
               <div className="flex flex-wrap gap-x-3 gap-y-0.5 mb-1">
                 {features.map((f) => (
                   <span key={f} className="text-[10px] font-medium" style={{ color: lm ? '#6366f1' : '#818cf8' }}>
-                    âœ“ {f}
+                    âœ" {f}
                   </span>
                 ))}
               </div>

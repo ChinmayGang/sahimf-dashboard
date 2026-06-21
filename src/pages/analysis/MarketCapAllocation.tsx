@@ -8,7 +8,7 @@ import { PlanGate } from '../../components/ui/PlanGate'
 import { ProButton } from '../../components/ui/ProButton'
 import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 
-// â”€â”€â”€ Mock data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Mock data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 const FUNDS = [
   {
     id: 'f001', name: 'Mirae Asset Large Cap', category: 'Large Cap',
@@ -106,7 +106,7 @@ export function MarketCapAllocation() {
 
   const totalRebalanceTarget = rebalanceTarget.large + rebalanceTarget.mid + rebalanceTarget.small
 
-  // Free / zero-investment users have no portfolio to analyse â€” show guidance instead of empty charts.
+  // Free / zero-investment users have no portfolio to analyse â€" show guidance instead of empty charts.
   if (!hasInvestments) {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -117,7 +117,7 @@ export function MarketCapAllocation() {
           </div>
           <div>
             <h1 className={`text-xl font-black tracking-tight ${text}`}>Market Cap Allocation</h1>
-            <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended â€” drift analysis &amp; rebalancing signals</p>
+            <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended â€" drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
 
@@ -152,7 +152,7 @@ export function MarketCapAllocation() {
               <h1 className="text-xl font-black tracking-tight text-[#111827]">Market Cap Allocation</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Portfolio market cap mix vs recommended â€” drift analysis &amp; rebalancing signals</p>
+            <p className="text-xs text-[#6B7280]">Portfolio market cap mix vs recommended â€" drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">
@@ -178,7 +178,7 @@ export function MarketCapAllocation() {
               {driftAlerts.length} fund{driftAlerts.length > 1 ? 's have' : ' has'} drifted from expected market cap mix
             </p>
             <p className={`text-[11px] mt-0.5 ${lm ? 'text-[#b45309]' : 'text-[#d97706]'}`}>
-              {driftAlerts.map(f => f.name).join(' Â· ')} â€” review rebalancing below
+              {driftAlerts.map(f => f.name).join(' Â· ')} â€" review rebalancing below
             </p>
           </div>
         </div>
@@ -271,18 +271,18 @@ export function MarketCapAllocation() {
       </div>
 
       {/* Sahi Analysis Research Note */}
-      <AnimatedBorderCard badge=”SAHI ANALYSIS”>
-        <div className=”px-5 pb-5 space-y-3”>
-          <PlanGate requiredTier=”pro” compact>
+      <AnimatedBorderCard badge="SAHI ANALYSIS">
+        <div className="px-5 pb-5 space-y-3">
+          <PlanGate requiredTier="pro" compact>
             <div className={`space-y-2 text-xs ${textSub} leading-relaxed`}>
               <p>
                 Your portfolio is <span className={`font-semibold ${lm ? 'text-[#dc2626]' : 'text-[#f87171]'}`}>overweight large-cap by {portfolioMix.large - RECOMMENDED.large}%</span> relative to the Sahi recommended blend for a balanced growth investor. While large-cap funds offer stability, the excess allocation reduces your long-term wealth compounding potential — SEBI data shows flexi-cap and mid-cap categories have outperformed large-cap by 4-7% CAGR over 10-year rolling periods.
               </p>
               <p>
-                <span className=”font-semibold” style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5–7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
+                <span className="font-semibold" style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5–7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
               </p>
               <p>
-                <span className=”font-semibold” style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) — a structural edge that compounds significantly over time.
+                <span className="font-semibold" style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) — a structural edge that compounds significantly over time.
               </p>
               <p className={`text-[10px] ${textMuted} pt-1 border-t`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
                 Sahi analysis is for research and educational purposes only. This is not personalised investment advice. SEBI RA regulations apply.
@@ -393,7 +393,7 @@ export function MarketCapAllocation() {
         </div>
       </div>
 
-      {/* Rebalance Simulator â€” PRO gated */}
+      {/* Rebalance Simulator â€" PRO gated */}
       <PlanGate requiredTier="pro">
         <div className={`${card} rounded-2xl p-5 space-y-4`}>
           <div className="flex items-center gap-2">
@@ -403,11 +403,11 @@ export function MarketCapAllocation() {
           </div>
           <p className={`text-xs ${textSub}`}>Drag sliders to see how rebalancing to your target mix affects individual fund weights.</p>
 
-          {/* Sahi research â€” recommended composition note */}
+          {/* Sahi research â€" recommended composition note */}
           <div className="rounded-xl px-3.5 py-3" style={{ background: lm ? '#F5F3FF' : 'rgba(79,70,229,0.08)', border: `1px solid ${lm ? '#ddd6fe' : 'rgba(79,70,229,0.2)'}` }}>
             <p className="text-[11px] leading-relaxed" style={{ color: lm ? '#4338ca' : '#a5b4fc' }}>
-              <span className="font-bold" style={{ color: lm ? '#4f46e5' : '#c7d2fe' }}>Sahi research view â€” best composition: </span>
-              For a balanced growth investor we suggest <b style={{ color: MCAP_COLORS.large }}>{RECOMMENDED.large}% Large Cap</b>, <b style={{ color: MCAP_COLORS.mid }}>{RECOMMENDED.mid}% Mid Cap</b> and <b style={{ color: MCAP_COLORS.small }}>{RECOMMENDED.small}% Small Cap</b>. Large caps anchor stability, mid caps drive long-term growth, and a measured small-cap sleeve adds upside without over-concentrating risk. Use the sliders to model your own mix â€” your target must total 100%.
+              <span className="font-bold" style={{ color: lm ? '#4f46e5' : '#c7d2fe' }}>Sahi research view â€" best composition: </span>
+              For a balanced growth investor we suggest <b style={{ color: MCAP_COLORS.large }}>{RECOMMENDED.large}% Large Cap</b>, <b style={{ color: MCAP_COLORS.mid }}>{RECOMMENDED.mid}% Mid Cap</b> and <b style={{ color: MCAP_COLORS.small }}>{RECOMMENDED.small}% Small Cap</b>. Large caps anchor stability, mid caps drive long-term growth, and a measured small-cap sleeve adds upside without over-concentrating risk. Use the sliders to model your own mix â€" your target must total 100%.
             </p>
           </div>
 
@@ -501,7 +501,7 @@ export function MarketCapAllocation() {
       </PlanGate>
 
       <p className={`text-[10px] ${textMuted} text-center`}>
-        Market cap classifications follow SEBI's AMFI list (top 100 = Large Cap, 101â€“250 = Mid Cap, 251+ = Small Cap).
+        Market cap classifications follow SEBI's AMFI list (top 100 = Large Cap, 101â€"250 = Mid Cap, 251+ = Small Cap).
         Data is indicative and based on last available portfolio disclosures. SahiMF is a SEBI-registered Research Analyst.
       </p>
     </div>

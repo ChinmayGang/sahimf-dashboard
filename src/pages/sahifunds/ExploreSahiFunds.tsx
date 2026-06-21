@@ -27,7 +27,7 @@ export function ExploreSahiFunds() {
             <h1 className={`text-lg font-semibold ${text}`}>Sahi MF Funds</h1>
           </div>
           <p className={`text-xs ${textSub} max-w-lg`}>
-            Curated mutual fund portfolios built by the SahiMF research desk. No personalization â€”
+            Curated mutual fund portfolios built by the SahiMF research desk. No personalization â€"
             research-driven, rules-based, and transparently constructed.
           </p>
         </div>
@@ -105,7 +105,7 @@ export function ExploreSahiFunds() {
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>1Y Returns</p>
                   <PlanGate requiredTier={fund.accessTier as PlanTier} compact>
                     <p className="text-xs font-semibold text-[#22C55E]">
-                      {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : 'â€”'}
+                      {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : 'â€"'}
                     </p>
                   </PlanGate>
                 </div>

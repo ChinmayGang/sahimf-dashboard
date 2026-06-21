@@ -121,7 +121,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
       {open && (
         <div className="px-5 pb-5 pt-2" style={{ background: lm ? '#FAFAFF' : '#0f1420' }}>
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Left â€” Sahi Sabh-scales (6 sub-dimensions) */}
+            {/* Left â€" Sahi Sabh-scales (6 sub-dimensions) */}
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Sahi Sabh-scales</p>
               <div className="space-y-2.5">
@@ -138,7 +138,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
                 ))}
               </div>
             </div>
-            {/* Center â€” radar / web chart of the score profile */}
+            {/* Center â€" radar / web chart of the score profile */}
             <div className="flex flex-col">
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#111827]">Score Profile</p>
               <div className="flex-1 min-h-[200px]">
@@ -151,7 +151,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
                 </ResponsiveContainer>
               </div>
             </div>
-            {/* Right â€” top holdings */}
+            {/* Right â€" top holdings */}
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Top Portfolio Holdings</p>
               <div className="space-y-2">
@@ -169,17 +169,17 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
           </div>
 
           {/* Sahi Analysis & Rationale — full width */}
-          <div className=”mt-5”>
-            <AnimatedBorderCard badge=”SAHI ANALYSIS”>
-              <div className=”px-5 pb-5”>
-                <div className=”flex flex-wrap gap-1.5 mb-2”>
+          <div className="mt-5">
+            <AnimatedBorderCard badge="SAHI ANALYSIS">
+              <div className="px-5 pb-5">
+                <div className="flex flex-wrap gap-1.5 mb-2">
                   <Chip lm={lm}>{tenure} yr manager tenure</Chip>
                   <Chip lm={lm} color={Number(alpha) >= 0 ? '#16a34a' : '#dc2626'}>{Number(alpha) >= 0 ? '+' : ''}{alpha}% 3Y alpha</Chip>
                   <Chip lm={lm}>Top {peerPct}% peer rank</Chip>
                 </div>
                 <p className={`text-[11px] leading-relaxed ${textSub} max-w-3xl`}>{verdict}</p>
-                <button className=”mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#4f46e5] hover:underline”>
-                  <ShieldCheckIcon size={12} weight=”fill” /> Verifiable SEBI Audit-Trail
+                <button className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#4f46e5] hover:underline">
+                  <ShieldCheckIcon size={12} weight="fill" /> Verifiable SEBI Audit-Trail
                 </button>
               </div>
             </AnimatedBorderCard>
@@ -287,7 +287,7 @@ export function MFScorecard() {
         </div>
       </div>
 
-      {/* Teaser stat â€” value hook before the gate */}
+      {/* Teaser stat â€" value hook before the gate */}
       {!isPro && (
         <div
           className="rounded-xl px-4 py-3 flex items-center gap-3"
@@ -309,7 +309,7 @@ export function MFScorecard() {
       <div className={`${card} rounded-xl px-4 py-3 flex items-start gap-3`}>
         <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" style={{ flexShrink: 0, marginTop: '1px' }} />
         <div className={`text-xs ${textSub} space-y-1`}>
-          <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> â€” Funds are scored on 5 dimensions across a 100-point scale.</p>
+          <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> â€" Funds are scored on 5 dimensions across a 100-point scale.</p>
           <p>Returns (35%) Â· Consistency (25%) Â· Risk-Adjusted Returns (20%) Â· Manager Quality (10%) Â· Cost Efficiency (10%)</p>
           <p className={textMuted}>Scores are recalculated monthly based on trailing 3Y data. NOT personalized recommendations.</p>
         </div>
@@ -324,15 +324,15 @@ export function MFScorecard() {
           ))}
         </div>
 
-        {/* Free rows â€” always visible */}
+        {/* Free rows â€" always visible */}
         {sorted.slice(0, FREE_ROWS).map((entry) => (
           <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
         ))}
 
-        {/* Locked rows â€” blurred with upgrade overlay */}
+        {/* Locked rows â€" blurred with upgrade overlay */}
         {!isPro && (
           <div className="relative">
-            {/* Ghost rows â€” blurred */}
+            {/* Ghost rows â€" blurred */}
             <div className="pointer-events-none select-none" style={{ filter: 'blur(3px)', opacity: 0.4 }}>
               {sorted.slice(FREE_ROWS).map((entry) => {
                 const fund = mockFunds.find((f) => f.id === entry.fundId)!
@@ -383,9 +383,9 @@ export function MFScorecard() {
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <ProButton label=”Unlock Full Scorecard” onClick={() => navigate('/pricing')} />
+                <ProButton label="Unlock Full Scorecard" onClick={() => navigate('/pricing')} />
                 <button
-                  className=”text-xs font-semibold px-4 py-2.5 rounded-full transition-colors”
+                  className="text-xs font-semibold px-4 py-2.5 rounded-full transition-colors"
                   style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: '#6366f1' }}
                   onClick={() => navigate('/pricing')}
                 >
@@ -397,13 +397,13 @@ export function MFScorecard() {
           </div>
         )}
 
-        {/* Pro rows â€” fully visible when unlocked */}
+        {/* Pro rows â€" fully visible when unlocked */}
         {isPro && sorted.slice(FREE_ROWS).map((entry) => (
           <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
         ))}
       </div>
 
-      {/* Individual fund detail gate â€” PRO only section */}
+      {/* Individual fund detail gate â€" PRO only section */}
       {!isPro && (
         <div className={`${card} rounded-xl p-5`}>
           <div className="flex items-start justify-between">

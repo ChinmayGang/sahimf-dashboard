@@ -87,13 +87,13 @@ const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string 
 
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
   const { label, idx, color } = RISK_3_MAP[level]
-  // Arc spans 180Â°â€“360Â° (left â†’ top â†’ right). 3 segments Ã— 60Â° each.
+  // Arc spans 180Â°â€"360Â° (left â†' top â†' right). 3 segments Ã— 60Â° each.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 80, cy = 82, r = 68
   const SEGS = [
-    { fill: '#16a34a' }, // Low â€” green
-    { fill: '#f59e0b' }, // Moderate â€” amber
-    { fill: '#ef4444' }, // High â€” red (always red, always visible)
+    { fill: '#16a34a' }, // Low â€" green
+    { fill: '#f59e0b' }, // Moderate â€" amber
+    { fill: '#ef4444' }, // High â€" red (always red, always visible)
   ]
 
   return (
@@ -313,21 +313,21 @@ export function SchemeDetail() {
             </div>
             <div>
               <p className={`text-xs ${textSub}`}>5Y CAGR</p>
-              <p className="text-lg font-semibold text-[#22C55E]">+{fund.returns['5Y'] ?? 'â€”'}%</p>
+              <p className="text-lg font-semibold text-[#22C55E]">+{fund.returns['5Y'] ?? 'â€"'}%</p>
             </div>
             <div><VolatilityBadge level={fund.volatility} size="md" /></div>
           </div>
         </div>
       </div>
 
-      {/* Fund Analysis rank cards â€” inspired by smallcase/tickertape */}
+      {/* Fund Analysis rank cards â€" inspired by smallcase/tickertape */}
       <div className="grid grid-cols-3 gap-3 mt-3">
         {[
           {
             label: 'Returns',
             rank: returnRank,
             total: totalInCat,
-            stat: `${fund.returns['1Y'] ?? 'â€”'}%`,
+            stat: `${fund.returns['1Y'] ?? 'â€"'}%`,
             statLabel: '1Y Return',
             topTag: 'Highest Return',
           },
@@ -531,15 +531,15 @@ export function SchemeDetail() {
                   { label: 'Expense Ratio', fund: `${fund.expenseRatio}%`, cat: '1.34%' },
                   { label: 'Exit Load', fund: `${fund.exitLoad}%`, cat: '0.69%' },
                   { label: 'Sharpe Ratio', fund: `${fund.sharpeRatio}`, cat: '0.33' },
-                  { label: 'Fund Size', fund: `â‚¹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: 'â€”' },
-                  { label: 'Min SIP', fund: `â‚¹${fund.minSIP}`, cat: 'â€”' },
-                  { label: 'Lock-in', fund: fund.lockIn, cat: 'â€”' },
+                  { label: 'Fund Size', fund: `â‚¹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: 'â€"' },
+                  { label: 'Min SIP', fund: `â‚¹${fund.minSIP}`, cat: 'â€"' },
+                  { label: 'Lock-in', fund: fund.lockIn, cat: 'â€"' },
                 ].map((row) => (
                   <div key={row.label} className={`flex items-center justify-between py-1.5 border-b ${rowBorder}`}>
                     <span className={`text-xs ${textSub}`}>{row.label}</span>
                     <div className="flex items-center gap-4 text-xs font-semibold">
                       <span className={text}>{row.fund}</span>
-                      {row.cat !== 'â€”' && <span className={textMuted}>Cat avg: {row.cat}</span>}
+                      {row.cat !== 'â€"' && <span className={textMuted}>Cat avg: {row.cat}</span>}
                     </div>
                   </div>
                 ))}
@@ -806,7 +806,7 @@ export function SchemeDetail() {
                           </PlanGate>
                         )}
                       </td>
-                      <td className={`text-right py-2 ${textMuted}`}>â€”</td>
+                      <td className={`text-right py-2 ${textMuted}`}>â€"</td>
                     </tr>
                   ))}
                 </tbody>
@@ -889,7 +889,7 @@ export function SchemeDetail() {
               </div>
               <div className={`${card} rounded-xl p-4`}>
                 <p className={`text-[10px] leading-relaxed ${textMuted}`}>
-                  Dividends (IDCW) reduce the NAV by the payout amount on the ex-date. The actual yield depends on your purchase NAV. Consider Growth option for long-term compounding â€” dividends are taxed as income.
+                  Dividends (IDCW) reduce the NAV by the payout amount on the ex-date. The actual yield depends on your purchase NAV. Consider Growth option for long-term compounding â€" dividends are taxed as income.
                 </p>
               </div>
             </div>

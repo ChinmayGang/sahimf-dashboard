@@ -92,7 +92,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           {!isPro && 'â€¦'}
         </p>
 
-        {/* Free gate â€” blurred preview with a working unlock overlay */}
+        {/* Free gate â€" blurred preview with a working unlock overlay */}
         {!isPro && (
           <div className="relative mt-3 rounded-xl overflow-hidden" style={{ minHeight: 150 }}>
             <div
@@ -136,7 +136,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           </div>
         )}
 
-        {/* PRO â€” full content */}
+        {/* PRO â€" full content */}
         {isPro && (
           <>
             <div className="mt-3 grid grid-cols-2 gap-3">
@@ -185,7 +185,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
         open={showUpgrade}
         onClose={() => setShowUpgrade(false)}
         feature="Full Sahi Research Note"
-        description="Unlock the complete analyst note â€” strengths, watch points, Sahi Score breakdown and verdict rationale for every fund."
+        description="Unlock the complete analyst note â€" strengths, watch points, Sahi Score breakdown and verdict rationale for every fund."
       />
     </AnimatedBorderCard>
   )

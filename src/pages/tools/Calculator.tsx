@@ -51,7 +51,7 @@ function useLumpsumCalc(principal: number, rate: number, years: number) {
   }, [principal, rate, years])
 }
 
-/** SWP â€” start with a corpus, withdraw monthly while the balance keeps compounding. */
+/** SWP â€" start with a corpus, withdraw monthly while the balance keeps compounding. */
 function useSWPCalc(corpus: number, withdrawal: number, rate: number, years: number) {
   return useMemo(() => {
     const months = years * 12
@@ -71,7 +71,7 @@ function useSWPCalc(corpus: number, withdrawal: number, rate: number, years: num
   }, [corpus, withdrawal, rate, years])
 }
 
-/** STP â€” park a lump in a low-risk source (fixed 6.5% p.a.), transfer a fixed amount
+/** STP â€" park a lump in a low-risk source (fixed 6.5% p.a.), transfer a fixed amount
  *  into the target each month where it compounds at the equity rate. */
 function useSTPCalc(principal: number, transfer: number, targetRate: number, years: number) {
   return useMemo(() => {
@@ -284,12 +284,12 @@ export function Calculator() {
         </div>
       </div>
 
-      {/* What-If fund comparison merged onto the SIP page â€” the same SIP inputs drive it (R2-4) */}
+      {/* What-If fund comparison merged onto the SIP page â€" the same SIP inputs drive it (R2-4) */}
       {tab === 'sip' && (
         <div className="space-y-3 pt-2">
           <div>
             <h2 className={`text-base font-bold ${text}`}>How top funds would have grown this SIP</h2>
-            <p className={`text-xs ${textSub}`}>Ranked for â‚¹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR â€” adjust the calculator above to update.</p>
+            <p className={`text-xs ${textSub}`}>Ranked for â‚¹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR â€" adjust the calculator above to update.</p>
           </div>
           <SIPWhatIf embedded monthly={monthly} years={years} />
         </div>
@@ -297,7 +297,7 @@ export function Calculator() {
 
       <p className={`text-[10px] ${textMuted} text-center`}>
         Calculations are illustrative and based on the assumptions you set. Past performance is not indicative of future returns.
-        SahiMF is a SEBI-registered Research Analyst â€” this is generic research, not personalised advice.
+        SahiMF is a SEBI-registered Research Analyst â€" this is generic research, not personalised advice.
       </p>
     </div>
   )

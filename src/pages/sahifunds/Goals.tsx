@@ -22,7 +22,7 @@ function formatINR(n: number) {
 
 const GOAL_TEMPLATES = [
   { id: 'retirement', label: 'Retirement', icon: RetirementIcon, color: '#4f46e5', bg: '#EEF2FF', description: 'Build a corpus to sustain monthly expenses post-retirement' },
-  { id: 'education', label: 'Child Education', icon: EducationIcon, color: '#0891b2', bg: '#E0F2FE', description: 'Fund higher education 10â€“20 years away' },
+  { id: 'education', label: 'Child Education', icon: EducationIcon, color: '#0891b2', bg: '#E0F2FE', description: 'Fund higher education 10â€"20 years away' },
   { id: 'home', label: 'Buy a Home', icon: HouseIcon, color: '#16a34a', bg: '#DCFCE7', description: 'Save for down payment or full purchase' },
   { id: 'wedding', label: 'Wedding', icon: WeddingIcon, color: '#db2777', bg: '#FCE7F3', description: 'Plan for a milestone celebration' },
 ]
@@ -89,7 +89,7 @@ export function Goals() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
-      {/* â”€â”€ Header â”€â”€ */}
+      {/* â"€â"€ Header â"€â"€ */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${card} flex items-center justify-center`}>
@@ -109,7 +109,7 @@ export function Goals() {
         </button>
       </div>
 
-      {/* â”€â”€ Goal type tabs â”€â”€ */}
+      {/* â"€â"€ Goal type tabs â"€â"€ */}
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {GOAL_TEMPLATES.map(g => {
           const Icon = g.icon
@@ -132,7 +132,7 @@ export function Goals() {
         })}
       </div>
 
-      {/* â”€â”€ Retirement goal detail â”€â”€ */}
+      {/* â"€â"€ Retirement goal detail â"€â"€ */}
       {activeGoal === 'retirement' && (
         <div className="space-y-5">
 
@@ -152,8 +152,8 @@ export function Goals() {
               <div>
                 <p className="text-[#111827] font-bold text-base">
                   {hasShortfall
-                    ? `Shortfall of ${formatINR(result.shortfall)} â€” action needed`
-                    : `On track â€” surplus of ${formatINR(-result.shortfall)}`
+                    ? `Shortfall of ${formatINR(result.shortfall)} â€" action needed`
+                    : `On track â€" surplus of ${formatINR(-result.shortfall)}`
                   }
                 </p>
                 <p className="text-sm mt-0.5 text-[#374151]">
@@ -203,7 +203,7 @@ export function Goals() {
 
           {/* Corpus projection chart */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-1`}>CORPUS PROJECTION â€” YEAR BY YEAR</p>
+            <p className={`text-xs font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} mb-1`}>CORPUS PROJECTION â€" YEAR BY YEAR</p>
             <p className={`text-xs ${textMuted} mb-4`}>(â‚¹ in Lakhs)</p>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={result.yearlyData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -313,7 +313,7 @@ export function Goals() {
                   <strong>Step-up SIP is the smarter fix.</strong> Instead of jumping SIP immediately, increasing it by 10% every year
                   gets you to the same corpus with a much lower starting burden.
                   <button className="ml-1.5 font-bold underline underline-offset-2 hover:opacity-80 transition-opacity">
-                    Try the step-up plan below â†’
+                    Try the step-up plan below â†'
                   </button>
                 </p>
               </div>
@@ -322,7 +322,7 @@ export function Goals() {
         </div>
       )}
 
-      {/* â”€â”€ Other goal types â€” coming soon placeholder â”€â”€ */}
+      {/* â"€â"€ Other goal types â€" coming soon placeholder â"€â"€ */}
       {activeGoal !== 'retirement' && (
         <div className={`${card} rounded-2xl p-10 text-center`}>
           {(() => {
@@ -335,7 +335,7 @@ export function Goals() {
                 </div>
                 <p className={`text-base font-bold ${text} mb-1`}>{g.label} Goal Planner</p>
                 <p className={`text-sm ${textSub} max-w-xs mx-auto`}>{g.description}</p>
-                <p className={`text-xs mt-3 ${textMuted}`}>Coming soon â€” use Retirement planner for a head-start on any long-horizon goal</p>
+                <p className={`text-xs mt-3 ${textMuted}`}>Coming soon â€" use Retirement planner for a head-start on any long-horizon goal</p>
               </>
             )
           })()}

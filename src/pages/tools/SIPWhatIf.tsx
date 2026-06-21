@@ -32,7 +32,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
   const isPro = can('pro')
 
   // When monthly/years are supplied by a parent (e.g. the merged SIP Calculator),
-  // this view is "controlled" â€” it drops its own SIP/duration sliders and just
+  // this view is "controlled" â€" it drops its own SIP/duration sliders and just
   // re-ranks funds for the parent's inputs. (R2-4)
   const controlled = monthlyProp !== undefined && yearsProp !== undefined
   const [monthlyState, setMonthly] = useState(5000)
@@ -75,7 +75,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
 
   return (
     <div className={embedded ? 'space-y-5' : 'p-6 max-w-7xl mx-auto space-y-5'}>
-      {/* Header â€” hidden when embedded inside the merged Calculator page */}
+      {/* Header â€" hidden when embedded inside the merged Calculator page */}
       {!embedded && (
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
@@ -83,7 +83,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>SIP What If Calculator</h1>
-            <p className={`text-xs ${textMuted}`}>Compare how top funds would have grown your SIP â€” side by side</p>
+            <p className={`text-xs ${textMuted}`}>Compare how top funds would have grown your SIP â€" side by side</p>
           </div>
         </div>
       )}
@@ -91,11 +91,11 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
       <div className="grid grid-cols-3 gap-5">
         {/* Left: controls */}
         <div className={`${card} rounded-xl p-5 space-y-5`}>
-          {/* Monthly SIP + Duration â€” hidden when driven by the SIP Calculator above (R2-4) */}
+          {/* Monthly SIP + Duration â€" hidden when driven by the SIP Calculator above (R2-4) */}
           {controlled ? (
             <div className="rounded-lg px-3 py-2.5" style={{ background: lm ? '#F5F3FF' : 'rgba(79,70,229,0.08)', border: `1px solid ${lm ? '#ddd6fe' : 'rgba(79,70,229,0.2)'}` }}>
               <p className={`text-[11px] leading-relaxed ${textSub}`}>
-                Ranking funds for your SIP above â€” <span className={`font-bold ${accentText}`}>â‚¹{monthly.toLocaleString('en-IN')}/mo</span> over <span className={`font-bold ${accentText}`}>{years}Y</span>. Adjust the calculator to update.
+                Ranking funds for your SIP above â€" <span className={`font-bold ${accentText}`}>â‚¹{monthly.toLocaleString('en-IN')}/mo</span> over <span className={`font-bold ${accentText}`}>{years}Y</span>. Adjust the calculator to update.
               </p>
             </div>
           ) : (
@@ -172,7 +172,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
           {/* Chart */}
           <div className={`${card} rounded-xl p-5`}>
             <div className="flex items-center justify-between mb-3">
-              <p className={`text-sm font-semibold ${text}`}>Corpus Growth â€” â‚¹{monthly.toLocaleString('en-IN')}/mo over {years}Y</p>
+              <p className={`text-sm font-semibold ${text}`}>Corpus Growth â€" â‚¹{monthly.toLocaleString('en-IN')}/mo over {years}Y</p>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5 text-[10px]" style={{ color: NIFTY_COLOR }}>
                   <span className="inline-block w-6 border-t-2 border-dashed" style={{ borderColor: NIFTY_COLOR }} />
@@ -236,7 +236,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
                     <p className={`text-[10px] ${textMuted}`}>{f.amcName}</p>
                   </div>
                   <span className={`text-[10px] ${textSub} leading-tight`}>{f.subCategory}</span>
-                  <span className={`text-xs font-semibold ${text}`}>{f.returns['5Y'] ?? 'â€”'}%</span>
+                  <span className={`text-xs font-semibold ${text}`}>{f.returns['5Y'] ?? 'â€"'}%</span>
                   <span className={`text-xs font-bold ${isLocked ? 'blur-sm select-none' : ''} ${text}`}>{isLocked ? 'â‚¹??.?? L' : formatINR(finalCorpus)}</span>
                   <span className={`text-xs font-semibold ${alpha >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'} ${isLocked ? 'blur-sm select-none' : ''}`}>
                     {alpha >= 0 ? '+' : ''}{formatINR(Math.abs(alpha))}
@@ -280,7 +280,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
                 },
                 {
                   label: 'Top fund CAGR',
-                  value: `${filtered[0].returns['5Y'] ?? 'â€”'}% p.a.`,
+                  value: `${filtered[0].returns['5Y'] ?? 'â€"'}% p.a.`,
                   color: '#22c55e',
                   icon: <TrendUpIcon size={14} weight="fill" />,
                 },
@@ -299,7 +299,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
       </div>
 
       <p className={`text-[10px] ${textMuted} text-center`}>
-        Calculations based on historical 5Y CAGR. Past performance is not indicative of future returns. SahiMF is a SEBI-registered Research Analyst â€” this is generic research, not personalised advice.
+        Calculations based on historical 5Y CAGR. Past performance is not indicative of future returns. SahiMF is a SEBI-registered Research Analyst â€" this is generic research, not personalised advice.
       </p>
     </div>
   )

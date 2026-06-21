@@ -20,7 +20,7 @@ import { mockPortfolios } from '../../data/portfolios'
 import { usePlan } from '../../hooks/usePlan'
 import { ProButton } from '../../components/ui/ProButton'
 
-// â”€â”€ Mock data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€ Mock data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const FUND_TAX = [
   {
@@ -79,7 +79,7 @@ const ELSS_80C_REMAINING = 90000
 
 const WATERFALL = [
   { label: 'Total unrealised gain', value: TOTAL_UNREALISED, type: 'total', subtotal: TOTAL_UNREALISED },
-  { label: 'STCG (Nippon â€” <12m)', value: -STCG_GAIN, type: 'deduct', subtotal: LTCG_TOTAL },
+  { label: 'STCG (Nippon â€" <12m)', value: -STCG_GAIN, type: 'deduct', subtotal: LTCG_TOTAL },
   { label: 'LTCG subtotal', value: null, type: 'subtotal', subtotal: LTCG_TOTAL },
   { label: 'LTCG free limit (Budget 24)', value: -LTCG_FREE_LIMIT, type: 'save', subtotal: NET_LTCG_TAXABLE },
   { label: 'Net LTCG taxable', value: null, type: 'subtotal', subtotal: NET_LTCG_TAXABLE },
@@ -117,7 +117,7 @@ export function TaxReport() {
     { name: 'STCG', value: STCG_GAIN, color: '#ef4444' },
   ]
 
-  // No holdings â†’ guide the user to add a portfolio instead of showing mock tax data.
+  // No holdings â†' guide the user to add a portfolio instead of showing mock tax data.
   if (!hasInvestments) {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -138,7 +138,7 @@ export function TaxReport() {
           <p className={`text-base font-bold ${text} mb-1`}>No investments found</p>
           <p className={`text-sm ${textSub} max-w-md mb-5`}>
             Add a portfolio or import your CAS statement and we'll surface your LTCG/STCG split,
-            tax-harvesting headroom and 80C gaps â€” with deadlines flagged before March 31.
+            tax-harvesting headroom and 80C gaps â€" with deadlines flagged before March 31.
           </p>
           <ProButton label="Add Portfolio" onClick={() => navigate('/mutual-funds/portfolios')} />
         </div>
@@ -149,7 +149,7 @@ export function TaxReport() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
-      {/* â”€â”€ Header â”€â”€ */}
+      {/* â"€â"€ Header â"€â"€ */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${card} flex items-center justify-center`}>
@@ -157,7 +157,7 @@ export function TaxReport() {
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Tax Optimizer</h1>
-            <p className={`text-xs ${textMuted}`}>FY 2025â€“26 Â· LTCG + STCG + 80C analysis</p>
+            <p className={`text-xs ${textMuted}`}>FY 2025â€"26 Â· LTCG + STCG + 80C analysis</p>
           </div>
         </div>
         <PlanGate requiredTier="pro" compact>
@@ -168,7 +168,7 @@ export function TaxReport() {
         </PlanGate>
       </div>
 
-      {/* â”€â”€ Key stat cards â”€â”€ */}
+      {/* â"€â"€ Key stat cards â"€â"€ */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           {
@@ -211,11 +211,11 @@ export function TaxReport() {
         ))}
       </div>
 
-      {/* â”€â”€ Gains split doughnut + holding-period explainer â”€â”€ */}
+      {/* â"€â"€ Gains split doughnut + holding-period explainer â"€â"€ */}
       <div className="grid md:grid-cols-2 gap-4">
-        {/* Doughnut â€” LTCG vs STCG */}
+        {/* Doughnut â€" LTCG vs STCG */}
         <div className={`${card} rounded-2xl p-5`}>
-          <p className={`text-sm font-bold ${text} mb-1`}>Gains split â€” LTCG vs STCG</p>
+          <p className={`text-sm font-bold ${text} mb-1`}>Gains split â€" LTCG vs STCG</p>
           <p className={`text-xs ${textMuted} mb-3`}>Of {formatINR(TOTAL_UNREALISED)} total unrealised gains</p>
           <div className="flex items-center gap-5">
             <div className="relative" style={{ width: 130, height: 130 }}>
@@ -247,7 +247,7 @@ export function TaxReport() {
 
         {/* STCG vs LTCG holding-period graphic */}
         <div className={`${card} rounded-2xl p-5`}>
-          <p className={`text-sm font-bold ${text} mb-1`}>STCG vs LTCG â€” the 12-month line</p>
+          <p className={`text-sm font-bold ${text} mb-1`}>STCG vs LTCG â€" the 12-month line</p>
           <p className={`text-xs ${textMuted} mb-4`}>Equity funds held 12 months+ qualify for lower LTCG tax</p>
           <div className="relative h-9 rounded-lg overflow-hidden flex">
             <div className="flex items-center justify-center" style={{ width: '40%', background: 'rgba(239,68,68,0.18)' }}>
@@ -261,18 +261,18 @@ export function TaxReport() {
           <div className="flex justify-between mt-1.5">
             <span className={`text-[10px] ${textMuted}`}>0</span>
             <span className={`text-[10px] font-semibold ${text}`} style={{ marginLeft: '-10%' }}>12 months</span>
-            <span className={`text-[10px] ${textMuted}`}>longer holding â†’</span>
+            <span className={`text-[10px] ${textMuted}`}>longer holding â†'</span>
           </div>
           <p className={`text-[11px] mt-3 ${textSub} leading-relaxed`}>
-            Crossing 12 months moves a fund from <b className="text-[#ef4444]">20% STCG</b> to <b className="text-[#4f46e5]">12.5% LTCG</b> with a â‚¹1,00,000 annual exemption â€” a strong reason to delay redemptions near the line.
+            Crossing 12 months moves a fund from <b className="text-[#ef4444]">20% STCG</b> to <b className="text-[#4f46e5]">12.5% LTCG</b> with a â‚¹1,00,000 annual exemption â€" a strong reason to delay redemptions near the line.
           </p>
         </div>
       </div>
 
-      {/* â”€â”€ Fund-level breakdown â”€â”€ */}
+      {/* â"€â"€ Fund-level breakdown â"€â"€ */}
       <div className={`${card} rounded-2xl overflow-hidden`}>
         <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
-          <p className={`text-sm font-bold ${text}`}>TAX BREAKDOWN â€” FUND LEVEL</p>
+          <p className={`text-sm font-bold ${text}`}>TAX BREAKDOWN â€" FUND LEVEL</p>
           <p className={`text-xs ${textMuted}`}>Based on current NAV vs your average cost</p>
         </div>
         <table className="w-full text-sm">
@@ -340,9 +340,9 @@ export function TaxReport() {
         </table>
       </div>
 
-      {/* â”€â”€ Tax waterfall â”€â”€ */}
+      {/* â"€â"€ Tax waterfall â"€â"€ */}
       <div className={`${card} rounded-2xl p-5`}>
-        <p className={`text-sm font-bold ${text} mb-1`}>HOW YOUR TAX IS CALCULATED â€” FY 2025â€“26</p>
+        <p className={`text-sm font-bold ${text} mb-1`}>HOW YOUR TAX IS CALCULATED â€" FY 2025â€"26</p>
         <p className={`text-xs ${textMuted} mb-5`}>Waterfall from total gains to actual tax owed</p>
 
         <div className="space-y-2.5">
@@ -414,7 +414,7 @@ export function TaxReport() {
         </div>
       </div>
 
-      {/* â”€â”€ Tax harvesting opportunity â”€â”€ */}
+      {/* â"€â"€ Tax harvesting opportunity â"€â"€ */}
       <PlanGate requiredTier="pro" label="Tax Harvesting Analysis">
         <div className="space-y-4">
           {/* Harvesting banner */}
@@ -426,7 +426,7 @@ export function TaxReport() {
                   You can book â‚¹1,00,000 in LTCG completely tax-free before March 31.
                 </p>
                 <p className="text-xs" style={{ color: 'rgba(255,255,255,0.72)' }}>
-                  Redeem and immediately reinvest â€” this resets your cost basis without triggering any tax,
+                  Redeem and immediately reinvest â€" this resets your cost basis without triggering any tax,
                   saving you {formatINR(LTCG_FREE_LIMIT * 0.125)} in future LTCG liability.
                 </p>
               </div>
@@ -488,12 +488,12 @@ export function TaxReport() {
         </div>
       </PlanGate>
 
-      {/* â”€â”€ ELSS gap analysis â”€â”€ */}
+      {/* â"€â"€ ELSS gap analysis â"€â"€ */}
       <div className={`${card} rounded-2xl p-5`}>
         <div className="flex items-start gap-2 mb-4">
           <WarningIcon size={16} color="#f59e0b" weight="fill" className="flex-shrink-0 mt-0.5" />
           <div>
-            <p className={`text-sm font-bold ${text}`}>ELSS â€” MISSING {formatINR(ELSS_MISSING_SAVING)} IN TAX SAVINGS</p>
+            <p className={`text-sm font-bold ${text}`}>ELSS â€" MISSING {formatINR(ELSS_MISSING_SAVING)} IN TAX SAVINGS</p>
           </div>
         </div>
 
@@ -502,7 +502,7 @@ export function TaxReport() {
             <InfoIcon size={14} color="#3b82f6" weight="fill" className="flex-shrink-0 mt-0.5" />
             <p className="text-xs" style={{ color: lm ? '#1d4ed8' : '#93c5fd' }}>
               <strong>You have no ELSS fund.</strong> Investing â‚¹1,50,000 in an ELSS fund qualifies for Section 80C
-              deduction. At 30% tax bracket this saves â‚¹{(150000 * 0.3).toLocaleString('en-IN')} in income tax â€” with
+              deduction. At 30% tax bracket this saves â‚¹{(150000 * 0.3).toLocaleString('en-IN')} in income tax â€" with
               only a 3-year lock-in, the shortest of all 80C instruments.
             </p>
           </div>
@@ -533,13 +533,13 @@ export function TaxReport() {
         </button>
       </div>
 
-      {/* â”€â”€ STCG alert â”€â”€ */}
+      {/* â"€â"€ STCG alert â"€â"€ */}
       <div className="rounded-2xl p-4" style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.25)' }}>
         <p className={`text-xs font-bold uppercase tracking-wider mb-2`} style={{ color: '#ef4444' }}>STCG ALERT</p>
         <div className="flex items-start gap-2">
           <WarningIcon size={14} color="#ef4444" weight="fill" className="flex-shrink-0 mt-0.5" />
           <p className="text-xs" style={{ color: lm ? '#7f1d1d' : '#fca5a5' }}>
-            <strong>Nippon India Small Cap has â‚¹18,000 in STCG</strong> (held less than 12 months) â€” â‚¹3,600 tax at
+            <strong>Nippon India Small Cap has â‚¹18,000 in STCG</strong> (held less than 12 months) â€" â‚¹3,600 tax at
             20% flat. Avoid redeeming this fund until it crosses the 12-month mark to convert STCG into tax-efficient
             LTCG. <strong>4 more months to go.</strong>
           </p>
@@ -547,11 +547,11 @@ export function TaxReport() {
       </div>
 
       {/* Sahi Tax Strategy note */}
-      <AnimatedBorderCard badge=”SAHI TAX STRATEGY”>
-        <div className=”px-5 pb-5”>
-          <div className=”flex items-start gap-3”>
-            <div className=”w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5” style={{ background: lm ? '#EEF2FF' : 'rgba(79,70,229,0.15)' }}>
-              <BulbIcon size={16} color={lm ? '#4f46e5' : '#818cf8'} weight=”fill” />
+      <AnimatedBorderCard badge="SAHI TAX STRATEGY">
+        <div className="px-5 pb-5">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: lm ? '#EEF2FF' : 'rgba(79,70,229,0.15)' }}>
+              <BulbIcon size={16} color={lm ? '#4f46e5' : '#818cf8'} weight="fill" />
             </div>
             <div>
               <p className={`text-sm font-semibold ${text} mb-1`}>Your portfolio is tax-efficient, but can be smarter</p>
@@ -570,7 +570,7 @@ export function TaxReport() {
       {/* Legal disclaimer */}
       <p className={`text-[10px] ${textMuted} text-center`}>
         Tax computations shown are estimates based on current NAV and holding data. Consult a qualified CA before acting.
-        SahiMF is a SEBI-registered Research Analyst â€” not a tax adviser.
+        SahiMF is a SEBI-registered Research Analyst â€" not a tax adviser.
       </p>
     </div>
   )
