@@ -411,7 +411,7 @@ export function MFScorecard() {
               <p className={`text-xs ${textMuted}`}>See dimension-level breakdowns, peer percentile ranks, and month-over-month score change history.</p>
             </div>
             <PlanGate requiredTier="pro" compact>
-              <button className="text-xs font-semibold px-3 py-1.5 rounded-lg" style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#374151' : '#8390a2' }}>
+              <button className="text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-75 transition-opacity" style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#374151' : '#8390a2' }}>
                 View breakdown
               </button>
             </PlanGate>

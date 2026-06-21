@@ -777,7 +777,7 @@ export function SchemeDetail() {
               <p className={`text-[11px] leading-relaxed mb-3`} style={{ color: lm ? '#4f46e5' : '#a5b4fc' }}>
                 This fund is part of the <span className="font-semibold">Dream Home</span> and <span className="font-semibold">Retirement Corpus</span> baskets. Invest with a goal in mind.
               </p>
-              <button className="flex items-center gap-1 text-[11px] font-bold" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>
+              <button className="flex items-center gap-1 text-[11px] font-bold hover:opacity-75 transition-opacity" style={{ color: lm ? '#4f46e5' : '#818cf8' }}>
                 Explore Baskets <ArrowRightSmIcon size={11} weight="bold" />
               </button>
             </div>

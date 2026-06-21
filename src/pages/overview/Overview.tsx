@@ -550,7 +550,7 @@ export function Overview() {
 
             <div className="flex items-center justify-between mb-3">
               <h2 className={`text-base font-bold ${text}`}>Your Portfolio</h2>
-              <button onClick={() => navigate('/mutual-funds/portfolios')} className="text-xs font-semibold text-[#4f46e5] flex items-center gap-1">
+              <button onClick={() => navigate('/mutual-funds/portfolios')} className="text-xs font-semibold text-[#4f46e5] flex items-center gap-1 hover:opacity-75 transition-opacity">
                 View All <ArrowForwardIcon size={13} weight="bold" />
               </button>
             </div>
@@ -711,7 +711,7 @@ export function Overview() {
               <BookmarkBorderIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="fill" />
               <h2 className={`text-base font-bold ${text}`}>Watchlist</h2>
             </div>
-            <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
+            <button className={`text-xs font-semibold flex items-center gap-1 hover:opacity-75 transition-opacity ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
               <AddIcon size={14} weight="fill" /> Add Fund
             </button>
           </div>
@@ -775,7 +775,7 @@ export function Overview() {
               <NewspaperIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="fill" />
               <h2 className={`text-base font-bold ${text}`}>Market Pulse</h2>
             </div>
-            <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
+            <button className={`text-xs font-semibold flex items-center gap-1 hover:opacity-75 transition-opacity ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
               All News <ArrowForwardIcon size={13} weight="bold" />
             </button>
           </div>
@@ -797,7 +797,7 @@ export function Overview() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <h2 className={`text-base font-bold ${text}`}>Trending Opportunities</h2>
-            <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
+            <button className={`text-xs font-semibold flex items-center gap-1 hover:opacity-75 transition-opacity ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
               See all <ArrowForwardIcon size={13} weight="bold" />
             </button>
           </div>
