@@ -344,12 +344,9 @@ export function Baskets() {
                     {basket.riskLevel} Risk
                   </span>
                   {isLocked ? (
-                    <button
-                      className="flex items-center gap-1 text-xs font-semibold text-white bg-[#4f46e5] hover:bg-[#4338ca] px-3 py-1.5 rounded-lg transition-colors"
-                      onClick={e => { e.stopPropagation(); navigate('/pricing') }}
-                    >
-                      Upgrade to PRO <ArrowRightIcon size={11} weight="bold" />
-                    </button>
+                    <span onClick={e => e.stopPropagation()}>
+                      <ProButton label="Upgrade to PRO" size="xs" onClick={() => navigate('/pricing')} />
+                    </span>
                   ) : (
                     <button
                       className="flex items-center gap-1 text-xs font-semibold text-white bg-[#4f46e5] hover:bg-[#4338ca] px-3 py-1.5 rounded-lg transition-colors"

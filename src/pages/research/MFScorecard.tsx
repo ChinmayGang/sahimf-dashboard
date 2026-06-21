@@ -1,6 +1,7 @@
 ﻿import { useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp as TrendUpIcon, ArrowRight as ArrowRightIcon, CaretDown as CaretDownIcon, CaretRight as CaretRightIcon, ShieldCheck as ShieldCheckIcon } from '@phosphor-icons/react'
+import { ProButton } from '../../components/ui/ProButton'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -380,17 +381,13 @@ export function MFScorecard() {
                 </span>
               </div>
               <div className="flex items-center gap-3">
+                <ProButton label=”Unlock Full Scorecard” onClick={() => navigate('/pricing')} />
                 <button
-                  className="flex items-center gap-1.5 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-bold px-5 py-2.5 rounded-full transition-colors shadow-lg"
-                >
-                  Unlock Full Scorecard
-                  <ArrowRightIcon size={14} weight="bold" />
-                </button>
-                <button
-                  className="text-xs font-semibold px-4 py-2.5 rounded-full transition-colors"
+                  className=”text-xs font-semibold px-4 py-2.5 rounded-full transition-colors”
                   style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.15)', color: '#6366f1' }}
+                  onClick={() => navigate('/pricing')}
                 >
-                  Try PRO â€” 14 days free
+                  Try PRO — 14 days free
                 </button>
               </div>
               <p className={`text-[10px] ${textMuted}`}>No credit card required Â· Cancel anytime</p>

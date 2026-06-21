@@ -1,5 +1,6 @@
 ﻿import { useNavigate } from 'react-router-dom'
 import { Moon as DarkModeIcon } from '@phosphor-icons/react'
+import { ProButton } from '../../components/ui/ProButton'
 import { Sun as LightModeIcon } from '@phosphor-icons/react'
 import { User as PersonIcon } from '@phosphor-icons/react'
 import { Bell as NotificationsIcon } from '@phosphor-icons/react'
@@ -144,9 +145,7 @@ export function Settings() {
             <div className="relative">
               <p className="text-white font-bold text-sm mb-0.5">Upgrade to Sahi PRO</p>
               <p className="text-white/70 text-xs mb-3">Unlock all Sahi Funds, deeper analytics, and priority research.</p>
-              <button className="bg-[#d6fd70] text-[#0a0c0e] text-xs font-bold px-4 py-1.5 rounded-lg">
-                View Plans
-              </button>
+              <ProButton label="View Plans" size="sm" onClick={() => navigate('/pricing')} />
             </div>
           </div>
         )}

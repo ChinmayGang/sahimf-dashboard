@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Plus as AddIcon } from '@phosphor-icons/react'
+import { ProButton } from '../../components/ui/ProButton'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { FolderOpen as FolderOpenIcon } from '@phosphor-icons/react'
 import { ChartLine as ShowChartIcon } from '@phosphor-icons/react'
@@ -269,9 +270,7 @@ export function Portfolios() {
               <p className={`text-xs ${textSub}`}>Free plan allows 1 portfolio only</p>
             </div>
           </div>
-          <button className="bg-[#4f46e5] hover:bg-[#6366f1] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors flex-shrink-0">
-            Upgrade to PRO
-          </button>
+          <ProButton label="Upgrade to PRO" size="sm" className="flex-shrink-0" onClick={() => navigate('/pricing')} />
         </div>
       )}
     </div>

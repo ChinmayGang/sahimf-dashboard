@@ -12,6 +12,7 @@ import { PiggyBank as SavingsIcon } from '@phosphor-icons/react'
 import { ChartBar as BarChartIcon } from '@phosphor-icons/react'
 import { Lock as LockIcon } from '@phosphor-icons/react'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
+import { ProButton } from '../../components/ui/ProButton'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { mockPortfolios } from '../../data/portfolios'
@@ -379,12 +380,7 @@ export function ExploreFunds() {
                 </div>
                 <p className={`text-sm font-bold ${text} mb-1`}>Unlock All Sahi Funds</p>
                 <p className={`text-xs ${textSub} mb-3`}>4 more curated baskets available with Sahi PRO</p>
-                <button
-                  className="text-xs font-bold px-4 py-2 rounded-xl"
-                  style={{ background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000' }}
-                >
-                  Upgrade to PRO
-                </button>
+                <ProButton label="Upgrade to PRO" size="sm" onClick={() => navigate('/pricing')} />
               </div>
             </div>
           )}

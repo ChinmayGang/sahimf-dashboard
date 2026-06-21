@@ -1,7 +1,8 @@
 ﻿import { useState } from 'react'
-import { ArrowRight as ArrowRightIcon, Sparkle as SparkleIcon } from '@phosphor-icons/react'
+import { Sparkle as SparkleIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { UpgradePopup } from './UpgradePopup'
+import { ProButton } from './ProButton'
 
 interface ProTrialBannerProps {
   headline?: string
@@ -62,13 +63,7 @@ export function ProTrialBanner({
           >
             See what's included
           </button>
-          <button
-            onClick={() => setShowUpgrade(true)}
-            className="flex items-center gap-1.5 text-sm font-bold px-5 py-2 rounded-full transition-colors"
-            style={{ background: '#d6fd70', color: '#000' }}
-          >
-            Upgrade Now <ArrowRightIcon size={13} weight="bold" />
-          </button>
+          <ProButton label="Upgrade Now" size="sm" onClick={() => setShowUpgrade(true)} />
         </div>
       </div>
 
