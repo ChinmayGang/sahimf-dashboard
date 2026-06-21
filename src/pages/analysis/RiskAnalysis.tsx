@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { ShieldCheck as ShieldIcon, UploadSimple as UploadIcon, LightbulbFilament as BulbIcon } from '@phosphor-icons/react'
 import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
@@ -105,6 +105,8 @@ function RiskReturnBubbles({
   funds: { name: string; xirr: number; vol: number; alloc: number; category: string }[]
   lm: boolean
 }) {
+  const [tooltip, setTooltip] = useState<{ name: string; alloc: number; xirr: number; vol: number; x: number; y: number } | null>(null)
+
   const W = 400, H = 220
   const PAD = { l: 32, r: 16, t: 12, b: 30 }
   const xMin = 0, xMax = 30
@@ -117,54 +119,82 @@ function RiskReturnBubbles({
   const gridY = [0, 10, 20]
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: 480 }}>
-      {/* Grid */}
-      {gridX.map(x => (
-        <g key={`gx${x}`}>
-          <line x1={toX(x)} y1={PAD.t} x2={toX(x)} y2={H - PAD.b} stroke={lm ? '#F3F4F6' : '#1e2838'} strokeWidth={1} />
-          <text x={toX(x)} y={H - PAD.b + 12} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="middle">{x}%</text>
-        </g>
-      ))}
-      {gridY.map(y => (
-        <g key={`gy${y}`}>
-          <line x1={PAD.l} y1={toY(y)} x2={W - PAD.r} y2={toY(y)} stroke={lm ? '#F3F4F6' : '#1e2838'} strokeWidth={1} />
-          <text x={PAD.l - 4} y={toY(y) + 3} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="end">{y}%</text>
-        </g>
-      ))}
-      {/* Axes labels */}
-      <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR →</text>
-      <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility →</text>
-
-      {/* Bubbles */}
-      {funds.map((f, _i) => {
-        const cx = toX(f.xirr)
-        const cy = toY(f.vol)
-        const r = 8 + f.alloc * 0.4
-        const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
-        return (
-          <g key={`${f.name}-${_i}`} style={{ cursor: 'pointer' }}>
-            <title>{`${f.name} · ${f.alloc.toFixed(0)}% allocation · ${f.xirr.toFixed(1)}% XIRR · ${f.vol}% volatility`}</title>
-            <circle
-              cx={cx} cy={cy} r={r}
-              fill={color}
-              fillOpacity={0.25}
-              stroke={color}
-              strokeWidth={1.5}
-            />
-            <text
-              x={cx} y={cy + 3}
-              fontSize={7}
-              fontWeight="bold"
-              fill={lm ? '#111827' : '#ffffff'}
-              textAnchor="middle"
-              style={{ pointerEvents: 'none' }}
-            >
-              {f.name.split(' ').slice(0, 1).join('')}
-            </text>
+    <div style={{ position: 'relative', width: '100%', maxWidth: 480 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%">
+        {/* Grid */}
+        {gridX.map(x => (
+          <g key={`gx${x}`}>
+            <line x1={toX(x)} y1={PAD.t} x2={toX(x)} y2={H - PAD.b} stroke={lm ? '#F3F4F6' : '#1e2838'} strokeWidth={1} />
+            <text x={toX(x)} y={H - PAD.b + 12} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="middle">{x}%</text>
           </g>
-        )
-      })}
-    </svg>
+        ))}
+        {gridY.map(y => (
+          <g key={`gy${y}`}>
+            <line x1={PAD.l} y1={toY(y)} x2={W - PAD.r} y2={toY(y)} stroke={lm ? '#F3F4F6' : '#1e2838'} strokeWidth={1} />
+            <text x={PAD.l - 4} y={toY(y) + 3} fontSize={8} fill={lm ? '#9CA3AF' : '#64748b'} textAnchor="end">{y}%</text>
+          </g>
+        ))}
+        {/* Axes labels */}
+        <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR →</text>
+        <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility →</text>
+
+        {/* Bubbles */}
+        {funds.map((f, _i) => {
+          const cx = toX(f.xirr)
+          const cy = toY(f.vol)
+          const r = 8 + f.alloc * 0.4
+          const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
+          return (
+            <g
+              key={`${f.name}-${_i}`}
+              style={{ cursor: 'pointer' }}
+              onMouseEnter={(e) => setTooltip({ name: f.name, alloc: f.alloc, xirr: f.xirr, vol: f.vol, x: e.clientX, y: e.clientY })}
+              onMouseMove={(e) => setTooltip(t => t ? { ...t, x: e.clientX, y: e.clientY } : null)}
+              onMouseLeave={() => setTooltip(null)}
+            >
+              <circle
+                cx={cx} cy={cy} r={r}
+                fill={color}
+                fillOpacity={0.25}
+                stroke={color}
+                strokeWidth={1.5}
+              />
+              <text
+                x={cx} y={cy + 3}
+                fontSize={7}
+                fontWeight="bold"
+                fill={lm ? '#111827' : '#ffffff'}
+                textAnchor="middle"
+                style={{ pointerEvents: 'none' }}
+              >
+                {f.name.split(' ').slice(0, 1).join('')}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+
+      {tooltip && (
+        <div style={{
+          position: 'fixed',
+          left: tooltip.x + 14,
+          top: tooltip.y - 14,
+          background: lm ? '#ffffff' : '#14171c',
+          border: `1px solid ${lm ? '#E0E3E8' : '#1e2838'}`,
+          borderRadius: 8,
+          padding: '6px 10px',
+          pointerEvents: 'none',
+          zIndex: 50,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
+          whiteSpace: 'nowrap',
+        }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: lm ? '#111827' : '#ffffff', marginBottom: 2 }}>{tooltip.name}</p>
+          <p style={{ fontSize: 10, color: lm ? '#6B7280' : '#8390a2' }}>
+            {tooltip.alloc.toFixed(0)}% alloc · {tooltip.xirr.toFixed(1)}% XIRR · {tooltip.vol}% vol
+          </p>
+        </div>
+      )}
+    </div>
   )
 }
 
