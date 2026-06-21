@@ -1,5 +1,6 @@
 import { Sparkle } from '@phosphor-icons/react'
 import type { ReactNode } from 'react'
+import { useUIStore } from '../../stores/uiStore'
 
 interface AnimatedBorderCardProps {
   children: ReactNode
@@ -7,16 +8,11 @@ interface AnimatedBorderCardProps {
   badge?: string | false
 }
 
-/**
- * Highlight card for Sahi Research / Analysis content.
- * The wrapper renders a continuously rotating 4-colour conic-gradient ring;
- * the inner white card sits on top (inset by the wrapper's 2px padding) so the
- * gradient reads as an animated border — instantly distinct from plain cards.
- */
 export function AnimatedBorderCard({ children, className = '', badge = 'SAHI RESEARCH' }: AnimatedBorderCardProps) {
+  const lm = useUIStore((s) => s.lightMode)
   return (
     <div className={`sahi-research-border ${className}`}>
-      <div className="relative z-[1] rounded-2xl overflow-hidden bg-white">
+      <div className="relative z-[1] rounded-2xl overflow-hidden" style={{ background: lm ? '#ffffff' : '#14171c' }}>
         <div className="pt-4">
           {badge && (
             <div className="px-4 pb-3">

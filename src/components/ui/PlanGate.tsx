@@ -13,9 +13,11 @@ interface PlanGateProps {
   compact?: boolean
   feature?: string
   featureDesc?: string
+  /** Override the min-height of the gate block (default: 220px for full, 56px for compact) */
+  minHeight?: string
 }
 
-export function PlanGate({ requiredTier, children, label, compact, feature, featureDesc }: PlanGateProps) {
+export function PlanGate({ requiredTier, children, label, compact, feature, featureDesc, minHeight }: PlanGateProps) {
   const { can } = usePlan()
   const lm = useUIStore((s) => s.lightMode)
   const [showUpgrade, setShowUpgrade] = useState(false)
@@ -26,12 +28,16 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
 
   const compactBg = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const compactText = lm ? 'text-[#111827]' : 'text-white'
+  const defaultMinH = compact ? (minHeight ?? '56px') : (minHeight ?? '220px')
 
   return (
     <>
-      <div className="relative">
-        <div className="pointer-events-none select-none blur-sm">{children}</div>
-        <div className={`absolute inset-0 flex flex-col items-center justify-center rounded-lg backdrop-blur-[3px] ${lm ? 'bg-[#ede9fe]/70' : 'bg-black/45'}`}>
+      {/* w-full ensures the gate fills its grid/flex parent; rounded-2xl clips children to match card radius */}
+      <div className="relative w-full rounded-2xl overflow-hidden" style={{ minHeight: defaultMinH }}>
+        <div className="pointer-events-none select-none blur-sm w-full h-full">{children}</div>
+        <div
+          className={`absolute inset-0 flex flex-col items-center justify-center backdrop-blur-[3px] rounded-2xl ${lm ? 'bg-[#ede9fe]/70' : 'bg-black/45'}`}
+        >
           {compact ? (
             <button
               onClick={() => setShowUpgrade(true)}
@@ -41,17 +47,22 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
               <span className={`text-xs font-medium ${compactText}`}>{tierLabel}</span>
             </button>
           ) : (
-            <div className="flex flex-col items-center gap-3 text-center px-6">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{ background: lm ? 'rgba(79,70,229,0.1)' : 'rgba(214,253,112,0.1)', border: `1px solid ${lm ? 'rgba(79,70,229,0.2)' : 'rgba(214,253,112,0.2)'}` }}>
-                <LockIcon size={20} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <div className="flex flex-col items-center gap-3 text-center px-8 py-6">
+              <div
+                className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{
+                  background: lm ? 'rgba(79,70,229,0.1)' : 'rgba(214,253,112,0.1)',
+                  border: `1px solid ${lm ? 'rgba(79,70,229,0.2)' : 'rgba(214,253,112,0.2)'}`,
+                }}
+              >
+                <LockIcon size={20} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
               </div>
               <div>
                 <p className={`text-sm font-semibold mb-1 ${lm ? 'text-[#111827]' : 'text-white'}`}>
                   {label ?? `Upgrade to ${tierLabel}`}
                 </p>
-                <p className={`text-xs ${lm ? 'text-[#374151]' : 'text-[rgba(255,255,255,0.72)]'}`}>
-                  Unlock this with a {tierLabel} subscription
+                <p className={`text-xs max-w-[240px] leading-relaxed ${lm ? 'text-[#374151]' : 'text-[rgba(255,255,255,0.72)]'}`}>
+                  {featureDesc ?? `Unlock this with a ${tierLabel} subscription`}
                 </p>
               </div>
               <ProButton
