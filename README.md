@@ -292,20 +292,34 @@ This pass worked through a detailed 40-point design review + ongoing session fix
 - `ProButton` wired into `UpgradePopup` ("Unlock with Sahi PRO" + "See all plan details →") and `PlanGate` full CTA (#14 partial)
 - `Calculator`: merged tabbed page — SIP / Lumpsum / SWP / STP / What-If segmented control (`?tab=` URL sync), SWP + STP formulas, embedded `<SIPWhatIf>`; sidebar collapsed to one "SIP Calculator" item (#34)
 - `MarketCapAllocation`: zero-investment guidance gate, Sahi Analysis moved above fund table, filled-track pill rebalance sliders, `#111827` headings (#31)
-- `RiskAnalysis`: zero-investment guidance gate, bubble `<title>` tooltips, `<AnimatedBorderCard>` Sahi Insight panel (#32)
+- `RiskAnalysis`: zero-investment guidance gate, `<AnimatedBorderCard>` Sahi Insight panel (#32); bubble hover fixed with React state tooltip (Session 3)
 - `TaxReport` → "Tax Optimizer": empty state, LTCG/STCG gains doughnut + 12-month holding-period graphic
 - `Reports & Disclosures`: emoji glyphs → Phosphor icons; "Investment Adviser" → "Research Analyst" (RA-only brand)
 - `/pricing` confirmed full-screen (no sidebar), Free / PRO / Wealth tiers
+
+**Session 3 — Dark mode sweep + bug fixes (June 2026)**
+- `DS-10 hover states` — 5 text-link buttons missing hover: Overview.tsx ×4, MFScorecard.tsx, SchemeDetail.tsx → all use `hover:opacity-75 transition-opacity`
+- `Dark mode — SchemeDetail rank cards` — `RANK_TIER` map now `lm`-conditional for `tintBg`, `tintBorder`, `color` values
+- `Dark mode — AnimatedBorderCard badge` — "SAHI RESEARCH" pill badge color + bg now `lm`-conditional (indigo in light, lime in dark)
+- `Dark mode — Goals alert banner` — Shortfall/surplus banner `background`/`border` + inner text now theme-aware
+- `Dark mode — OverlapLens section labels` — Fixed via Edit tool after PowerShell encoding corruption was recovered (`git restore`)
+- `Dark mode — RiskAnalysis Sahi Risk Insight` — Hardcoded `#111827` text → `${text}` token
+- `Dark mode — MFScorecard "Sahi Sabh-scales" label` — `text-[#111827]` → `${text}`
+- `Encoding rule` — PowerShell `Set-Content` corrupts UTF-8 multi-byte chars (em dash → `â€"`). Rule: NEVER use PowerShell for file edits — always use the Edit tool.
+- `RiskAnalysis scatter hover` — Replaced unreliable SVG `<title>` with React `useState` tooltip: fund name + allocation % + XIRR + volatility shown on hover
 
 ### Pending ⏳
 
 **Still open**
 
+- DS-2 Global CSS color tokens (big refactor)
+- DS-3 Button.tsx — unified component + replace all raw buttons
+- DS-6 Card.tsx hierarchy
+- DS-9 Page header icon standardization (Baskets, OverlapLens, RiskAnalysis, others — all have different styles)
+- BF-5 MF Scorecard — needs further review vs original spec
 - #13/#37 Global grey→black text sweep across every remaining page
 - B2-1 Extract remaining inline buttons into a shared state-driven `<Button>` component
-- #22 Audit every remaining grey heading project-wide
 - #28/#29 Unify page container widths + header-card style across all pages
-- Risk-label vocabulary unified to SEBI 6-level project-wide (B5-2)
 - Batch 8 — Mobile responsive · Batch 9 — Supabase integration
 - Task #11 — harden the `index.css` `.text-white` light-mode override
 
