@@ -206,6 +206,7 @@ export function MFScorecard() {
   const lm = useUIStore((s) => s.lightMode)
   const { can } = usePlan()
   const isPro = can('pro')
+  const navigate = useNavigate()
 
   const card = lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'
   const text = lm ? 'text-[#111827]' : 'text-white'

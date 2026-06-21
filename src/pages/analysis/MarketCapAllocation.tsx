@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { ChartPieSlice, ArrowsClockwise, Warning, TrendUp, Info, UploadSimple } from '@phosphor-icons/react'
+import { ChartPieSlice, ArrowsClockwise, Warning, UploadSimple } from '@phosphor-icons/react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'

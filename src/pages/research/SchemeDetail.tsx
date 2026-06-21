@@ -204,16 +204,15 @@ export function SchemeDetail() {
   const totalInCat = Math.max(sameCatFunds.length, 5)
   const returnRank = sameCatFunds.sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0)).findIndex(f => f.id === fund.id) + 1
   const costRank = sameCatFunds.sort((a, b) => a.expenseRatio - b.expenseRatio).findIndex(f => f.id === fund.id) + 1
+  const volOrder: Record<string, number> = { Low: 0, 'Low-Moderate': 1, Moderate: 2, 'Moderately High': 3, High: 4, 'Very High': 5, Medium: 2 }
   const volRank = sameCatFunds.sort((a, b) => {
-    const order = { Low: 0, Medium: 1, High: 2 }
-    return order[a.volatility] - order[b.volatility]
+    return (volOrder[a.volatility] ?? 2) - (volOrder[b.volatility] ?? 2)
   }).findIndex(f => f.id === fund.id) + 1
 
   const peers = getPeerFunds(fund.id, fund.subCategory)
   const peerFunds = peers.length >= 2 ? peers : getPeerFundsAny(fund.id).slice(0, 3)
   const leastVolatilePeer = [...peerFunds].sort((a, b) => {
-    const o = { Low: 0, Medium: 1, High: 2 }
-    return o[a.volatility] - o[b.volatility]
+    return (volOrder[a.volatility] ?? 2) - (volOrder[b.volatility] ?? 2)
   })[0]
   const highestReturnPeer = [...peerFunds].sort((a, b) => (b.returns['1Y'] ?? 0) - (a.returns['1Y'] ?? 0))[0]
 

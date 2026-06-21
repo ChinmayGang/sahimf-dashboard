@@ -87,10 +87,11 @@ const FUNDS = [
   { name: 'HDFC Mid-Cap Opportunities', amc: 'HDFC', cat: 'Mid Cap', nav: 153.67, change: 0.91, r1y: 31.5, r3y: 24.1, vol: 'High' as const },
 ]
 
-const VOL_CONFIG = {
-  Low:    { dot: SUCCESS, bg: '#DCFCE7', text: SUCCESS },
-  Medium: { dot: WARNING, bg: '#FEF3C7', text: WARNING },
-  High:   { dot: DANGER,  bg: '#FEE2E2', text: DANGER },
+const VOL_CONFIG: Record<string, { dot: string; bg: string; text: string }> = {
+  Low:      { dot: SUCCESS, bg: '#DCFCE7', text: SUCCESS },
+  Moderate: { dot: WARNING, bg: '#FEF3C7', text: WARNING },
+  Medium:   { dot: WARNING, bg: '#FEF3C7', text: WARNING },
+  High:     { dot: DANGER,  bg: '#FEE2E2', text: DANGER },
 }
 
 export function DesignSystem() {

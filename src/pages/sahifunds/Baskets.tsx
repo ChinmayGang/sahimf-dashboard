@@ -345,7 +345,7 @@ export function Baskets() {
                   </span>
                   {isLocked ? (
                     <span onClick={e => e.stopPropagation()}>
-                      <ProButton label="Upgrade to PRO" size="xs" onClick={() => navigate('/pricing')} />
+                      <ProButton label="Upgrade to PRO" size="sm" onClick={() => navigate('/pricing')} />
                     </span>
                   ) : (
                     <button
