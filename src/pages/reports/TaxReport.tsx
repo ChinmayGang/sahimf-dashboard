@@ -13,6 +13,7 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
+import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 import { mockPortfolios } from '../../data/portfolios'
@@ -545,23 +546,24 @@ export function TaxReport() {
         </div>
       </div>
 
-      {/* â”€â”€ Sahi Research note â”€â”€ */}
-      <div className={`${card} rounded-2xl p-5`}>
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: lm ? '#EEF2FF' : 'rgba(214,253,112,0.1)' }}>
-            <BulbIcon size={16} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
-          </div>
-          <div>
-            <p className={`text-xs font-bold uppercase tracking-wider mb-1 ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>Sahi Tax Strategy</p>
-            <p className={`text-sm font-semibold ${text} mb-1`}>Your portfolio is tax-efficient, but can be smarter</p>
-            <p className={`text-xs leading-relaxed ${textSub}`}>
-              With â‚¹1L LTCG free limit unused, harvesting from Mirae or Parag Parikh before March saves â‚¹12,500 in
-              future tax. Adding an ELSS fund saves an additional â‚¹{(ELSS_80C_REMAINING * 0.3).toLocaleString('en-IN')}
-              in income tax this year. Combined annual tax saving opportunity: <strong>â‚¹{(12500 + ELSS_80C_REMAINING * 0.3).toLocaleString('en-IN')}</strong>.
-            </p>
+      {/* Sahi Tax Strategy note */}
+      <AnimatedBorderCard badge=”SAHI TAX STRATEGY”>
+        <div className=”px-5 pb-5”>
+          <div className=”flex items-start gap-3”>
+            <div className=”w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5” style={{ background: lm ? '#EEF2FF' : 'rgba(79,70,229,0.15)' }}>
+              <BulbIcon size={16} color={lm ? '#4f46e5' : '#818cf8'} weight=”fill” />
+            </div>
+            <div>
+              <p className={`text-sm font-semibold ${text} mb-1`}>Your portfolio is tax-efficient, but can be smarter</p>
+              <p className={`text-xs leading-relaxed ${textSub}`}>
+                With ₹1L LTCG free limit unused, harvesting from Mirae or Parag Parikh before March saves ₹12,500 in
+                future tax. Adding an ELSS fund saves an additional ₹{(ELSS_80C_REMAINING * 0.3).toLocaleString('en-IN')}
+                in income tax this year. Combined annual tax saving opportunity: <strong>₹{(12500 + ELSS_80C_REMAINING * 0.3).toLocaleString('en-IN')}</strong>.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </AnimatedBorderCard>
 
       {!isPro && <ProTrialBanner />}
 

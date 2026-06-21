@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { mockPortfolios } from '../../data/portfolios'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { ProButton } from '../../components/ui/ProButton'
+import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 
 // â”€â”€â”€ Mock data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FUNDS = [
@@ -269,30 +270,27 @@ export function MarketCapAllocation() {
         </div>
       </div>
 
-      {/* Sahi Analysis Research Note â€” surfaced above the fund table (B7-3) */}
-      <div className={`${card} rounded-2xl p-5 space-y-3`}>
-        <div className="flex items-center gap-2">
-          <TrendUp size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
-          <p className={`text-sm font-semibold ${text}`}>Sahi Analysis Â· Market Cap Research Note</p>
-          <Info size={13} color={textMuted} weight="fill" />
+      {/* Sahi Analysis Research Note */}
+      <AnimatedBorderCard badge=”SAHI ANALYSIS”>
+        <div className=”px-5 pb-5 space-y-3”>
+          <PlanGate requiredTier=”pro” compact>
+            <div className={`space-y-2 text-xs ${textSub} leading-relaxed`}>
+              <p>
+                Your portfolio is <span className={`font-semibold ${lm ? 'text-[#dc2626]' : 'text-[#f87171]'}`}>overweight large-cap by {portfolioMix.large - RECOMMENDED.large}%</span> relative to the Sahi recommended blend for a balanced growth investor. While large-cap funds offer stability, the excess allocation reduces your long-term wealth compounding potential — SEBI data shows flexi-cap and mid-cap categories have outperformed large-cap by 4-7% CAGR over 10-year rolling periods.
+              </p>
+              <p>
+                <span className=”font-semibold” style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5–7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
+              </p>
+              <p>
+                <span className=”font-semibold” style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) — a structural edge that compounds significantly over time.
+              </p>
+              <p className={`text-[10px] ${textMuted} pt-1 border-t`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
+                Sahi analysis is for research and educational purposes only. This is not personalised investment advice. SEBI RA regulations apply.
+              </p>
+            </div>
+          </PlanGate>
         </div>
-        <PlanGate requiredTier="pro" compact>
-          <div className={`space-y-2 text-xs ${textSub} leading-relaxed`}>
-            <p>
-              Your portfolio is <span className={`font-semibold ${lm ? 'text-[#dc2626]' : 'text-[#f87171]'}`}>overweight large-cap by {portfolioMix.large - RECOMMENDED.large}%</span> relative to the Sahi recommended blend for a balanced growth investor. While large-cap funds offer stability, the excess allocation reduces your long-term wealth compounding potential â€” SEBI data shows flexi-cap and mid-cap categories have outperformed large-cap by 4-7% CAGR over 10-year rolling periods.
-            </p>
-            <p>
-              <span className="font-semibold" style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5â€“7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
-            </p>
-            <p>
-              <span className="font-semibold" style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) â€” a structural edge that compounds significantly over time.
-            </p>
-            <p className={`text-[10px] ${textMuted} pt-1 border-t ${divider}`}>
-              Sahi analysis is for research and educational purposes only. This is not personalised investment advice. SEBI RA regulations apply. Please consult a registered investment adviser before making changes to your portfolio.
-            </p>
-          </div>
-        </PlanGate>
-      </div>
+      </AnimatedBorderCard>
 
       {/* Fund-by-Fund Breakdown */}
       <div className={`${card} rounded-2xl overflow-hidden`}>

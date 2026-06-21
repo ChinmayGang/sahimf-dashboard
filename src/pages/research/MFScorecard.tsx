@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp as TrendUpIcon, ArrowRight as ArrowRightIcon, CaretDown as CaretDownIcon, CaretRight as CaretRightIcon, ShieldCheck as ShieldCheckIcon } from '@phosphor-icons/react'
 import { ProButton } from '../../components/ui/ProButton'
+import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 import { mockFunds } from '../../data/funds'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
@@ -167,20 +168,21 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
             </div>
           </div>
 
-          {/* Sahi Analysis & Rationale â€” full width */}
-          <div className="mt-5 pt-4 border-t" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
-            <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#111827]">Sahi Analysis &amp; Rationale</p>
-              <div className="flex flex-wrap gap-1.5">
-                <Chip lm={lm}>{tenure} yr manager tenure</Chip>
-                <Chip lm={lm} color={Number(alpha) >= 0 ? '#16a34a' : '#dc2626'}>{Number(alpha) >= 0 ? '+' : ''}{alpha}% 3Y alpha</Chip>
-                <Chip lm={lm}>Top {peerPct}% peer rank</Chip>
+          {/* Sahi Analysis & Rationale — full width */}
+          <div className=”mt-5”>
+            <AnimatedBorderCard badge=”SAHI ANALYSIS”>
+              <div className=”px-5 pb-5”>
+                <div className=”flex flex-wrap gap-1.5 mb-2”>
+                  <Chip lm={lm}>{tenure} yr manager tenure</Chip>
+                  <Chip lm={lm} color={Number(alpha) >= 0 ? '#16a34a' : '#dc2626'}>{Number(alpha) >= 0 ? '+' : ''}{alpha}% 3Y alpha</Chip>
+                  <Chip lm={lm}>Top {peerPct}% peer rank</Chip>
+                </div>
+                <p className={`text-[11px] leading-relaxed ${textSub} max-w-3xl`}>{verdict}</p>
+                <button className=”mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#4f46e5] hover:underline”>
+                  <ShieldCheckIcon size={12} weight=”fill” /> Verifiable SEBI Audit-Trail
+                </button>
               </div>
-            </div>
-            <p className={`text-[11px] leading-relaxed ${textSub} max-w-3xl`}>{verdict}</p>
-            <button className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#4f46e5] hover:underline">
-              <ShieldCheckIcon size={12} weight="fill" /> Verifiable SEBI Audit-Trail
-            </button>
+            </AnimatedBorderCard>
           </div>
 
           <button
