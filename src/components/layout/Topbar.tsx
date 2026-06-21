@@ -46,7 +46,7 @@ export function Topbar() {
           onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
-          <SyncIcon size={14} weight="regular" />
+          <SyncIcon size={14} weight="fill" />
           Sync Active CAS
         </button>
 

@@ -164,7 +164,7 @@ export function PortfolioDetail() {
           <h2 className={`text-sm font-semibold ${text}`}>Fund Holdings</h2>
           <PlanGate requiredTier="pro" compact>
             <button className={`flex items-center gap-1.5 text-xs ${textSub} hover:${text} border ${dividerColor} hover:border-[#3c4653] px-3 py-1.5 rounded-lg transition-all`}>
-              <FileDownloadIcon size={14} weight="regular" />
+              <FileDownloadIcon size={14} weight="fill" />
               Export
             </button>
           </PlanGate>
@@ -212,9 +212,9 @@ export function PortfolioDetail() {
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className={`flex items-center gap-1 text-xs font-semibold ${h.gainLoss >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
                       {h.gainLoss >= 0 ? (
-                        <TrendingUpIcon size={13} weight="regular" />
+                        <TrendingUpIcon size={13} weight="fill" />
                       ) : (
-                        <TrendingDownIcon size={13} weight="regular" />
+                        <TrendingDownIcon size={13} weight="fill" />
                       )}
                       {h.gainLoss >= 0 ? '+' : ''}{formatINR(h.gainLoss)}
                       <span className="text-[10px]">({h.gainLossPercent.toFixed(1)}%)</span>
@@ -273,7 +273,7 @@ export function PortfolioDetail() {
                       <p className="text-xs font-bold text-[#ef4444]">{h.xirr}% XIRR</p>
                       <p className={`text-[10px] ${textMuted}`}>Your fund</p>
                     </div>
-                    <TrendingDownIcon size={16} weight="regular" className="text-[#ef4444]" />
+                    <TrendingDownIcon size={16} weight="fill" className="text-[#ef4444]" />
                   </div>
 
                   {/* Peer cards */}

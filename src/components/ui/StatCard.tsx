@@ -40,9 +40,9 @@ export function StatCard({ label, value, subValue, change, changeLabel, icon, ac
         {change !== undefined && (
           <div className={`flex items-center gap-1 text-xs font-medium ${isPositive ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
             {isPositive ? (
-              <TrendingUpIcon size={14} weight="regular" />
+              <TrendingUpIcon size={14} weight="fill" />
             ) : (
-              <TrendingDownIcon size={14} weight="regular" />
+              <TrendingDownIcon size={14} weight="fill" />
             )}
             <span>
               {isPositive ? '+' : ''}{change.toFixed(2)}%{changeLabel ? ` ${changeLabel}` : ''}

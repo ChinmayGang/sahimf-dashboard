@@ -27,7 +27,7 @@ export function PlanBadge({ tier, size = 'sm' }: Props) {
         size === 'sm' ? 'text-xs' : 'text-sm'
       }`}
     >
-      {tier !== 'free' && <StarIcon size={10} weight="regular" />}
+      {tier !== 'free' && <StarIcon size={10} weight="fill" />}
       {label}
     </span>
   )

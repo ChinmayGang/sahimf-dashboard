@@ -247,7 +247,7 @@ export function SchemeDetail() {
             <div className="flex items-center gap-3">
               <span className={`text-xs font-semibold ${textSub}`}>{selectedNews.source}</span>
               <span className={`text-[10px] ${textMuted} flex items-center gap-1`}>
-                <ClockIcon size={10} weight="regular" />
+                <ClockIcon size={10} weight="fill" />
                 {format(new Date(selectedNews.publishedAt), 'd MMM yyyy, h:mm a')}
               </span>
             </div>
@@ -639,7 +639,7 @@ export function SchemeDetail() {
                           {item.category}
                         </span>
                         <span className={`text-[10px] ${textMuted} flex items-center gap-1 flex-shrink-0`}>
-                          <ClockIcon size={9} weight="regular" />
+                          <ClockIcon size={9} weight="fill" />
                           {formatDistanceToNow(new Date(item.publishedAt), { addSuffix: true })}
                         </span>
                       </div>

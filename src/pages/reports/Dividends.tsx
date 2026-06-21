@@ -64,7 +64,7 @@ export function Dividends() {
       {/* Filters */}
       <div className="flex flex-wrap gap-3 items-center">
         <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 flex-1 min-w-48`}>
-          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
+          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
           <input
             type="text"
             placeholder="Search fund or AMC..."

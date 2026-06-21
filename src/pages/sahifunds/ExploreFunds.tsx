@@ -160,7 +160,7 @@ export function ExploreFunds() {
 
             {/* Search bar */}
             <div className="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 max-w-lg shadow-sm">
-              <SearchIcon size={17} color="#8390a2" weight="regular" />
+              <SearchIcon size={17} color="#8390a2" weight="fill" />
               <input
                 value={search}
                 onChange={(e) => {
@@ -358,7 +358,7 @@ export function ExploreFunds() {
                           <p className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</p>
                         ) : (
                           <div className="flex items-center justify-center gap-1">
-                            <LockIcon size={10} color="#4f46e5" weight="regular" />
+                            <LockIcon size={10} color="#4f46e5" weight="fill" />
                             <span className={`text-xs font-bold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>PRO</span>
                           </div>
                         )}

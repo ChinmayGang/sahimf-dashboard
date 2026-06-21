@@ -274,7 +274,7 @@ export function SahiFundDetail() {
             {/* Methodology */}
             <div className={`${card} rounded-2xl p-5`}>
               <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
-                <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" /> Methodology
+                <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" /> Methodology
               </h2>
               <p className={`text-sm ${textSub} leading-relaxed`}>{fund.methodology}</p>
             </div>
@@ -328,7 +328,7 @@ export function SahiFundDetail() {
             {/* Rebalance schedule */}
             <div className={`${card} rounded-2xl p-5`}>
               <h2 className={`text-sm font-semibold ${text} mb-3 flex items-center gap-2`}>
-                <EventIcon size={14} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" /> Rebalance Schedule
+                <EventIcon size={14} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" /> Rebalance Schedule
               </h2>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">

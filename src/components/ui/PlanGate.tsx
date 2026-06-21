@@ -43,7 +43,7 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
               onClick={() => setShowUpgrade(true)}
               className={`flex items-center gap-1.5 ${compactBg} rounded-full px-3 py-1.5 hover:opacity-80 transition-opacity cursor-pointer`}
             >
-              <LockIcon size={12} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" />
+              <LockIcon size={12} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
               <span className={`text-xs font-medium ${compactText}`}>{tierLabel}</span>
             </button>
           ) : (

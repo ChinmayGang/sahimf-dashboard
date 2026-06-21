@@ -132,7 +132,7 @@ export function AllSchemes() {
                 ? { background: accent, color: lm ? '#fff' : '#000' }
                 : { color: lm ? '#9CA3AF' : '#64748b' }}
             >
-              {t === 'sahi' && <AutoAwesomeIcon size={12} weight="regular" />}
+              {t === 'sahi' && <AutoAwesomeIcon size={12} weight="fill" />}
               {t === 'sahi' ? 'Sahi Funds' : 'Open Schemes'}
             </button>
           ))}
@@ -140,7 +140,7 @@ export function AllSchemes() {
 
         {/* Search */}
         <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-1.5 flex-1 max-w-sm ml-auto`}>
-          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
+          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -174,7 +174,7 @@ export function AllSchemes() {
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: lm ? '#374151' : '#fff' }}>
-                <TuneIcon size={14} weight="regular" />
+                <TuneIcon size={14} weight="fill" />
                 Filters
               </div>
               {activeCount > 0 && (
@@ -285,7 +285,7 @@ export function AllSchemes() {
                         <p className="text-xs font-bold text-[#16A34A]">+{fund.returns['1Y']}%</p>
                       ) : (
                         <div className="flex items-center justify-center gap-0.5">
-                          <LockIcon size={10} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" />
+                          <LockIcon size={10} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
                           <span className={`text-xs font-bold ${accentText}`}>PRO</span>
                         </div>
                       )}

@@ -307,7 +307,7 @@ export function MFScorecard() {
 
       {/* Methodology callout */}
       <div className={`${card} rounded-xl px-4 py-3 flex items-start gap-3`}>
-        <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" style={{ flexShrink: 0, marginTop: '1px' }} />
+        <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" style={{ flexShrink: 0, marginTop: '1px' }} />
         <div className={`text-xs ${textSub} space-y-1`}>
           <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> — Funds are scored on 5 dimensions across a 100-point scale.</p>
           <p>Returns (35%) · Consistency (25%) · Risk-Adjusted Returns (20%) · Manager Quality (10%) · Cost Efficiency (10%)</p>

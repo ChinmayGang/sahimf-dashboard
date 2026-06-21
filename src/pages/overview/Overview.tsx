@@ -373,7 +373,7 @@ export function Overview() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-[#eeedfd]">
-                <AutoAwesomeIcon size={14} color="#4f46e5" weight="regular" />
+                <AutoAwesomeIcon size={14} color="#4f46e5" weight="fill" />
               </div>
               <h2 className={`text-base font-bold ${text}`}>Exclusive Sahi Funds</h2>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#d6fd70] text-[#0a0c0e]">Curated</span>
@@ -661,7 +661,7 @@ export function Overview() {
             {sahiFundCount > 0 && (
               <div className="mt-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <AutoAwesomeIcon size={15} color="#4f46e5" weight="regular" />
+                  <AutoAwesomeIcon size={15} color="#4f46e5" weight="fill" />
                   <p className={`text-sm font-bold ${text}`}>Your Sahi Funds ({sahiFundCount})</p>
                 </div>
                 <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
@@ -712,7 +712,7 @@ export function Overview() {
               <h2 className={`text-base font-bold ${text}`}>Watchlist</h2>
             </div>
             <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
-              <AddIcon size={14} weight="regular" /> Add Fund
+              <AddIcon size={14} weight="fill" /> Add Fund
             </button>
           </div>
           {watchlisted.length === 0 ? (
@@ -842,7 +842,7 @@ export function Overview() {
             <div className="relative flex items-center justify-between gap-6 p-6" style={{ color: '#ffffff' }}>
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <FlashOnIcon size={15} color="#d6fd70" weight="regular" />
+                  <FlashOnIcon size={15} color="#d6fd70" weight="fill" />
                   <span className="text-[11px] font-bold tracking-widest uppercase" style={{ color: '#d6fd70' }}>Sahi PRO</span>
                 </div>
                 <h3 className="text-lg font-bold mb-1" style={{ color: '#ffffff' }}>Unlock the full research desk</h3>

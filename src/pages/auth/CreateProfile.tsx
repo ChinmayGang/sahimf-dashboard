@@ -81,7 +81,7 @@ export function CreateProfile() {
                 Your Legal Name
               </label>
               <div className="relative">
-                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><PersonOutlineIcon size={15} weight="regular" /></span>
+                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><PersonOutlineIcon size={15} weight="fill" /></span>
                 <input
                   type="text"
                   value={name}
@@ -102,7 +102,7 @@ export function CreateProfile() {
                 Direct Email Address
               </label>
               <div className="relative">
-                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><EmailOutlinedIcon size={15} weight="regular" /></span>
+                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#A1A1AA", display: "flex" }}><EmailOutlinedIcon size={15} weight="fill" /></span>
                 <input
                   type="email"
                   value={email}

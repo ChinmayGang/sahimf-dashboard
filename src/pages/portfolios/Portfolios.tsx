@@ -183,7 +183,7 @@ export function Portfolios() {
                       <div>
                         <p className={`text-xs ${textSub} mb-1`}>XIRR</p>
                         <div className="flex items-center gap-1">
-                          <TrendingUpIcon size={14} color="#22C55E" weight="regular" />
+                          <TrendingUpIcon size={14} color="#22C55E" weight="fill" />
                           <p className="text-sm font-semibold text-[#22C55E]">{p.xirr}%</p>
                         </div>
                       </div>

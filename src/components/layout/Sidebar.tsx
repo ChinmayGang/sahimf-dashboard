@@ -23,7 +23,7 @@ interface NavItem {
   comingSoon?: boolean
 }
 
-const W = 'duotone' as const
+const W = 'fill' as const
 
 const mfChildren: NavItem[] = [
   { key: 'mf-overview', label: 'Overview', icon: <SquaresFour size={15} weight={W} />, path: '/mutual-funds' },

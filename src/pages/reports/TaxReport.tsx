@@ -162,7 +162,7 @@ export function TaxReport() {
         </div>
         <PlanGate requiredTier="pro" compact>
           <button className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8] text-[#6B7280] hover:text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-[#8390a2] hover:text-white'} border hover:border-[#4f46e5] rounded-xl px-3 py-2 text-sm transition-all`}>
-            <DownloadIcon size={14} weight="regular" />
+            <DownloadIcon size={14} weight="fill" />
             Download PDF
           </button>
         </PlanGate>

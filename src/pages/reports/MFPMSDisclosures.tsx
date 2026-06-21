@@ -114,7 +114,7 @@ export function MFPMSDisclosures() {
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-lg ${docIconBg} flex items-center justify-center flex-shrink-0`}>
-                      <ArticleIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
+                      <ArticleIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
                     </div>
                     <div>
                       <p className={`text-sm font-medium ${text}`}>{doc.title}</p>
@@ -126,11 +126,11 @@ export function MFPMSDisclosures() {
                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     {doc.type === 'PDF' ? (
                       <button className={`flex items-center gap-1.5 text-xs ${textSub} transition-colors`}>
-                        <DownloadIcon size={14} weight="regular" /> Download
+                        <DownloadIcon size={14} weight="fill" /> Download
                       </button>
                     ) : (
                       <button className={`flex items-center gap-1.5 text-xs ${textSub} transition-colors`}>
-                        <OpenInNewIcon size={14} weight="regular" /> View
+                        <OpenInNewIcon size={14} weight="fill" /> View
                       </button>
                     )}
                   </div>

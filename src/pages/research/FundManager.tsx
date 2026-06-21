@@ -128,7 +128,7 @@ export function FundManager() {
 
       {/* Search */}
       <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 max-w-sm`}>
-        <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="regular" />
+        <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
         <input
           type="text"
           placeholder="Search AMC..."

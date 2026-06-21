@@ -267,7 +267,7 @@ export function FundComparison() {
             <div className="w-2 h-2 rounded-full" style={{ background: COLORS[idx] }} />
             <span className={`text-sm font-medium ${text} max-w-48 truncate`}>{fund.name}</span>
             <button onClick={() => removeFund(fund.id)} className={`${textMuted} hover:text-[#EF4444] transition-colors ml-1`}>
-              <CloseIcon size={14} weight="regular" />
+              <CloseIcon size={14} weight="fill" />
             </button>
           </div>
         ))}

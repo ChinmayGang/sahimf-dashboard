@@ -77,7 +77,7 @@ export function MySahiFunds() {
             onClick={() => navigate('/mutual-funds/explore')}
             className="flex items-center gap-1.5 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
           >
-            <AddIcon size={14} weight="regular" />
+            <AddIcon size={14} weight="fill" />
             Explore Sahi Funds
           </button>
         </div>
@@ -102,7 +102,7 @@ export function MySahiFunds() {
           onClick={() => navigate('/mutual-funds/sahi-funds')}
           className="flex items-center gap-1.5 bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-xs font-semibold px-3 py-2 rounded-xl transition-colors"
         >
-          <AddIcon size={14} weight="regular" />
+          <AddIcon size={14} weight="fill" />
           Explore More
         </button>
       </div>
