@@ -320,7 +320,7 @@ This pass worked through a detailed 40-point design review + ongoing session fix
 - #13/#37 Global grey→black text sweep across every remaining page
 - B2-1 Extract remaining inline buttons into a shared state-driven `<Button>` component
 - #28/#29 Unify page container widths + header-card style across all pages
-- Batch 8 — Mobile responsive · Batch 9 — Supabase integration
+- Batch 8 — Mobile responsive, including bottom nav bar (5 tabs: Overview · My Portfolio · **Explore** [center, highlighted] · Tools [upward sheet] · Profile → Settings) · Batch 9 — Supabase integration
 - Task #11 — harden the `index.css` `.text-white` light-mode override
 
 **New TODO — added verbatim (not yet started)**

@@ -100,7 +100,14 @@
 
 ## Batch 8 — Mobile Responsive
 
-- [ ] **B8-1** `AppShell` Mobile breakpoint (`< 768px`): sidebar collapses to bottom tab bar (5 items: Home, Portfolios, Explore, Sahi Funds, More). Topbar becomes compact with just logo + notification bell + avatar.
+- [ ] **B8-1** `AppShell` Mobile breakpoint (`< 768px`): side navigation replaced by a **bottom navigation bar** with 5 tabs:
+  1. **Overview** — House icon, links to `/mutual-funds/overview`
+  2. **My Portfolio** — BriefcaseMetal icon, links to `/mutual-funds/portfolios`
+  3. **Explore** — MagnifyingGlass icon, **center tab, visually highlighted** (lime `#d6fd70` bg pill or elevated button), links to `/mutual-funds/explore`
+  4. **Tools** — Wrench icon, tapping opens an **upward sheet/menu** listing all other nav links (Overlap Lens, Fund Comparison, Risk Analysis, Market Cap, Calculator, Goals, Baskets, MF Scorecard, Fund Manager, Tax Optimizer, Reports, Settings)
+  5. **Profile** — UserCircle icon, links directly to `/settings`
+  
+  Sidebar is hidden entirely on mobile (`hidden md:flex`). Topbar becomes compact: logo only + dark-mode toggle. Bottom bar is always-dark (`#0a0c0e` bg) regardless of light/dark mode, matching current sidebar style. Active tab uses lime accent (`#d6fd70`) for icon + label.
 - [ ] **B8-2** `Overview` Mobile: stack all cards vertically. Area chart full width. Stat cards 2-col grid. Market indices ticker stays horizontal scroll.
 - [ ] **B8-3** `ExploreFunds` Mobile: hero banner reduced to 140px height. Accordion sidebar collapses into a horizontal scroll pill row above the fund grid. Fund grid: 1-col on mobile.
 - [ ] **B8-4** `AllSchemes` Mobile: filter sidebar hidden behind a "Filters" drawer button (Phosphor `Funnel` icon). Fund table: collapse to card list (hide 3Y/5Y columns, show only NAV + 1Y + Risk).
