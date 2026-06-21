@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Plus as AddIcon } from '@phosphor-icons/react'
 import { ProButton } from '../../components/ui/ProButton'
@@ -71,7 +71,7 @@ export function Portfolios() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>My Portfolios</h1>
-          <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
+          <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios � {formatINR(totalInvested)} invested</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -156,7 +156,7 @@ export function Portfolios() {
                       <h3 className={`text-sm font-semibold ${text} transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>
                         {p.name}
                       </h3>
-                      <p className={`text-xs ${textSub}`}>{p.holdings.length} funds · since {new Date(p.createdAt).getFullYear()}</p>
+                      <p className={`text-xs ${textSub}`}>{p.holdings.length} funds � since {new Date(p.createdAt).getFullYear()}</p>
                     </div>
                   </div>
                   <ArrowForwardIosIcon size={14} weight="bold" className={`transition-colors mt-1 ${lm ? 'text-[#6B7280] group-hover:text-[#4f46e5]' : 'text-[#64748b] group-hover:text-[#d6fd70]'}`} />

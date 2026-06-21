@@ -1,4 +1,4 @@
-﻿import { ArrowsClockwise as SyncIcon } from '@phosphor-icons/react'
+import { ArrowsClockwise as SyncIcon } from '@phosphor-icons/react'
 import { Bell as NotificationsNoneIcon } from '@phosphor-icons/react'
 import { PlanBadge } from '../ui/PlanBadge'
 import { useAuthStore } from '../../stores/authStore'
@@ -28,7 +28,7 @@ export function Topbar() {
             Hi, {user?.name?.split(' ')[0]}
           </span>
           <span className="ml-3 text-xs transition-colors" style={{ color: textSecondary }}>
-            {format(today, 'EEE').toUpperCase()} · {format(today, 'd MMM yyyy').toUpperCase()}
+            {format(today, 'EEE').toUpperCase()} � {format(today, 'd MMM yyyy').toUpperCase()}
           </span>
           {user?.plan && (
             <span className="ml-2">

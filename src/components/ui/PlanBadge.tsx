@@ -1,4 +1,4 @@
-﻿import { Star as StarIcon } from '@phosphor-icons/react'
+import { Star as StarIcon } from '@phosphor-icons/react'
 import type { PlanTier } from '../../types'
 import { useUIStore } from '../../stores/uiStore'
 

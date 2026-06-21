@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Moon as DarkModeIcon } from '@phosphor-icons/react'
 import { ProButton } from '../../components/ui/ProButton'
 import { Sun as LightModeIcon } from '@phosphor-icons/react'
@@ -160,7 +160,7 @@ export function Settings() {
         </button>
 
         <p className={`text-center text-[11px] mt-6 ${textSub}`}>
-          SahiMF v1.0.0 · Mumbai, India · © 2026 Arqentis
+          SahiMF v1.0.0 � Mumbai, India � © 2026 Arqentis
         </p>
       </div>
     </div>

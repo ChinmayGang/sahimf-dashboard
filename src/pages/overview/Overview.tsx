@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
@@ -214,7 +214,7 @@ function InvestmentCard({ inv, lm }: { inv: UserInvestment; lm: boolean }) {
       <div className="flex items-start justify-between mb-3">
         <div>
           <p className={`text-sm font-bold leading-snug ${lm ? 'text-[#111827]' : 'text-white'}`}>{inv.fundName}</p>
-          <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>{inv.amcName} · {inv.category}</p>
+          <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>{inv.amcName} � {inv.category}</p>
         </div>
         <span
           className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${isPositive ? 'bg-[#dcfce7] text-[#16a34a]' : 'bg-[#fee2e2] text-[#dc2626]'}`}
@@ -460,7 +460,7 @@ export function Overview() {
                       </button>
                     </div>
                     <p className="mt-3 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                      No credit card · No brokerage account needed to explore
+                      No credit card � No brokerage account needed to explore
                     </p>
                   </div>
 
@@ -503,7 +503,7 @@ export function Overview() {
                         >
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold truncate" style={{ color: '#ffffff' }}>{f.name}</p>
-                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} · ₹{f.sip.toLocaleString('en-IN')}/mo</p>
+                            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>{f.category} � ₹{f.sip.toLocaleString('en-IN')}/mo</p>
                           </div>
                           <span className="text-[11px] font-bold flex-shrink-0" style={{ color: f.up ? '#4ade80' : '#f87171' }}>{f.returns1Y}</span>
                           <button
@@ -562,7 +562,7 @@ export function Overview() {
                 <div key={f.id} className={`rounded-2xl p-4 border relative ${card}`}>
                   <span className="absolute top-3 right-3 text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Popular</span>
                   <p className={`text-sm font-bold leading-snug mb-1 pr-16 ${text}`}>{f.name}</p>
-                  <p className={`text-xs mb-3 ${textSub}`}>{f.amcName} · {f.category}</p>
+                  <p className={`text-xs mb-3 ${textSub}`}>{f.amcName} � {f.category}</p>
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>1Y Returns</p>

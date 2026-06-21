@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Bank as AccountBalanceIcon } from '@phosphor-icons/react'
 import { User as PersonIcon } from '@phosphor-icons/react'
 import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'

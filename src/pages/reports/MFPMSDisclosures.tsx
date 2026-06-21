@@ -1,4 +1,4 @@
-﻿import { FileText as ArticleIcon } from '@phosphor-icons/react'
+import { FileText as ArticleIcon } from '@phosphor-icons/react'
 import { DownloadSimple as DownloadIcon } from '@phosphor-icons/react'
 import { ArrowSquareOut as OpenInNewIcon } from '@phosphor-icons/react'
 import { SealCheck as VerifiedIcon, CheckCircle as CheckIcon } from '@phosphor-icons/react'
@@ -119,7 +119,7 @@ export function MFPMSDisclosures() {
                     <div>
                       <p className={`text-sm font-medium ${text}`}>{doc.title}</p>
                       <p className={`text-[11px] ${textMuted} mt-0.5`}>
-                        Updated {doc.date}{doc.size ? ` · ${doc.size}` : ''}
+                        Updated {doc.date}{doc.size ? ` � ${doc.size}` : ''}
                       </p>
                     </div>
                   </div>

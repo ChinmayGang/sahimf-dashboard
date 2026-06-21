@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
@@ -29,7 +29,7 @@ const SECTIONS = [
   { id: 'new', label: 'New Launches', icon: <NewReleasesIcon size={16} weight="fill" /> },
   { id: 'popular', label: 'Most Popular', icon: <StarIcon size={16} weight="fill" /> },
   { id: 'top-amc', label: 'Top Funds by AMC', icon: <AccountBalanceIcon size={16} weight="fill" /> },
-  { id: 'high-risk', label: 'High Reward · High Risk', icon: <RocketLaunchIcon size={16} weight="fill" /> },
+  { id: 'high-risk', label: 'High Reward � High Risk', icon: <RocketLaunchIcon size={16} weight="fill" /> },
   { id: 'low-risk', label: 'Stable Returns', icon: <ShieldIcon size={16} weight="fill" /> },
   { id: 'elss', label: 'ELSS Tax Savers', icon: <SavingsIcon size={16} weight="fill" /> },
   { id: 'index', label: 'Index Funds', icon: <BarChartIcon size={16} weight="fill" /> },
@@ -421,7 +421,7 @@ export function ExploreFunds() {
                             <p className={`text-xs font-bold truncate transition-colors ${lm ? 'text-[#111827] group-hover:text-[#4f46e5]' : 'text-white group-hover:text-[#d6fd70]'}`}>
                               {fund.name}
                             </p>
-                            <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} · Direct Growth</p>
+                            <p className={`text-[10px] ${textMuted} mt-0.5`}>{fund.subCategory} � Direct Growth</p>
                           </div>
                         </div>
 

@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   SquaresFour, Folder, Sparkle, Compass,
@@ -43,7 +43,7 @@ const mfChildren: NavItem[] = [
   { key: 'mf-reports', label: 'Reports & Disclosures', icon: <FileText size={15} weight={W} />, path: '/mutual-funds/reports/mfpms' },
 ]
 
-// Flat top-level nav â€" all mutual-fund tools are surfaced directly (no parent dropdown).
+// Flat top-level nav — all mutual-fund tools are surfaced directly (no parent dropdown).
 // Other Arqentis products (Numera, Thematic Baskets, ArqEd, F&O, Credit) are hidden until launch.
 const navItems: NavItem[] = mfChildren
 
@@ -198,7 +198,7 @@ export function Sidebar() {
             <div className="flex items-center gap-2.5 px-2 py-2 rounded-xl" style={{ background: S.profileBg, border: S.profileBorder }}>
               <div className="w-7 h-7 rounded-full bg-[#4f46e5] flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0">{initials}</div>
               <div className="min-w-0 flex-1">
-                <p className="text-[11.5px] font-semibold truncate leading-tight" style={{ color: S.text }}>{user?.name ?? 'â€"'}</p>
+                <p className="text-[11.5px] font-semibold truncate leading-tight" style={{ color: S.text }}>{user?.name ?? '—'}</p>
                 <p className="text-[10px] font-semibold" style={{ color: planColor }}>{planLabel}</p>
               </div>
               <button onClick={toggleSidebar} className="flex-shrink-0 opacity-40 hover:opacity-100 transition-opacity">
@@ -214,7 +214,7 @@ export function Sidebar() {
                 <Tooltip.Portal>
                   <Tooltip.Content side="right" sideOffset={12} className="z-50">
                     <div className="rounded-lg px-2.5 py-1.5 text-xs font-medium shadow-md" style={{ background: S.tooltipBg, border: `1px solid ${S.tooltipBorder}`, color: S.text }}>
-                      {user?.name} Â· {planLabel}
+                      {user?.name} Â� {planLabel}
                     </div>
                   </Tooltip.Content>
                 </Tooltip.Portal>
@@ -283,7 +283,7 @@ export function Sidebar() {
         </div>
       </aside>
 
-      {/* Full-height edge strip â€" click anywhere on right border to toggle */}
+      {/* Full-height edge strip — click anywhere on right border to toggle */}
       <div
         onClick={toggleSidebar}
         onMouseEnter={() => setEdgeHovered(true)}
@@ -292,7 +292,7 @@ export function Sidebar() {
         style={{ width: 8 }}
         title={sidebarExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
       >
-        {/* The visible line â€" brightens on hover */}
+        {/* The visible line — brightens on hover */}
         <div
           className="h-full transition-all duration-150"
           style={{
@@ -301,7 +301,7 @@ export function Sidebar() {
             borderRadius: 1,
           }}
         />
-        {/* Floating caret pill â€" appears on hover at center */}
+        {/* Floating caret pill — appears on hover at center */}
         <div
           className="absolute flex items-center justify-center rounded-full transition-all duration-150"
           style={{

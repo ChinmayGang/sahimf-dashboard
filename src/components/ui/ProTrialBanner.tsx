@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Sparkle as SparkleIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { UpgradePopup } from './UpgradePopup'
@@ -13,7 +13,7 @@ interface ProTrialBannerProps {
 
 export function ProTrialBanner({
   headline = 'Unlock the full picture with Sahi PRO',
-  subtext = 'No credit card required Â· Cancel anytime',
+  subtext = 'No credit card required Â� Cancel anytime',
   features = [],
   featureDesc,
 }: ProTrialBannerProps) {

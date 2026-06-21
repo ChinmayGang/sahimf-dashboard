@@ -19,7 +19,7 @@ const DEMO_USER: User = {
 
 const OTP_LENGTH = 6
 const RESEND_SECONDS = 30
-const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF � Arqentis'
 const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
 
 export function OTP() {
@@ -113,7 +113,7 @@ export function OTP() {
 
         <div className="flex-1 flex flex-col items-center justify-center px-10 text-center">
           <p className="text-xs font-semibold tracking-widest mb-5" style={{ color: '#64748b' }}>
-            — ZERO COMMISSIONS · SEBI PA DIRECT PLAN —
+            — ZERO COMMISSIONS � SEBI PA DIRECT PLAN —
           </p>
           <h1 className="text-4xl font-bold leading-tight mb-4" style={{ color: '#FFFFFF' }}>
             Kaunsa{' '}

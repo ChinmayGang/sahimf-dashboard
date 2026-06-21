@@ -1,4 +1,4 @@
-﻿import { useUIStore } from '../../stores/uiStore'
+import { useUIStore } from '../../stores/uiStore'
 
 interface EmptyStateProps {
   icon?: React.ReactNode

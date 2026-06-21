@@ -92,7 +92,7 @@ export function UpgradePopup({ open, onClose, feature, description }: UpgradePop
                   <span className="text-2xl font-black text-[#111827]">₹1,999</span>
                   <span className="text-xs text-[#6B7280]">/year</span>
                 </div>
-                <p className="text-[10px] text-[#6B7280]">₹167/month · Cancel anytime</p>
+                <p className="text-[10px] text-[#6B7280]">₹167/month � Cancel anytime</p>
               </div>
               <div className="ml-auto flex items-center gap-1.5 text-[10px] font-bold text-[#ea580c] bg-[#fff7ed] px-2.5 py-1 rounded-full">
                 <CrownIcon size={11} weight="fill" />

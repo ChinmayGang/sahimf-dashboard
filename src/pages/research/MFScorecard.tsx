@@ -1,4 +1,4 @@
-﻿import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Star as StarIcon, Info as InfoOutlinedIcon, Lock as LockIcon, TrendUp as TrendUpIcon, ArrowRight as ArrowRightIcon, CaretDown as CaretDownIcon, CaretRight as CaretRightIcon, ShieldCheck as ShieldCheckIcon } from '@phosphor-icons/react'
 import { ProButton } from '../../components/ui/ProButton'
@@ -121,7 +121,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
       {open && (
         <div className="px-5 pb-5 pt-2" style={{ background: lm ? '#FAFAFF' : '#0f1420' }}>
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Left â€" Sahi Sabh-scales (6 sub-dimensions) */}
+            {/* Left — Sahi Sabh-scales (6 sub-dimensions) */}
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Sahi Sabh-scales</p>
               <div className="space-y-2.5">
@@ -138,7 +138,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
                 ))}
               </div>
             </div>
-            {/* Center â€" radar / web chart of the score profile */}
+            {/* Center — radar / web chart of the score profile */}
             <div className="flex flex-col">
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#111827]">Score Profile</p>
               <div className="flex-1 min-h-[200px]">
@@ -151,7 +151,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
                 </ResponsiveContainer>
               </div>
             </div>
-            {/* Right â€" top holdings */}
+            {/* Right — top holdings */}
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Top Portfolio Holdings</p>
               <div className="space-y-2">
@@ -287,7 +287,7 @@ export function MFScorecard() {
         </div>
       </div>
 
-      {/* Teaser stat â€" value hook before the gate */}
+      {/* Teaser stat — value hook before the gate */}
       {!isPro && (
         <div
           className="rounded-xl px-4 py-3 flex items-center gap-3"
@@ -299,7 +299,7 @@ export function MFScorecard() {
               Funds graded <span style={{ color: lm ? '#4f46e5' : '#d6fd70' }}>{topGrade}</span> on SahiMF Scorecard (score {topScore}+) beat Nifty 50 by an average of <span style={{ color: '#22c55e' }}>4.2% per year</span> over the last 3 years.
             </p>
             <p className={`text-[10px] ${textMuted} mt-0.5`}>
-              Showing top {FREE_ROWS} of {SCORECARDS.length} ranked funds Â· Unlock all {SCORECARDS.length} with PRO
+              Showing top {FREE_ROWS} of {SCORECARDS.length} ranked funds Â� Unlock all {SCORECARDS.length} with PRO
             </p>
           </div>
         </div>
@@ -309,8 +309,8 @@ export function MFScorecard() {
       <div className={`${card} rounded-xl px-4 py-3 flex items-start gap-3`}>
         <InfoOutlinedIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="regular" style={{ flexShrink: 0, marginTop: '1px' }} />
         <div className={`text-xs ${textSub} space-y-1`}>
-          <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> â€" Funds are scored on 5 dimensions across a 100-point scale.</p>
-          <p>Returns (35%) Â· Consistency (25%) Â· Risk-Adjusted Returns (20%) Â· Manager Quality (10%) Â· Cost Efficiency (10%)</p>
+          <p><span className={`${text} font-medium`}>Sahi Scoring Methodology</span> — Funds are scored on 5 dimensions across a 100-point scale.</p>
+          <p>Returns (35%) Â� Consistency (25%) Â� Risk-Adjusted Returns (20%) Â� Manager Quality (10%) Â� Cost Efficiency (10%)</p>
           <p className={textMuted}>Scores are recalculated monthly based on trailing 3Y data. NOT personalized recommendations.</p>
         </div>
       </div>
@@ -324,15 +324,15 @@ export function MFScorecard() {
           ))}
         </div>
 
-        {/* Free rows â€" always visible */}
+        {/* Free rows — always visible */}
         {sorted.slice(0, FREE_ROWS).map((entry) => (
           <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
         ))}
 
-        {/* Locked rows â€" blurred with upgrade overlay */}
+        {/* Locked rows — blurred with upgrade overlay */}
         {!isPro && (
           <div className="relative">
-            {/* Ghost rows â€" blurred */}
+            {/* Ghost rows — blurred */}
             <div className="pointer-events-none select-none" style={{ filter: 'blur(3px)', opacity: 0.4 }}>
               {sorted.slice(FREE_ROWS).map((entry) => {
                 const fund = mockFunds.find((f) => f.id === entry.fundId)!
@@ -392,18 +392,18 @@ export function MFScorecard() {
                   Try PRO — 14 days free
                 </button>
               </div>
-              <p className={`text-[10px] ${textMuted}`}>No credit card required Â· Cancel anytime</p>
+              <p className={`text-[10px] ${textMuted}`}>No credit card required Â� Cancel anytime</p>
             </div>
           </div>
         )}
 
-        {/* Pro rows â€" fully visible when unlocked */}
+        {/* Pro rows — fully visible when unlocked */}
         {isPro && sorted.slice(FREE_ROWS).map((entry) => (
           <ScorecardRow key={entry.fundId} entry={entry} lm={lm} />
         ))}
       </div>
 
-      {/* Individual fund detail gate â€" PRO only section */}
+      {/* Individual fund detail gate — PRO only section */}
       {!isPro && (
         <div className={`${card} rounded-xl p-5`}>
           <div className="flex items-start justify-between">

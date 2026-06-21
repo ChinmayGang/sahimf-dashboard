@@ -1,4 +1,4 @@
-﻿import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
+import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 

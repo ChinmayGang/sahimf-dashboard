@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Receipt as ReceiptLongIcon } from '@phosphor-icons/react'
 import { Funnel as FilterListIcon } from '@phosphor-icons/react'
 import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'

@@ -1,4 +1,4 @@
-﻿import { useParams, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
 import { TrendUp as TrendingUpIcon } from '@phosphor-icons/react'
 import { TrendDown as TrendingDownIcon } from '@phosphor-icons/react'
@@ -70,7 +70,7 @@ export function PortfolioDetail() {
         </Link>
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>{portfolio.name}</h1>
-          <p className={`text-xs ${textSub}`}>Holdings Ledger · {portfolio.holdings.length} funds</p>
+          <p className={`text-xs ${textSub}`}>Holdings Ledger � {portfolio.holdings.length} funds</p>
         </div>
       </div>
 
@@ -251,7 +251,7 @@ export function PortfolioDetail() {
                   {laggingFunds.length} fund{laggingFunds.length > 1 ? 's' : ''} may be underperforming their category peers
                 </p>
                 <p className={`text-xs mt-0.5 ${lm ? 'text-[#B45309]' : 'text-[#a16207]'}`}>
-                  Research-based peer comparison · Not personalised advice
+                  Research-based peer comparison � Not personalised advice
                 </p>
               </div>
             </div>
@@ -267,7 +267,7 @@ export function PortfolioDetail() {
                   <div className={`px-5 py-3 flex items-center gap-3 ${lm ? 'bg-[#FAFAFA]' : 'bg-[#0f1318]'}`}>
                     <div className="flex-1">
                       <p className={`text-xs font-semibold ${text} leading-tight`}>{h.fundName}</p>
-                      <p className={`text-[10px] mt-0.5 ${textMuted}`}>{h.amcName} · {h.category}</p>
+                      <p className={`text-[10px] mt-0.5 ${textMuted}`}>{h.amcName} � {h.category}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-xs font-bold text-[#ef4444]">{h.xirr}% XIRR</p>
@@ -283,7 +283,7 @@ export function PortfolioDetail() {
                       <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
                         <div className="flex-1 min-w-0">
                           <p className={`text-xs font-semibold ${text} leading-tight truncate`}>{peer.name}</p>
-                          <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} · {peer.tag}</p>
+                          <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} � {peer.tag}</p>
                         </div>
                         <div className="flex items-center gap-3 flex-shrink-0">
                           <div className="text-right">
@@ -315,7 +315,7 @@ export function PortfolioDetail() {
                             <div key={peer.id} className={`flex items-center gap-3 p-3 rounded-xl border ${lm ? 'border-[#E8F5E9] bg-[#F0FFF0]' : 'border-[#14291a] bg-[#0c1a0f]'}`}>
                               <div className="flex-1 min-w-0">
                                 <p className={`text-xs font-semibold ${text} leading-tight truncate`}>{peer.name}</p>
-                                <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} · {peer.tag}</p>
+                                <p className={`text-[10px] mt-0.5 ${textMuted}`}>{peer.amc} � {peer.tag}</p>
                               </div>
                               <div className="flex items-center gap-3 flex-shrink-0">
                                 <div className="text-right">

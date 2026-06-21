@@ -1,8 +1,8 @@
-﻿import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ArrowRight as ArrowForwardIcon } from '@phosphor-icons/react'
 import pyramidImg from '../../assets/piramid-landingpage.png'
 
-const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF · Arqentis'
+const FOOTER = 'Mumbai, India | Copyright © 2026 Sahi MF � Arqentis'
 const DISCLAIMER = 'NO COMMISSION RECEIVED FROM ANY INDIAN MUTUAL FUND HOUSES, EVER.'
 
 export function InitializePortfolio() {

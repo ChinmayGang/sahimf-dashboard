@@ -1,4 +1,4 @@
-﻿import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { ArrowLeft as ArrowBackIcon, ArrowsLeftRight as CompareIcon, FileText as ReportIcon, Buildings as BuildingsIcon, Globe as GlobeIcon, Newspaper as NewsIcon, ArrowSquareOut as ExternalLinkIcon, X as CloseIcon, Clock as ClockIcon, Coins as CoinsIcon, TrendDown as TrendDownIcon, ShoppingBag as BasketUpsellIcon, ArrowRight as ArrowRightSmIcon } from '@phosphor-icons/react'
@@ -87,13 +87,13 @@ const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string 
 
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
   const { label, idx, color } = RISK_3_MAP[level]
-  // Arc spans 180Â°â€"360Â° (left â†' top â†' right). 3 segments Ã— 60Â° each.
+  // Arc spans 180Â�—360Â� (left â†' top â†' right). 3 segments Ã— 60Â� each.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 80, cy = 82, r = 68
   const SEGS = [
-    { fill: '#16a34a' }, // Low â€" green
-    { fill: '#f59e0b' }, // Moderate â€" amber
-    { fill: '#ef4444' }, // High â€" red (always red, always visible)
+    { fill: '#16a34a' }, // Low — green
+    { fill: '#f59e0b' }, // Moderate — amber
+    { fill: '#ef4444' }, // High — red (always red, always visible)
   ]
 
   return (
@@ -295,7 +295,7 @@ export function SchemeDetail() {
               <h1 className={`text-base font-semibold ${text}`}>{fund.name}</h1>
               <div className="flex items-center gap-2 mt-1">
                 <span className={`text-xs ${textSub}`}>{fund.category}</span>
-                <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>Â·</span>
+                <span className={lm ? 'text-[#E0E3E8]' : 'text-[#1e2838]'}>Â�</span>
                 <span className={`text-xs ${textSub}`}>{fund.subCategory}</span>
                 {fund.tags.slice(0, 2).map((t) => (
                   <span key={t} className={`text-xs ${chip} px-2 py-0.5 rounded-full`}>{t}</span>
@@ -313,21 +313,21 @@ export function SchemeDetail() {
             </div>
             <div>
               <p className={`text-xs ${textSub}`}>5Y CAGR</p>
-              <p className="text-lg font-semibold text-[#22C55E]">+{fund.returns['5Y'] ?? 'â€"'}%</p>
+              <p className="text-lg font-semibold text-[#22C55E]">+{fund.returns['5Y'] ?? '—'}%</p>
             </div>
             <div><VolatilityBadge level={fund.volatility} size="md" /></div>
           </div>
         </div>
       </div>
 
-      {/* Fund Analysis rank cards â€" inspired by smallcase/tickertape */}
+      {/* Fund Analysis rank cards — inspired by smallcase/tickertape */}
       <div className="grid grid-cols-3 gap-3 mt-3">
         {[
           {
             label: 'Returns',
             rank: returnRank,
             total: totalInCat,
-            stat: `${fund.returns['1Y'] ?? 'â€"'}%`,
+            stat: `${fund.returns['1Y'] ?? '—'}%`,
             statLabel: '1Y Return',
             topTag: 'Highest Return',
           },
@@ -348,7 +348,7 @@ export function SchemeDetail() {
             topTag: 'Lowest Risk',
           },
         ].map((item) => {
-          // Per-rank medal styling matching the reference: 1 green Â· 2 orange Â· 3 slate Â· 4 amber Â· 5 slate
+          // Per-rank medal styling matching the reference: 1 green Â� 2 orange Â� 3 slate Â� 4 amber Â� 5 slate
           const RANK_TIER: Record<number, { color: string; tintBg: string; tintBorder: string; shine: string; shadow: string }> = {
             1: { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' },
             2: { color: '#ea580c', tintBg: '#fff7ed', tintBorder: '#fdba74', shine: '', shadow: '' },
@@ -531,15 +531,15 @@ export function SchemeDetail() {
                   { label: 'Expense Ratio', fund: `${fund.expenseRatio}%`, cat: '1.34%' },
                   { label: 'Exit Load', fund: `${fund.exitLoad}%`, cat: '0.69%' },
                   { label: 'Sharpe Ratio', fund: `${fund.sharpeRatio}`, cat: '0.33' },
-                  { label: 'Fund Size', fund: `â‚¹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: 'â€"' },
-                  { label: 'Min SIP', fund: `â‚¹${fund.minSIP}`, cat: 'â€"' },
-                  { label: 'Lock-in', fund: fund.lockIn, cat: 'â€"' },
+                  { label: 'Fund Size', fund: `â‚¹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: '—' },
+                  { label: 'Min SIP', fund: `â‚¹${fund.minSIP}`, cat: '—' },
+                  { label: 'Lock-in', fund: fund.lockIn, cat: '—' },
                 ].map((row) => (
                   <div key={row.label} className={`flex items-center justify-between py-1.5 border-b ${rowBorder}`}>
                     <span className={`text-xs ${textSub}`}>{row.label}</span>
                     <div className="flex items-center gap-4 text-xs font-semibold">
                       <span className={text}>{row.fund}</span>
-                      {row.cat !== 'â€"' && <span className={textMuted}>Cat avg: {row.cat}</span>}
+                      {row.cat !== '—' && <span className={textMuted}>Cat avg: {row.cat}</span>}
                     </div>
                   </div>
                 ))}
@@ -740,7 +740,7 @@ export function SchemeDetail() {
                 Invest Lumpsum
               </button>
               <p className="text-[9px] text-center" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
-                Min SIP â‚¹{fund.minSIP} Â· Lock-in: {fund.lockIn}
+                Min SIP â‚¹{fund.minSIP} Â� Lock-in: {fund.lockIn}
               </p>
             </div>
 
@@ -806,7 +806,7 @@ export function SchemeDetail() {
                           </PlanGate>
                         )}
                       </td>
-                      <td className={`text-right py-2 ${textMuted}`}>â€"</td>
+                      <td className={`text-right py-2 ${textMuted}`}>—</td>
                     </tr>
                   ))}
                 </tbody>
@@ -846,7 +846,7 @@ export function SchemeDetail() {
                   <h3 className={`text-sm font-semibold ${text}`}>Dividend History</h3>
                 </div>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold`} style={{ background: lm ? 'rgba(79,70,229,0.08)' : 'rgba(214,253,112,0.1)', color: lm ? '#4f46e5' : '#d6fd70' }}>
-                  {dividends.length} payouts Â· 3 years
+                  {dividends.length} payouts Â� 3 years
                 </span>
               </div>
               <div className={`grid grid-cols-[1fr_1fr_80px_80px_70px] gap-3 px-5 py-2 border-b`} style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
@@ -889,7 +889,7 @@ export function SchemeDetail() {
               </div>
               <div className={`${card} rounded-xl p-4`}>
                 <p className={`text-[10px] leading-relaxed ${textMuted}`}>
-                  Dividends (IDCW) reduce the NAV by the payout amount on the ex-date. The actual yield depends on your purchase NAV. Consider Growth option for long-term compounding â€" dividends are taxed as income.
+                  Dividends (IDCW) reduce the NAV by the payout amount on the ex-date. The actual yield depends on your purchase NAV. Consider Growth option for long-term compounding — dividends are taxed as income.
                 </p>
               </div>
             </div>

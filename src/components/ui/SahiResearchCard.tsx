@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Sparkle as SparkleIcon } from '@phosphor-icons/react'
 import { Check as CheckIcon } from '@phosphor-icons/react'
 import { Warning as WarnIcon } from '@phosphor-icons/react'
@@ -63,7 +63,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           <SparkleIcon size={13} weight="fill" color="#4f46e5" />
           <span className="text-xs font-bold text-[#4f46e5]">SAHI RESEARCH NOTE</span>
           <span className="text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-[#eeedfd] text-[#7c3aed]">
-            Generic Â· Not Personalised
+            Generic Â� Not Personalised
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -92,7 +92,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           {!isPro && 'â€¦'}
         </p>
 
-        {/* Free gate â€" blurred preview with a working unlock overlay */}
+        {/* Free gate — blurred preview with a working unlock overlay */}
         {!isPro && (
           <div className="relative mt-3 rounded-xl overflow-hidden" style={{ minHeight: 150 }}>
             <div
@@ -136,7 +136,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
           </div>
         )}
 
-        {/* PRO â€" full content */}
+        {/* PRO — full content */}
         {isPro && (
           <>
             <div className="mt-3 grid grid-cols-2 gap-3">
@@ -175,7 +175,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             >
               <p className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>Analyst Note</p>
               <p className={`text-[11px] leading-relaxed italic ${textSub}`}>{data.analystNote}</p>
-              <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} Â· For research purposes only</p>
+              <p className="text-[9px] mt-1.5 text-[#6B7280]">Updated {data.updatedAt} Â� For research purposes only</p>
             </div>
           </>
         )}
@@ -185,7 +185,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
         open={showUpgrade}
         onClose={() => setShowUpgrade(false)}
         feature="Full Sahi Research Note"
-        description="Unlock the complete analyst note â€" strengths, watch points, Sahi Score breakdown and verdict rationale for every fund."
+        description="Unlock the complete analyst note — strengths, watch points, Sahi Score breakdown and verdict rationale for every fund."
       />
     </AnimatedBorderCard>
   )
