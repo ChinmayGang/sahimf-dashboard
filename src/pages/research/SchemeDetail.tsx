@@ -350,13 +350,13 @@ export function SchemeDetail() {
         ].map((item) => {
           // Per-rank medal styling matching the reference: 1 green · 2 orange · 3 slate · 4 amber · 5 slate
           const RANK_TIER: Record<number, { color: string; tintBg: string; tintBorder: string; shine: string; shadow: string }> = {
-            1: { color: '#16a34a', tintBg: '#f0fdf4', tintBorder: '#86efac', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' },
-            2: { color: '#ea580c', tintBg: '#fff7ed', tintBorder: '#fdba74', shine: '', shadow: '' },
-            3: { color: '#64748b', tintBg: '#f8fafc', tintBorder: '#cbd5e1', shine: '', shadow: '' },
-            4: { color: '#d97706', tintBg: '#fffbeb', tintBorder: '#fcd34d', shine: '', shadow: '' },
-            5: { color: '#64748b', tintBg: '#f8fafc', tintBorder: '#cbd5e1', shine: '', shadow: '' },
+            1: { color: '#16a34a', tintBg: lm ? '#f0fdf4' : 'rgba(34,197,94,0.08)', tintBorder: lm ? '#86efac' : 'rgba(34,197,94,0.3)', shine: 'linear-gradient(90deg, #15803d, #22c55e, #86efac, #22c55e, #15803d)', shadow: 'rgba(34,197,94,0.45)' },
+            2: { color: lm ? '#ea580c' : '#fb923c', tintBg: lm ? '#fff7ed' : 'rgba(234,88,12,0.08)', tintBorder: lm ? '#fdba74' : 'rgba(234,88,12,0.3)', shine: '', shadow: '' },
+            3: { color: lm ? '#64748b' : '#8390a2', tintBg: lm ? '#f8fafc' : 'rgba(100,116,139,0.08)', tintBorder: lm ? '#cbd5e1' : 'rgba(100,116,139,0.2)', shine: '', shadow: '' },
+            4: { color: lm ? '#d97706' : '#f59e0b', tintBg: lm ? '#fffbeb' : 'rgba(217,119,6,0.08)', tintBorder: lm ? '#fcd34d' : 'rgba(245,158,11,0.3)', shine: '', shadow: '' },
+            5: { color: lm ? '#64748b' : '#8390a2', tintBg: lm ? '#f8fafc' : 'rgba(100,116,139,0.08)', tintBorder: lm ? '#cbd5e1' : 'rgba(100,116,139,0.2)', shine: '', shadow: '' },
           }
-          const tier = RANK_TIER[item.rank] ?? { color: '#6B7280', tintBg: '#f9fafb', tintBorder: '#E0E3E8', shine: '', shadow: '' }
+          const tier = RANK_TIER[item.rank] ?? { color: '#6B7280', tintBg: lm ? '#f9fafb' : 'rgba(100,116,139,0.08)', tintBorder: lm ? '#E0E3E8' : 'rgba(100,116,139,0.2)', shine: '', shadow: '' }
           return (
           <div
             key={item.label}
@@ -374,7 +374,7 @@ export function SchemeDetail() {
             )}
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="text-[11px] font-bold text-[#111827] uppercase tracking-wider mb-1">{item.label}</p>
+                <p className={`text-[11px] font-bold uppercase tracking-wider mb-1 ${text}`}>{item.label}</p>
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-3xl font-black leading-none" style={{ color: tier.color }}>
                     {item.rank}<span className="text-base font-bold">{ordinal(item.rank).replace(String(item.rank), '')}</span>
@@ -387,8 +387,8 @@ export function SchemeDetail() {
               </div>
             </div>
             <p className="text-xl font-black mt-3" style={{ color: tier.color }}>{item.stat}</p>
-            <p className="text-[11px] font-medium text-[#6B7280] mb-3">{item.statLabel}</p>
-            <div className="mt-auto h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.07)' }}>
+            <p className={`text-[11px] font-medium mb-3 ${textSub}`}>{item.statLabel}</p>
+            <div className="mt-auto h-1.5 rounded-full overflow-hidden" style={{ background: lm ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${((item.total - item.rank + 1) / item.total) * 100}%`, background: tier.color }}

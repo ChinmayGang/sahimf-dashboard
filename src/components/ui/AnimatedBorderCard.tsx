@@ -18,7 +18,7 @@ export function AnimatedBorderCard({ children, className = '', badge = 'SAHI RES
             <div className="px-4 pb-3">
               <span
                 className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#eeedfd', color: '#4f46e5' }}
+                style={{ background: lm ? '#eeedfd' : 'rgba(214,253,112,0.12)', color: lm ? '#4f46e5' : '#d6fd70' }}
               >
                 <Sparkle size={10} weight="fill" />
                 {badge}
