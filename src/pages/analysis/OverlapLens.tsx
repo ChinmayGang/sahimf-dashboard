@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Aperture as BlurOnIcon,
@@ -18,7 +18,7 @@ import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { mockFunds } from '../../data/funds'
 
-// â"€â"€ Mock sector / AMC data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬ Mock sector / AMC data Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 const SECTOR_WEIGHTS: Record<string, Record<string, number>> = {
   f001: { Banking: 28, IT: 22, FMCG: 11, Auto: 9, Energy: 8, Pharma: 7, Infra: 6, Others: 9 },
   f002: { Banking: 18, IT: 14, FMCG: 8, Auto: 12, Energy: 6, Pharma: 14, Infra: 11, Others: 17 },
@@ -77,7 +77,7 @@ function sectorHeatColor(pct: number) {
   return '#64748b'
 }
 
-// â"€â"€ Helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬ Helpers Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 function shortName(name: string) { return name.split(' ').slice(0, 2).join(' ') }
 
 export function OverlapLens() {
@@ -155,7 +155,7 @@ export function OverlapLens() {
     { id: 'amc', label: 'AMC Concentration', icon: <Buildings size={14} weight="fill" /> },
   ] as const
 
-  // â"€â"€ New investor state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ New investor state Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   if (investCount === 0) {
     return (
       <div className="p-6 max-w-7xl mx-auto" style={{ background: bg }}>
@@ -234,7 +234,7 @@ export function OverlapLens() {
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
-            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected · {worstPairs.length} pairs analysed</p>
+            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected Â· {worstPairs.length} pairs analysed</p>
           </div>
         </div>
         {highOverlapCount > 0 && (
@@ -277,7 +277,7 @@ export function OverlapLens() {
             </div>
           ))}
           {selectedIds.length === 0 && (
-            <p className={`text-xs ${textMuted} italic`}>No funds selected — add funds to analyse</p>
+            <p className={`text-xs ${textMuted} italic`}>No funds selected â€” add funds to analyse</p>
           )}
         </div>
 
@@ -290,7 +290,7 @@ export function OverlapLens() {
                 autoFocus
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search funds to add…"
+                placeholder="Search funds to addâ€¦"
                 className="flex-1 text-sm outline-none bg-transparent"
                 style={{ color: lm ? '#111827' : '#ffffff' }}
               />
@@ -342,15 +342,15 @@ export function OverlapLens() {
         </div>
       ) : (
         <>
-          {/* â"€â"€ TAB: Stock Overlap â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+          {/* Ã¢"â‚¬Ã¢"â‚¬ TAB: Stock Overlap Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
           {tab === 'matrix' && (
             <div className="space-y-4">
               {/* Legend */}
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 {[
                   { color: lm ? '#4f46e5' : '#d6fd70', label: 'Same fund' },
-                  { color: '#ef4444', label: 'High (≥25%)' },
-                  { color: '#f59e0b', label: 'Medium (12—24%)' },
+                  { color: '#ef4444', label: 'High (â‰¥25%)' },
+                  { color: '#f59e0b', label: 'Medium (12â€”24%)' },
                   { color: '#22c55e', label: 'Low (<12%)' },
                 ].map(l => (
                   <div key={l.label} className="flex items-center gap-1.5">
@@ -360,13 +360,13 @@ export function OverlapLens() {
                 ))}
               </div>
 
-              {/* Smart display: ≤8 funds → matrix, >8 → ranked pairs list */}
+              {/* Smart display: â‰¤8 funds â†’ matrix, >8 â†’ ranked pairs list */}
               {selectedIds.length <= 8 ? (
                 <div className={`rounded-2xl overflow-auto ${card}`}>
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-3 text-[11px] font-semibold text-[#111827] uppercase tracking-wider w-48`}> </th>
+                        <th className={`text-left px-4 py-3 text-[11px] font-semibold ${text} uppercase tracking-wider w-48`}> </th>
                         {selectedFunds.map(f => (
                           <th key={f.id} className="px-3 py-3 text-center min-w-[100px]">
                             <p className={`text-[11px] font-medium ${text} truncate max-w-24`}>{shortName(f.name)}</p>
@@ -393,7 +393,7 @@ export function OverlapLens() {
                                   className="inline-flex items-center justify-center w-14 h-10 rounded-lg text-sm font-bold mx-auto"
                                   style={c ? { background: c.bg, color: c.text, border: `1px solid ${c.border}` } : { background: 'transparent', color: lm ? '#D1D5DB' : '#1e2838' }}
                                 >
-                                  {isDiag ? '—' : `${val}%`}
+                                  {isDiag ? 'â€”' : `${val}%`}
                                 </div>
                               </td>
                             )
@@ -407,8 +407,8 @@ export function OverlapLens() {
                 /* >8 funds: ranked worst-pairs list */
                 <div className={`rounded-2xl overflow-hidden ${card}`}>
                   <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                    <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>
-                      Overlap ranked — worst pairs first ({worstPairs.length} total)
+                    <p className={`text-xs font-semibold ${text} uppercase tracking-wider`}>
+                      Overlap ranked â€” worst pairs first ({worstPairs.length} total)
                     </p>
                   </div>
                   {worstPairs.map((pair, i) => {
@@ -422,8 +422,8 @@ export function OverlapLens() {
                       >
                         <span className={`text-xs font-bold w-5 ${textMuted}`}>{i + 1}</span>
                         <div className="flex-1 min-w-0">
-                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
-                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} · {fb?.category}</p>
+                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
+                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} Â· {fb?.category}</p>
                         </div>
                         <div
                           className="px-3 py-1 rounded-lg text-xs font-bold"
@@ -437,7 +437,7 @@ export function OverlapLens() {
                             className="text-[10px] font-semibold px-2.5 py-1 rounded-lg transition-colors flex-shrink-0"
                             style={{ background: 'rgba(79,70,229,0.12)', color: '#6366f1' }}
                           >
-                            Compare →
+                            Compare â†’
                           </button>
                         )}
                       </div>
@@ -449,13 +449,13 @@ export function OverlapLens() {
               {/* Common stocks table */}
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>Common holdings (% of fund)</p>
+                  <p className={`text-xs font-semibold ${text} uppercase tracking-wider`}>Common holdings (% of fund)</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold text-[#111827] uppercase tracking-wide w-48`}>Stock</th>
+                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold ${text} uppercase tracking-wide w-48`}>Stock</th>
                         {selectedFunds.map(f => (
                           <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold text-[#374151] min-w-[80px]`}>
                             {f.name.split(' ')[0]}
@@ -478,7 +478,7 @@ export function OverlapLens() {
                                 <td key={id} className="px-3 py-2.5 text-center">
                                   {v > 0
                                     ? <span className="text-xs font-semibold text-[#22c55e]">{v.toFixed(1)}%</span>
-                                    : <span className={`text-xs ${textMuted}`}>—</span>
+                                    : <span className={`text-xs ${textMuted}`}>â€”</span>
                                   }
                                 </td>
                               )
@@ -499,15 +499,15 @@ export function OverlapLens() {
                   <div>
                     <p className="text-xs font-semibold text-[#f59e0b] mb-0.5">Overlap detected</p>
                     <p className={`text-xs ${textSub}`}>
-                      {worstPairs[0] && `${shortName(mockFunds.find(f => f.id === worstPairs[0].a)?.name ?? '')} and ${shortName(mockFunds.find(f => f.id === worstPairs[0].b)?.name ?? '')} share ${worstPairs[0].val}% of their stock holdings — you're effectively doubling exposure to the same companies. `}
+                      {worstPairs[0] && `${shortName(mockFunds.find(f => f.id === worstPairs[0].a)?.name ?? '')} and ${shortName(mockFunds.find(f => f.id === worstPairs[0].b)?.name ?? '')} share ${worstPairs[0].val}% of their stock holdings â€” you're effectively doubling exposure to the same companies. `}
                       Consider swapping one for a fund in a different category to improve diversification.
-                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives →</button>
+                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives â†’</button>
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* â"€â"€ WORST OVERLAPPING PAIRS â"€â"€ */}
+              {/* Ã¢"â‚¬Ã¢"â‚¬ WORST OVERLAPPING PAIRS Ã¢"â‚¬Ã¢"â‚¬ */}
               <div className={`rounded-2xl overflow-hidden bg-white border ${highOverlapCount > 0 ? 'border-[#ef4444]/30' : 'border-[#E0E3E8]'}`}>
                 <div className="px-5 py-4 border-b" style={{ borderColor: highOverlapCount > 0 ? 'rgba(239,68,68,0.15)' : divider }}>
                   <div className="flex items-center gap-2">
@@ -529,17 +529,17 @@ export function OverlapLens() {
                       : { label: 'Healthy', color: '#22c55e', bg: '#dcfce7', text: '#15803d' }
                     const stocksShared = Math.round(pair.val * 0.5)
                     const desc = pair.val >= 30
-                      ? `${stocksShared} of 50 stocks shared · Both ${fa?.category ?? ''} mandated`
+                      ? `${stocksShared} of 50 stocks shared Â· Both ${fa?.category ?? ''} mandated`
                       : pair.val >= 18
-                      ? `${stocksShared} of 50 stocks shared · Top Nifty names overlap`
+                      ? `${stocksShared} of 50 stocks shared Â· Top Nifty names overlap`
                       : pair.val >= 8
-                      ? `${stocksShared} of 50 stocks shared · Partial sector overlap`
-                      : 'Minimal overlap — different market universe'
+                      ? `${stocksShared} of 50 stocks shared Â· Partial sector overlap`
+                      : 'Minimal overlap â€” different market universe'
                     return (
                       <div key={`${pair.a}-${pair.b}`} className="px-5 py-4">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex-1 min-w-0 pr-4">
-                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
+                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
                             <p className={`text-xs ${textMuted} mt-0.5`}>{desc}</p>
                           </div>
                           <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.text }}>
@@ -561,7 +561,7 @@ export function OverlapLens() {
                 </div>
               </div>
 
-              {/* â"€â"€ MOST DUPLICATED STOCKS â"€â"€ */}
+              {/* Ã¢"â‚¬Ã¢"â‚¬ MOST DUPLICATED STOCKS Ã¢"â‚¬Ã¢"â‚¬ */}
               {(() => {
                 const FUND_COLORS: Record<string, string> = { f001: '#4f46e5', f002: '#0891b2', f003: '#16a34a', f005: '#ea580c', f006: '#db2777' }
                 const duplicated = COMMON_STOCKS
@@ -577,7 +577,7 @@ export function OverlapLens() {
                 return (
                   <div className={`rounded-2xl p-5 ${card}`}>
                     <p className={`text-sm font-bold ${text} mb-1`}>MOST DUPLICATED STOCKS ACROSS YOUR PORTFOLIO</p>
-                    <p className={`text-xs ${textMuted} mb-4`}>Stocks you're holding in multiple funds — you're paying for the same exposure multiple times.</p>
+                    <p className={`text-xs ${textMuted} mb-4`}>Stocks you're holding in multiple funds â€” you're paying for the same exposure multiple times.</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {duplicated.map(s => (
                         <div key={s.name} className={`rounded-xl p-3 ${lm ? 'bg-[#F9FAFB] border border-[#E0E3E8]' : 'bg-[#0f1420] border border-[#1e2838]'}`}>
@@ -590,7 +590,7 @@ export function OverlapLens() {
                             </div>
                           </div>
                           <p className={`text-[10px] ${textMuted}`}>
-                            {s.fundCount} funds · {s.totalPct.toFixed(1)}% of portfolio
+                            {s.fundCount} funds Â· {s.totalPct.toFixed(1)}% of portfolio
                           </p>
                         </div>
                       ))}
@@ -607,7 +607,7 @@ export function OverlapLens() {
                 )
               })()}
 
-              {/* â"€â"€ SECTOR OVERLAP ACROSS ALL FUNDS (stacked) â"€â"€ */}
+              {/* Ã¢"â‚¬Ã¢"â‚¬ SECTOR OVERLAP ACROSS ALL FUNDS (stacked) Ã¢"â‚¬Ã¢"â‚¬ */}
               <div className={`rounded-2xl p-5 ${card}`}>
                 <p className={`text-sm font-bold ${text} mb-1`}>SECTOR OVERLAP ACROSS ALL FUNDS</p>
                 <p className={`text-xs ${textMuted} mb-4`}>Bars show each fund's weight in that sector. Tall bars = concentrated exposure through multiple funds.</p>
@@ -650,7 +650,7 @@ export function OverlapLens() {
             </div>
           )}
 
-          {/* â"€â"€ TAB: Sector Exposure â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+          {/* Ã¢"â‚¬Ã¢"â‚¬ TAB: Sector Exposure Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
           {tab === 'sectors' && (
             <div className="space-y-4">
               <div className="flex items-center gap-4 text-xs">
@@ -660,7 +660,7 @@ export function OverlapLens() {
 
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>Sector allocation vs Nifty 50</p>
+                  <p className={`text-xs font-semibold ${text} uppercase tracking-wider`}>Sector allocation vs Nifty 50</p>
                   <p className={`text-[11px] ${textSub} mt-0.5 normal-case`}>The coloured bar is your portfolio's average weight in each sector. The grey vertical line marks the Nifty 50 benchmark weight.</p>
                 </div>
                 <div className="p-5 space-y-4">
@@ -700,13 +700,13 @@ export function OverlapLens() {
               {/* Per-fund sector breakdown */}
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>Per-fund sector breakdown</p>
+                  <p className={`text-xs font-semibold ${text} uppercase tracking-wider`}>Per-fund sector breakdown</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="min-w-full">
                     <thead>
                       <tr style={{ borderBottom: `1px solid ${divider}` }}>
-                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold text-[#111827] uppercase tracking-wide w-28`}>Sector</th>
+                        <th className={`text-left px-4 py-2.5 text-[11px] font-semibold ${text} uppercase tracking-wide w-28`}>Sector</th>
                         {selectedFunds.map(f => (
                           <th key={f.id} className={`text-center px-3 py-2.5 text-[11px] font-semibold text-[#374151] min-w-[90px]`}>
                             {shortName(f.name)}
@@ -750,12 +750,12 @@ export function OverlapLens() {
             </div>
           )}
 
-          {/* â"€â"€ TAB: AMC Concentration â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+          {/* Ã¢"â‚¬Ã¢"â‚¬ TAB: AMC Concentration Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
           {tab === 'amc' && (
             <div className="space-y-4">
               <div className={`rounded-2xl overflow-hidden ${card}`}>
                 <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
-                  <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>Fund house concentration</p>
+                  <p className={`text-xs font-semibold ${text} uppercase tracking-wider`}>Fund house concentration</p>
                 </div>
                 <div className="p-5 space-y-4">
                   {amcMap.map(([amc, count]) => {
@@ -771,7 +771,7 @@ export function OverlapLens() {
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>High concentration</span>
                             )}
                           </div>
-                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} · {pct}%</span>
+                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} Â· {pct}%</span>
                         </div>
                         <div className="h-3 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
                           <div
@@ -811,7 +811,7 @@ export function OverlapLens() {
                 <Lightning size={16} weight="fill" color="#22c55e" style={{ flexShrink: 0, marginTop: 2 }} />
                 <p className={`text-xs ${textSub}`}>
                   <span className="font-semibold text-[#22c55e]">Best practice: </span>
-                  SEBI recommends not holding more than 40% of your portfolio with a single AMC. Spreading across 3—4 AMCs reduces fund-house risk significantly.
+                  SEBI recommends not holding more than 40% of your portfolio with a single AMC. Spreading across 3â€”4 AMCs reduces fund-house risk significantly.
                 </p>
               </div>
             </div>
@@ -830,3 +830,5 @@ export function OverlapLens() {
     </div>
   )
 }
+
+

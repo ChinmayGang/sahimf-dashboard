@@ -123,7 +123,7 @@ function ScorecardRow({ entry, lm }: { entry: ScorecardEntry; lm: boolean }) {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Left — Sahi Sabh-scales (6 sub-dimensions) */}
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider mb-3 text-[#111827]">Sahi Sabh-scales</p>
+              <p className={`text-[10px] font-semibold uppercase tracking-wider mb-3 ${text}`}>Sahi Sabh-scales</p>
               <div className="space-y-2.5">
                 {dims.map((d) => (
                   <div key={d.label}>

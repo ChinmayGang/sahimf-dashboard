@@ -354,11 +354,11 @@ export function RiskAnalysis() {
         <div className="px-4 pb-4">
           <div className="flex items-center gap-2 mb-2">
             <BulbIcon size={15} color="#4f46e5" weight="fill" />
-            <p className="text-sm font-semibold text-[#111827]">Sahi Risk Insight</p>
+            <p className={`text-sm font-semibold ${text}`}>Sahi Risk Insight</p>
           </div>
-          <p className="text-xs text-[#374151] leading-relaxed">
+          <p className={`text-xs leading-relaxed ${textSub}`}>
             Your portfolio carries a <b style={{ color: riskScoreToColor(portfolioRiskScore) }}>{portfolioRiskLabel}</b> risk profile —
-            an estimated <b className="text-[#111827]">{portfolioVol.toFixed(1)}%</b> annualised volatility and a beta of <b className="text-[#111827]">{beta}</b> versus the Nifty 50.
+            an estimated <b className={text}>{portfolioVol.toFixed(1)}%</b> annualised volatility and a beta of <b className={text}>{beta}</b> versus the Nifty 50.
           </p>
           <ul className="mt-3 space-y-2">
             {[
