@@ -241,10 +241,10 @@ export function FundComparison() {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h1 className="text-xl font-black tracking-tight text-[#111827]">Fund Comparison</h1>
+              <h1 className={`text-xl font-black tracking-tight ${text}`}>Fund Comparison</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Compare up to 4 funds side-by-side — manager profile, top holdings, portfolio ratios &amp; more</p>
+            <p className={`text-xs ${textSub}`}>Compare up to 4 funds side-by-side — manager profile, top holdings, portfolio ratios &amp; more</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">

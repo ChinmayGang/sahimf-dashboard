@@ -78,8 +78,8 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
       {/* Header — hidden when embedded inside the merged Calculator page */}
       {!embedded && (
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
-            <ChartLineIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <ChartLineIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>SIP What If Calculator</h1>

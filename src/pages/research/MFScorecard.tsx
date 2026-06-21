@@ -238,7 +238,7 @@ export function MFScorecard() {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h1 className="text-xl font-black tracking-tight text-[#111827]">MF Scorecard</h1>
+              <h1 className={`text-xl font-black tracking-tight ${text}`}>MF Scorecard</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
             <p className="text-xs text-[#6B7280]">Sahi Score™ ranks {mockFunds.length} funds across returns, consistency, risk, cost &amp; manager quality</p>

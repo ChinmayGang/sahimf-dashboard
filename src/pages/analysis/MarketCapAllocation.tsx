@@ -149,10 +149,10 @@ export function MarketCapAllocation() {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h1 className="text-xl font-black tracking-tight text-[#111827]">Market Cap Allocation</h1>
+              <h1 className={`text-xl font-black tracking-tight ${text}`}>Market Cap Allocation</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
+            <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">

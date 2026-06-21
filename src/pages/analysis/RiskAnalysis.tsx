@@ -258,7 +258,7 @@ export function RiskAnalysis() {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h1 className="text-xl font-black tracking-tight text-[#111827]">Portfolio Risk Analysis</h1>
+              <h1 className={`text-xl font-black tracking-tight ${text}`}>Portfolio Risk Analysis</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
             <p className="text-xs text-[#6B7280]">Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund-level breakdown</p>

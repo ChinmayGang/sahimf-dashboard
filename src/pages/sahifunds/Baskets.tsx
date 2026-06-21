@@ -215,8 +215,8 @@ export function Baskets() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
-            <BasketIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <BasketIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Sahi Baskets</h1>
