@@ -69,9 +69,14 @@ export function Portfolios() {
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className={`text-lg font-semibold ${text}`}>My Portfolios</h1>
-          <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
+        <div className="flex items-center gap-3">
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
+            <FolderOpenIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
+          </div>
+          <div>
+            <h1 className={`text-lg font-semibold ${text}`}>My Portfolios</h1>
+            <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
+          </div>
         </div>
         {canAddMore ? (
           <button
