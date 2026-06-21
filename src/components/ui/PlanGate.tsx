@@ -31,7 +31,7 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
     <>
       <div className="relative">
         <div className="pointer-events-none select-none blur-sm">{children}</div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 rounded-lg backdrop-blur-[2px]">
+        <div className={`absolute inset-0 flex flex-col items-center justify-center rounded-lg backdrop-blur-[3px] ${lm ? 'bg-[#ede9fe]/70' : 'bg-black/45'}`}>
           {compact ? (
             <button
               onClick={() => setShowUpgrade(true)}
@@ -50,7 +50,7 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
                 <p className={`text-sm font-semibold mb-1 ${lm ? 'text-[#111827]' : 'text-white'}`}>
                   {label ?? `Upgrade to ${tierLabel}`}
                 </p>
-                <p className={`text-xs ${lm ? 'text-[#6B7280]' : 'text-[#8390a2]'}`}>
+                <p className={`text-xs ${lm ? 'text-[#374151]' : 'text-[rgba(255,255,255,0.72)]'}`}>
                   Unlock this with a {tierLabel} subscription
                 </p>
               </div>
