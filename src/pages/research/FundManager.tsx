@@ -41,7 +41,7 @@ export function FundManager() {
         <div className={`${card} rounded-2xl p-6`}>
           <div className="flex items-start gap-4 mb-5">
             <div className={`w-14 h-14 rounded-2xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-              <AccountBalanceIcon size={24} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+              <AccountBalanceIcon size={24} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
             </div>
             <div className="flex-1">
               <h1 className={`text-xl font-bold ${text} mb-1`}>{detail.name}</h1>
@@ -72,7 +72,7 @@ export function FundManager() {
             {detail.managers.map((mgr) => (
               <div key={mgr.name} className={`${card} rounded-2xl p-5 flex items-start gap-4`}>
                 <div className={`w-10 h-10 rounded-full ${cardInner} flex items-center justify-center flex-shrink-0`}>
-                  <PersonIcon size={18} color={lm ? '#9CA3AF' : '#8390a2'} weight="duotone" />
+                  <PersonIcon size={18} color={lm ? '#9CA3AF' : '#8390a2'} weight="fill" />
                 </div>
                 <div>
                   <p className={`text-sm font-bold ${text} mb-0.5`}>{mgr.name}</p>
@@ -117,7 +117,7 @@ export function FundManager() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+            <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Fund Manager / AMFI</h1>
@@ -163,7 +163,7 @@ export function FundManager() {
           >
             <div className="flex items-center gap-3 mb-3">
               <div className={`w-10 h-10 rounded-xl ${cardInner} flex items-center justify-center flex-shrink-0`}>
-                <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+                <AccountBalanceIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
               </div>
               <div>
                 <p className={`text-sm font-bold ${text}`}>{amc.name}</p>

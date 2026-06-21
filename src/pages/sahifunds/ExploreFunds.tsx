@@ -23,15 +23,15 @@ import heroImg from '../../assets/explore-funds-header.jpg'
 const TAGS = ['Low Risk', 'ELSS', 'Free Access', 'New SahiMF', 'View All']
 
 const SECTIONS = [
-  { id: 'sahi', label: 'Sahi Picks', badge: 'Recommended', icon: <AutoAwesomeIcon size={16} weight="duotone" />, isSahi: true },
-  { id: 'trending', label: 'Trending Now', icon: <LocalFireDepartmentIcon size={16} weight="duotone" /> },
-  { id: 'new', label: 'New Launches', icon: <NewReleasesIcon size={16} weight="duotone" /> },
-  { id: 'popular', label: 'Most Popular', icon: <StarIcon size={16} weight="duotone" /> },
-  { id: 'top-amc', label: 'Top Funds by AMC', icon: <AccountBalanceIcon size={16} weight="duotone" /> },
-  { id: 'high-risk', label: 'High Reward · High Risk', icon: <RocketLaunchIcon size={16} weight="duotone" /> },
-  { id: 'low-risk', label: 'Stable Returns', icon: <ShieldIcon size={16} weight="duotone" /> },
-  { id: 'elss', label: 'ELSS Tax Savers', icon: <SavingsIcon size={16} weight="duotone" /> },
-  { id: 'index', label: 'Index Funds', icon: <BarChartIcon size={16} weight="duotone" /> },
+  { id: 'sahi', label: 'Sahi Picks', badge: 'Recommended', icon: <AutoAwesomeIcon size={16} weight="fill" />, isSahi: true },
+  { id: 'trending', label: 'Trending Now', icon: <LocalFireDepartmentIcon size={16} weight="fill" /> },
+  { id: 'new', label: 'New Launches', icon: <NewReleasesIcon size={16} weight="fill" /> },
+  { id: 'popular', label: 'Most Popular', icon: <StarIcon size={16} weight="fill" /> },
+  { id: 'top-amc', label: 'Top Funds by AMC', icon: <AccountBalanceIcon size={16} weight="fill" /> },
+  { id: 'high-risk', label: 'High Reward · High Risk', icon: <RocketLaunchIcon size={16} weight="fill" /> },
+  { id: 'low-risk', label: 'Stable Returns', icon: <ShieldIcon size={16} weight="fill" /> },
+  { id: 'elss', label: 'ELSS Tax Savers', icon: <SavingsIcon size={16} weight="fill" /> },
+  { id: 'index', label: 'Index Funds', icon: <BarChartIcon size={16} weight="fill" /> },
 ]
 
 // Origami icon filenames (50 available in /icons/schemes/)
@@ -375,7 +375,7 @@ export function ExploreFunds() {
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3"
                   style={{ background: lm ? '#eeedfd' : 'rgba(214,253,112,0.1)' }}>
-                  <LockIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+                  <LockIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
                 </div>
                 <p className={`text-sm font-bold ${text} mb-1`}>Unlock All Sahi Funds</p>
                 <p className={`text-xs ${textSub} mb-3`}>4 more curated baskets available with Sahi PRO</p>

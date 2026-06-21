@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
 import { VolatilityBadge } from '../../components/ui/VolatilityBadge'
 import { PlanGate } from '../../components/ui/PlanGate'
@@ -23,11 +23,11 @@ export function ExploreSahiFunds() {
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <AutoAwesomeIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <AutoAwesomeIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
             <h1 className={`text-lg font-semibold ${text}`}>Sahi MF Funds</h1>
           </div>
           <p className={`text-xs ${textSub} max-w-lg`}>
-            Curated mutual fund portfolios built by the SahiMF research desk. No personalization —
+            Curated mutual fund portfolios built by the SahiMF research desk. No personalization â€”
             research-driven, rules-based, and transparently constructed.
           </p>
         </div>
@@ -69,7 +69,7 @@ export function ExploreSahiFunds() {
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <div className={`w-10 h-10 rounded-xl ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'} flex items-center justify-center flex-shrink-0`}>
-                  <AutoAwesomeIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+                  <AutoAwesomeIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
                 </div>
                 <div className="flex items-center gap-2">
                   <PlanBadge tier={fund.accessTier as PlanTier} />
@@ -95,7 +95,7 @@ export function ExploreSahiFunds() {
               <div className={`grid grid-cols-3 gap-3 pt-4 border-t ${divider}`}>
                 <div>
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>Min Amount</p>
-                  <p className={`text-xs font-semibold ${text}`}>₹{fund.minAmount.toLocaleString('en-IN')}</p>
+                  <p className={`text-xs font-semibold ${text}`}>â‚¹{fund.minAmount.toLocaleString('en-IN')}</p>
                 </div>
                 <div>
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>{fund.fundCount} Funds</p>
@@ -105,7 +105,7 @@ export function ExploreSahiFunds() {
                   <p className={`text-[10px] ${textMuted} mb-0.5`}>1Y Returns</p>
                   <PlanGate requiredTier={fund.accessTier as PlanTier} compact>
                     <p className="text-xs font-semibold text-[#22C55E]">
-                      {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : '—'}
+                      {fund.returns['1Y'] ? `+${fund.returns['1Y']}%` : 'â€”'}
                     </p>
                   </PlanGate>
                 </div>

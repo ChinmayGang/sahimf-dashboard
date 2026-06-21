@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowRight as ArrowRightIcon, Sparkle as SparkleIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { UpgradePopup } from './UpgradePopup'
@@ -12,7 +12,7 @@ interface ProTrialBannerProps {
 
 export function ProTrialBanner({
   headline = 'Unlock the full picture with Sahi PRO',
-  subtext = 'No credit card required · Cancel anytime',
+  subtext = 'No credit card required Â· Cancel anytime',
   features = [],
   featureDesc,
 }: ProTrialBannerProps) {
@@ -35,7 +35,7 @@ export function ProTrialBanner({
             className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
             style={{ background: lm ? '#4f46e5' : 'rgba(79,70,229,0.2)' }}
           >
-            <SparkleIcon size={16} color={lm ? '#fff' : '#818cf8'} weight="duotone" />
+            <SparkleIcon size={16} color={lm ? '#fff' : '#818cf8'} weight="fill" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-bold mb-0.5" style={{ color: lm ? '#3730a3' : '#a5b4fc' }}>
@@ -45,7 +45,7 @@ export function ProTrialBanner({
               <div className="flex flex-wrap gap-x-3 gap-y-0.5 mb-1">
                 {features.map((f) => (
                   <span key={f} className="text-[10px] font-medium" style={{ color: lm ? '#6366f1' : '#818cf8' }}>
-                    ✓ {f}
+                    âœ“ {f}
                   </span>
                 ))}
               </div>

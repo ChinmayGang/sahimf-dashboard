@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   ShoppingBag as BasketIcon, House as HouseIcon, GraduationCap as EducationIcon,
@@ -36,13 +36,13 @@ const BASKETS: Basket[] = [
     id: 'home-dream',
     name: 'Dream Home',
     goal: 'Buy your first home',
-    icon: <HouseIcon size={22} weight="duotone" />,
+    icon: <HouseIcon size={22} weight="fill" />,
     iconColor: '#4f46e5',
     iconBg: '#eeedfd',
-    horizon: '7–10 years',
+    horizon: '7â€“10 years',
     minSIP: 5000,
     funds: 4,
-    cagr: '13–16%',
+    cagr: '13â€“16%',
     riskLevel: 'Moderate',
     description: 'A balanced mix of large-cap and hybrid funds to grow a down-payment corpus with controlled volatility.',
     fundNames: ['Mirae Asset Large Cap', 'HDFC Mid-Cap Opportunities', 'ICICI Prudential BAF', 'Parag Parikh Flexi Cap'],
@@ -54,30 +54,30 @@ const BASKETS: Basket[] = [
     id: 'child-education',
     name: "Child's Education",
     goal: 'Fund higher education abroad or India',
-    icon: <EducationIcon size={22} weight="duotone" />,
+    icon: <EducationIcon size={22} weight="fill" />,
     iconColor: '#0891b2',
     iconBg: '#e0f2fe',
-    horizon: '10–15 years',
+    horizon: '10â€“15 years',
     minSIP: 3000,
     funds: 5,
-    cagr: '14–17%',
+    cagr: '14â€“17%',
     riskLevel: 'Moderate',
     description: 'Long-horizon multi-cap strategy with a gradual de-risking glide path as the goal date approaches.',
     fundNames: ['PPFAS Flexi Cap', 'HDFC Mid-Cap', 'Axis Bluechip', 'SBI Small Cap', 'Kotak Gilt'],
-    methodology: 'Starts equity-heavy (80%) in years 1–8, then automatically shifts toward debt and balanced funds in years 9–15. International allocation via PPFAS provides INR hedging against tuition cost inflation abroad.',
+    methodology: 'Starts equity-heavy (80%) in years 1â€“8, then automatically shifts toward debt and balanced funds in years 9â€“15. International allocation via PPFAS provides INR hedging against tuition cost inflation abroad.',
     tier: 'free',
   },
   {
     id: 'retirement',
     name: 'Retirement Corpus',
     goal: 'Build financial independence',
-    icon: <RetirementIcon size={22} weight="duotone" />,
+    icon: <RetirementIcon size={22} weight="fill" />,
     iconColor: '#16a34a',
     iconBg: '#dcfce7',
-    horizon: '20–30 years',
+    horizon: '20â€“30 years',
     minSIP: 10000,
     funds: 6,
-    cagr: '15–18%',
+    cagr: '15â€“18%',
     riskLevel: 'High',
     description: 'Aggressive long-term wealth builder using proven multi-cap and small-cap compounders.',
     fundNames: ['PPFAS Flexi Cap', 'SBI Small Cap', 'HDFC Mid-Cap', 'Mirae Asset Large Cap', 'DSP Natural Resources', 'Axis Bluechip'],
@@ -88,14 +88,14 @@ const BASKETS: Basket[] = [
   {
     id: 'car',
     name: 'New Car',
-    goal: 'Buy your dream car in 3–5 years',
-    icon: <CarIcon size={22} weight="duotone" />,
+    goal: 'Buy your dream car in 3â€“5 years',
+    icon: <CarIcon size={22} weight="fill" />,
     iconColor: '#ea580c',
     iconBg: '#ffedd5',
-    horizon: '3–5 years',
+    horizon: '3â€“5 years',
     minSIP: 8000,
     funds: 3,
-    cagr: '11–13%',
+    cagr: '11â€“13%',
     riskLevel: 'Low',
     description: 'Conservative short-to-medium term strategy with flexi-cap and hybrid allocation.',
     fundNames: ['ICICI Prudential BAF', 'Axis Bluechip', 'Kotak Gilt'],
@@ -106,13 +106,13 @@ const BASKETS: Basket[] = [
     id: 'travel',
     name: 'Dream Vacation',
     goal: 'Europe trip, Bali, or world tour',
-    icon: <TravelIcon size={22} weight="duotone" />,
+    icon: <TravelIcon size={22} weight="fill" />,
     iconColor: '#7c3aed',
     iconBg: '#f5f3ff',
-    horizon: '1–3 years',
+    horizon: '1â€“3 years',
     minSIP: 2000,
     funds: 2,
-    cagr: '8–11%',
+    cagr: '8â€“11%',
     riskLevel: 'Low',
     description: 'Short-term goal basket with liquid and ultra-short debt to protect capital.',
     fundNames: ['ICICI Prudential BAF', 'Kotak Gilt'],
@@ -123,13 +123,13 @@ const BASKETS: Basket[] = [
     id: 'alpha-wealth',
     name: 'Alpha Wealth Builder',
     goal: 'Beat Nifty 50 by 5%+ consistently',
-    icon: <SparkleIcon size={22} weight="duotone" />,
+    icon: <SparkleIcon size={22} weight="fill" />,
     iconColor: '#d6fd70',
     iconBg: 'rgba(214,253,112,0.15)',
     horizon: '5+ years',
     minSIP: 15000,
     funds: 5,
-    cagr: '17–22%',
+    cagr: '17â€“22%',
     riskLevel: 'High',
     description: 'Curated high-conviction basket built to deliver meaningful alpha over index funds.',
     fundNames: ['PPFAS Flexi Cap', 'HDFC Mid-Cap', 'SBI Small Cap', 'DSP Natural Resources', 'Mirae Asset Large Cap'],
@@ -185,8 +185,8 @@ export function Baskets() {
                   {selectedBasket.icon}
                 </div>
                 <div>
-                  <h2 className={`text-sm font-bold ${text}`}>{selectedBasket.name} — Methodology</h2>
-                  <p className={`text-xs ${textMuted}`}>{selectedBasket.horizon} · {selectedBasket.funds} funds</p>
+                  <h2 className={`text-sm font-bold ${text}`}>{selectedBasket.name} â€” Methodology</h2>
+                  <p className={`text-xs ${textMuted}`}>{selectedBasket.horizon} Â· {selectedBasket.funds} funds</p>
                 </div>
               </div>
               <button onClick={() => setShowMethodology(false)}><CloseIcon size={18} weight="bold" color={lm ? '#9CA3AF' : '#64748b'} /></button>
@@ -196,7 +196,7 @@ export function Baskets() {
               <div className="space-y-1.5">
                 {selectedBasket.fundNames.map((fn, i) => (
                   <div key={fn} className="flex items-center gap-2">
-                    <CheckCircleIcon size={13} color="#22c55e" weight="duotone" />
+                    <CheckCircleIcon size={13} color="#22c55e" weight="fill" />
                     <span className={`text-xs ${text}`}>{fn}</span>
                     {i === 0 && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${lm ? 'bg-[#4f46e5]/10 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>Anchor</span>}
                   </div>
@@ -216,11 +216,11 @@ export function Baskets() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#4f46e5]/10'}`}>
-            <BasketIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+            <BasketIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Sahi Baskets</h1>
-            <p className={`text-xs ${textMuted}`}>Goal-based fund baskets — curated by the SahiMF research team</p>
+            <p className={`text-xs ${textMuted}`}>Goal-based fund baskets â€” curated by the SahiMF research team</p>
           </div>
         </div>
         <div
@@ -228,22 +228,22 @@ export function Baskets() {
           style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.1)', color: '#6366f1' }}
           onClick={() => selectedBasket && setShowMethodology(true)}
         >
-          <InfoIcon size={13} weight="duotone" />
+          <InfoIcon size={13} weight="fill" />
           How baskets work
         </div>
       </div>
 
-      {/* Active goal trackers — PRO users / empty CTA for free */}
+      {/* Active goal trackers â€” PRO users / empty CTA for free */}
       {trackedBaskets.length === 0 && !isPro && (
         <div className="rounded-2xl p-6 flex items-center gap-5" style={{ background: 'linear-gradient(135deg, #f5f0ff 0%, #eee8ff 100%)', border: '1px solid #d4c5ff' }}>
           <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.3)' }}>
-            <TargetIcon size={22} color="#d6fd70" weight="duotone" />
+            <TargetIcon size={22} color="#d6fd70" weight="fill" />
           </div>
           <div className="flex-1">
             <p className="text-base font-black text-[#1e0845] mb-0.5">Set your first goal</p>
             <p className="text-xs text-[#5b3f8a] leading-relaxed">
-              You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress — retirement, education, home or any goal.
+              You have no active goals yet. Add a Sahi Basket to your portfolio, set a target, and watch your progress â€” retirement, education, home or any goal.
             </p>
           </div>
           <ProButton label="Upgrade to PRO" className="flex-shrink-0" onClick={() => navigate('/pricing')} />
@@ -283,11 +283,11 @@ export function Baskets() {
                   <div className="grid grid-cols-2 gap-3 mt-3">
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>Current Corpus</p>
-                      <p className={`text-sm font-bold ${text}`}>₹{(currentCorpus / 100000).toFixed(1)}L</p>
+                      <p className={`text-sm font-bold ${text}`}>â‚¹{(currentCorpus / 100000).toFixed(1)}L</p>
                     </div>
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>Target</p>
-                      <p className={`text-sm font-bold ${text}`}>₹{(targetCorpus / 100000).toFixed(0)}L</p>
+                      <p className={`text-sm font-bold ${text}`}>â‚¹{(targetCorpus / 100000).toFixed(0)}L</p>
                     </div>
                   </div>
                 </div>
@@ -328,7 +328,7 @@ export function Baskets() {
                 <div className="grid grid-cols-2 gap-2 mb-3">
                   {[
                     { label: 'Horizon', value: basket.horizon },
-                    { label: 'Min SIP', value: `₹${basket.minSIP.toLocaleString('en-IN')}` },
+                    { label: 'Min SIP', value: `â‚¹${basket.minSIP.toLocaleString('en-IN')}` },
                     { label: 'Hist. CAGR', value: basket.cagr },
                     { label: 'Funds', value: `${basket.funds} funds` },
                   ].map(s => (

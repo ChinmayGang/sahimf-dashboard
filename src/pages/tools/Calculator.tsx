@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+﻿import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Calculator as CalculateIcon } from '@phosphor-icons/react'
@@ -15,9 +15,9 @@ const TABS: { key: ToolType; label: string }[] = [
 ]
 
 function formatINR(n: number) {
-  if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`
-  if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
-  return `₹${Math.round(n).toLocaleString('en-IN')}`
+  if (n >= 10000000) return `â‚¹${(n / 10000000).toFixed(2)} Cr`
+  if (n >= 100000) return `â‚¹${(n / 100000).toFixed(2)} L`
+  return `â‚¹${Math.round(n).toLocaleString('en-IN')}`
 }
 
 /** Each calculator normalises to { data:[{label,invested,value}], totalInvested, maturity, gain }. */
@@ -51,7 +51,7 @@ function useLumpsumCalc(principal: number, rate: number, years: number) {
   }, [principal, rate, years])
 }
 
-/** SWP — start with a corpus, withdraw monthly while the balance keeps compounding. */
+/** SWP â€” start with a corpus, withdraw monthly while the balance keeps compounding. */
 function useSWPCalc(corpus: number, withdrawal: number, rate: number, years: number) {
   return useMemo(() => {
     const months = years * 12
@@ -71,7 +71,7 @@ function useSWPCalc(corpus: number, withdrawal: number, rate: number, years: num
   }, [corpus, withdrawal, rate, years])
 }
 
-/** STP — park a lump in a low-risk source (fixed 6.5% p.a.), transfer a fixed amount
+/** STP â€” park a lump in a low-risk source (fixed 6.5% p.a.), transfer a fixed amount
  *  into the target each month where it compounds at the equity rate. */
 function useSTPCalc(principal: number, transfer: number, targetRate: number, years: number) {
   return useMemo(() => {
@@ -154,7 +154,7 @@ export function Calculator() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className={`w-10 h-10 rounded-xl ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'} flex items-center justify-center`}>
-          <CalculateIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+          <CalculateIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
         </div>
         <div>
           <h1 className={`text-lg font-semibold ${text}`}>{toolLabels[tab]}</h1>
@@ -182,19 +182,19 @@ export function Calculator() {
         {/* Inputs */}
         <div className={`col-span-2 ${card} rounded-xl p-5 space-y-5`}>
           {tab === 'sip' && (
-            <Slider label="Monthly SIP Amount" value={monthly} min={500} max={100000} step={500} onChange={setMonthly} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹500" hiFmt="₹1 L" lm={lm} />
+            <Slider label="Monthly SIP Amount" value={monthly} min={500} max={100000} step={500} onChange={setMonthly} fmt={v => `â‚¹${v.toLocaleString('en-IN')}`} loFmt="â‚¹500" hiFmt="â‚¹1 L" lm={lm} />
           )}
           {(tab === 'lumpsum' || tab === 'stp') && (
-            <Slider label={tab === 'stp' ? 'Source Amount' : 'Investment Amount'} value={principal} min={10000} max={10000000} step={10000} onChange={setPrincipal} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹10K" hiFmt="₹1 Cr" lm={lm} />
+            <Slider label={tab === 'stp' ? 'Source Amount' : 'Investment Amount'} value={principal} min={10000} max={10000000} step={10000} onChange={setPrincipal} fmt={v => `â‚¹${v.toLocaleString('en-IN')}`} loFmt="â‚¹10K" hiFmt="â‚¹1 Cr" lm={lm} />
           )}
           {tab === 'swp' && (
             <>
-              <Slider label="Starting Corpus" value={corpus} min={100000} max={50000000} step={100000} onChange={setCorpus} fmt={v => formatINR(v)} loFmt="₹1 L" hiFmt="₹5 Cr" lm={lm} />
-              <Slider label="Monthly Withdrawal" value={withdrawal} min={1000} max={500000} step={1000} onChange={setWithdrawal} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹1K" hiFmt="₹5 L" lm={lm} />
+              <Slider label="Starting Corpus" value={corpus} min={100000} max={50000000} step={100000} onChange={setCorpus} fmt={v => formatINR(v)} loFmt="â‚¹1 L" hiFmt="â‚¹5 Cr" lm={lm} />
+              <Slider label="Monthly Withdrawal" value={withdrawal} min={1000} max={500000} step={1000} onChange={setWithdrawal} fmt={v => `â‚¹${v.toLocaleString('en-IN')}`} loFmt="â‚¹1K" hiFmt="â‚¹5 L" lm={lm} />
             </>
           )}
           {tab === 'stp' && (
-            <Slider label="Monthly Transfer to Equity" value={transfer} min={1000} max={200000} step={1000} onChange={setTransfer} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹1K" hiFmt="₹2 L" lm={lm} />
+            <Slider label="Monthly Transfer to Equity" value={transfer} min={1000} max={200000} step={1000} onChange={setTransfer} fmt={v => `â‚¹${v.toLocaleString('en-IN')}`} loFmt="â‚¹1K" hiFmt="â‚¹2 L" lm={lm} />
           )}
 
           <Slider label={tab === 'stp' ? 'Equity Return Rate (p.a.)' : 'Expected Return Rate (p.a.)'} value={rate} min={4} max={30} step={0.5} onChange={setRate} fmt={v => `${v}%`} loFmt="4%" hiFmt="30%" lm={lm} />
@@ -284,12 +284,12 @@ export function Calculator() {
         </div>
       </div>
 
-      {/* What-If fund comparison merged onto the SIP page — the same SIP inputs drive it (R2-4) */}
+      {/* What-If fund comparison merged onto the SIP page â€” the same SIP inputs drive it (R2-4) */}
       {tab === 'sip' && (
         <div className="space-y-3 pt-2">
           <div>
             <h2 className={`text-base font-bold ${text}`}>How top funds would have grown this SIP</h2>
-            <p className={`text-xs ${textSub}`}>Ranked for ₹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR — adjust the calculator above to update.</p>
+            <p className={`text-xs ${textSub}`}>Ranked for â‚¹{monthly.toLocaleString('en-IN')}/mo over {years}Y on 5Y historical CAGR â€” adjust the calculator above to update.</p>
           </div>
           <SIPWhatIf embedded monthly={monthly} years={years} />
         </div>
@@ -297,7 +297,7 @@ export function Calculator() {
 
       <p className={`text-[10px] ${textMuted} text-center`}>
         Calculations are illustrative and based on the assumptions you set. Past performance is not indicative of future returns.
-        SahiMF is a SEBI-registered Research Analyst — this is generic research, not personalised advice.
+        SahiMF is a SEBI-registered Research Analyst â€” this is generic research, not personalised advice.
       </p>
     </div>
   )

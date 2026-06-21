@@ -85,8 +85,8 @@ export function Settings() {
               <div className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${lm ? 'bg-[#F9FAFB]' : 'bg-[#1a2130]'}`}>
                   {lm
-                    ? <LightModeIcon size={16} color="#f59e0b" weight="duotone" />
-                    : <DarkModeIcon size={16} color="#8390a2" weight="duotone" />}
+                    ? <LightModeIcon size={16} color="#f59e0b" weight="fill" />
+                    : <DarkModeIcon size={16} color="#8390a2" weight="fill" />}
                 </div>
                 <div>
                   <p className={`text-sm font-medium ${text}`}>Dark Mode</p>
@@ -114,10 +114,10 @@ export function Settings() {
             Account
           </div>
           {[
-            { icon: <PersonIcon size={16} weight="duotone" />, label: 'Profile Information', desc: 'Name, email, phone' },
-            { icon: <NotificationsIcon size={16} weight="duotone" />, label: 'Notifications', desc: 'Alerts, news, rebalance reminders' },
-            { icon: <SecurityIcon size={16} weight="duotone" />, label: 'Security', desc: 'Manage login & 2FA' },
-            { icon: <InfoIcon size={16} weight="duotone" />, label: 'About Sahi MF', desc: 'Version, licences, terms' },
+            { icon: <PersonIcon size={16} weight="fill" />, label: 'Profile Information', desc: 'Name, email, phone' },
+            { icon: <NotificationsIcon size={16} weight="fill" />, label: 'Notifications', desc: 'Alerts, news, rebalance reminders' },
+            { icon: <SecurityIcon size={16} weight="fill" />, label: 'Security', desc: 'Manage login & 2FA' },
+            { icon: <InfoIcon size={16} weight="fill" />, label: 'About Sahi MF', desc: 'Version, licences, terms' },
           ].map((item, i, arr) => (
             <button
               key={item.label}
@@ -156,7 +156,7 @@ export function Settings() {
           onClick={handleLogout}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl border transition-colors text-left ${lm ? 'border-[#fee2e2] bg-[#fff5f5] text-[#dc2626] hover:bg-[#fef2f2]' : 'border-[#3b1a1a] bg-[#1a0a0a] text-[#ef4444] hover:bg-[#2a0f0f]'}`}
         >
-          <LogoutIcon size={16} weight="duotone" />
+          <LogoutIcon size={16} weight="fill" />
           <span className="text-sm font-medium">Sign Out</span>
         </button>
 

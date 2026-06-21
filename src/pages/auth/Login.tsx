@@ -196,7 +196,7 @@ export function Login() {
                 {loading ? (
                   <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending OTP...</>
                 ) : sent ? (
-                  <><CheckCircleIcon size={16} weight="duotone" />OTP Sent</>
+                  <><CheckCircleIcon size={16} weight="fill" />OTP Sent</>
                 ) : (
                   <>Get OTP<ArrowForwardIcon size={16} weight="bold" /></>
                 )}

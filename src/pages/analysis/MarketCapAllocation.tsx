@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { ChartPieSlice, ArrowsClockwise, Warning, TrendUp, Info, UploadSimple } from '@phosphor-icons/react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts'
 import { useUIStore } from '../../stores/uiStore'
@@ -7,30 +7,30 @@ import { mockPortfolios } from '../../data/portfolios'
 import { PlanGate } from '../../components/ui/PlanGate'
 import { ProButton } from '../../components/ui/ProButton'
 
-// ─── Mock data ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Mock data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FUNDS = [
   {
     id: 'f001', name: 'Mirae Asset Large Cap', category: 'Large Cap',
     large: 87, mid: 11, small: 2,
-    aum: '₹37,420 Cr', score: '8.8/10',
+    aum: 'â‚¹37,420 Cr', score: '8.8/10',
     driftFrom: { large: 90, mid: 8, small: 2 },
   },
   {
     id: 'f002', name: 'Parag Parikh Flexi Cap', category: 'Flexi Cap',
     large: 58, mid: 22, small: 12,
-    aum: '₹82,640 Cr', score: '9.2/10',
+    aum: 'â‚¹82,640 Cr', score: '9.2/10',
     driftFrom: { large: 65, mid: 20, small: 15 },
   },
   {
     id: 'f003', name: 'SBI Small Cap', category: 'Small Cap',
     large: 4, mid: 18, small: 78,
-    aum: '₹28,310 Cr', score: '8.5/10',
+    aum: 'â‚¹28,310 Cr', score: '8.5/10',
     driftFrom: { large: 3, mid: 15, small: 82 },
   },
   {
     id: 'f004', name: 'HDFC Mid-Cap Opps', category: 'Mid Cap',
     large: 14, mid: 68, small: 18,
-    aum: '₹69,200 Cr', score: '8.1/10',
+    aum: 'â‚¹69,200 Cr', score: '8.1/10',
     driftFrom: { large: 10, mid: 75, small: 15 },
   },
 ]
@@ -105,25 +105,25 @@ export function MarketCapAllocation() {
 
   const totalRebalanceTarget = rebalanceTarget.large + rebalanceTarget.mid + rebalanceTarget.small
 
-  // Free / zero-investment users have no portfolio to analyse — show guidance instead of empty charts.
+  // Free / zero-investment users have no portfolio to analyse â€” show guidance instead of empty charts.
   if (!hasInvestments) {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="duotone" /></span>
+            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="fill" /></span>
           </div>
           <div>
             <h1 className={`text-xl font-black tracking-tight ${text}`}>Market Cap Allocation</h1>
-            <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
+            <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended â€” drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
 
         <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
           <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
             style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)' }}>
-            <UploadSimple size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <UploadSimple size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
           </div>
           <p className={`text-base font-bold ${text} mb-1`}>Upload your portfolio to unlock market-cap analysis</p>
           <p className={`text-sm ${textSub} max-w-md mb-5`}>
@@ -144,14 +144,14 @@ export function MarketCapAllocation() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="duotone" /></span>
+            <span style={{ color: '#d6fd70' }}><ChartPieSlice size={20} weight="fill" /></span>
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
               <h1 className="text-xl font-black tracking-tight text-[#111827]">Market Cap Allocation</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
+            <p className="text-xs text-[#6B7280]">Portfolio market cap mix vs recommended â€” drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">
@@ -171,13 +171,13 @@ export function MarketCapAllocation() {
       {/* Drift alerts strip */}
       {driftAlerts.length > 0 && (
         <div className={`rounded-xl px-4 py-3 flex items-start gap-3 ${lm ? 'bg-[#fef9c3] border border-[#fde68a]' : 'bg-[#ca8a04]/10 border border-[#ca8a04]/30'}`}>
-          <Warning size={16} color={lm ? '#ca8a04' : '#facc15'} weight="duotone" style={{ flexShrink: 0, marginTop: 1 }} />
+          <Warning size={16} color={lm ? '#ca8a04' : '#facc15'} weight="fill" style={{ flexShrink: 0, marginTop: 1 }} />
           <div>
             <p className={`text-xs font-semibold ${lm ? 'text-[#92400e]' : 'text-[#facc15]'}`}>
               {driftAlerts.length} fund{driftAlerts.length > 1 ? 's have' : ' has'} drifted from expected market cap mix
             </p>
             <p className={`text-[11px] mt-0.5 ${lm ? 'text-[#b45309]' : 'text-[#d97706]'}`}>
-              {driftAlerts.map(f => f.name).join(' · ')} — review rebalancing below
+              {driftAlerts.map(f => f.name).join(' Â· ')} â€” review rebalancing below
             </p>
           </div>
         </div>
@@ -269,23 +269,23 @@ export function MarketCapAllocation() {
         </div>
       </div>
 
-      {/* Sahi Analysis Research Note — surfaced above the fund table (B7-3) */}
+      {/* Sahi Analysis Research Note â€” surfaced above the fund table (B7-3) */}
       <div className={`${card} rounded-2xl p-5 space-y-3`}>
         <div className="flex items-center gap-2">
-          <TrendUp size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
-          <p className={`text-sm font-semibold ${text}`}>Sahi Analysis · Market Cap Research Note</p>
-          <Info size={13} color={textMuted} weight="duotone" />
+          <TrendUp size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
+          <p className={`text-sm font-semibold ${text}`}>Sahi Analysis Â· Market Cap Research Note</p>
+          <Info size={13} color={textMuted} weight="fill" />
         </div>
         <PlanGate requiredTier="pro" compact>
           <div className={`space-y-2 text-xs ${textSub} leading-relaxed`}>
             <p>
-              Your portfolio is <span className={`font-semibold ${lm ? 'text-[#dc2626]' : 'text-[#f87171]'}`}>overweight large-cap by {portfolioMix.large - RECOMMENDED.large}%</span> relative to the Sahi recommended blend for a balanced growth investor. While large-cap funds offer stability, the excess allocation reduces your long-term wealth compounding potential — SEBI data shows flexi-cap and mid-cap categories have outperformed large-cap by 4-7% CAGR over 10-year rolling periods.
+              Your portfolio is <span className={`font-semibold ${lm ? 'text-[#dc2626]' : 'text-[#f87171]'}`}>overweight large-cap by {portfolioMix.large - RECOMMENDED.large}%</span> relative to the Sahi recommended blend for a balanced growth investor. While large-cap funds offer stability, the excess allocation reduces your long-term wealth compounding potential â€” SEBI data shows flexi-cap and mid-cap categories have outperformed large-cap by 4-7% CAGR over 10-year rolling periods.
             </p>
             <p>
-              <span className="font-semibold" style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5–7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
+              <span className="font-semibold" style={{ color: MCAP_COLORS.mid }}>Mid-cap is underweighted by {RECOMMENDED.mid - portfolioMix.mid}%.</span> Historically, Indian mid-caps enter large-cap indices within 5â€“7 years of strong earnings growth, making this the highest-return segment for investors with a 7+ year horizon.
             </p>
             <p>
-              <span className="font-semibold" style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) — a structural edge that compounds significantly over time.
+              <span className="font-semibold" style={{ color: MCAP_COLORS.small }}>Small-cap ({portfolioMix.small}%)</span> is within healthy range. SBI Small Cap has maintained the lowest expense ratio in the category (0.66%) â€” a structural edge that compounds significantly over time.
             </p>
             <p className={`text-[10px] ${textMuted} pt-1 border-t ${divider}`}>
               Sahi analysis is for research and educational purposes only. This is not personalised investment advice. SEBI RA regulations apply. Please consult a registered investment adviser before making changes to your portfolio.
@@ -316,7 +316,7 @@ export function MarketCapAllocation() {
                     <div className="flex items-center gap-2">
                       <div>
                         <p className={`text-sm font-medium ${text}`}>{f.name}</p>
-                        <p className={`text-[11px] ${textMuted}`}>{f.category} · AUM {f.aum} · Sahi Score {f.score}</p>
+                        <p className={`text-[11px] ${textMuted}`}>{f.category} Â· AUM {f.aum} Â· Sahi Score {f.score}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -381,7 +381,7 @@ export function MarketCapAllocation() {
                             </div>
                             <p className={`text-xl font-black ${text}`}>{d.curr}%</p>
                             <p className={`text-[10px] ${diff > 0 ? (lm ? 'text-[#dc2626]' : 'text-[#f87171]') : diff < 0 ? (lm ? 'text-[#16a34a]' : 'text-[#4ade80]') : textMuted}`}>
-                              {diff > 0 ? '▲' : diff < 0 ? '▼' : '●'} {Math.abs(diff)}% vs last quarter
+                              {diff > 0 ? 'â–²' : diff < 0 ? 'â–¼' : 'â—'} {Math.abs(diff)}% vs last quarter
                             </p>
                           </div>
                         )
@@ -395,21 +395,21 @@ export function MarketCapAllocation() {
         </div>
       </div>
 
-      {/* Rebalance Simulator — PRO gated */}
+      {/* Rebalance Simulator â€” PRO gated */}
       <PlanGate requiredTier="pro">
         <div className={`${card} rounded-2xl p-5 space-y-4`}>
           <div className="flex items-center gap-2">
-            <ArrowsClockwise size={16} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <ArrowsClockwise size={16} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
             <p className={`text-sm font-semibold ${text}`}>Rebalance Simulator</p>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#4f46e5] text-white ml-auto">PRO</span>
           </div>
           <p className={`text-xs ${textSub}`}>Drag sliders to see how rebalancing to your target mix affects individual fund weights.</p>
 
-          {/* Sahi research — recommended composition note */}
+          {/* Sahi research â€” recommended composition note */}
           <div className="rounded-xl px-3.5 py-3" style={{ background: lm ? '#F5F3FF' : 'rgba(79,70,229,0.08)', border: `1px solid ${lm ? '#ddd6fe' : 'rgba(79,70,229,0.2)'}` }}>
             <p className="text-[11px] leading-relaxed" style={{ color: lm ? '#4338ca' : '#a5b4fc' }}>
-              <span className="font-bold" style={{ color: lm ? '#4f46e5' : '#c7d2fe' }}>Sahi research view — best composition: </span>
-              For a balanced growth investor we suggest <b style={{ color: MCAP_COLORS.large }}>{RECOMMENDED.large}% Large Cap</b>, <b style={{ color: MCAP_COLORS.mid }}>{RECOMMENDED.mid}% Mid Cap</b> and <b style={{ color: MCAP_COLORS.small }}>{RECOMMENDED.small}% Small Cap</b>. Large caps anchor stability, mid caps drive long-term growth, and a measured small-cap sleeve adds upside without over-concentrating risk. Use the sliders to model your own mix — your target must total 100%.
+              <span className="font-bold" style={{ color: lm ? '#4f46e5' : '#c7d2fe' }}>Sahi research view â€” best composition: </span>
+              For a balanced growth investor we suggest <b style={{ color: MCAP_COLORS.large }}>{RECOMMENDED.large}% Large Cap</b>, <b style={{ color: MCAP_COLORS.mid }}>{RECOMMENDED.mid}% Mid Cap</b> and <b style={{ color: MCAP_COLORS.small }}>{RECOMMENDED.small}% Small Cap</b>. Large caps anchor stability, mid caps drive long-term growth, and a measured small-cap sleeve adds upside without over-concentrating risk. Use the sliders to model your own mix â€” your target must total 100%.
             </p>
           </div>
 
@@ -503,7 +503,7 @@ export function MarketCapAllocation() {
       </PlanGate>
 
       <p className={`text-[10px] ${textMuted} text-center`}>
-        Market cap classifications follow SEBI's AMFI list (top 100 = Large Cap, 101–250 = Mid Cap, 251+ = Small Cap).
+        Market cap classifications follow SEBI's AMFI list (top 100 = Large Cap, 101â€“250 = Mid Cap, 251+ = Small Cap).
         Data is indicative and based on last available portfolio disclosures. SahiMF is a SEBI-registered Research Analyst.
       </p>
     </div>

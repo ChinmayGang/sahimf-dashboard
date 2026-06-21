@@ -480,7 +480,7 @@ export function DesignSystem() {
                 <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: T3 }}>With Icons</p>
                 <div className="flex items-center gap-3 flex-wrap">
                   <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold" style={{ background: ACCENT, color: '#000' }}>
-                    <AutoAwesomeIcon size={16} weight="duotone" /> Explore Sahi Funds
+                    <AutoAwesomeIcon size={16} weight="fill" /> Explore Sahi Funds
                   </button>
                   <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border" style={{ borderColor: CARD_BORDER, color: T1 }}>
                     <CheckCircleIcon size={14} weight="regular" /> Approve
@@ -602,10 +602,10 @@ export function DesignSystem() {
 
             {/* Alert banners */}
             {[
-              { icon: <InfoOutlinedIcon size={16} weight="duotone" />, bg: '#EFF6FF', border: '#BFDBFE', text: '#1D4ED8', label: 'Info', msg: 'Import your CAS from MFCentral to see all your portfolios in one place.' },
-              { icon: <CheckCircleOutlineIcon size={16} weight="duotone" />, bg: '#F0FDF4', border: '#BBF7D0', text: '#15803D', label: 'Success', msg: 'SIP of ₹5,000 in Mirae Asset Large Cap Fund activated successfully.' },
-              { icon: <WarningAmberIcon size={16} weight="duotone" />, bg: '#FFFBEB', border: '#FDE68A', text: '#B45309', label: 'Warning', msg: 'SEBI notice: Sahi MF Funds are research portfolios, not personalised advice.' },
-              { icon: <ErrorOutlineIcon size={16} weight="duotone" />, bg: '#FFF1F2', border: '#FECDD3', text: '#BE123C', label: 'Danger', msg: 'Plan expired. Renew Sahi PRO to continue accessing 3Y/5Y returns and overlaps.' },
+              { icon: <InfoOutlinedIcon size={16} weight="fill" />, bg: '#EFF6FF', border: '#BFDBFE', text: '#1D4ED8', label: 'Info', msg: 'Import your CAS from MFCentral to see all your portfolios in one place.' },
+              { icon: <CheckCircleOutlineIcon size={16} weight="fill" />, bg: '#F0FDF4', border: '#BBF7D0', text: '#15803D', label: 'Success', msg: 'SIP of ₹5,000 in Mirae Asset Large Cap Fund activated successfully.' },
+              { icon: <WarningAmberIcon size={16} weight="fill" />, bg: '#FFFBEB', border: '#FDE68A', text: '#B45309', label: 'Warning', msg: 'SEBI notice: Sahi MF Funds are research portfolios, not personalised advice.' },
+              { icon: <ErrorOutlineIcon size={16} weight="fill" />, bg: '#FFF1F2', border: '#FECDD3', text: '#BE123C', label: 'Danger', msg: 'Plan expired. Renew Sahi PRO to continue accessing 3Y/5Y returns and overlaps.' },
             ].map(a => (
               <div key={a.label} className="flex items-start gap-3 p-4 rounded-xl border" style={{ background: a.bg, borderColor: a.border }}>
                 <span style={{ color: a.text, marginTop: 1 }}>{a.icon}</span>
@@ -634,7 +634,7 @@ export function DesignSystem() {
                   <div className="absolute inset-0 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(2px)' }}>
                     <div className="text-center">
                       <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${PRO}15`, border: `1px solid ${PRO}30` }}>
-                        <LockIcon size={18} color={PRO} weight="duotone" />
+                        <LockIcon size={18} color={PRO} weight="fill" />
                       </div>
                       <p className="text-sm font-semibold mb-1" style={{ color: T1 }}>Upgrade to Sahi PRO</p>
                       <p className="text-xs mb-3" style={{ color: T2 }}>Unlock overlap analysis and 50+ more features</p>

@@ -68,7 +68,7 @@ export function Transactions() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <ReceiptLongIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+            <ReceiptLongIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Transactions</h1>
@@ -91,7 +91,7 @@ export function Transactions() {
           />
         </div>
 
-        <FilterListIcon size={16} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />
+        <FilterListIcon size={16} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
 
         {/* Portfolio */}
         <select

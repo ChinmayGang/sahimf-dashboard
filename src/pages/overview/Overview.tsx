@@ -98,7 +98,7 @@ const MARKETPLACE = [
     name: 'Numera',
     tagline: 'Stock-level intelligence',
     stat: '4,200+ stocks',
-    icon: <ShowChartIcon size={20} weight="duotone" />,
+    icon: <ShowChartIcon size={20} weight="fill" />,
     color: '#4f46e5',
     bg: '#eeedfd',
     comingSoon: true,
@@ -108,7 +108,7 @@ const MARKETPLACE = [
     name: 'Thematic Baskets',
     tagline: 'Curated investment themes',
     stat: '18 strategies',
-    icon: <ShoppingBasketIcon size={20} weight="duotone" />,
+    icon: <ShoppingBasketIcon size={20} weight="fill" />,
     color: '#0891b2',
     bg: '#e0f2fe',
     comingSoon: true,
@@ -118,7 +118,7 @@ const MARKETPLACE = [
     name: 'ArqEd Learning',
     tagline: 'Finance education, simplified',
     stat: '120+ lessons',
-    icon: <SchoolIcon size={20} weight="duotone" />,
+    icon: <SchoolIcon size={20} weight="fill" />,
     color: '#16a34a',
     bg: '#dcfce7',
     comingSoon: true,
@@ -128,7 +128,7 @@ const MARKETPLACE = [
     name: 'F&O Insights',
     tagline: 'Options flow & strategy desk',
     stat: 'Weekly reports',
-    icon: <BarChartIcon size={20} weight="duotone" />,
+    icon: <BarChartIcon size={20} weight="fill" />,
     color: '#ea580c',
     bg: '#ffedd5',
     comingSoon: true,
@@ -163,7 +163,7 @@ function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boole
           className="w-9 h-9 rounded-xl flex items-center justify-center"
           style={{ background: '#eeedfd' }}
         >
-          <AutoAwesomeIcon size={18} color="#4f46e5" weight="duotone" />
+          <AutoAwesomeIcon size={18} color="#4f46e5" weight="fill" />
         </div>
         <div className="flex items-center gap-1.5">
           <span
@@ -179,7 +179,7 @@ function SahiFundCard({ fund, lm }: { fund: (typeof mockSahiFunds)[0]; lm: boole
           >
             {saved
               ? <FavoriteIcon size={15} color="#4f46e5" weight="fill" />
-              : <FavoriteBorderIcon size={15} color={lm ? '#9CA3AF' : '#505d6f'} weight="duotone" />}
+              : <FavoriteBorderIcon size={15} color={lm ? '#9CA3AF' : '#505d6f'} weight="fill" />}
           </button>
         </div>
       </div>
@@ -285,17 +285,17 @@ export function Overview() {
 
   // ── Section: First-time portfolio CTA ─────────────────────────────────────
   const STEPS = [
-    { icon: <UploadFileIcon size={18} weight="duotone" />, label: 'Upload CAS / Import', sub: 'Connect via CAMS, Karvy, or MFCentral', key: 'upload' },
-    { icon: <SearchIcon size={18} weight="duotone" />, label: 'Review Your Funds', sub: 'We match and normalise your holdings', key: 'review' },
-    { icon: <BarChartIcon size={18} weight="duotone" />, label: 'Get AI Analysis', sub: 'Overlap, risk, and Sahi Score', key: 'analysis' },
+    { icon: <UploadFileIcon size={18} weight="fill" />, label: 'Upload CAS / Import', sub: 'Connect via CAMS, Karvy, or MFCentral', key: 'upload' },
+    { icon: <SearchIcon size={18} weight="fill" />, label: 'Review Your Funds', sub: 'We match and normalise your holdings', key: 'review' },
+    { icon: <BarChartIcon size={18} weight="fill" />, label: 'Get AI Analysis', sub: 'Overlap, risk, and Sahi Score', key: 'analysis' },
   ]
   const currentStep = 0
 
   const BOT_FEATURES = [
-    { icon: <PsychologyIcon size={16} weight="duotone" />, label: 'Market Research', color: '#4f46e5' },
-    { icon: <BarChartIcon size={16} weight="duotone" />, label: 'Portfolio Health', color: '#16a34a' },
-    { icon: <ShowChartIcon size={16} weight="duotone" />, label: 'Stock Reports', color: '#ea580c' },
-    { icon: <ShoppingBasketIcon size={16} weight="duotone" />, label: 'Get a Basket', color: '#0891b2' },
+    { icon: <PsychologyIcon size={16} weight="fill" />, label: 'Market Research', color: '#4f46e5' },
+    { icon: <BarChartIcon size={16} weight="fill" />, label: 'Portfolio Health', color: '#16a34a' },
+    { icon: <ShowChartIcon size={16} weight="fill" />, label: 'Stock Reports', color: '#ea580c' },
+    { icon: <ShoppingBasketIcon size={16} weight="fill" />, label: 'Get a Basket', color: '#0891b2' },
   ]
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -428,7 +428,7 @@ export function Overview() {
                           <div key={step.key} className="flex items-start gap-3">
                             <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${isDone ? 'bg-[#d6fd70]' : isActive ? 'bg-[#4f46e5]' : 'bg-white/10'}`}>
                               {isDone
-                                ? <CheckCircleIcon size={16} color="#0a0c0e" weight="duotone" />
+                                ? <CheckCircleIcon size={16} color="#0a0c0e" weight="fill" />
                                 : <span style={{ color: isActive ? 'white' : 'rgba(255,255,255,0.35)' }}>{step.icon}</span>
                               }
                             </div>
@@ -447,7 +447,7 @@ export function Overview() {
                         onClick={() => navigate('/auth/initialize')}
                         className="flex items-center gap-2 bg-[#d6fd70] text-[#0a0c0e] text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#b8d94a] transition-colors"
                       >
-                        <UploadFileIcon size={16} weight="duotone" />
+                        <UploadFileIcon size={16} weight="fill" />
                         Upload CAS to Start
                       </button>
                       <button
@@ -455,7 +455,7 @@ export function Overview() {
                         className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
                         style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff' }}
                       >
-                        <SearchIcon size={16} weight="duotone" />
+                        <SearchIcon size={16} weight="fill" />
                         Browse Funds
                       </button>
                     </div>
@@ -530,7 +530,7 @@ export function Overview() {
               className="rounded-2xl px-4 py-3 mb-4 flex items-start gap-3"
               style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)' }}
             >
-              <FlashOnIcon size={16} color="#f59e0b" weight="duotone" style={{ flexShrink: 0, marginTop: 1 }} />
+              <FlashOnIcon size={16} color="#f59e0b" weight="fill" style={{ flexShrink: 0, marginTop: 1 }} />
               <div className="flex-1">
                 <p className={`text-xs font-semibold ${text}`}>
                   You have only 1 fund — <span style={{ color: '#f59e0b' }}>100% concentration risk</span>
@@ -619,8 +619,8 @@ export function Overview() {
                       <p className="text-xs text-white mb-0.5">Overall Return</p>
                       <div className="flex items-center gap-1.5">
                         {totalPct >= 0
-                          ? <TrendingUpIcon size={18} color="#d6fd70" weight="duotone" />
-                          : <TrendingDownIcon size={18} color="#fca5a5" weight="duotone" />
+                          ? <TrendingUpIcon size={18} color="#d6fd70" weight="fill" />
+                          : <TrendingDownIcon size={18} color="#fca5a5" weight="fill" />
                         }
                         <p className={`text-xl font-bold ${totalPct >= 0 ? 'text-[#d6fd70]' : 'text-[#fca5a5]'}`}>
                           {totalPct >= 0 ? '+' : ''}{totalPct.toFixed(1)}%
@@ -708,7 +708,7 @@ export function Overview() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <BookmarkBorderIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="duotone" />
+              <BookmarkBorderIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="fill" />
               <h2 className={`text-base font-bold ${text}`}>Watchlist</h2>
             </div>
             <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
@@ -717,7 +717,7 @@ export function Overview() {
           </div>
           {watchlisted.length === 0 ? (
             <div className={`rounded-2xl border p-8 text-center ${card}`}>
-              <FavoriteBorderIcon size={28} color={lm ? '#E0E3E8' : '#1e2838'} weight="duotone" />
+              <FavoriteBorderIcon size={28} color={lm ? '#E0E3E8' : '#1e2838'} weight="fill" />
               <p className={`text-sm font-medium mt-2 ${textSub}`}>Your watchlist is empty</p>
               <p className={`text-xs mt-1 ${textMuted}`}>Tap the heart on any fund to track it here</p>
               <button
@@ -772,7 +772,7 @@ export function Overview() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <NewspaperIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="duotone" />
+              <NewspaperIcon size={16} color={lm ? '#6B7280' : '#8390a2'} weight="fill" />
               <h2 className={`text-base font-bold ${text}`}>Market Pulse</h2>
             </div>
             <button className={`text-xs font-semibold flex items-center gap-1 ${lm ? 'text-[#4f46e5]' : 'text-[#818cf8]'}`}>
@@ -813,7 +813,7 @@ export function Overview() {
                   Explore now
                 </button>
               </div>
-              <div className="flex-shrink-0 opacity-80"><CurrencyDollarIcon size={52} color="rgba(255,255,255,0.75)" weight="duotone" /></div>
+              <div className="flex-shrink-0 opacity-80"><CurrencyDollarIcon size={52} color="rgba(255,255,255,0.75)" weight="fill" /></div>
             </div>
 
             {/* Card 2 — Geopolitical theme */}
@@ -827,7 +827,7 @@ export function Overview() {
                   Explore now
                 </button>
               </div>
-              <div className="flex-shrink-0 opacity-80"><GlobeIcon size={44} color="rgba(255,255,255,0.75)" weight="duotone" /></div>
+              <div className="flex-shrink-0 opacity-80"><GlobeIcon size={44} color="rgba(255,255,255,0.75)" weight="fill" /></div>
             </div>
           </div>
         </div>

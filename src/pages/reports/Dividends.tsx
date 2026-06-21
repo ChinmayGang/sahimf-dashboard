@@ -48,7 +48,7 @@ export function Dividends() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-          <SavingsIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+          <SavingsIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
         </div>
         <div>
           <h1 className={`text-lg font-bold ${text}`}>Dividends</h1>
@@ -73,7 +73,7 @@ export function Dividends() {
             className={`bg-transparent outline-none text-sm ${text} placeholder-[#9CA3AF] flex-1`}
           />
         </div>
-        <FilterListIcon size={16} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />
+        <FilterListIcon size={16} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
         <select value={freqFilter} onChange={(e) => setFreqFilter(e.target.value)} className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}>
           {['All', 'Monthly', 'Quarterly', 'Annual', 'Special'].map((f) => <option key={f} value={f}>{f}</option>)}
         </select>

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Aperture as BlurOnIcon,
@@ -18,7 +18,7 @@ import { ProTrialBanner } from '../../components/ui/ProTrialBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { mockFunds } from '../../data/funds'
 
-// ── Mock sector / AMC data ────────────────────────────────────────────────────
+// â”€â”€ Mock sector / AMC data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const SECTOR_WEIGHTS: Record<string, Record<string, number>> = {
   f001: { Banking: 28, IT: 22, FMCG: 11, Auto: 9, Energy: 8, Pharma: 7, Infra: 6, Others: 9 },
   f002: { Banking: 18, IT: 14, FMCG: 8, Auto: 12, Energy: 6, Pharma: 14, Infra: 11, Others: 17 },
@@ -77,7 +77,7 @@ function sectorHeatColor(pct: number) {
   return '#64748b'
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function shortName(name: string) { return name.split(' ').slice(0, 2).join(' ') }
 
 export function OverlapLens() {
@@ -150,18 +150,18 @@ export function OverlapLens() {
   }, [selectedFunds])
 
   const TABS = [
-    { id: 'matrix', label: 'Stock Overlap', icon: <Stack size={14} weight="duotone" /> },
-    { id: 'sectors', label: 'Sector Exposure', icon: <ChartPie size={14} weight="duotone" /> },
-    { id: 'amc', label: 'AMC Concentration', icon: <Buildings size={14} weight="duotone" /> },
+    { id: 'matrix', label: 'Stock Overlap', icon: <Stack size={14} weight="fill" /> },
+    { id: 'sectors', label: 'Sector Exposure', icon: <ChartPie size={14} weight="fill" /> },
+    { id: 'amc', label: 'AMC Concentration', icon: <Buildings size={14} weight="fill" /> },
   ] as const
 
-  // ── New investor state ─────────────────────────────────────────────────────
+  // â”€â”€ New investor state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (investCount === 0) {
     return (
       <div className="p-6 max-w-7xl mx-auto" style={{ background: bg }}>
         <div className="flex items-center gap-3 mb-8">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
@@ -206,9 +206,9 @@ export function OverlapLens() {
         {/* What you'll see */}
         <div className={`grid grid-cols-3 gap-4`}>
           {[
-            { icon: <Stack size={20} weight="duotone" />, color: '#4f46e5', title: 'Stock Overlap Matrix', desc: 'Which funds share the same stocks and by how much' },
-            { icon: <ChartPie size={20} weight="duotone" />, color: '#0891b2', title: 'Sector Heat Map', desc: 'Your portfolio sector weights vs Nifty 50 benchmark' },
-            { icon: <Buildings size={20} weight="duotone" />, color: '#f59e0b', title: 'AMC Concentration', desc: 'Flag over-reliance on a single fund house' },
+            { icon: <Stack size={20} weight="fill" />, color: '#4f46e5', title: 'Stock Overlap Matrix', desc: 'Which funds share the same stocks and by how much' },
+            { icon: <ChartPie size={20} weight="fill" />, color: '#0891b2', title: 'Sector Heat Map', desc: 'Your portfolio sector weights vs Nifty 50 benchmark' },
+            { icon: <Buildings size={20} weight="fill" />, color: '#f59e0b', title: 'AMC Concentration', desc: 'Flag over-reliance on a single fund house' },
           ].map(item => (
             <div key={item.title} className={`rounded-2xl p-4 ${card}`}>
               <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style={{ background: `${item.color}18` }}>
@@ -230,11 +230,11 @@ export function OverlapLens() {
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
-            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+            <BlurOnIcon size={18} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>Overlap Lens</h1>
-            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected · {worstPairs.length} pairs analysed</p>
+            <p className={`text-xs ${textMuted}`}>{selectedIds.length} funds selected Â· {worstPairs.length} pairs analysed</p>
           </div>
         </div>
         {highOverlapCount > 0 && (
@@ -277,7 +277,7 @@ export function OverlapLens() {
             </div>
           ))}
           {selectedIds.length === 0 && (
-            <p className={`text-xs ${textMuted} italic`}>No funds selected — add funds to analyse</p>
+            <p className={`text-xs ${textMuted} italic`}>No funds selected â€” add funds to analyse</p>
           )}
         </div>
 
@@ -285,12 +285,12 @@ export function OverlapLens() {
         {pickerOpen && (
           <div className="mt-3">
             <div className="flex items-center gap-2 rounded-xl px-3 py-2 mb-2" style={{ background: lm ? '#ffffff' : inputBg, border: `1px solid ${lm ? '#D1D5DB' : inputBorder}` }}>
-              <MagnifyingGlass size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="duotone" />
+              <MagnifyingGlass size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
               <input
                 autoFocus
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search funds to add…"
+                placeholder="Search funds to addâ€¦"
                 className="flex-1 text-sm outline-none bg-transparent"
                 style={{ color: lm ? '#111827' : '#ffffff' }}
               />
@@ -337,20 +337,20 @@ export function OverlapLens() {
 
       {selectedIds.length < 2 ? (
         <div className={`rounded-2xl p-10 text-center ${card}`}>
-          <Stack size={32} color={lm ? '#E0E3E8' : '#1e2838'} weight="duotone" />
+          <Stack size={32} color={lm ? '#E0E3E8' : '#1e2838'} weight="fill" />
           <p className={`text-sm font-medium mt-3 ${textSub}`}>Select at least 2 funds to see overlap analysis</p>
         </div>
       ) : (
         <>
-          {/* ── TAB: Stock Overlap ───────────────────────────────────────────── */}
+          {/* â”€â”€ TAB: Stock Overlap â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           {tab === 'matrix' && (
             <div className="space-y-4">
               {/* Legend */}
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 {[
                   { color: lm ? '#4f46e5' : '#d6fd70', label: 'Same fund' },
-                  { color: '#ef4444', label: 'High (≥25%)' },
-                  { color: '#f59e0b', label: 'Medium (12–24%)' },
+                  { color: '#ef4444', label: 'High (â‰¥25%)' },
+                  { color: '#f59e0b', label: 'Medium (12â€“24%)' },
                   { color: '#22c55e', label: 'Low (<12%)' },
                 ].map(l => (
                   <div key={l.label} className="flex items-center gap-1.5">
@@ -360,7 +360,7 @@ export function OverlapLens() {
                 ))}
               </div>
 
-              {/* Smart display: ≤8 funds → matrix, >8 → ranked pairs list */}
+              {/* Smart display: â‰¤8 funds â†’ matrix, >8 â†’ ranked pairs list */}
               {selectedIds.length <= 8 ? (
                 <div className={`rounded-2xl overflow-auto ${card}`}>
                   <table className="min-w-full">
@@ -393,7 +393,7 @@ export function OverlapLens() {
                                   className="inline-flex items-center justify-center w-14 h-10 rounded-lg text-sm font-bold mx-auto"
                                   style={c ? { background: c.bg, color: c.text, border: `1px solid ${c.border}` } : { background: 'transparent', color: lm ? '#D1D5DB' : '#1e2838' }}
                                 >
-                                  {isDiag ? '—' : `${val}%`}
+                                  {isDiag ? 'â€”' : `${val}%`}
                                 </div>
                               </td>
                             )
@@ -408,7 +408,7 @@ export function OverlapLens() {
                 <div className={`rounded-2xl overflow-hidden ${card}`}>
                   <div className="px-5 py-3" style={{ borderBottom: `1px solid ${divider}` }}>
                     <p className={`text-xs font-semibold text-[#111827] uppercase tracking-wider`}>
-                      Overlap ranked — worst pairs first ({worstPairs.length} total)
+                      Overlap ranked â€” worst pairs first ({worstPairs.length} total)
                     </p>
                   </div>
                   {worstPairs.map((pair, i) => {
@@ -422,8 +422,8 @@ export function OverlapLens() {
                       >
                         <span className={`text-xs font-bold w-5 ${textMuted}`}>{i + 1}</span>
                         <div className="flex-1 min-w-0">
-                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
-                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} · {fb?.category}</p>
+                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
+                          <p className={`text-[10px] ${textMuted}`}>{fa?.category} Â· {fb?.category}</p>
                         </div>
                         <div
                           className="px-3 py-1 rounded-lg text-xs font-bold"
@@ -437,7 +437,7 @@ export function OverlapLens() {
                             className="text-[10px] font-semibold px-2.5 py-1 rounded-lg transition-colors flex-shrink-0"
                             style={{ background: 'rgba(79,70,229,0.12)', color: '#6366f1' }}
                           >
-                            Compare →
+                            Compare â†’
                           </button>
                         )}
                       </div>
@@ -478,7 +478,7 @@ export function OverlapLens() {
                                 <td key={id} className="px-3 py-2.5 text-center">
                                   {v > 0
                                     ? <span className="text-xs font-semibold text-[#22c55e]">{v.toFixed(1)}%</span>
-                                    : <span className={`text-xs ${textMuted}`}>—</span>
+                                    : <span className={`text-xs ${textMuted}`}>â€”</span>
                                   }
                                 </td>
                               )
@@ -499,15 +499,15 @@ export function OverlapLens() {
                   <div>
                     <p className="text-xs font-semibold text-[#f59e0b] mb-0.5">Overlap detected</p>
                     <p className={`text-xs ${textSub}`}>
-                      {worstPairs[0] && `${shortName(mockFunds.find(f => f.id === worstPairs[0].a)?.name ?? '')} and ${shortName(mockFunds.find(f => f.id === worstPairs[0].b)?.name ?? '')} share ${worstPairs[0].val}% of their stock holdings — you're effectively doubling exposure to the same companies. `}
+                      {worstPairs[0] && `${shortName(mockFunds.find(f => f.id === worstPairs[0].a)?.name ?? '')} and ${shortName(mockFunds.find(f => f.id === worstPairs[0].b)?.name ?? '')} share ${worstPairs[0].val}% of their stock holdings â€” you're effectively doubling exposure to the same companies. `}
                       Consider swapping one for a fund in a different category to improve diversification.
-                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives →</button>
+                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives â†’</button>
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* ── WORST OVERLAPPING PAIRS ── */}
+              {/* â”€â”€ WORST OVERLAPPING PAIRS â”€â”€ */}
               <div className={`rounded-2xl overflow-hidden bg-white border ${highOverlapCount > 0 ? 'border-[#ef4444]/30' : 'border-[#E0E3E8]'}`}>
                 <div className="px-5 py-4 border-b" style={{ borderColor: highOverlapCount > 0 ? 'rgba(239,68,68,0.15)' : divider }}>
                   <div className="flex items-center gap-2">
@@ -529,17 +529,17 @@ export function OverlapLens() {
                       : { label: 'Healthy', color: '#22c55e', bg: '#dcfce7', text: '#15803d' }
                     const stocksShared = Math.round(pair.val * 0.5)
                     const desc = pair.val >= 30
-                      ? `${stocksShared} of 50 stocks shared · Both ${fa?.category ?? ''} mandated`
+                      ? `${stocksShared} of 50 stocks shared Â· Both ${fa?.category ?? ''} mandated`
                       : pair.val >= 18
-                      ? `${stocksShared} of 50 stocks shared · Top Nifty names overlap`
+                      ? `${stocksShared} of 50 stocks shared Â· Top Nifty names overlap`
                       : pair.val >= 8
-                      ? `${stocksShared} of 50 stocks shared · Partial sector overlap`
-                      : 'Minimal overlap — different market universe'
+                      ? `${stocksShared} of 50 stocks shared Â· Partial sector overlap`
+                      : 'Minimal overlap â€” different market universe'
                     return (
                       <div key={`${pair.a}-${pair.b}`} className="px-5 py-4">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex-1 min-w-0 pr-4">
-                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
+                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
                             <p className={`text-xs ${textMuted} mt-0.5`}>{desc}</p>
                           </div>
                           <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.text }}>
@@ -561,7 +561,7 @@ export function OverlapLens() {
                 </div>
               </div>
 
-              {/* ── MOST DUPLICATED STOCKS ── */}
+              {/* â”€â”€ MOST DUPLICATED STOCKS â”€â”€ */}
               {(() => {
                 const FUND_COLORS: Record<string, string> = { f001: '#4f46e5', f002: '#0891b2', f003: '#16a34a', f005: '#ea580c', f006: '#db2777' }
                 const duplicated = COMMON_STOCKS
@@ -577,7 +577,7 @@ export function OverlapLens() {
                 return (
                   <div className={`rounded-2xl p-5 ${card}`}>
                     <p className={`text-sm font-bold ${text} mb-1`}>MOST DUPLICATED STOCKS ACROSS YOUR PORTFOLIO</p>
-                    <p className={`text-xs ${textMuted} mb-4`}>Stocks you're holding in multiple funds — you're paying for the same exposure multiple times.</p>
+                    <p className={`text-xs ${textMuted} mb-4`}>Stocks you're holding in multiple funds â€” you're paying for the same exposure multiple times.</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {duplicated.map(s => (
                         <div key={s.name} className={`rounded-xl p-3 ${lm ? 'bg-[#F9FAFB] border border-[#E0E3E8]' : 'bg-[#0f1420] border border-[#1e2838]'}`}>
@@ -590,7 +590,7 @@ export function OverlapLens() {
                             </div>
                           </div>
                           <p className={`text-[10px] ${textMuted}`}>
-                            {s.fundCount} funds · {s.totalPct.toFixed(1)}% of portfolio
+                            {s.fundCount} funds Â· {s.totalPct.toFixed(1)}% of portfolio
                           </p>
                         </div>
                       ))}
@@ -607,7 +607,7 @@ export function OverlapLens() {
                 )
               })()}
 
-              {/* ── SECTOR OVERLAP ACROSS ALL FUNDS (stacked) ── */}
+              {/* â”€â”€ SECTOR OVERLAP ACROSS ALL FUNDS (stacked) â”€â”€ */}
               <div className={`rounded-2xl p-5 ${card}`}>
                 <p className={`text-sm font-bold ${text} mb-1`}>SECTOR OVERLAP ACROSS ALL FUNDS</p>
                 <p className={`text-xs ${textMuted} mb-4`}>Bars show each fund's weight in that sector. Tall bars = concentrated exposure through multiple funds.</p>
@@ -650,7 +650,7 @@ export function OverlapLens() {
             </div>
           )}
 
-          {/* ── TAB: Sector Exposure ─────────────────────────────────────────── */}
+          {/* â”€â”€ TAB: Sector Exposure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           {tab === 'sectors' && (
             <div className="space-y-4">
               <div className="flex items-center gap-4 text-xs">
@@ -750,7 +750,7 @@ export function OverlapLens() {
             </div>
           )}
 
-          {/* ── TAB: AMC Concentration ───────────────────────────────────────── */}
+          {/* â”€â”€ TAB: AMC Concentration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           {tab === 'amc' && (
             <div className="space-y-4">
               <div className={`rounded-2xl overflow-hidden ${card}`}>
@@ -765,13 +765,13 @@ export function OverlapLens() {
                       <div key={amc}>
                         <div className="flex items-center justify-between mb-1.5">
                           <div className="flex items-center gap-2">
-                            <Buildings size={14} weight="duotone" color={isHigh ? '#f59e0b' : lm ? '#6B7280' : '#8390a2'} />
+                            <Buildings size={14} weight="fill" color={isHigh ? '#f59e0b' : lm ? '#6B7280' : '#8390a2'} />
                             <span className={`text-xs font-semibold ${text}`}>{amc}</span>
                             {isHigh && (
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>High concentration</span>
                             )}
                           </div>
-                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} · {pct}%</span>
+                          <span className={`text-xs font-bold ${text}`}>{count} fund{count > 1 ? 's' : ''} Â· {pct}%</span>
                         </div>
                         <div className="h-3 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
                           <div
@@ -794,7 +794,7 @@ export function OverlapLens() {
                   {selectedFunds.map(f => (
                     <div key={f.id} className="flex items-center gap-3">
                       <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
-                        <Buildings size={14} weight="duotone" color={lm ? '#6B7280' : '#8390a2'} />
+                        <Buildings size={14} weight="fill" color={lm ? '#6B7280' : '#8390a2'} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className={`text-xs font-medium truncate ${text}`}>{f.name}</p>
@@ -811,7 +811,7 @@ export function OverlapLens() {
                 <Lightning size={16} weight="fill" color="#22c55e" style={{ flexShrink: 0, marginTop: 2 }} />
                 <p className={`text-xs ${textSub}`}>
                   <span className="font-semibold text-[#22c55e]">Best practice: </span>
-                  SEBI recommends not holding more than 40% of your portfolio with a single AMC. Spreading across 3–4 AMCs reduces fund-house risk significantly.
+                  SEBI recommends not holding more than 40% of your portfolio with a single AMC. Spreading across 3â€“4 AMCs reduces fund-house risk significantly.
                 </p>
               </div>
             </div>

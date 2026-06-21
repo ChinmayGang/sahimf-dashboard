@@ -57,7 +57,7 @@ export function Topbar() {
           onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
         >
-          <NotificationsNoneIcon size={18} weight="duotone" />
+          <NotificationsNoneIcon size={18} weight="fill" />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#4f46e5]" />
         </button>
 

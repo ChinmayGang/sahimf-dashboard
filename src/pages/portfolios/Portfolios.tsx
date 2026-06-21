@@ -82,7 +82,7 @@ export function Portfolios() {
                 : 'bg-[#14171c] text-[#64748b] border border-[#1e2838] cursor-not-allowed'
           }`}
         >
-          <AddIcon size={16} weight="duotone" />
+          <AddIcon size={16} weight="fill" />
           {canAddMore ? 'Add Portfolio' : 'Upgrade for More Portfolios'}
         </button>
       </div>
@@ -132,7 +132,7 @@ export function Portfolios() {
       {/* Portfolio cards */}
       {portfolios.length === 0 ? (
         <EmptyState
-          icon={<FolderOpenIcon size={28} weight="duotone" />}
+          icon={<FolderOpenIcon size={28} weight="fill" />}
           title="No portfolios yet"
           description="Add your first portfolio to start tracking your mutual fund investments."
           action={
@@ -149,7 +149,7 @@ export function Portfolios() {
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#eeedfd]' : 'bg-[#d6fd70]/10'}`}>
-                      <FolderOpenIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="duotone" />
+                      <FolderOpenIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
                     </div>
                     <div>
                       <h3 className={`text-sm font-semibold ${text} transition-colors duration-200 ${lm ? 'group-hover:text-[#4f46e5]' : 'group-hover:text-[#d6fd70]'}`}>
@@ -263,7 +263,7 @@ export function Portfolios() {
       {!can('pro') && (
         <div className="bg-[#4f46e5]/10 border border-[#4f46e5]/30 rounded-xl p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <ShowChartIcon size={20} color="#6366f1" weight="duotone" />
+            <ShowChartIcon size={20} color="#6366f1" weight="fill" />
             <div>
               <p className={`text-sm font-semibold ${text}`}>Track up to 5 portfolios with Sahi PRO</p>
               <p className={`text-xs ${textSub}`}>Free plan allows 1 portfolio only</p>

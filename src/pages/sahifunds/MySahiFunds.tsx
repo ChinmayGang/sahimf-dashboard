@@ -57,7 +57,7 @@ export function MySahiFunds() {
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
@@ -66,7 +66,7 @@ export function MySahiFunds() {
         </div>
         <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
           <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style={{ background: lm ? '#eeedfd' : 'rgba(214,253,112,0.1)' }}>
-            <DiamondIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <DiamondIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
           </div>
           <p className={`text-base font-bold ${text} mb-1`}>You haven't invested in any Sahi Funds yet</p>
           <p className={`text-sm ${textSub} max-w-md mb-5`}>
@@ -91,7 +91,7 @@ export function MySahiFunds() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl ${lm ? 'bg-white border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'} flex items-center justify-center`}>
-            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <DiamondIcon size={18} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
           </div>
           <div>
             <h1 className={`text-lg font-bold ${text}`}>My Sahi Funds</h1>
@@ -208,7 +208,7 @@ export function MySahiFunds() {
 
       {/* Next rebalance notice */}
       <div className="bg-[#4f46e5]/10 border border-[#4f46e5]/30 rounded-xl px-4 py-3 flex items-center gap-3">
-        <TrendingUpIcon size={16} color="#4f46e5" weight="duotone" />
+        <TrendingUpIcon size={16} color="#4f46e5" weight="fill" />
         <p className={`text-xs ${textSub}`}>
           <span className={`${text} font-medium`}>Sahi All-Weather Portfolio</span> is due for rebalancing on{' '}
           <span className={`${text} font-medium`}>1 Jul 2026</span>. You'll be notified 7 days before.

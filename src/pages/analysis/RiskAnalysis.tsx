@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+﻿import { useMemo } from 'react'
 import { ShieldCheck as ShieldIcon, UploadSimple as UploadIcon, LightbulbFilament as BulbIcon } from '@phosphor-icons/react'
 import { mockPortfolios } from '../../data/portfolios'
 import { useUIStore } from '../../stores/uiStore'
@@ -7,7 +7,7 @@ import { PlanGate } from '../../components/ui/PlanGate'
 import { ProButton } from '../../components/ui/ProButton'
 import { AnimatedBorderCard } from '../../components/ui/AnimatedBorderCard'
 
-// ─── Risk score helpers ───────────────────────────────────────────────────────
+// â”€â”€â”€ Risk score helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const CAT_RISK: Record<string, number> = {
   'Large Cap': 3, 'Flexi Cap': 3.5, 'Mid Cap': 4.5, 'Small Cap': 5.5,
   'Hybrid': 2.5, 'Debt': 1.5,
@@ -46,11 +46,11 @@ const RISK3_CONFIG: Record<string, { idx: number; color: string }> = {
   'High':     { idx: 2, color: '#ef4444' },
 }
 
-// ─── Riskometer SVG ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Riskometer SVG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Moderate']
   const { idx, color } = cfg
-  // Arc spans 180°→360° (LEFT→UP→RIGHT). Needle at center of each 60° segment.
+  // Arc spans 180Â°â†’360Â° (LEFTâ†’UPâ†’RIGHT). Needle at center of each 60Â° segment.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 110, cy = 90, r = 75
   const rad = (angleDeg * Math.PI) / 180
@@ -58,7 +58,7 @@ function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   return (
     <div className="flex flex-col items-center">
       <svg viewBox="0 0 220 110" width="220" height="110" style={{ overflow: 'visible' }}>
-        {/* 3 colored arc segments: LEFT→UP→RIGHT */}
+        {/* 3 colored arc segments: LEFTâ†’UPâ†’RIGHT */}
         {[
           { color: '#22c55e' },
           { color: '#f59e0b' },
@@ -97,7 +97,7 @@ function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   )
 }
 
-// ─── Overlapping circles (risk/return scatter) ────────────────────────────────
+// â”€â”€â”€ Overlapping circles (risk/return scatter) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function RiskReturnBubbles({
   funds,
   lm,
@@ -132,8 +132,8 @@ function RiskReturnBubbles({
         </g>
       ))}
       {/* Axes labels */}
-      <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR →</text>
-      <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility →</text>
+      <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR â†’</text>
+      <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility â†’</text>
 
       {/* Bubbles */}
       {funds.map((f, _i) => {
@@ -143,7 +143,7 @@ function RiskReturnBubbles({
         const color = riskScoreToColor(CAT_RISK[f.category] ?? 3)
         return (
           <g key={`${f.name}-${_i}`} style={{ cursor: 'pointer' }}>
-            <title>{`${f.name} · ${f.alloc.toFixed(0)}% allocation · ${f.xirr.toFixed(1)}% XIRR · ${f.vol}% volatility`}</title>
+            <title>{`${f.name} Â· ${f.alloc.toFixed(0)}% allocation Â· ${f.xirr.toFixed(1)}% XIRR Â· ${f.vol}% volatility`}</title>
             <circle
               cx={cx} cy={cy} r={r}
               fill={color}
@@ -168,7 +168,7 @@ function RiskReturnBubbles({
   )
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Main component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export function RiskAnalysis() {
   const lm = useUIStore((s) => s.lightMode)
   const { user } = useAuthStore()
@@ -216,30 +216,30 @@ export function RiskAnalysis() {
   const maxDrawdownEst = -(portfolioVol * 0.8).toFixed(1)
   const beta = (portfolioRiskScore / 3.5).toFixed(2)
 
-  // No holdings to analyse — guide the user to add a portfolio instead of empty charts.
+  // No holdings to analyse â€” guide the user to add a portfolio instead of empty charts.
   if (totalInvested === 0) {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="duotone" /></span>
+            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="fill" /></span>
           </div>
           <div>
             <h1 className={`text-xl font-black tracking-tight ${text}`}>Portfolio Risk Analysis</h1>
-            <p className={`text-xs ${textSub}`}>Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund breakdown</p>
+            <p className={`text-xs ${textSub}`}>Research-based risk scoring of your portfolio â€” volatility, beta, drawdown &amp; fund breakdown</p>
           </div>
         </div>
 
         <div className={`${card} rounded-2xl p-10 flex flex-col items-center text-center`}>
           <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
             style={{ background: lm ? '#eeedfd' : 'rgba(79,70,229,0.12)' }}>
-            <UploadIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" />
+            <UploadIcon size={26} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
           </div>
           <p className={`text-base font-bold ${text} mb-1`}>Analyse your portfolio risk</p>
           <p className={`text-sm ${textSub} max-w-md mb-5`}>
             Upload your CAS statement or add a few funds and we'll score your portfolio's volatility, beta,
-            drawdown and fund-level risk — with a Sahi insight on how to balance it.
+            drawdown and fund-level risk â€” with a Sahi insight on how to balance it.
           </p>
           <ProButton label="Add your portfolio" onClick={() => { window.location.href = '/mutual-funds/portfolios' }} />
         </div>
@@ -254,14 +254,14 @@ export function RiskAnalysis() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #8c34ee, #4f46e5)', boxShadow: '0 4px 16px rgba(140,52,238,0.25)' }}>
-            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="duotone" /></span>
+            <span style={{ color: '#d6fd70' }}><ShieldIcon size={20} weight="fill" /></span>
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
               <h1 className="text-xl font-black tracking-tight text-[#111827]">Portfolio Risk Analysis</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
-            <p className="text-xs text-[#6B7280]">Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund-level breakdown</p>
+            <p className="text-xs text-[#6B7280]">Research-based risk scoring of your portfolio â€” volatility, beta, drawdown &amp; fund-level breakdown</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex gap-2">
@@ -331,7 +331,7 @@ export function RiskAnalysis() {
       <div className={`${card} rounded-2xl p-5`}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className={`text-sm font-semibold ${text}`}>Risk vs Return — Fund Scatter</p>
+            <p className={`text-sm font-semibold ${text}`}>Risk vs Return â€” Fund Scatter</p>
             <p className={`text-xs ${textMuted} mt-0.5`}>Bubble size = allocation %; hover a bubble for details</p>
           </div>
         </div>
@@ -351,21 +351,21 @@ export function RiskAnalysis() {
         </div>
       </div>
 
-      {/* Sahi Insight — fills the column beside the scatter */}
+      {/* Sahi Insight â€” fills the column beside the scatter */}
       <AnimatedBorderCard badge="SAHI INSIGHT">
         <div className="px-4 pb-4">
           <div className="flex items-center gap-2 mb-2">
-            <BulbIcon size={15} color="#4f46e5" weight="duotone" />
+            <BulbIcon size={15} color="#4f46e5" weight="fill" />
             <p className="text-sm font-semibold text-[#111827]">Sahi Risk Insight</p>
           </div>
           <p className="text-xs text-[#374151] leading-relaxed">
-            Your portfolio carries a <b style={{ color: riskScoreToColor(portfolioRiskScore) }}>{portfolioRiskLabel}</b> risk profile —
+            Your portfolio carries a <b style={{ color: riskScoreToColor(portfolioRiskScore) }}>{portfolioRiskLabel}</b> risk profile â€”
             an estimated <b className="text-[#111827]">{portfolioVol.toFixed(1)}%</b> annualised volatility and a beta of <b className="text-[#111827]">{beta}</b> versus the Nifty 50.
           </p>
           <ul className="mt-3 space-y-2">
             {[
-              Number(beta) < 1 ? 'Beta below 1 — your mix is less sensitive to market swings than the index.' : 'Beta above 1 — expect sharper moves than the index in both directions.',
-              `Worst-case drawdown is estimated near ${maxDrawdownEst}% in a deep correction — size your emergency buffer accordingly.`,
+              Number(beta) < 1 ? 'Beta below 1 â€” your mix is less sensitive to market swings than the index.' : 'Beta above 1 â€” expect sharper moves than the index in both directions.',
+              `Worst-case drawdown is estimated near ${maxDrawdownEst}% in a deep correction â€” size your emergency buffer accordingly.`,
               portfolioVol > 18 ? 'Volatility is on the higher side; a larger large-cap or hybrid sleeve would smooth the ride.' : 'Volatility sits in a comfortable band for a long-horizon growth investor.',
             ].map((t, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-[#374151] leading-relaxed">
@@ -430,7 +430,7 @@ export function RiskAnalysis() {
         </div>
       </div>
 
-      {/* Stress test — PRO gated */}
+      {/* Stress test â€” PRO gated */}
       <PlanGate requiredTier="pro">
         <div className={`${card} rounded-2xl p-5`}>
           <p className={`text-sm font-semibold ${text} mb-4`}>Stress Test Scenarios</p>

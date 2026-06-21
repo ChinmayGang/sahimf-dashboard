@@ -70,7 +70,7 @@ export function SearchSchemes() {
       <aside className={`w-60 flex-shrink-0 border-r ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'} overflow-y-auto p-4`}>
         <div className="flex items-center justify-between mb-4">
           <div className={`flex items-center gap-1.5 text-sm font-semibold ${lm ? 'text-[#111827]' : 'text-white'}`}>
-            <TuneIcon size={16} weight="duotone" />
+            <TuneIcon size={16} weight="fill" />
             Filters
           </div>
           {activeFilterCount > 0 && (
@@ -175,7 +175,7 @@ export function SearchSchemes() {
         {/* Search + sort bar */}
         <div className={`flex items-center gap-3 p-4 border-b ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'} flex-shrink-0`}>
           <div className="relative flex-1 max-w-md">
-            <SearchIcon size={16} color="#64748b" weight="duotone" className="absolute left-3 top-1/2 -translate-y-1/2" />
+            <SearchIcon size={16} color="#64748b" weight="fill" className="absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}

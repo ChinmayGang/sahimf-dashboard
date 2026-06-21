@@ -142,7 +142,7 @@ export function SahiFundDetail() {
             <div className={`col-span-2 ${card} rounded-2xl p-5`}>
               <div className="flex items-center justify-between mb-4">
                 <h2 className={`text-sm font-semibold ${text} flex items-center gap-2`}>
-                  <WalletIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" /> Your Investment
+                  <WalletIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" /> Your Investment
                 </h2>
                 <span className="text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#16a34a' }}>
                   +{owned.alpha}% alpha vs category
@@ -185,7 +185,7 @@ export function SahiFundDetail() {
           {/* Rebalance history timeline */}
           <div className={`${card} rounded-2xl p-5`}>
             <h2 className={`text-sm font-semibold ${text} mb-4 flex items-center gap-2`}>
-              <RebalanceIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="duotone" /> Rebalance History
+              <RebalanceIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" /> Rebalance History
             </h2>
             <div>
               {REBALANCE_HISTORY.map((r, i) => (
@@ -210,7 +210,7 @@ export function SahiFundDetail() {
         /* Free preview — not invested yet */
         <div className="rounded-2xl p-6 flex items-center gap-5" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)' }}>
           <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.12)' }}>
-            <RocketIcon size={24} color="#d6fd70" weight="duotone" />
+            <RocketIcon size={24} color="#d6fd70" weight="fill" />
           </div>
           <div className="flex-1">
             <p className="text-base font-black text-[#ffffff] mb-0.5">Start investing in {fund.name}</p>
