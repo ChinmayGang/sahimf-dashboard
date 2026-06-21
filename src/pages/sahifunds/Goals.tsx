@@ -140,8 +140,8 @@ export function Goals() {
           <div
             className="rounded-2xl p-5"
             style={hasShortfall
-              ? { background: '#FEF2F2', border: '1px solid #FCA5A5' }
-              : { background: '#F0FDF4', border: '1px solid #86EFAC' }
+              ? { background: lm ? '#FEF2F2' : 'rgba(220,38,38,0.08)', border: `1px solid ${lm ? '#FCA5A5' : 'rgba(220,38,38,0.3)'}` }
+              : { background: lm ? '#F0FDF4' : 'rgba(22,163,74,0.08)', border: `1px solid ${lm ? '#86EFAC' : 'rgba(22,163,74,0.3)'}` }
             }
           >
             <div className="flex items-start gap-3 mb-4">
@@ -150,13 +150,13 @@ export function Goals() {
                 : <CheckIcon size={18} color="#16A34A" weight="fill" className="flex-shrink-0 mt-0.5" />
               }
               <div>
-                <p className="text-[#111827] font-bold text-base">
+                <p className={`font-bold text-base ${text}`}>
                   {hasShortfall
                     ? `Shortfall of ${formatINR(result.shortfall)} — action needed`
                     : `On track — surplus of ${formatINR(-result.shortfall)}`
                   }
                 </p>
-                <p className="text-sm mt-0.5 text-[#374151]">
+                <p className={`text-sm mt-0.5 ${textSub}`}>
                   Your ₹{(sip / 1000).toFixed(0)}K/month SIP projects {formatINR(result.projectedCorpus)} by age {retAge},
                   but you need {formatINR(result.requiredCorpus)} to sustain ₹{formatINR(result.inflatedExpense)}/month in retirement.
                 </p>
@@ -167,14 +167,14 @@ export function Goals() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { label: 'Projected corpus at ' + retAge, value: formatINR(result.projectedCorpus), color: hasShortfall ? '#DC2626' : '#16A34A' },
-                { label: 'Corpus needed', value: formatINR(result.requiredCorpus), color: '#111827', sub: 'For 25 yrs post-retirement' },
+                { label: 'Corpus needed', value: formatINR(result.requiredCorpus), color: lm ? '#111827' : '#ffffff', sub: 'For 25 yrs post-retirement' },
                 { label: hasShortfall ? 'Shortfall' : 'Surplus', value: formatINR(Math.abs(result.shortfall)), color: hasShortfall ? '#DC2626' : '#16A34A', sub: hasShortfall ? 'Action needed' : 'On track!' },
                 { label: 'SIP needed to close gap', value: `₹${(sip + result.sipNeeded).toLocaleString('en-IN')}/mo`, color: '#4f46e5', sub: `vs current ₹${(sip / 1000).toFixed(0)}K/mo` },
               ].map((s, i) => (
-                <div key={i} className="rounded-xl px-3 py-2.5 bg-white/80 border border-black/5">
-                  <p className="text-[10px] uppercase tracking-wide text-[#6B7280] mb-1">{s.label}</p>
+                <div key={i} className={`rounded-xl px-3 py-2.5 border ${lm ? 'bg-white/80 border-black/5' : 'bg-white/5 border-white/10'}`}>
+                  <p className={`text-[10px] uppercase tracking-wide mb-1 ${textMuted}`}>{s.label}</p>
                   <p className="text-base font-bold" style={{ color: s.color }}>{s.value}</p>
-                  {s.sub && <p className="text-[10px] text-[#6B7280] mt-0.5">{s.sub}</p>}
+                  {s.sub && <p className={`text-[10px] mt-0.5 ${textMuted}`}>{s.sub}</p>}
                 </div>
               ))}
             </div>
