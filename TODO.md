@@ -69,7 +69,7 @@
 ## Batch 5 — Scheme Detail + MF Scorecard + Rank Icons
 
 - [x] **B5-1** `SchemeDetail` Rank cards (Returns / Cost / Volatility): redesigned with 5-tier color system — Rank 1 green, Rank 2 orange, Rank 3 slate, Rank 4 amber, Rank 5 slate. 60px badge, shine gradient on rank 1 winner card, tinted bg + border per tier. Riskometer now shows all 3 arcs colored (green/amber/red), active segment at full opacity, inactive at 0.4 — no more grey-out on High risk. *(Original TODO: use rank-icon PNGs + SEBI 6-level banners — partially done; PNGs not used, labels not yet SEBI 6-level)*
-- [x] **B5-2** `SchemeDetail` + `RiskAnalysis` + `VolatilityBadge` + `Baskets` Standardise ALL risk labels to SEBI 6-level: `Low / Low-Moderate / Moderate / Moderately High / High / Very High`. Find and replace any `Low/Medium/High` triple and any 3-level scale. Pick one standard and never mix. *(Done: vocabulary in B1-3; riskometer upgraded from 3-zone to 6-zone arcs (30° each) with SEBI colors green→lime→amber→orange→red→dark-red + 3×2 label grid. Labels: Low `#16a34a`, Low-Moderate `#65a30d`, Moderate `#f59e0b`, Moderately High `#f97316`, High `#ef4444`, Very High `#b91c1c`.)*
+- [x] **B5-2** `SchemeDetail` Riskometer → **3 display zones only: Low / Moderate / High**. Data vocabulary stays SEBI 6-level internally (`Low / Low-Moderate / Moderate / Moderately High / High / Very High`) but collapses to 3 arcs via `RISK_3_MAP`. Green `#16a34a` / Amber `#f59e0b` / Red `#ef4444`. Active zone opacity 1, inactive 0.18 so active color dominates. High risk → needle + label both bright red. 3-label row below riskometer (Low · Moderate · High). *(Reverted from 6-zone after user confirmed: "3 levels only, no 6 stages". Internal data still 6-level; display always 3.)*
 - [x] **B5-3** `SchemeDetail` Wrap `SahiResearchCard` in `<AnimatedBorderCard>` (top-rail rotating gradient). Add "SAHI RESEARCH" pill badge in top-right corner. The card must visually stand out from surrounding fund info cards so users immediately know it is SahiMF research content. *(Done: `SahiResearchCard` itself wraps all content in `<AnimatedBorderCard badge={false}>` and renders its own "SAHI RESEARCH NOTE · GENERIC · NOT PERSONALISED" top rail.)*
 - [x] **B5-4** `MFScorecard` Expand accordion row to show richer detail when a row is clicked: 6-dimension sub-score bars (Consistency of Returns, Risk-adjusted Return, Expense Ratio Discipline, Fund Manager Tenure, Portfolio Quality, Mandate Adherence), peer comparison rank vs category, manager tenure chip, 3Y rolling alpha chip, 3-sentence analyst verdict. Left column: Sahi Sabh-scales dim bars. Centre column: RadarChart (6-axis spider) with Recharts. Right column: Top Portfolio Holdings with % weight. Full-width: "Sahi Analysis & Rationale" chips + verdict + SEBI Audit-Trail + "Deep-Analyze Fund" CTA. Category filter pills with active state fix (`text-[#ffffff]` not `text-white`).
 - [x] **B5-5** `ExploreFunds` Sidebar "Sahi MF Funds" / "Recommended" section — these are scorecard research picks, NOT the Sahi Funds product/basket. Renamed label to "Sahi Picks" and updated description copy to: "Top-rated schemes by SahiMF research score — not affiliated with Sahi Baskets."
@@ -203,7 +203,7 @@
 | Animated research card border style | Top-rail only (4px rotating gradient strip) + "SAHI RESEARCH" pill badge |
 | ProButton gradient | `#8c34ee → #4f46e5` (brand purple → indigo) |
 | Pricing page layout | Full-screen, no sidebar |
-| Risk label standard | SEBI 6-level: Low / Low-Moderate / Moderate / Moderately High / High / Very High |
+| Risk label standard | **3 display zones: Low / Moderate / High** (data stores 6-level SEBI vocabulary; riskometer always renders 3 arcs). High = red `#ef4444`. |
 | Container max-width | `max-w-7xl` on all inner pages; ExploreFunds full-width |
 | Font | Geist throughout |
 | No emoji | Finance product — no emoji anywhere, use Phosphor icons instead |
@@ -215,6 +215,100 @@
 | Mobile breakpoint | 768px — bottom tab bar, 1-col layouts |
 | Plan tiers | `free \| pro \| wealth` (not elite — renamed to Sahi Wealth) |
 | `text-white` light-mode footgun | RESOLVED (#11) — the blanket `[data-theme="light"] .text-white` override was removed. `text-white` now always renders white (only used on dark/coloured surfaces); surfaces that flip use a theme-aware token (`lm ? 'text-[#111827]' : 'text-white'`). Existing `text-[#ffffff]` workarounds still work but are no longer required. |
+| Icons | **All icons must be `weight="fill"`** — no duotone anywhere. If no fill variant exists, use `weight="bold"`. |
+| Sahi-branded cards | **All Sahi cards must use `<AnimatedBorderCard>`** — SahiResearchCard, Sahi Comparison, Sahi Analysis, Sahi Note, Sahi Insight everywhere. |
+| Upgrade CTAs | **All upgrade/PRO CTAs must use `<ProButton>`** — no raw buttons for "Upgrade to PRO", "Get Sahi PRO", "Unlock Full Access".|
+
+---
+
+## Batch 9 — Supabase (Additions from New Requirements)
+
+*Added to existing B9-1 through B9-12 plan.*
+
+- [ ] **B9-13** `Settings → Plan & Billing` Add a "Plan & Billing" section to the Settings page. Show: current tier badge (Free / Sahi PRO / Sahi Wealth), plan expiry date, feature list summary, and an "Upgrade" `<ProButton>` CTA that links to `/pricing`. If already on PRO/Wealth, show "Manage Subscription" instead. Accessible directly from the Settings sidebar item.
+
+- [ ] **B9-14** `Page audit — undeveloped / disconnected` Audit all routes in `App.tsx`. Identify pages with: placeholder content, missing data connection, no user interaction, or empty state only. List them here as sub-items and add to the backlog. Current known gaps: Portfolios (mock only), Goals (mock only), TaxReport (mock only), Admin panel (not built), CAS Import flow (not built).
+
+---
+
+## Batch 10 — Design System Overhaul
+
+*Covers new requirements: point 4 (icons, tokens, buttons, cards), point 9 (button colors), point 12 (light mode), point 14 (ProButton everywhere), point 15 (Sahi card gradient borders).*
+
+- [ ] **DS-1** `Icons — replace ALL duotone with filled` Codebase audit: grep for `weight="duotone"`. Replace every instance with `weight="fill"`. No duotone icons anywhere in the final app. Exception: if an icon has no filled variant in Phosphor, use `weight="bold"` instead.
+
+- [ ] **DS-2** `Global color tokens` Define all design tokens in `src/index.css` as CSS custom properties:
+  ```css
+  --color-brand-purple: #8c34ee;
+  --color-brand-indigo: #4f46e5;
+  --color-brand-lime: #d6fd70;
+  --color-text-heading-light: #111827;
+  --color-text-body-light: #374151;
+  --color-text-caption-light: #6B7280;
+  --color-border-light: #E0E3E8;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #14171c;
+  --color-border-dark: #1e2838;
+  ```
+  All hardcoded hex values in components must be replaced with `var(--color-*)` or Tailwind tokens mapped to these. Fixes light-mode color inconsistencies globally.
+
+- [ ] **DS-3** `Button.tsx — unified component` Build `src/components/ui/Button.tsx` with variants and all states:
+  - `primary`: bg `#4F46E5`, white text, hover `#3730a3`, focus ring `#4f46e5/30`
+  - `secondary`: white bg, `#4F46E5` border+text, hover indigo bg/white text
+  - `ghost`: transparent, `#6B7280` text, hover `bg-gray-100` (light) / `bg-white/10` (dark)
+  - `destructive`: red bg, white text
+  - `brand`: bg `#C5F135`, black text
+  - All states: default / hover / active (scale 0.97) / focus ring / disabled (opacity-50, cursor-not-allowed) / loading (spinner icon replaces label)
+  Replace all raw `<button className="...">` with this component across the codebase (non-ProButton, non-brand CTA).
+
+- [ ] **DS-4** `ProButton enforcement` Audit all "Upgrade", "Upgrade to PRO", "Upgrade to Sahi PRO", "Get PRO", "Unlock Full Access" text anywhere in the codebase. Every such CTA must render `<ProButton>`. Pages to check: all `<PlanGate>` instances, inline upgrade banners, sidebar upsell chips, overview cards, baskets, goals, tax, risk analysis.
+
+- [ ] **DS-5** `Sahi card gradient border rule` ALL Sahi-branded cards must use `<AnimatedBorderCard>` — no exceptions:
+  - `SahiResearchCard` (already done)
+  - Sahi Comparison panels in `FundComparison` — each tab's Sahi Comparison AnimatedBorderCard
+  - Sahi Analysis sections in `MarketCapAllocation`, `RiskAnalysis`, `MFScorecard`
+  - Any "Sahi Insight" / "Sahi Note" / "Sahi Alert" card anywhere
+  Audit grep: search for "Sahi" in card/section headings. If it's a Sahi card without `<AnimatedBorderCard>`, wrap it.
+
+- [ ] **DS-6** `Card component hierarchy` Create a base `<Card>` component in `src/components/ui/Card.tsx` with variants: `default`, `stat`, `fund`, `research` (= AnimatedBorderCard), `plan`, `gate`. Migrate repeated `rounded-xl border ... shadow` patterns to use this component. Ensures consistent `border-radius`, `shadow`, `padding`, `hover` across all cards.
+
+- [ ] **DS-7** `Light mode color overhaul` Systematic pass across all pages in light mode (`lm=true`). Rules:
+  - All text on white bg: headings `#111827`, body `#374151`, captions `#6B7280`
+  - Card borders: `#E0E3E8` (not black or dark-mode border)
+  - Sidebar in light mode: white bg, `#111827` active item, `#6B7280` inactive
+  - No dark-mode color classes (`bg-[#14171c]`, `bg-[#0a0c0e]`, `text-white`) used without `lm ?` guard
+  - Form inputs in light mode: white bg, `#E0E3E8` border, `#111827` text, focus `#4f46e5` border
+
+- [ ] **DS-8** `Form field standardization` All input/select/textarea across app must have:
+  - Default: `border border-[#E0E3E8]` (light) / `border-[#1e2838]` (dark), `rounded-lg`, `text-[#111827]` (light) / `text-white` (dark)
+  - Focus: `focus:border-[#4f46e5] focus:ring-2 focus:ring-[#4f46e5]/20`
+  - Error: `border-red-400 focus:ring-red-200`
+  - Disabled: `opacity-50 cursor-not-allowed bg-gray-50`
+  Audit: `ExploreFunds` search, `Calculator` inputs, `Goals` goal-creation form, `Portfolios` add-fund form.
+
+- [ ] **DS-9** `Heading icon style standardization` All page-level section headings that use an icon must follow the same pattern: `w-9 h-9 rounded-xl flex items-center justify-center` container + filled Phosphor icon at `size={18}`. Apply to: Sahi Baskets, Overlap Lens, Risk Analysis, Fund Comparison, Market Cap, MF Scorecard, Calculator, Goals, Portfolio pages. No duotone, no different container sizes.
+
+- [ ] **DS-10** `Hover effect enforcement` All fund cards, stat cards, section cards (except PlanGate overlays and research cards) must use the standard hover: `hover:border-[#4f46e5] hover:-translate-y-1 hover:shadow-xl transition-all duration-200`. Audit all `hover:` classes in card-rendering loops and fix any that deviate (neon/lime bg on hover, no hover at all, wrong shadow).
+
+---
+
+## Batch 11 — Bug Fixes & Polish
+
+*Covers new requirements: point 5 (blur/gate bugs), point 6 (container), point 7 (icon style), point 11 (neon button hover).*
+
+- [ ] **BF-1** `Aryan — overlap blur card still black` Investigate why Aryan's OverlapLens blur card appears black/dark even after PlanGate lavender fix. Possibilities: (a) OverlapLens uses an inline overlay not going through `<PlanGate>`; (b) dark-mode class leaking. Log in as Aryan (free user) and inspect the exact overlay element. Fix so overlay is lavender in light mode, translucent dark in dark mode — matches PlanGate behavior.
+
+- [ ] **BF-2** `Fund Comparison — Sahi Research visible to free users` The Sahi Research/Comparison panel in FundComparison tabs should be **PRO-gated** for free users — currently free users can see full content. Wrap in `<PlanGate requiredTier="pro">`. Verify with Aryan (free) — should see blur gate. Verify with Rohit (PRO) — should see content.
+
+- [ ] **BF-3** `Add Fund / Add More Funds button neon hover` The "Add more funds" / "Add Fund" button in FundComparison (and any similar button elsewhere) currently turns neon lime on hover, making text invisible. Fix: `hover:border-[#4f46e5] hover:text-[#4f46e5] hover:bg-transparent` — no lime/neon background on hover. Audit all fund-picker "Add" buttons.
+
+- [ ] **BF-4** `Container size consistency` Enforce `max-w-7xl mx-auto` on all inner page content areas. When switching tabs within a page (e.g., FundComparison Overview / Fund Analysis / Holdings / Manager tabs), the outer container width must not change. Use `min-h` or a fixed-width wrapper so tab switching doesn't cause layout jump.
+
+- [ ] **BF-5** `MF Scorecard — redesign as originally specified` B5-4 was marked done but user confirms it's still not designed correctly. Re-examine original spec and rebuild: 6-dimension sub-score bars, RadarChart spider (Recharts), top holdings, analyst verdict, SEBI audit trail, "Deep-Analyze Fund" CTA. Must match the original Scorecard spec completely.
+
+- [ ] **BF-6** `MarketCap rebalance simulator — drag handle` The rebalance allocation drag slider in MarketCapAllocation has an invisible/uninteractable thumb. Fix: add a visible pill thumb (`h-5 w-5 rounded-full bg-[#4f46e5] border-2 border-white shadow-md`), ensure the range input is positioned correctly and draggable. Test at Low/Mid/Flex allocation modes.
+
+- [ ] **BF-7** `Calculator — pending items` Audit the original Calculator spec items from earlier batches. Any items not yet implemented (e.g., SWP calculator interactivity, STP calculator, goal-linked SIP calculator) must be completed. List and implement.
 
 ---
 

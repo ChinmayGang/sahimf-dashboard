@@ -75,37 +75,33 @@ const holdingsDist = [
 
 type RiskLevel = 'Low' | 'Low-Moderate' | 'Moderate' | 'Moderately High' | 'High' | 'Very High'
 
-// SEBI 6-level risk map
-const RISK_6_MAP: Record<RiskLevel, { label: string; idx: number; color: string }> = {
-  'Low':             { label: 'Low',             idx: 0, color: '#16a34a' },
-  'Low-Moderate':    { label: 'Low-Moderate',    idx: 1, color: '#65a30d' },
-  'Moderate':        { label: 'Moderate',        idx: 2, color: '#f59e0b' },
-  'Moderately High': { label: 'Moderately High', idx: 3, color: '#f97316' },
-  'High':            { label: 'High',            idx: 4, color: '#ef4444' },
-  'Very High':       { label: 'Very High',       idx: 5, color: '#b91c1c' },
+// 3-level display map (data uses 6-level vocabulary, riskometer collapses to 3 zones)
+const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string }> = {
+  'Low':             { label: 'Low',      idx: 0, color: '#16a34a' },
+  'Low-Moderate':    { label: 'Low',      idx: 0, color: '#16a34a' },
+  'Moderate':        { label: 'Moderate', idx: 1, color: '#f59e0b' },
+  'Moderately High': { label: 'Moderate', idx: 1, color: '#f59e0b' },
+  'High':            { label: 'High',     idx: 2, color: '#ef4444' },
+  'Very High':       { label: 'High',     idx: 2, color: '#ef4444' },
 }
 
-const RISK_6_SEGS = [
-  '#16a34a', // Low
-  '#65a30d', // Low-Moderate
-  '#f59e0b', // Moderate
-  '#f97316', // Moderately High
-  '#ef4444', // High
-  '#b91c1c', // Very High
-]
-
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
-  const { label, idx, color } = RISK_6_MAP[level]
-  // Arc spans 180°–360° (left → top → right). 6 segments × 30° each.
-  const angleDeg = 180 + (idx + 0.5) * 30
+  const { label, idx, color } = RISK_3_MAP[level]
+  // Arc spans 180°–360° (left → top → right). 3 segments × 60° each.
+  const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 80, cy = 82, r = 68
+  const SEGS = [
+    { fill: '#16a34a' }, // Low — green
+    { fill: '#f59e0b' }, // Moderate — amber
+    { fill: '#ef4444' }, // High — red (always red, always visible)
+  ]
 
   return (
     <div className="flex flex-col items-center">
       <svg viewBox="0 0 160 90" width="160" height="90" style={{ overflow: 'visible' }}>
-        {RISK_6_SEGS.map((fill, i) => {
-          const startAngle = Math.PI + (i / 6) * Math.PI
-          const endAngle = Math.PI + ((i + 1) / 6) * Math.PI
+        {SEGS.map((seg, i) => {
+          const startAngle = Math.PI + (i / 3) * Math.PI
+          const endAngle = Math.PI + ((i + 1) / 3) * Math.PI
           const x1 = cx + r * Math.cos(startAngle)
           const y1 = cy + r * Math.sin(startAngle)
           const x2 = cx + r * Math.cos(endAngle)
@@ -114,8 +110,8 @@ function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
             <path
               key={i}
               d={`M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`}
-              fill={fill}
-              opacity={i === idx ? 1 : 0.35}
+              fill={seg.fill}
+              opacity={i === idx ? 1 : 0.18}
             />
           )
         })}
@@ -754,13 +750,14 @@ export function SchemeDetail() {
               <div className="flex justify-center">
                 <Riskometer level={riskLevel} lm={lm} />
               </div>
-              <div className="mt-3 grid grid-cols-3 gap-x-2 gap-y-1.5">
-                {(Object.entries(RISK_6_MAP) as [RiskLevel, { label: string; idx: number; color: string }][]).map(([lvl, cfg]) => {
-                  const active = riskLevel === lvl
+              <div className="mt-3 flex justify-around">
+                {(['Low', 'Moderate', 'High'] as const).map((lvl) => {
+                  const cfg = { Low: '#16a34a', Moderate: '#f59e0b', High: '#ef4444' }
+                  const active = RISK_3_MAP[riskLevel]?.label === lvl
                   return (
-                    <div key={lvl} className="flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: active ? cfg.color : (lm ? '#E0E3E8' : '#1e2838') }} />
-                      <span className="text-[9px] leading-tight" style={{ color: active ? cfg.color : (lm ? '#6B7280' : '#505d6f'), fontWeight: active ? 700 : 400 }}>{cfg.label}</span>
+                    <div key={lvl} className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: active ? cfg[lvl] : (lm ? '#E0E3E8' : '#1e2838') }} />
+                      <span className="text-[10px]" style={{ color: active ? cfg[lvl] : (lm ? '#6B7280' : '#505d6f'), fontWeight: active ? 700 : 400 }}>{lvl}</span>
                     </div>
                   )
                 })}

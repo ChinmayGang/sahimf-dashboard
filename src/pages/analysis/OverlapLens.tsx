@@ -190,13 +190,13 @@ export function OverlapLens() {
               )}
             </div>
           </div>
-          <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm" style={{ background: 'rgba(10,12,14,0.6)' }}>
-            <BlurOnIcon size={32} color="#d6fd70" weight="duotone" />
-            <h3 className="text-white font-bold text-lg mt-3 mb-1">Upload your portfolio to unlock</h3>
-            <p className="text-white/60 text-sm mb-5 text-center max-w-xs">See exactly which funds overlap and what sectors you're overweight in</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm" style={{ background: lm ? 'rgba(237,233,254,0.82)' : 'rgba(10,12,14,0.6)' }}>
+            <BlurOnIcon size={32} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
+            <h3 className="font-bold text-lg mt-3 mb-1" style={{ color: lm ? '#111827' : '#ffffff' }}>Upload your portfolio to unlock</h3>
+            <p className="text-sm mb-5 text-center max-w-xs" style={{ color: lm ? '#374151' : 'rgba(255,255,255,0.6)' }}>See exactly which funds overlap and what sectors you're overweight in</p>
             <button
               onClick={() => navigate('/auth/initialize')}
-              className="flex items-center gap-2 bg-[#d6fd70] text-[#0a0c0e] text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#b8d94a] transition-colors"
+              className="flex items-center gap-2 bg-[#4f46e5] text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#3730a3] transition-colors"
             >
               Upload CAS to Unlock <ArrowRight size={16} weight="bold" />
             </button>
