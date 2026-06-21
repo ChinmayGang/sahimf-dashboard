@@ -87,7 +87,7 @@ const RISK_3_MAP: Record<RiskLevel, { label: string; idx: number; color: string 
 
 function Riskometer({ level, lm }: { level: RiskLevel; lm: boolean }) {
   const { label, idx, color } = RISK_3_MAP[level]
-  // Arc spans 180·—360· (left â†' top â†' right). 3 segments Ã— 60· each.
+  // Arc spans 180·—360· (left → top → right). 3 segments × 60· each.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 80, cy = 82, r = 68
   const SEGS = [
@@ -306,9 +306,9 @@ export function SchemeDetail() {
           <div className="flex items-start gap-8 text-right">
             <div>
               <p className={`text-xs ${textSub}`}>NAV</p>
-              <p className={`text-lg font-semibold ${text}`}>â‚¹{fund.nav.toFixed(2)}</p>
+              <p className={`text-lg font-semibold ${text}`}>₹{fund.nav.toFixed(2)}</p>
               <p className={`text-xs ${fund.navChangePercent >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
-                {fund.navChangePercent >= 0 ? 'â–²' : 'â–¼'} {Math.abs(fund.navChangePercent).toFixed(2)}%
+                {fund.navChangePercent >= 0 ? '▲' : '▼'} {Math.abs(fund.navChangePercent).toFixed(2)}%
               </p>
             </div>
             <div>
@@ -446,7 +446,7 @@ export function SchemeDetail() {
                       ? { background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.25)' }
                       : { background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.25)' }}
                   >
-                    {Number(alpha) >= 0 ? 'â–²' : 'â–¼'} {Math.abs(Number(alpha))}% alpha
+                    {Number(alpha) >= 0 ? '▲' : '▼'} {Math.abs(Number(alpha))}% alpha
                   </div>
                 </div>
                 <div className="flex gap-1">
@@ -487,7 +487,7 @@ export function SchemeDetail() {
                   <Tooltip
                     contentStyle={tooltipStyle}
                     labelFormatter={(v) => format(new Date(v as string), 'd MMM yyyy')}
-                    formatter={(v, name) => [`â‚¹${Number(v).toFixed(2)}`, name === 'nifty' ? 'Nifty 50' : 'NAV']}
+                    formatter={(v, name) => [`₹${Number(v).toFixed(2)}`, name === 'nifty' ? 'Nifty 50' : 'NAV']}
                     itemStyle={{ color: lm ? '#4f46e5' : '#d6fd70', fontSize: 12, fontWeight: 600 }}
                   />
                   <Area type="monotone" dataKey="value" stroke={lm ? '#4f46e5' : '#d6fd70'} strokeWidth={2} fill="url(#navGrad)" dot={false} />
@@ -531,8 +531,8 @@ export function SchemeDetail() {
                   { label: 'Expense Ratio', fund: `${fund.expenseRatio}%`, cat: '1.34%' },
                   { label: 'Exit Load', fund: `${fund.exitLoad}%`, cat: '0.69%' },
                   { label: 'Sharpe Ratio', fund: `${fund.sharpeRatio}`, cat: '0.33' },
-                  { label: 'Fund Size', fund: `â‚¹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: '—' },
-                  { label: 'Min SIP', fund: `â‚¹${fund.minSIP}`, cat: '—' },
+                  { label: 'Fund Size', fund: `₹${fund.fundSize.toLocaleString('en-IN')} Cr`, cat: '—' },
+                  { label: 'Min SIP', fund: `₹${fund.minSIP}`, cat: '—' },
                   { label: 'Lock-in', fund: fund.lockIn, cat: '—' },
                 ].map((row) => (
                   <div key={row.label} className={`flex items-center justify-between py-1.5 border-b ${rowBorder}`}>
@@ -571,7 +571,7 @@ export function SchemeDetail() {
                       </div>
                       <div>
                         <p className={`text-[10px] ${textMuted}`}>NAV</p>
-                        <p className={`text-sm font-semibold ${text}`}>â‚¹{leastVolatilePeer.nav.toFixed(2)}</p>
+                        <p className={`text-sm font-semibold ${text}`}>₹{leastVolatilePeer.nav.toFixed(2)}</p>
                       </div>
                       <VolatilityBadge level={leastVolatilePeer.volatility} size="sm" />
                     </div>
@@ -598,7 +598,7 @@ export function SchemeDetail() {
                       </div>
                       <div>
                         <p className={`text-[10px] ${textMuted}`}>NAV</p>
-                        <p className={`text-sm font-semibold ${text}`}>â‚¹{highestReturnPeer.nav.toFixed(2)}</p>
+                        <p className={`text-sm font-semibold ${text}`}>₹{highestReturnPeer.nav.toFixed(2)}</p>
                       </div>
                       <VolatilityBadge level={highestReturnPeer.volatility} size="sm" />
                     </div>
@@ -700,7 +700,7 @@ export function SchemeDetail() {
                 <div className={`h-6 w-px`} style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
                 <div>
                   <p className={`text-[10px] ${textMuted}`}>Total AUM</p>
-                  <p className={`text-sm font-bold ${text}`}>â‚¹{(fund.fundSize * 4.2 / 100).toFixed(0)}K Cr</p>
+                  <p className={`text-sm font-bold ${text}`}>₹{(fund.fundSize * 4.2 / 100).toFixed(0)}K Cr</p>
                 </div>
                 <div className={`h-6 w-px`} style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
                 <div className="flex items-center gap-1.5">
@@ -717,7 +717,7 @@ export function SchemeDetail() {
             <div className={`${card} rounded-xl p-5 space-y-3`}>
               <div>
                 <p className={`text-xs ${textSub}`}>Minimum Investment</p>
-                <p className={`text-xl font-semibold ${text}`}>â‚¹{fund.minLumpsum}</p>
+                <p className={`text-xl font-semibold ${text}`}>₹{fund.minLumpsum}</p>
               </div>
               <div className="space-y-1.5">
                 <p className={`text-[10px] ${textMuted}`}>Suggested SIP amounts</p>
@@ -728,7 +728,7 @@ export function SchemeDetail() {
                       className="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all"
                       style={{ background: lm ? '#F3F4F6' : '#1e2838', color: lm ? '#374151' : '#8390a2' }}
                     >
-                      â‚¹{amt >= 1000 ? `${amt / 1000}K` : amt}
+                      ₹{amt >= 1000 ? `${amt / 1000}K` : amt}
                     </button>
                   ))}
                 </div>
@@ -740,7 +740,7 @@ export function SchemeDetail() {
                 Invest Lumpsum
               </button>
               <p className="text-[9px] text-center" style={{ color: lm ? '#9CA3AF' : '#505d6f' }}>
-                Min SIP â‚¹{fund.minSIP} · Lock-in: {fund.lockIn}
+                Min SIP ₹{fund.minSIP} · Lock-in: {fund.lockIn}
               </p>
             </div>
 
@@ -861,10 +861,10 @@ export function SchemeDetail() {
                 >
                   <span className={`text-xs font-medium ${text}`}>{format(new Date(d.date), 'dd MMM yyyy')}</span>
                   <span className={`text-xs ${textSub}`}>{format(new Date(d.record), 'dd MMM yyyy')}</span>
-                  <span className={`text-xs ${textSub}`}>â‚¹{d.nav.toFixed(2)}</span>
+                  <span className={`text-xs ${textSub}`}>₹{d.nav.toFixed(2)}</span>
                   <div className="flex items-center gap-1">
                     <TrendDownIcon size={11} color="#22c55e" weight="bold" />
-                    <span className="text-xs font-semibold text-[#22c55e]">â‚¹{d.amount.toFixed(2)}</span>
+                    <span className="text-xs font-semibold text-[#22c55e]">₹{d.amount.toFixed(2)}</span>
                   </div>
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${d.type === 'Special' ? 'bg-amber-500/10 text-amber-500' : (lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]')}`}>{d.type}</span>
                 </div>
@@ -875,8 +875,8 @@ export function SchemeDetail() {
               <div className={`${card} rounded-xl p-5 space-y-4`}>
                 <h3 className={`text-sm font-semibold ${text}`}>Dividend Stats</h3>
                 {[
-                  { label: '3Y Total Payout', value: `â‚¹${totalPaid.toFixed(2)}` },
-                  { label: 'Avg Annual Dividend', value: `â‚¹${annualAvg}` },
+                  { label: '3Y Total Payout', value: `₹${totalPaid.toFixed(2)}` },
+                  { label: 'Avg Annual Dividend', value: `₹${annualAvg}` },
                   { label: 'Approx Div Yield', value: `${yieldPct}% p.a.`, accent: true },
                   { label: 'Frequency', value: 'Quarterly' },
                   { label: 'Payout on', value: 'Growth & IDCW' },

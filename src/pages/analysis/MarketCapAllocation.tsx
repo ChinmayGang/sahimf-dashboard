@@ -13,25 +13,25 @@ const FUNDS = [
   {
     id: 'f001', name: 'Mirae Asset Large Cap', category: 'Large Cap',
     large: 87, mid: 11, small: 2,
-    aum: 'â‚¹37,420 Cr', score: '8.8/10',
+    aum: '₹37,420 Cr', score: '8.8/10',
     driftFrom: { large: 90, mid: 8, small: 2 },
   },
   {
     id: 'f002', name: 'Parag Parikh Flexi Cap', category: 'Flexi Cap',
     large: 58, mid: 22, small: 12,
-    aum: 'â‚¹82,640 Cr', score: '9.2/10',
+    aum: '₹82,640 Cr', score: '9.2/10',
     driftFrom: { large: 65, mid: 20, small: 15 },
   },
   {
     id: 'f003', name: 'SBI Small Cap', category: 'Small Cap',
     large: 4, mid: 18, small: 78,
-    aum: 'â‚¹28,310 Cr', score: '8.5/10',
+    aum: '₹28,310 Cr', score: '8.5/10',
     driftFrom: { large: 3, mid: 15, small: 82 },
   },
   {
     id: 'f004', name: 'HDFC Mid-Cap Opps', category: 'Mid Cap',
     large: 14, mid: 68, small: 18,
-    aum: 'â‚¹69,200 Cr', score: '8.1/10',
+    aum: '₹69,200 Cr', score: '8.1/10',
     driftFrom: { large: 10, mid: 75, small: 15 },
   },
 ]
@@ -379,7 +379,7 @@ export function MarketCapAllocation() {
                             </div>
                             <p className={`text-xl font-black ${text}`}>{d.curr}%</p>
                             <p className={`text-[10px] ${diff > 0 ? (lm ? 'text-[#dc2626]' : 'text-[#f87171]') : diff < 0 ? (lm ? 'text-[#16a34a]' : 'text-[#4ade80]') : textMuted}`}>
-                              {diff > 0 ? 'â–²' : diff < 0 ? 'â–¼' : 'â—'} {Math.abs(diff)}% vs last quarter
+                              {diff > 0 ? '▲' : diff < 0 ? '▼' : '●'} {Math.abs(diff)}% vs last quarter
                             </p>
                           </div>
                         )

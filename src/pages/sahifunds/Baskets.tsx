@@ -283,11 +283,11 @@ export function Baskets() {
                   <div className="grid grid-cols-2 gap-3 mt-3">
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>Current Corpus</p>
-                      <p className={`text-sm font-bold ${text}`}>â‚¹{(currentCorpus / 100000).toFixed(1)}L</p>
+                      <p className={`text-sm font-bold ${text}`}>₹{(currentCorpus / 100000).toFixed(1)}L</p>
                     </div>
                     <div>
                       <p className={`text-[10px] ${textMuted}`}>Target</p>
-                      <p className={`text-sm font-bold ${text}`}>â‚¹{(targetCorpus / 100000).toFixed(0)}L</p>
+                      <p className={`text-sm font-bold ${text}`}>₹{(targetCorpus / 100000).toFixed(0)}L</p>
                     </div>
                   </div>
                 </div>
@@ -328,7 +328,7 @@ export function Baskets() {
                 <div className="grid grid-cols-2 gap-2 mb-3">
                   {[
                     { label: 'Horizon', value: basket.horizon },
-                    { label: 'Min SIP', value: `â‚¹${basket.minSIP.toLocaleString('en-IN')}` },
+                    { label: 'Min SIP', value: `₹${basket.minSIP.toLocaleString('en-IN')}` },
                     { label: 'Hist. CAGR', value: basket.cagr },
                     { label: 'Funds', value: `${basket.funds} funds` },
                   ].map(s => (

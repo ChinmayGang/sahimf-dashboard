@@ -50,7 +50,7 @@ const RISK3_CONFIG: Record<string, { idx: number; color: string }> = {
 function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   const cfg = RISK3_CONFIG[label] ?? RISK3_CONFIG['Moderate']
   const { idx, color } = cfg
-  // Arc spans 180·â†'360· (LEFTâ†'UPâ†'RIGHT). Needle at center of each 60· segment.
+  // Arc spans 180·→360· (LEFT→UP→RIGHT). Needle at center of each 60· segment.
   const angleDeg = 180 + (idx + 0.5) * 60
   const cx = 110, cy = 90, r = 75
   const rad = (angleDeg * Math.PI) / 180
@@ -58,7 +58,7 @@ function Riskometer({ label, lm }: { label: string; lm: boolean }) {
   return (
     <div className="flex flex-col items-center">
       <svg viewBox="0 0 220 110" width="220" height="110" style={{ overflow: 'visible' }}>
-        {/* 3 colored arc segments: LEFTâ†'UPâ†'RIGHT */}
+        {/* 3 colored arc segments: LEFT→UP→RIGHT */}
         {[
           { color: '#22c55e' },
           { color: '#f59e0b' },
@@ -132,8 +132,8 @@ function RiskReturnBubbles({
         </g>
       ))}
       {/* Axes labels */}
-      <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR â†'</text>
-      <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility â†'</text>
+      <text x={PAD.l + (W - PAD.l - PAD.r) / 2} y={H} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle">XIRR →</text>
+      <text x={8} y={H / 2} fontSize={9} fill={lm ? '#6B7280' : '#8390a2'} textAnchor="middle" transform={`rotate(-90, 8, ${H / 2})`}>Volatility →</text>
 
       {/* Bubbles */}
       {funds.map((f, _i) => {

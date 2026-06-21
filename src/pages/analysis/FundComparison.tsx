@@ -34,7 +34,7 @@ const FUND_EXTENDED: Record<string, {
   cons: string[]
 }> = {
   f001: {
-    manager: { name: 'Gaurav Khandelwal', exp: '18 yrs', edu: 'MBA Finance, CFA', aum: 'â‚¹74,800 Cr' },
+    manager: { name: 'Gaurav Khandelwal', exp: '18 yrs', edu: 'MBA Finance, CFA', aum: '₹74,800 Cr' },
     amcOwner: 'Mirae Asset Global Investments (Korea)',
     registrar: 'KFin Technologies Ltd',
     custodian: 'Deutsche Bank AG',
@@ -45,7 +45,7 @@ const FUND_EXTENDED: Record<string, {
     cons: ['Limited mid/small-cap exposure', 'Correlated to broad market', 'Slight large-cap concentration risk'],
   },
   f002: {
-    manager: { name: 'Rajeev Thakkar', exp: '22 yrs', edu: 'CA, CFA', aum: 'â‚¹92,400 Cr' },
+    manager: { name: 'Rajeev Thakkar', exp: '22 yrs', edu: 'CA, CFA', aum: '₹92,400 Cr' },
     amcOwner: 'PPFAS Asset Management Pvt Ltd (Indian, independent)',
     registrar: 'KFin Technologies Ltd',
     custodian: 'Citibank N.A.',
@@ -56,18 +56,18 @@ const FUND_EXTENDED: Record<string, {
     cons: ['Higher cash holding reduces upside', 'Smaller domestic mid-cap allocation', 'Concentration in top 10 holdings ~65%'],
   },
   f003: {
-    manager: { name: 'Jay Kothari', exp: '14 yrs', edu: 'MBA, CFA Level 2', aum: 'â‚¹12,200 Cr' },
+    manager: { name: 'Jay Kothari', exp: '14 yrs', edu: 'MBA, CFA Level 2', aum: '₹12,200 Cr' },
     amcOwner: 'DSP Group (India, family-owned)',
     registrar: 'CAMS (Computer Age Management Services)',
     custodian: 'HDFC Bank Ltd',
-    lastDividend: 'Mar 2024 · â‚¹1.20/unit',
+    lastDividend: 'Mar 2024 · ₹1.20/unit',
     pe: 18.6, pb: 2.7, turnover: 35, cashPct: 13, equityPct: 78,
     beta: 1.08, sd: 17.4,
     pros: ['Pure sectoral play on energy transition', 'International FoF exposure to global energy', 'Low AUM — nimble portfolio'],
     cons: ['Sectoral concentration risk', 'High beta 1.08', 'International exposure adds currency risk'],
   },
   f004: {
-    manager: { name: 'Chirag Setalvad', exp: '20 yrs', edu: 'MBA, CFA', aum: 'â‚¹1,10,600 Cr' },
+    manager: { name: 'Chirag Setalvad', exp: '20 yrs', edu: 'MBA, CFA', aum: '₹1,10,600 Cr' },
     amcOwner: 'HDFC Asset Management Company Ltd (BSE listed)',
     registrar: 'CAMS (Computer Age Management Services)',
     custodian: 'Citibank N.A.',
@@ -78,7 +78,7 @@ const FUND_EXTENDED: Record<string, {
     cons: ['Large AUM may limit small-cap bets', 'Higher P/E than category average', 'Mid-cap drawdowns can be severe'],
   },
   f005: {
-    manager: { name: 'R. Srinivasan', exp: '16 yrs', edu: 'MBA Finance', aum: 'â‚¹31,800 Cr' },
+    manager: { name: 'R. Srinivasan', exp: '16 yrs', edu: 'MBA Finance', aum: '₹31,800 Cr' },
     amcOwner: 'SBI Funds Management Ltd (SBI + Amundi JV)',
     registrar: 'CAMS (Computer Age Management Services)',
     custodian: 'Citibank N.A.',
@@ -89,7 +89,7 @@ const FUND_EXTENDED: Record<string, {
     cons: ['High beta 1.12 — amplifies drawdowns', 'Liquidity risk in small-caps', 'Very high P/E 32.4 — priced for perfection'],
   },
   f006: {
-    manager: { name: 'Neelesh Surana', exp: '19 yrs', edu: 'MBA, CMA', aum: 'â‚¹44,200 Cr' },
+    manager: { name: 'Neelesh Surana', exp: '19 yrs', edu: 'MBA, CMA', aum: '₹44,200 Cr' },
     amcOwner: 'Mirae Asset Global Investments (Korea)',
     registrar: 'KFin Technologies Ltd',
     custodian: 'Deutsche Bank AG',
@@ -118,9 +118,9 @@ const METRICS = [
   { key: '5Y', label: '5Y CAGR', format: (v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`, higherBetter: true },
   { key: 'expenseRatio', label: 'Expense Ratio', format: (v: number) => `${v.toFixed(2)}%`, higherBetter: false },
   { key: 'sharpeRatio', label: 'Sharpe Ratio', format: (v: number) => v.toFixed(2), higherBetter: true },
-  { key: 'fundSize', label: 'Fund Size (Cr)', format: (v: number) => `â‚¹${v.toLocaleString('en-IN')}`, higherBetter: null },
-  { key: 'minSIP', label: 'Min SIP', format: (v: number) => `â‚¹${v.toLocaleString('en-IN')}`, higherBetter: null },
-  { key: 'nav', label: 'NAV', format: (v: number) => `â‚¹${v.toFixed(2)}`, higherBetter: null },
+  { key: 'fundSize', label: 'Fund Size (Cr)', format: (v: number) => `₹${v.toLocaleString('en-IN')}`, higherBetter: null },
+  { key: 'minSIP', label: 'Min SIP', format: (v: number) => `₹${v.toLocaleString('en-IN')}`, higherBetter: null },
+  { key: 'nav', label: 'NAV', format: (v: number) => `₹${v.toFixed(2)}`, higherBetter: null },
 ]
 
 type TabKey = 'overview' | 'manager' | 'portfolio' | 'holdings' | 'fundinfo'
@@ -169,7 +169,7 @@ function sahiComparison(tab: TabKey, funds: typeof mockFunds): string {
     }
     case 'fundinfo': {
       const biggest = [...funds].sort((a, b) => b.fundSize - a.fundSize)[0]
-      return `${short(biggest.name)} is the largest by AUM (â‚¹${biggest.fundSize.toLocaleString('en-IN')} Cr). Larger funds bring liquidity and stability, while smaller funds can move more nimbly in mid- and small-cap positions.`
+      return `${short(biggest.name)} is the largest by AUM (₹${biggest.fundSize.toLocaleString('en-IN')} Cr). Larger funds bring liquidity and stability, while smaller funds can move more nimbly in mid- and small-cap positions.`
     }
   }
 }
@@ -671,11 +671,11 @@ export function FundComparison() {
             { label: 'AMC Name', render: (f: typeof mockFunds[0]) => f.amcName },
             { label: 'AMC Owner / Group', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.amcOwner ?? '—' },
             { label: 'Inception Date', render: (f: typeof mockFunds[0]) => new Date(f.launchedOn).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) },
-            { label: 'AUM', render: (f: typeof mockFunds[0]) => `â‚¹${f.fundSize.toLocaleString('en-IN')} Cr` },
-            { label: 'NAV', render: (f: typeof mockFunds[0]) => `â‚¹${f.nav.toFixed(2)}` },
+            { label: 'AUM', render: (f: typeof mockFunds[0]) => `₹${f.fundSize.toLocaleString('en-IN')} Cr` },
+            { label: 'NAV', render: (f: typeof mockFunds[0]) => `₹${f.nav.toFixed(2)}` },
             { label: 'NAV Change (1D)', render: (f: typeof mockFunds[0]) => `${f.navChange >= 0 ? '+' : ''}${f.navChange.toFixed(2)} (${f.navChangePercent >= 0 ? '+' : ''}${f.navChangePercent.toFixed(2)}%)` },
-            { label: 'Min SIP', render: (f: typeof mockFunds[0]) => `â‚¹${f.minSIP.toLocaleString('en-IN')}` },
-            { label: 'Min Lumpsum', render: (f: typeof mockFunds[0]) => `â‚¹${f.minLumpsum.toLocaleString('en-IN')}` },
+            { label: 'Min SIP', render: (f: typeof mockFunds[0]) => `₹${f.minSIP.toLocaleString('en-IN')}` },
+            { label: 'Min Lumpsum', render: (f: typeof mockFunds[0]) => `₹${f.minLumpsum.toLocaleString('en-IN')}` },
             { label: 'Exit Load', render: (f: typeof mockFunds[0]) => `${f.exitLoad}% (within 1Y)` },
             { label: 'Lock-in Period', render: (f: typeof mockFunds[0]) => f.lockIn },
             { label: 'Last Dividend', render: (f: typeof mockFunds[0]) => FUND_EXTENDED[f.id]?.lastDividend ?? 'N/A (Growth plan)' },

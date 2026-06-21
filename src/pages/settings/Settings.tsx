@@ -1,13 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { Moon as DarkModeIcon } from '@phosphor-icons/react'
+import { Moon as DarkModeIcon, Sun as LightModeIcon, User as PersonIcon, Bell as NotificationsIcon, ShieldCheck as SecurityIcon, Info as InfoIcon, ArrowLeft as ArrowBackIcon, SignOut as LogoutIcon, CheckCircle, CreditCard, Crown, Sparkle } from '@phosphor-icons/react'
 import { ProButton } from '../../components/ui/ProButton'
-import { Sun as LightModeIcon } from '@phosphor-icons/react'
-import { User as PersonIcon } from '@phosphor-icons/react'
-import { Bell as NotificationsIcon } from '@phosphor-icons/react'
-import { ShieldCheck as SecurityIcon } from '@phosphor-icons/react'
-import { Info as InfoIcon } from '@phosphor-icons/react'
-import { ArrowLeft as ArrowBackIcon } from '@phosphor-icons/react'
-import { SignOut as LogoutIcon } from '@phosphor-icons/react'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -135,20 +128,69 @@ export function Settings() {
           ))}
         </div>
 
-        {/* Plan */}
-        {user?.plan === 'free' && (
-          <div
-            className="rounded-2xl p-4 mb-4 relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)' }}
-          >
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 80% 50%, #d6fd70 0%, transparent 60%)' }} />
-            <div className="relative">
-              <p className="text-white font-bold text-sm mb-0.5">Upgrade to Sahi PRO</p>
-              <p className="text-white/70 text-xs mb-3">Unlock all Sahi Funds, deeper analytics, and priority research.</p>
-              <ProButton label="View Plans" size="sm" onClick={() => navigate('/pricing')} />
-            </div>
+        {/* Plan & Billing */}
+        <div className={`rounded-2xl overflow-hidden mb-4 ${card}`}>
+          <div className={`px-4 py-2.5 border-b text-xs font-bold tracking-wider uppercase ${textSub} flex items-center gap-2`} style={{ borderColor: divider }}>
+            <CreditCard size={13} weight="fill" />
+            Plan &amp; Billing
           </div>
-        )}
+          <div className="p-4 space-y-4">
+            {/* Current plan badge row */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: planColor + '18' }}
+                >
+                  <Crown size={16} color={planColor} weight="fill" />
+                </div>
+                <div>
+                  <p className={`text-sm font-semibold ${text}`}>{planLabel}</p>
+                  <p className={`text-xs ${textSub}`}>
+                    {user?.plan === 'free'
+                      ? 'Limited to 1 portfolio · 3 scorecard funds'
+                      : user?.plan === 'pro'
+                        ? `Active · ${user?.planExpiresAt ? `Renews ${new Date(user.planExpiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}` : 'Annual plan'}`
+                        : 'Lifetime access · All features'}
+                  </p>
+                </div>
+              </div>
+              <span
+                className="text-[11px] font-bold px-2.5 py-1 rounded-full"
+                style={{ background: planColor + '18', color: planColor }}
+              >
+                {planLabel}
+              </span>
+            </div>
+
+            {/* Feature summary */}
+            <div className={`rounded-xl p-3 space-y-1.5 ${lm ? 'bg-[#F9FAFB]' : 'bg-[#0f1420]'}`}>
+              {(user?.plan === 'free'
+                ? ['1 portfolio · 3 scorecard fund rows', 'Basic SIP calculator', 'Fund search & explore']
+                : user?.plan === 'pro'
+                  ? ['Unlimited portfolios & holdings', 'Full MF Scorecard (all funds)', 'Overlap Lens · Risk Analysis · MarketCap', 'Sahi Comparison & Research notes', 'Tax Optimizer with harvest alerts']
+                  : ['Everything in PRO', 'Lifetime access · no renewals', 'Priority research reports', 'Early access to new features']
+              ).map((f) => (
+                <div key={f} className="flex items-center gap-2">
+                  <CheckCircle size={13} color={planColor} weight="fill" className="flex-shrink-0" />
+                  <span className={`text-[11px] ${textSub}`}>{f}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            {user?.plan === 'free' ? (
+              <ProButton label="Upgrade to Sahi PRO" onClick={() => navigate('/pricing')} />
+            ) : (
+              <button
+                onClick={() => navigate('/pricing')}
+                className={`flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg border transition-colors ${lm ? 'border-[#E0E3E8] text-[#4f46e5] hover:bg-[#F3F4F6]' : 'border-[#1e2838] text-[#a5b4fc] hover:bg-[#1a2130]'}`}
+              >
+                <Sparkle size={13} weight="fill" /> Manage Subscription
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* Logout */}
         <button

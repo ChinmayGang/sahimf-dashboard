@@ -290,7 +290,7 @@ export function OverlapLens() {
                 autoFocus
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search funds to addâ€¦"
+                placeholder="Search funds to add…"
                 className="flex-1 text-sm outline-none bg-transparent"
                 style={{ color: lm ? '#111827' : '#ffffff' }}
               />
@@ -349,7 +349,7 @@ export function OverlapLens() {
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 {[
                   { color: lm ? '#4f46e5' : '#d6fd70', label: 'Same fund' },
-                  { color: '#ef4444', label: 'High (â‰¥25%)' },
+                  { color: '#ef4444', label: 'High (≥25%)' },
                   { color: '#f59e0b', label: 'Medium (12—24%)' },
                   { color: '#22c55e', label: 'Low (<12%)' },
                 ].map(l => (
@@ -360,7 +360,7 @@ export function OverlapLens() {
                 ))}
               </div>
 
-              {/* Smart display: â‰¤8 funds â†' matrix, >8 â†' ranked pairs list */}
+              {/* Smart display: ≤8 funds → matrix, >8 → ranked pairs list */}
               {selectedIds.length <= 8 ? (
                 <div className={`rounded-2xl overflow-auto ${card}`}>
                   <table className="min-w-full">
@@ -422,7 +422,7 @@ export function OverlapLens() {
                       >
                         <span className={`text-xs font-bold w-5 ${textMuted}`}>{i + 1}</span>
                         <div className="flex-1 min-w-0">
-                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
+                          <p className={`text-xs font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
                           <p className={`text-[10px] ${textMuted}`}>{fa?.category} · {fb?.category}</p>
                         </div>
                         <div
@@ -437,7 +437,7 @@ export function OverlapLens() {
                             className="text-[10px] font-semibold px-2.5 py-1 rounded-lg transition-colors flex-shrink-0"
                             style={{ background: 'rgba(79,70,229,0.12)', color: '#6366f1' }}
                           >
-                            Compare â†'
+                            Compare →
                           </button>
                         )}
                       </div>
@@ -501,7 +501,7 @@ export function OverlapLens() {
                     <p className={`text-xs ${textSub}`}>
                       {worstPairs[0] && `${shortName(mockFunds.find(f => f.id === worstPairs[0].a)?.name ?? '')} and ${shortName(mockFunds.find(f => f.id === worstPairs[0].b)?.name ?? '')} share ${worstPairs[0].val}% of their stock holdings — you're effectively doubling exposure to the same companies. `}
                       Consider swapping one for a fund in a different category to improve diversification.
-                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives â†'</button>
+                      <button onClick={() => navigate('/mutual-funds/compare')} className="ml-1 text-[#6366f1] font-semibold hover:underline">Compare alternatives →</button>
                     </p>
                   </div>
                 </div>
@@ -539,7 +539,7 @@ export function OverlapLens() {
                       <div key={`${pair.a}-${pair.b}`} className="px-5 py-4">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex-1 min-w-0 pr-4">
-                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} Ã— {shortName(fb?.name ?? '')}</p>
+                            <p className={`text-sm font-semibold ${text}`}>{shortName(fa?.name ?? '')} × {shortName(fb?.name ?? '')}</p>
                             <p className={`text-xs ${textMuted} mt-0.5`}>{desc}</p>
                           </div>
                           <span className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0" style={{ background: severity.bg, color: severity.text }}>

@@ -73,19 +73,17 @@ export function Portfolios() {
           <h1 className={`text-lg font-semibold ${text}`}>My Portfolios</h1>
           <p className={`text-xs ${textSub} mt-0.5`}>{portfolios.length} portfolios · {formatINR(totalInvested)} invested</p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${
-            canAddMore
-              ? 'bg-[#d6fd70] hover:bg-[#b8d94a] text-black'
-              : lm
-                ? 'bg-[#F3F4F6] text-[#6B7280] border border-[#E0E3E8] cursor-not-allowed'
-                : 'bg-[#14171c] text-[#64748b] border border-[#1e2838] cursor-not-allowed'
-          }`}
-        >
-          <AddIcon size={16} weight="fill" />
-          {canAddMore ? 'Add Portfolio' : 'Upgrade for More Portfolios'}
-        </button>
+        {canAddMore ? (
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg bg-[#4f46e5] hover:bg-[#3730a3] text-white transition-colors"
+          >
+            <AddIcon size={16} weight="fill" />
+            Add Portfolio
+          </button>
+        ) : (
+          <ProButton label="Upgrade for More" size="sm" onClick={() => navigate('/pricing')} />
+        )}
       </div>
 
       {/* Summary bar */}

@@ -313,7 +313,7 @@ export function Goals() {
                   <strong>Step-up SIP is the smarter fix.</strong> Instead of jumping SIP immediately, increasing it by 10% every year
                   gets you to the same corpus with a much lower starting burden.
                   <button className="ml-1.5 font-bold underline underline-offset-2 hover:opacity-80 transition-opacity">
-                    Try the step-up plan below ·†'
+                    Try the step-up plan below →
                   </button>
                 </p>
               </div>

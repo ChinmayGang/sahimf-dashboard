@@ -89,7 +89,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
         <p className={`text-xs leading-relaxed ${text}`}>
           <span className="font-semibold">{fundName.split(' ').slice(0, 3).join(' ')}</span>{' '}
           {data.summary.slice(0, 120)}
-          {!isPro && 'â€¦'}
+          {!isPro && '…'}
         </p>
 
         {/* Free gate — blurred preview with a working unlock overlay */}

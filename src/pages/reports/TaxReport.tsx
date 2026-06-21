@@ -89,9 +89,9 @@ const WATERFALL = [
 ]
 
 function formatINR(n: number) {
-  if (n >= 10000000) return `â‚¹${(n / 10000000).toFixed(2)} Cr`
-  if (n >= 100000) return `â‚¹${(n / 100000).toFixed(2)} L`
-  return `â‚¹${n.toLocaleString('en-IN')}`
+  if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`
+  if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
+  return `₹${n.toLocaleString('en-IN')}`
 }
 
 export function TaxReport() {
@@ -117,7 +117,7 @@ export function TaxReport() {
     { name: 'STCG', value: STCG_GAIN, color: '#ef4444' },
   ]
 
-  // No holdings â†' guide the user to add a portfolio instead of showing mock tax data.
+  // No holdings → guide the user to add a portfolio instead of showing mock tax data.
   if (!hasInvestments) {
     return (
       <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -194,7 +194,7 @@ export function TaxReport() {
           },
           {
             label: 'ELSS tax saving (80C)',
-            value: 'â‚¹0',
+            value: '₹0',
             sub: 'No ELSS in portfolio',
             color: lm ? 'text-[#6B7280]' : 'text-[#64748b]',
             icon: <InfoIcon size={14} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />,
@@ -254,17 +254,17 @@ export function TaxReport() {
               <span className="text-[10px] font-bold text-[#ef4444]">STCG · 20%</span>
             </div>
             <div className="flex items-center justify-center flex-1" style={{ background: 'rgba(79,70,229,0.15)' }}>
-              <span className="text-[10px] font-bold text-[#4f46e5]">LTCG · 12.5% (â‚¹1L free)</span>
+              <span className="text-[10px] font-bold text-[#4f46e5]">LTCG · 12.5% (₹1L free)</span>
             </div>
             <div className="absolute top-0 bottom-0" style={{ left: '40%', width: 2, background: lm ? '#111827' : '#fff' }} />
           </div>
           <div className="flex justify-between mt-1.5">
             <span className={`text-[10px] ${textMuted}`}>0</span>
             <span className={`text-[10px] font-semibold ${text}`} style={{ marginLeft: '-10%' }}>12 months</span>
-            <span className={`text-[10px] ${textMuted}`}>longer holding â†'</span>
+            <span className={`text-[10px] ${textMuted}`}>longer holding →</span>
           </div>
           <p className={`text-[11px] mt-3 ${textSub} leading-relaxed`}>
-            Crossing 12 months moves a fund from <b className="text-[#ef4444]">20% STCG</b> to <b className="text-[#4f46e5]">12.5% LTCG</b> with a â‚¹1,00,000 annual exemption — a strong reason to delay redemptions near the line.
+            Crossing 12 months moves a fund from <b className="text-[#ef4444]">20% STCG</b> to <b className="text-[#4f46e5]">12.5% LTCG</b> with a ₹1,00,000 annual exemption — a strong reason to delay redemptions near the line.
           </p>
         </div>
       </div>
@@ -423,7 +423,7 @@ export function TaxReport() {
               <BulbIcon size={20} color="#6ee7b7" weight="fill" className="flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="text-sm font-bold text-white mb-1">
-                  You can book â‚¹1,00,000 in LTCG completely tax-free before March 31.
+                  You can book ₹1,00,000 in LTCG completely tax-free before March 31.
                 </p>
                 <p className="text-xs" style={{ color: 'rgba(255,255,255,0.72)' }}>
                   Redeem and immediately reinvest — this resets your cost basis without triggering any tax,
@@ -435,10 +435,10 @@ export function TaxReport() {
 
           {/* Free limit tracker */}
           <div className={`${card} rounded-2xl p-5`}>
-            <p className={`text-sm font-bold ${text} mb-1`}>LTCG free limit usage this FY (â‚¹1,00,000 total)</p>
+            <p className={`text-sm font-bold ${text} mb-1`}>LTCG free limit usage this FY (₹1,00,000 total)</p>
             <div className="flex items-center justify-between text-xs mb-2">
-              <span className={textMuted}>â‚¹0 used so far this FY</span>
-              <span className={textMuted}>â‚¹1,00,000 limit</span>
+              <span className={textMuted}>₹0 used so far this FY</span>
+              <span className={textMuted}>₹1,00,000 limit</span>
             </div>
             <div className="h-2 rounded-full mb-5" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
               <div className="h-full rounded-full bg-[#22c55e]" style={{ width: '0%' }} />
@@ -501,8 +501,8 @@ export function TaxReport() {
           <div className="flex items-start gap-2">
             <InfoIcon size={14} color="#3b82f6" weight="fill" className="flex-shrink-0 mt-0.5" />
             <p className="text-xs" style={{ color: lm ? '#1d4ed8' : '#93c5fd' }}>
-              <strong>You have no ELSS fund.</strong> Investing â‚¹1,50,000 in an ELSS fund qualifies for Section 80C
-              deduction. At 30% tax bracket this saves â‚¹{(150000 * 0.3).toLocaleString('en-IN')} in income tax — with
+              <strong>You have no ELSS fund.</strong> Investing ₹1,50,000 in an ELSS fund qualifies for Section 80C
+              deduction. At 30% tax bracket this saves ₹{(150000 * 0.3).toLocaleString('en-IN')} in income tax — with
               only a 3-year lock-in, the shortest of all 80C instruments.
             </p>
           </div>
@@ -510,8 +510,8 @@ export function TaxReport() {
 
         <p className={`text-xs font-semibold ${textSub} mb-2`}>80C utilisation this year</p>
         <div className="flex items-center justify-between text-xs mb-1.5">
-          <span className={textMuted}>â‚¹60,000 used (PPF + EPF)</span>
-          <span className={textMuted}>â‚¹1,50,000 limit · â‚¹{ELSS_80C_REMAINING.toLocaleString('en-IN')} remaining</span>
+          <span className={textMuted}>₹60,000 used (PPF + EPF)</span>
+          <span className={textMuted}>₹1,50,000 limit · ₹{ELSS_80C_REMAINING.toLocaleString('en-IN')} remaining</span>
         </div>
         <div className="h-2 rounded-full mb-4" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
           <div className="h-full rounded-full bg-[#4f46e5]" style={{ width: '40%' }} />
@@ -539,7 +539,7 @@ export function TaxReport() {
         <div className="flex items-start gap-2">
           <WarningIcon size={14} color="#ef4444" weight="fill" className="flex-shrink-0 mt-0.5" />
           <p className="text-xs" style={{ color: lm ? '#7f1d1d' : '#fca5a5' }}>
-            <strong>Nippon India Small Cap has â‚¹18,000 in STCG</strong> (held less than 12 months) — â‚¹3,600 tax at
+            <strong>Nippon India Small Cap has ₹18,000 in STCG</strong> (held less than 12 months) — ₹3,600 tax at
             20% flat. Avoid redeeming this fund until it crosses the 12-month mark to convert STCG into tax-efficient
             LTCG. <strong>4 more months to go.</strong>
           </p>
