@@ -11,6 +11,7 @@ import sahiLogoWhite from '../../assets/logo/sahi_logo-white.svg'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { useUIStore } from '../../stores/uiStore'
 import { useAuthStore } from '../../stores/authStore'
+import { mockPortfolios } from '../../data/portfolios'
 
 interface NavItem {
   key: string
@@ -30,7 +31,7 @@ const mfChildren: NavItem[] = [
   { key: 'mf-explore', label: 'Explore Funds', icon: <Compass size={15} weight={W} />, path: '/mutual-funds/explore' },
   { key: 'sahi-mine', label: 'My Sahi Funds', icon: <Sparkle size={15} weight={W} />, path: '/mutual-funds/my-sahi-funds' },
   { key: 'mf-baskets', label: 'Sahi Baskets', icon: <ShoppingBag size={15} weight={W} />, path: '/mutual-funds/baskets' },
-  { key: 'mf-overlap', label: 'Overlap Lens', icon: <Stack size={15} weight={W} />, path: '/mutual-funds/overlap', badge: 1 },
+  { key: 'mf-overlap', label: 'Overlap Lens', icon: <Stack size={15} weight={W} />, path: '/mutual-funds/overlap' },
   { key: 'mf-compare', label: 'Fund Comparison', icon: <ArrowsLeftRight size={15} weight={W} />, path: '/mutual-funds/compare' },
   { key: 'mf-market-cap', label: 'Market Cap Mix', icon: <ChartPieSlice size={15} weight={W} />, path: '/mutual-funds/market-cap' },
   { key: 'mf-risk', label: 'Risk Analysis', icon: <ShieldCheck size={15} weight={W} />, path: '/mutual-funds/risk' },
@@ -185,6 +186,18 @@ export function Sidebar() {
   const planColor = user?.plan === 'pro' ? '#4f46e5' : user?.plan === 'wealth' ? '#f59e0b' : S.textMuted
   const handleLogout = () => { logout(); navigate('/auth/login') }
 
+  // Overlap badge: count unique funds across all user portfolios (>= 2 = overlaps possible)
+  const userFundCount = user?.id
+    ? new Set(mockPortfolios.filter(p => p.userId === user.id).flatMap(p => p.holdings.map(h => h.fundId))).size
+    : 0
+  const overlapBadge = userFundCount >= 2 ? userFundCount : 0
+
+  const resolvedNavItems = navItems.map(item =>
+    item.key === 'mf-overlap' && overlapBadge > 0
+      ? { ...item, badge: overlapBadge }
+      : item
+  )
+
   return (
     <div className="relative flex flex-shrink-0">
       <aside
@@ -226,11 +239,11 @@ export function Sidebar() {
         {/* Nav */}
         {sidebarExpanded ? (
           <div className="flex-1 overflow-y-auto py-1 px-2 space-y-0.5 scrollbar-hide">
-            {navItems.map(item => <NavRow key={item.key} item={item} />)}
+            {resolvedNavItems.map(item => <NavRow key={item.key} item={item} />)}
           </div>
         ) : (
           <div className="flex-1 flex flex-col items-center gap-0.5 py-2 overflow-y-auto scrollbar-hide">
-            {navItems.map(item => <CollapsedIcon key={item.key} item={item} />)}
+            {resolvedNavItems.map(item => <CollapsedIcon key={item.key} item={item} />)}
           </div>
         )}
 
