@@ -213,7 +213,7 @@ export function ExploreFunds() {
             <button
               key={sec.id}
               onClick={() => setActiveSection(sec.id)}
-              className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-[background-color,color] duration-150 text-sm font-medium outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4f46e5]/30 ${sidebarItem(activeSection === sec.id)}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-[background-color,color] duration-150 text-sm font-medium outline-none focus:outline-none ${sidebarItem(activeSection === sec.id)}`}
             >
               <span className="flex-shrink-0">{sec.icon}</span>
               <span className="flex-1 truncate">{sec.label}</span>
