@@ -135,7 +135,16 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
           {/* Category */}
           <div>
             <label className={`text-xs font-medium ${textSub} block mb-2`}>Category</label>
-            <div className="flex flex-col gap-1">
+            {/* Mobile: dropdown */}
+            <select
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+              className={`lg:hidden w-full text-xs rounded-xl px-3 py-2 outline-none border ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
+            >
+              {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+            {/* Desktop: vertical pill list */}
+            <div className="hidden lg:flex flex-col gap-1">
               {CATEGORIES.map(c => (
                 <button
                   key={c}

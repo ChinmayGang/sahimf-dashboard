@@ -100,81 +100,114 @@ export function AllSchemes() {
 
   const activeCount = selectedCats.length + selectedVolatility.length + selectedAMC.length
 
+  const togglePill = (
+    <div
+      className="flex items-center rounded-xl p-0.5"
+      style={{ background: lm ? '#eeedfd' : '#14171c', border: lm ? '1px solid #dcdafa' : '1px solid #3c4653' }}
+    >
+      {(['open', 'sahi'] as const).map((t) => (
+        <button
+          key={t}
+          onClick={() => setTab(t)}
+          className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all"
+          style={tab === t
+            ? { background: accent, color: lm ? '#fff' : '#000' }
+            : { color: lm ? '#9CA3AF' : '#64748b' }}
+        >
+          {t === 'sahi' && <AutoAwesomeIcon size={12} weight="fill" />}
+          {t === 'sahi' ? 'Sahi Funds' : 'Open Schemes'}
+        </button>
+      ))}
+    </div>
+  )
+
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Top bar */}
       <div
-        className="flex items-center gap-3 px-5 py-3 flex-shrink-0"
+        className="flex-shrink-0"
         style={{ borderBottom: lm ? '1px solid #E0E3E8' : '1px solid #1e2838', background: lm ? '#FDFCFF' : 'transparent' }}
       >
-        <button
-          onClick={() => navigate('/mutual-funds/explore')}
-          className={`flex items-center gap-1 text-xs font-medium ${textSub} hover:${text} transition-colors`}
-        >
-          <ArrowBackIcon size={15} weight="bold" />
-          Explore Funds
-        </button>
-        <span className={textMuted}>/</span>
-        <span className={`text-xs font-semibold ${text}`}>
-          {tab === 'sahi' ? 'Sahi MF Funds' : 'All Open Schemes'}
-        </span>
-
-        {/* Tab toggle */}
-        <div
-          className="flex items-center rounded-xl p-0.5 ml-3"
-          style={{ background: lm ? '#eeedfd' : '#14171c', border: lm ? '1px solid #dcdafa' : '1px solid #3c4653' }}
-        >
-          {(['open', 'sahi'] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all"
-              style={tab === t
-                ? { background: accent, color: lm ? '#fff' : '#000' }
-                : { color: lm ? '#9CA3AF' : '#64748b' }}
-            >
-              {t === 'sahi' && <AutoAwesomeIcon size={12} weight="fill" />}
-              {t === 'sahi' ? 'Sahi Funds' : 'Open Schemes'}
-            </button>
-          ))}
+        {/* ── Mobile header (2 rows, no breadcrumb) ── */}
+        <div className="sm:hidden">
+          {/* Row 1: toggle centred */}
+          <div className="flex justify-center px-4 py-2.5">
+            {togglePill}
+          </div>
+          {/* Row 2: full-width search + filter icon */}
+          <div className="flex items-center gap-2 px-4 pb-2.5">
+            <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 flex-1`}>
+              <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search funds..."
+                className={`bg-transparent outline-none text-xs flex-1 ${text} placeholder-[#9CA3AF]`}
+              />
+            </div>
+            {tab === 'open' && (
+              <button
+                onClick={() => setFilterDrawerOpen(true)}
+                className="relative flex items-center justify-center w-9 h-9 rounded-xl border flex-shrink-0"
+                style={{ borderColor: lm ? '#E0E3E8' : '#3c4653', background: activeCount > 0 ? (lm ? '#eeedfd' : 'rgba(79,70,229,0.12)') : 'transparent' }}
+              >
+                <FunnelIcon size={16} weight="fill" color={activeCount > 0 ? (lm ? '#4f46e5' : '#d6fd70') : (lm ? '#6B7280' : '#64748b')} />
+                {activeCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#4f46e5] text-white text-[9px] font-bold flex items-center justify-center">
+                    {activeCount}
+                  </span>
+                )}
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Search */}
-        <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-1.5 flex-1 max-w-sm ml-auto`}>
-          <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by fund name, AMC..."
-            className={`bg-transparent outline-none text-xs flex-1 ${text} placeholder-[#9CA3AF]`}
-          />
-        </div>
-
-        <span className={`text-xs ${textMuted} flex-shrink-0 hidden sm:inline`}>
-          {tab === 'sahi' ? filteredSahi.length : filteredOpen.length} funds
-        </span>
-
-        {/* Mobile filter button */}
-        {tab === 'open' && (
+        {/* ── Desktop header (single row with breadcrumb) ── */}
+        <div className="hidden sm:flex items-center gap-3 px-5 py-3">
           <button
-            onClick={() => setFilterDrawerOpen(true)}
-            className="md:hidden flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border flex-shrink-0"
-            style={{ borderColor: lm ? '#E0E3E8' : '#3c4653', color: lm ? '#374151' : '#8390a2' }}
+            onClick={() => navigate('/mutual-funds/explore')}
+            className={`flex items-center gap-1 text-xs font-medium ${textSub} hover:${text} transition-colors`}
           >
-            <FunnelIcon size={13} weight="fill" />
-            Filters{activeCount > 0 && ` (${activeCount})`}
+            <ArrowBackIcon size={15} weight="bold" />
+            Explore Funds
           </button>
-        )}
-
-        {tab === 'open' && (
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
-          >
-            {SORT_OPTIONS.map((o) => <option key={o}>{o}</option>)}
-          </select>
-        )}
+          <span className={textMuted}>/</span>
+          <span className={`text-xs font-semibold ${text}`}>
+            {tab === 'sahi' ? 'Sahi MF Funds' : 'All Open Schemes'}
+          </span>
+          <div className="ml-3">{togglePill}</div>
+          <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-1.5 flex-1 max-w-sm ml-auto`}>
+            <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by fund name, AMC..."
+              className={`bg-transparent outline-none text-xs flex-1 ${text} placeholder-[#9CA3AF]`}
+            />
+          </div>
+          <span className={`text-xs ${textMuted} flex-shrink-0`}>
+            {tab === 'sahi' ? filteredSahi.length : filteredOpen.length} funds
+          </span>
+          {tab === 'open' && (
+            <button
+              onClick={() => setFilterDrawerOpen(true)}
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border flex-shrink-0"
+              style={{ borderColor: lm ? '#E0E3E8' : '#3c4653', color: lm ? '#374151' : '#8390a2' }}
+            >
+              <FunnelIcon size={13} weight="fill" />
+              Filters{activeCount > 0 && ` (${activeCount})`}
+            </button>
+          )}
+          {tab === 'open' && (
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className={`${inputBg} border rounded-lg text-xs px-2.5 py-1.5 outline-none cursor-pointer appearance-none`}
+            >
+              {SORT_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          )}
+        </div>
       </div>
 
       {/* Body */}
