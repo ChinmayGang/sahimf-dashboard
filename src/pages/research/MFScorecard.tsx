@@ -231,20 +231,20 @@ export function MFScorecard() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <StarIcon size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-0.5">
+            <div className="flex flex-wrap items-center gap-2 mb-0.5">
               <h1 className={`text-xl font-black tracking-tight ${text}`}>MF Scorecard</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
             <p className="text-xs text-[#6B7280]">Sahi Score™ ranks {mockFunds.length} funds across returns, consistency, risk, cost &amp; manager quality</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {[{ label: 'Funds Ranked', value: `${mockFunds.length}` }, { label: 'Top Grade', value: topGrade }, { label: 'Top Score', value: `${topScore}` }].map(s => (
             <div key={s.label} className="text-center px-3 py-2 rounded-xl bg-white border border-[#E0E3E8]">
               <p className="text-sm font-bold text-[#4f46e5] leading-none">{s.value}</p>
@@ -254,7 +254,27 @@ export function MFScorecard() {
         </div>
       </div>
       {/* Category filter + sort */}
-      <div className="flex items-center justify-between gap-3 flex-wrap -mt-2">
+      {/* Mobile: two dropdowns side by side */}
+      <div className="flex gap-2 sm:hidden">
+        <select
+          value={cat}
+          onChange={(e) => setCat(e.target.value)}
+          className={`flex-1 text-xs rounded-xl px-3 py-2 outline-none border ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
+        >
+          {CATS.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+          className={`flex-1 text-xs rounded-xl px-3 py-2 outline-none border ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
+        >
+          <option value="rank">Sahi Score</option>
+          <option value="returns">Returns Score</option>
+          <option value="risk">Risk Score</option>
+        </select>
+      </div>
+      {/* Desktop: pill chips + sort */}
+      <div className="hidden sm:flex items-center justify-between gap-3 flex-wrap -mt-2">
         <div className="flex items-center gap-2 flex-wrap">
           <span className={`text-xs font-medium ${textMuted}`}>Category:</span>
           {CATS.map((c) => (

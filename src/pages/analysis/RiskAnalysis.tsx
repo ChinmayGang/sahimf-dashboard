@@ -281,20 +281,20 @@ export function RiskAnalysis() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <ShieldIcon size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-0.5">
+            <div className="flex flex-wrap items-center gap-2 mb-0.5">
               <h1 className={`text-xl font-black tracking-tight ${text}`}>Portfolio Risk Analysis</h1>
               <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#eeedfd] text-[#4f46e5]">Research Tool</span>
             </div>
             <p className="text-xs text-[#6B7280]">Research-based risk scoring of your portfolio — volatility, beta, drawdown &amp; fund-level breakdown</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {[
             { label: 'Risk Level', value: portfolioRiskLabel },
             { label: 'Est. Volatility', value: `${portfolioVol.toFixed(1)}%` },
