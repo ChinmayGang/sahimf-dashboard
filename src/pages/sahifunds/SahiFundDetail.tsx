@@ -106,7 +106,7 @@ export function SahiFundDetail() {
         </div>
 
         {/* Stats row */}
-        <div className={`grid grid-cols-5 gap-4 pt-4 border-t ${dividerColor}`}>
+        <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 pt-4 border-t ${dividerColor}`}>
           {[
             { label: 'Fund Count', value: `${fund.fundCount} Funds` },
             { label: 'Min Amount', value: `₹${fund.minAmount.toLocaleString('en-IN')}` },
@@ -123,7 +123,7 @@ export function SahiFundDetail() {
       </div>
 
       {/* Returns row */}
-      <div className="grid grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
         {(['1M', '3M', '6M', '1Y', '3Y'] as const).map((k) => (
           <div key={k} className={`${card} rounded-xl px-4 py-3 text-center`}>
             <p className={`text-[11px] ${textMuted} mb-1`}>{k} Returns</p>
@@ -137,9 +137,9 @@ export function SahiFundDetail() {
       {/* ── Subscriber deep view (B6-2) — only when the user holds this basket ── */}
       {owned ? (
         <>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* SIP tracker */}
-            <div className={`col-span-2 ${card} rounded-2xl p-5`}>
+            <div className={`col-span-1 sm:col-span-2 ${card} rounded-2xl p-5`}>
               <div className="flex items-center justify-between mb-4">
                 <h2 className={`text-sm font-semibold ${text} flex items-center gap-2`}>
                   <WalletIcon size={15} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" /> Your Investment
@@ -240,8 +240,8 @@ export function SahiFundDetail() {
 
       {/* Tab — Overview */}
       {tab === 'overview' && (
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="col-span-1 lg:col-span-2 space-y-6">
             {/* Performance chart */}
             <div className={`${card} rounded-2xl p-5`}>
               <div className="flex items-center justify-between mb-4">
@@ -351,8 +351,8 @@ export function SahiFundDetail() {
 
       {/* Tab — Funds & Weights */}
       {tab === 'funds' && (
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="col-span-1 lg:col-span-2">
             <PlanGate requiredTier="pro" label="Unlock Fund Weights">
               <div className={`${card} rounded-2xl overflow-hidden`}>
                 <div className={`grid grid-cols-[1fr_80px_80px] gap-4 px-5 py-3 border-b ${dividerColor}`}>

@@ -122,7 +122,8 @@ export function Transactions() {
       </div>
 
       {/* Table */}
-      <div className={`${card} rounded-2xl overflow-hidden`}>
+      <div className={`${card} rounded-2xl overflow-x-auto`}>
+        <div style={{ minWidth: 640 }}>
         {/* Table header */}
         <div className={`grid grid-cols-[1fr_100px_80px_100px_110px_90px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
           {['Fund', 'Portfolio', 'Type', 'Amount', 'Date', 'Status'].map((h) => (
@@ -179,6 +180,7 @@ export function Transactions() {
             </div>
           )
         })}
+        </div>{/* end minWidth wrapper */}
       </div>
 
       {/* Summary row */}

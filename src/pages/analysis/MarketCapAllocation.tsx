@@ -153,7 +153,7 @@ export function MarketCapAllocation() {
             <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex gap-2">
+        <div className="flex-shrink-0 flex flex-wrap gap-2">
           {[
             { label: 'Your Large Cap', value: `${portfolioMix.large}%` },
             { label: 'Your Mid Cap', value: `${portfolioMix.mid}%` },
@@ -183,7 +183,7 @@ export function MarketCapAllocation() {
       )}
 
       {/* Overview row: Donut + Bar */}
-      <div className="grid grid-cols-[auto_1fr] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5">
 
         {/* Donut */}
         <div className={`${card} rounded-2xl p-5 flex flex-col items-center justify-center gap-4`} style={{ minWidth: 220 }}>

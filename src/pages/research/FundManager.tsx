@@ -127,7 +127,7 @@ export function FundManager() {
       </div>
 
       {/* Search */}
-      <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 max-w-sm`}>
+      <div className={`flex items-center gap-2 ${inputBg} border rounded-xl px-3 py-2 w-full sm:max-w-sm`}>
         <SearchIcon size={15} color={lm ? '#9CA3AF' : '#64748b'} weight="fill" />
         <input
           type="text"
@@ -139,7 +139,7 @@ export function FundManager() {
       </div>
 
       {/* AUM summary bar */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: 'Total AMCs', value: `${mockAMCs.length}` },
           { label: 'Total Industry AUM', value: '₹68.4L Cr' },
@@ -154,7 +154,7 @@ export function FundManager() {
       </div>
 
       {/* AMC grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filtered.map((amc) => (
           <button
             key={amc.id}

@@ -121,7 +121,7 @@ function RiskReturnBubbles({
   const gridY = [0, 10, 20]
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: 480 }}>
+    <div style={{ position: 'relative', width: '100%', maxWidth: 'min(100%, 480px)' }}>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%">
         {/* Grid */}
         {gridX.map(x => (
@@ -357,7 +357,7 @@ export function RiskAnalysis() {
       </div>
 
       {/* Risk/Return Bubble Chart + Sahi Insight (B7-4) */}
-      <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
       <div className={`${card} rounded-2xl p-5`}>
         <div className="flex items-center justify-between mb-4">
           <div>

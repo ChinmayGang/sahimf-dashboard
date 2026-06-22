@@ -150,7 +150,7 @@ export function TaxReport() {
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
       {/* â"€â"€ Header â"€â"€ */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <ReceiptIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
@@ -212,7 +212,7 @@ export function TaxReport() {
       </div>
 
       {/* â"€â"€ Gains split doughnut + holding-period explainer â"€â"€ */}
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Doughnut — LTCG vs STCG */}
         <div className={`${card} rounded-2xl p-5`}>
           <p className={`text-sm font-bold ${text} mb-1`}>Gains split — LTCG vs STCG</p>
@@ -270,7 +270,8 @@ export function TaxReport() {
       </div>
 
       {/* â"€â"€ Fund-level breakdown â"€â"€ */}
-      <div className={`${card} rounded-2xl overflow-hidden`}>
+      <div className={`${card} rounded-2xl overflow-x-auto`}>
+        <div style={{ minWidth: 580 }}>
         <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
           <p className={`text-sm font-bold ${text}`}>TAX BREAKDOWN — FUND LEVEL</p>
           <p className={`text-xs ${textMuted}`}>Based on current NAV vs your average cost</p>
@@ -338,6 +339,7 @@ export function TaxReport() {
             </tr>
           </tfoot>
         </table>
+        </div>{/* end minWidth wrapper */}
       </div>
 
       {/* â"€â"€ Tax waterfall â"€â"€ */}
@@ -360,7 +362,7 @@ export function TaxReport() {
             if (isSubtotal) {
               return (
                 <div key={i} className={`flex items-center gap-3 py-1.5 border-t border-b ${dividerColor}`}>
-                  <p className={`text-xs font-bold w-52 flex-shrink-0 ${text}`}>{row.label}</p>
+                  <p className={`text-xs font-bold w-36 sm:w-52 flex-shrink-0 ${text}`}>{row.label}</p>
                   <div className="flex-1 flex items-center gap-3">
                     <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: lm ? '#F3F4F6' : '#1e2838' }}>
                       <div className="h-full rounded-full bg-[#4f46e5]" style={{ width: `${barWidth}%` }} />
@@ -374,7 +376,7 @@ export function TaxReport() {
             if (isResult) {
               return (
                 <div key={i} className={`flex items-center gap-3 py-2.5 rounded-xl px-3 ${lm ? 'bg-[#FEF2F2] border border-[#FCA5A5]' : 'bg-[#2d0b0b] border border-[#ef4444]/30'}`}>
-                  <p className="text-sm font-bold text-[#ef4444] w-52 flex-shrink-0">{row.label}</p>
+                  <p className="text-sm font-bold text-[#ef4444] w-36 sm:w-52 flex-shrink-0">{row.label}</p>
                   <div className="flex-1 flex items-center gap-3">
                     <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ background: lm ? '#FECACA' : '#3d1515' }}>
                       <div className="h-full rounded-full bg-[#ef4444]" style={{ width: `${(row.value! / maxVal) * 100}%` }} />
@@ -387,7 +389,7 @@ export function TaxReport() {
 
             return (
               <div key={i} className="flex items-center gap-3">
-                <p className={`text-xs font-medium w-52 flex-shrink-0 ${isDeduct || isTax ? 'text-[#ef4444]' : isSave ? 'text-[#22c55e]' : textSub}`}>
+                <p className={`text-xs font-medium w-36 sm:w-52 flex-shrink-0 ${isDeduct || isTax ? 'text-[#ef4444]' : isSave ? 'text-[#22c55e]' : textSub}`}>
                   {row.label}
                 </p>
                 <div className="flex-1 flex items-center gap-3">

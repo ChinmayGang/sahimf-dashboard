@@ -75,7 +75,7 @@ export function PortfolioDetail() {
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: 'Invested', value: formatINR(portfolio.totalInvested), color: text },
           { label: 'Current Value', value: formatINR(portfolio.currentValue), color: lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]' },

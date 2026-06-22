@@ -83,7 +83,8 @@ export function Dividends() {
       </div>
 
       {/* Table */}
-      <div className={`${card} rounded-2xl overflow-hidden`}>
+      <div className={`${card} rounded-2xl overflow-x-auto`}>
+        <div style={{ minWidth: 620 }}>
         <div className={`grid grid-cols-[1fr_150px_120px_120px_100px] gap-4 px-5 py-3 border-b ${dividerColor}`}>
           {['Fund', 'AMC', 'Record Date', 'Dividend/Unit', 'Frequency'].map((h) => (
             <span key={h} className={`text-[11px] font-semibold ${textSub} uppercase tracking-wider`}>{h}</span>
@@ -117,6 +118,7 @@ export function Dividends() {
             </span>
           </div>
         ))}
+        </div>{/* end minWidth wrapper */}
       </div>
 
       <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#505d6f]'} text-center`}>

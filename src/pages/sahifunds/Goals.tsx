@@ -241,7 +241,7 @@ export function Goals() {
                 { label: 'Inflation rate (%)', value: inflation, min: 3, max: 12, step: 0.5, onChange: setInflation, fmt: (v: number) => `${v}%` },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-4">
-                  <p className={`text-xs font-medium w-52 flex-shrink-0 ${textSub}`}>{s.label}</p>
+                  <p className={`text-xs font-medium w-36 sm:w-52 flex-shrink-0 ${textSub}`}>{s.label}</p>
                   <input
                     type="range"
                     min={s.min}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
   SquaresFour, Compass, Wrench, UserCircle, FolderOpen,
@@ -16,18 +16,18 @@ interface SheetLink {
 }
 
 const sheetLinks: SheetLink[] = [
-  { label: 'Overlap Lens', path: '/mutual-funds/overlap', icon: <Stack size={16} weight={W} /> },
-  { label: 'Fund Comparison', path: '/mutual-funds/compare', icon: <ArrowsLeftRight size={16} weight={W} /> },
-  { label: 'Market Cap Mix', path: '/mutual-funds/market-cap', icon: <ChartPieSlice size={16} weight={W} /> },
-  { label: 'Risk Analysis', path: '/mutual-funds/risk', icon: <ShieldCheck size={16} weight={W} /> },
-  { label: 'MF Scorecard', path: '/mutual-funds/scorecard', icon: <Star size={16} weight={W} /> },
-  { label: 'SIP Calculator', path: '/mutual-funds/tools/sip', icon: <Calculator size={16} weight={W} /> },
-  { label: 'Goals & Plans', path: '/mutual-funds/goals', icon: <Target size={16} weight={W} /> },
-  { label: 'Sahi Baskets', path: '/mutual-funds/baskets', icon: <ShoppingBag size={16} weight={W} /> },
-  { label: 'My Sahi Funds', path: '/mutual-funds/my-sahi-funds', icon: <Sparkle size={16} weight={W} /> },
-  { label: 'Fund Manager', path: '/mutual-funds/amfi', icon: <Buildings size={16} weight={W} /> },
-  { label: 'Tax Optimizer', path: '/mutual-funds/reports/tax', icon: <FileText size={16} weight={W} /> },
-  { label: 'Reports', path: '/mutual-funds/reports/mfpms', icon: <ChartBar size={16} weight={W} /> },
+  { label: 'Overlap Lens', path: '/mutual-funds/overlap', icon: <Stack size={20} weight={W} /> },
+  { label: 'Fund Compare', path: '/mutual-funds/compare', icon: <ArrowsLeftRight size={20} weight={W} /> },
+  { label: 'Market Cap', path: '/mutual-funds/market-cap', icon: <ChartPieSlice size={20} weight={W} /> },
+  { label: 'Risk Analysis', path: '/mutual-funds/risk', icon: <ShieldCheck size={20} weight={W} /> },
+  { label: 'MF Scorecard', path: '/mutual-funds/scorecard', icon: <Star size={20} weight={W} /> },
+  { label: 'SIP Calc', path: '/mutual-funds/tools/sip', icon: <Calculator size={20} weight={W} /> },
+  { label: 'Goals', path: '/mutual-funds/goals', icon: <Target size={20} weight={W} /> },
+  { label: 'Baskets', path: '/mutual-funds/baskets', icon: <ShoppingBag size={20} weight={W} /> },
+  { label: 'Sahi Funds', path: '/mutual-funds/my-sahi-funds', icon: <Sparkle size={20} weight={W} /> },
+  { label: 'Fund Mgr', path: '/mutual-funds/amfi', icon: <Buildings size={20} weight={W} /> },
+  { label: 'Tax Optimizer', path: '/mutual-funds/reports/tax', icon: <FileText size={20} weight={W} /> },
+  { label: 'Reports', path: '/mutual-funds/reports/mfpms', icon: <ChartBar size={20} weight={W} /> },
 ]
 
 const primaryTabs = [
@@ -42,6 +42,11 @@ export function BottomNav() {
   const location = useLocation()
   const navigate = useNavigate()
   const [sheetOpen, setSheetOpen] = useState(false)
+
+  // Auto-close sheet when route changes (user tapped a nav tab)
+  useEffect(() => {
+    setSheetOpen(false)
+  }, [location.pathname])
 
   function isActive(path: string | null) {
     if (!path) return false
@@ -85,7 +90,7 @@ export function BottomNav() {
             return (
               <button
                 key={tab.key}
-                onClick={() => setSheetOpen(true)}
+                onClick={() => setSheetOpen(s => !s)}
                 className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2"
               >
                 <span style={{ color: sheetOpen ? '#d6fd70' : '#8390a2' }}>{tab.icon}</span>
@@ -114,40 +119,62 @@ export function BottomNav() {
       {/* Tools upward sheet */}
       {sheetOpen && (
         <>
+          {/* Backdrop */}
           <div
             className="fixed inset-0 z-40 md:hidden"
-            style={{ background: 'rgba(0,0,0,0.5)' }}
+            style={{ background: 'rgba(0,0,0,0.6)' }}
             onClick={() => setSheetOpen(false)}
           />
+          {/* Sheet */}
           <div
-            className="fixed left-0 right-0 z-50 md:hidden rounded-t-2xl overflow-hidden"
+            className="fixed left-0 right-0 z-50 md:hidden rounded-t-3xl"
             style={{
               bottom: 64,
-              background: '#0a0c0e',
+              background: '#0d0f14',
               border: '1px solid #1e2838',
               borderBottom: 'none',
-              maxHeight: '70vh',
+              maxHeight: '72vh',
               overflowY: 'auto',
             }}
           >
-            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: '#1e2838' }}>
-              <span className="text-sm font-semibold text-white">More Tools</span>
-              <button onClick={() => setSheetOpen(false)} className="text-[#8390a2]">
-                <X size={18} weight={W} />
+            {/* Drag handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 rounded-full" style={{ background: '#2a3444' }} />
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-3">
+              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#8390a2' }}>
+                Quick Nav
+              </span>
+              <button
+                onClick={() => setSheetOpen(false)}
+                className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                style={{ background: '#1e2838', color: '#8390a2' }}
+              >
+                <X size={14} weight={W} />
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-px p-4" style={{ background: '#1e2838' }}>
+
+            {/* Grid of links */}
+            <div className="grid grid-cols-3 gap-3 px-4 pb-6">
               {sheetLinks.map((link) => {
                 const active = location.pathname.startsWith(link.path)
                 return (
                   <button
                     key={link.path}
                     onClick={() => { navigate(link.path); setSheetOpen(false) }}
-                    className="flex flex-col items-center gap-2 py-4 px-2 rounded-xl text-center"
-                    style={{ background: active ? 'rgba(214,253,112,0.1)' : '#0a0c0e' }}
+                    className="flex flex-col items-center gap-2 py-4 px-2 rounded-2xl text-center transition-all"
+                    style={active
+                      ? { background: 'rgba(214,253,112,0.08)', border: '1px solid rgba(214,253,112,0.2)' }
+                      : { background: '#14171c', border: '1px solid #1e2838' }
+                    }
                   >
-                    <span style={{ color: active ? '#d6fd70' : '#8390a2' }}>{link.icon}</span>
-                    <span className="text-[10px] leading-tight" style={{ color: active ? '#d6fd70' : '#8390a2' }}>
+                    <span style={{ color: active ? '#d6fd70' : '#64748b' }}>{link.icon}</span>
+                    <span
+                      className="text-[11px] font-medium leading-tight"
+                      style={{ color: active ? '#d6fd70' : '#8390a2' }}
+                    >
                       {link.label}
                     </span>
                   </button>

@@ -838,7 +838,8 @@ export function SchemeDetail() {
         const yieldPct = ((totalPaid / dividends[0].nav) * 100 / 3).toFixed(2)
         return (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className={`col-span-1 md:col-span-2 ${card} rounded-xl overflow-hidden`}>
+            <div className={`col-span-1 md:col-span-2 ${card} rounded-xl overflow-x-auto`}>
+              <div style={{ minWidth: 500 }}>
               <div className="px-5 py-4 flex items-center justify-between border-b" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
                 <div className="flex items-center gap-2">
                   <CoinsIcon size={15} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
@@ -868,6 +869,7 @@ export function SchemeDetail() {
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${d.type === 'Special' ? 'bg-amber-500/10 text-amber-500' : (lm ? 'bg-[#F3F4F6] text-[#6B7280]' : 'bg-[#1e2838] text-[#8390a2]')}`}>{d.type}</span>
                 </div>
               ))}
+              </div>{/* end minWidth wrapper */}
             </div>
 
             <div className="space-y-4">
