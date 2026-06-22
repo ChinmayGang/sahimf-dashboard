@@ -188,18 +188,18 @@ export function MySahiFunds() {
             </div>
 
             {/* Investment status */}
-            <div className={`flex items-center justify-between pt-3 border-t ${dividerColor}`}>
+            <div className={`grid grid-cols-3 gap-2 pt-3 border-t ${dividerColor}`}>
               <div>
-                <p className={`text-[11px] ${textMuted}`}>Invested</p>
-                <p className={`text-sm font-semibold ${text}`}>{formatINR(mockInvested[idx])}</p>
+                <p className={`text-[10px] ${textMuted} mb-0.5`}>Invested</p>
+                <p className={`text-xs font-semibold ${text}`}>{formatINR(mockInvested[idx])}</p>
               </div>
-              <div className="text-right">
-                <p className={`text-[11px] ${textMuted}`}>Current</p>
-                <p className="text-sm font-semibold text-[#22C55E]">{formatINR(mockCurrent[idx])}</p>
+              <div>
+                <p className={`text-[10px] ${textMuted} mb-0.5`}>Current</p>
+                <p className="text-xs font-semibold text-[#22C55E]">{formatINR(mockCurrent[idx])}</p>
               </div>
-              <div className="text-right">
-                <p className={`text-[11px] ${textMuted}`}>XIRR</p>
-                <p className={`text-sm font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
+              <div>
+                <p className={`text-[10px] ${textMuted} mb-0.5`}>XIRR</p>
+                <p className={`text-xs font-semibold ${lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]'}`}>+{(((mockCurrent[idx] / mockInvested[idx]) - 1) * 100).toFixed(1)}%</p>
               </div>
             </div>
           </button>

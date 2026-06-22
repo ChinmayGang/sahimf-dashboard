@@ -58,15 +58,15 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
   return (
     <AnimatedBorderCard badge={false}>
       {/* Custom badge row with verdict + score */}
-      <div className="flex items-center justify-between px-5 pb-3 pt-1">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-5 pb-3 pt-1">
+        <div className="flex items-center gap-2 flex-wrap">
           <SparkleIcon size={13} weight="fill" color="#4f46e5" />
           <span className="text-xs font-bold text-[#4f46e5]">SAHI RESEARCH NOTE</span>
           <span className="text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-[#eeedfd] text-[#7c3aed]">
             Generic · Not Personalised
           </span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <span
             className="text-[10px] font-bold px-2.5 py-1 rounded-full"
             style={{ background: vs.bg, border: `1px solid ${vs.border}`, color: vs.color }}
@@ -74,7 +74,7 @@ export function SahiResearchCard({ fundName, data, lm }: Props) {
             {data.verdict}
           </span>
           <div
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-black text-white"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-black text-white flex-shrink-0"
             style={{ background: scoreColor, boxShadow: `0 0 8px ${scoreColor}40` }}
           >
             {data.sahiScore}

@@ -426,40 +426,50 @@ export function SchemeDetail() {
           <div className="col-span-1 md:col-span-2 space-y-4">
             {/* Performance chart */}
             <div className={`${card} rounded-xl p-5`}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div>
-                    <p className={`text-xs ${textSub}`}>This fund</p>
-                    <p className={`text-xl font-semibold ${Number(totalReturn) >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
-                      {Number(totalReturn) >= 0 ? '+' : ''}{totalReturn}%
-                    </p>
-                  </div>
-                  <div className="h-8 w-px" style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
-                  <div>
-                    <p className={`text-xs ${textSub}`}>Nifty 50</p>
-                    <p className={`text-xl font-semibold ${textSub}`}>{Number(niftyReturn) >= 0 ? '+' : ''}{niftyReturn}%</p>
-                  </div>
-                  <div
-                    className="px-2.5 py-1 rounded-lg text-xs font-bold"
-                    style={Number(alpha) >= 0
-                      ? { background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.25)' }
-                      : { background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.25)' }}
-                  >
-                    {Number(alpha) >= 0 ? '▲' : '▼'} {Math.abs(Number(alpha))}% alpha
-                  </div>
-                </div>
-                <div className="flex gap-1">
-                  {periods.map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => setPeriod(p)}
-                      className={`text-xs px-2.5 py-1 rounded-full transition-colors ${
-                        period === p ? (lm ? 'bg-[#4f46e5] text-white font-semibold' : 'bg-[#d6fd70] text-black font-semibold') : `${textSub} hover:${text}`
-                      }`}
+              <div className="flex flex-col gap-3 mb-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div>
+                      <p className={`text-xs ${textSub}`}>This fund</p>
+                      <p className={`text-lg font-semibold ${Number(totalReturn) >= 0 ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
+                        {Number(totalReturn) >= 0 ? '+' : ''}{totalReturn}%
+                      </p>
+                    </div>
+                    <div className="h-7 w-px hidden sm:block" style={{ background: lm ? '#E0E3E8' : '#1e2838' }} />
+                    <div>
+                      <p className={`text-xs ${textSub}`}>Nifty 50</p>
+                      <p className={`text-lg font-semibold ${textSub}`}>{Number(niftyReturn) >= 0 ? '+' : ''}{niftyReturn}%</p>
+                    </div>
+                    <div
+                      className="px-2 py-0.5 rounded-lg text-xs font-bold"
+                      style={Number(alpha) >= 0
+                        ? { background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.25)' }
+                        : { background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.25)' }}
                     >
-                      {p}
-                    </button>
-                  ))}
+                      {Number(alpha) >= 0 ? '▲' : '▼'} {Math.abs(Number(alpha))}% alpha
+                    </div>
+                  </div>
+                  {/* Period selector — dropdown on mobile, pills on sm+ */}
+                  <select
+                    value={period}
+                    onChange={(e) => setPeriod(e.target.value as typeof period)}
+                    className={`sm:hidden text-xs rounded-lg px-2 py-1 outline-none border ${lm ? 'bg-white border-[#E0E3E8] text-[#111827]' : 'bg-[#14171c] border-[#1e2838] text-white'}`}
+                  >
+                    {periods.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                  <div className="hidden sm:flex gap-1">
+                    {periods.map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => setPeriod(p)}
+                        className={`text-xs px-2.5 py-1 rounded-full transition-colors ${
+                          period === p ? (lm ? 'bg-[#4f46e5] text-white font-semibold' : 'bg-[#d6fd70] text-black font-semibold') : `${textSub}`
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-4 mb-3">
@@ -501,7 +511,7 @@ export function SchemeDetail() {
             {/* Risk metrics row */}
             <div className={`${card} rounded-xl p-4`}>
               <p className={`text-xs font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider mb-3`}>Risk Metrics</p>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
                   { label: 'Alpha (1Y)', value: alpha, suffix: '%', color: Number(alpha) >= 0 ? '#22c55e' : '#ef4444', free: true },
                   { label: 'Beta', value: (0.85 + Math.random() * 0.3).toFixed(2), suffix: '', color: lm ? '#111827' : '#fff', free: false },
@@ -548,7 +558,7 @@ export function SchemeDetail() {
             {/* Peer Mutual Funds */}
             <div className={`${card} rounded-xl p-5`}>
               <h3 className={`text-sm font-semibold ${text} mb-4`}>Peer Mutual Funds</h3>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Least Volatile */}
                 {leastVolatilePeer && (
                   <div

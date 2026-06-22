@@ -244,7 +244,7 @@ export function SahiFundDetail() {
           <div className="col-span-1 lg:col-span-2 space-y-6">
             {/* Performance chart */}
             <div className={`${card} rounded-2xl p-5`}>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4">
                 <h2 className={`text-sm font-semibold ${text}`}>Live Performance</h2>
                 <span className={`text-[11px] ${textMuted}`}>Since inception (indexed to 100)</span>
               </div>

@@ -464,7 +464,7 @@ export function RiskAnalysis() {
       <PlanGate requiredTier="pro">
         <div className={`${card} rounded-2xl p-5`}>
           <p className={`text-sm font-semibold ${text} mb-4`}>Stress Test Scenarios</p>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { scenario: 'COVID-19 Crash (Mar 2020)', portImpact: '-29.4%', recovery: '11 months', color: '#ef4444' },
               { scenario: '2022 Bear Market', portImpact: '-18.2%', recovery: '7 months', color: '#f59e0b' },

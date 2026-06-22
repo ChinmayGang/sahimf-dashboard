@@ -233,7 +233,7 @@ export function FundComparison() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <CompareArrowsIcon size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
@@ -246,7 +246,7 @@ export function FundComparison() {
             <p className={`text-xs ${textSub}`}>Compare up to 4 funds side-by-side — manager profile, top holdings, portfolio ratios &amp; more</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {[
             { label: 'Comparing', value: `${selectedFunds.length} funds` },
             { label: 'Best 1Y', value: `+${Math.max(...selectedFunds.map(f => f.returns['1Y'] ?? 0)).toFixed(1)}%` },
@@ -381,6 +381,7 @@ export function FundComparison() {
 
           {/* Metrics table */}
           <div className={`${card} rounded-2xl overflow-x-auto`}>
+            <div style={{ minWidth: `${200 + selectedFunds.length * 140}px` }}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Metric</div>
               {selectedFunds.map((f, idx) => (
@@ -435,7 +436,7 @@ export function FundComparison() {
                       ) : (
                         <span className={`text-sm font-semibold ${isBest ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>
                           {m.format(val)}
-                          {isBest && <span className="text-[10px] ml-1">â˜…</span>}
+                          {isBest && <span className="text-[10px] ml-1" style={{ fontFamily: 'sans-serif' }}>&#9733;</span>}
                         </span>
                       )}
                     </div>
@@ -443,6 +444,7 @@ export function FundComparison() {
                 })}
               </div>
             ))}
+            </div>{/* end minWidth wrapper */}
           </div>
         </>
       )}
@@ -450,6 +452,7 @@ export function FundComparison() {
       {/* â"€â"€ FUND MANAGER TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'manager' && (
         <div className={`${card} rounded-2xl overflow-x-auto`}>
+          <div style={{ minWidth: `${200 + selectedFunds.length * 140}px` }}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
             <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Manager</div>
             {selectedFunds.map((f, idx) => (
@@ -505,6 +508,7 @@ export function FundComparison() {
               })}
             </div>
           </div>
+          </div>{/* end minWidth wrapper */}
         </div>
       )}
 
@@ -512,6 +516,7 @@ export function FundComparison() {
       {activeTab === 'portfolio' && (
         <PlanGate requiredTier="pro" label="Portfolio Details — Sahi PRO">
           <div className={`${card} rounded-2xl overflow-x-auto`}>
+            <div style={{ minWidth: `${200 + selectedFunds.length * 140}px` }}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Portfolio Metric</div>
               {selectedFunds.map((f, idx) => (
@@ -559,7 +564,7 @@ export function FundComparison() {
                       <div key={f.id} className="px-4 py-3 text-center">
                         <span className={`text-sm font-semibold ${isBest ? (lm ? 'text-[#4f46e5]' : 'text-[#d6fd70]') : text}`}>
                           {row.format ? row.format(val) : '—'}
-                          {isBest && <span className="text-[10px] ml-1">â˜…</span>}
+                          {isBest && <span className="text-[10px] ml-1" style={{ fontFamily: 'sans-serif' }}>&#9733;</span>}
                         </span>
                       </div>
                     )
@@ -601,6 +606,7 @@ export function FundComparison() {
                 })}
               </div>
             </div>
+            </div>{/* end minWidth wrapper */}
           </div>
         </PlanGate>
       )}
@@ -658,6 +664,7 @@ export function FundComparison() {
       {/* â"€â"€ FUND INFO TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'fundinfo' && (
         <div className={`${card} rounded-2xl overflow-x-auto`}>
+          <div style={{ minWidth: `${200 + selectedFunds.length * 140}px` }}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
             <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Information</div>
             {selectedFunds.map((f, idx) => (
@@ -706,6 +713,7 @@ export function FundComparison() {
               ))}
             </div>
           </div>
+          </div>{/* end minWidth wrapper */}
         </div>
       )}
 

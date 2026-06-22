@@ -306,7 +306,7 @@ export function ExploreFunds() {
 
           {/* Sahi Funds section */}
           {activeSection === 'sahi' && (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {mockSahiFunds.map((fund, idx) => {
                 const palette = getPaletteForFund(idx)
                 const iconFile = getIconForFund(idx)
@@ -342,7 +342,7 @@ export function ExploreFunds() {
                       />
                     </div>
 
-                    <h3 className={`text-sm font-bold mb-1 pr-16 transition-colors ${lm ? 'text-[#111827] group-hover:text-[#4f46e5]' : 'text-white group-hover:text-[#d6fd70]'}`}>
+                    <h3 className={`text-sm font-bold mb-1 line-clamp-2 transition-colors ${lm ? 'text-[#111827] group-hover:text-[#4f46e5]' : 'text-white group-hover:text-[#d6fd70]'}`}>
                       {fund.name}
                     </h3>
                     <p className={`text-xs ${textSub} leading-relaxed mb-3 flex-1`}>{fund.description}</p>

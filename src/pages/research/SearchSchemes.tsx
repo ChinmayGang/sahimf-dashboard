@@ -203,7 +203,8 @@ export function SearchSchemes() {
               No funds match your filters
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-2 overflow-x-auto">
+              <div style={{ minWidth: 560 }}>
               {/* Table header */}
               <div className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>
                 <span>Fund</span>
@@ -267,6 +268,7 @@ export function SearchSchemes() {
                   </div>
                 </Link>
               ))}
+              </div>{/* end minWidth wrapper */}
             </div>
           )}
         </div>
