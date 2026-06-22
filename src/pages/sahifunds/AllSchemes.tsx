@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MagnifyingGlass as SearchIcon } from '@phosphor-icons/react'
-import { Sliders as TuneIcon } from '@phosphor-icons/react'
+import { Sliders as TuneIcon, Funnel as FunnelIcon, X as XIcon } from '@phosphor-icons/react'
 import { CaretDown as ExpandMoreIcon } from '@phosphor-icons/react'
 import { CaretUp as ExpandLessIcon } from '@phosphor-icons/react'
 import { Sparkle as AutoAwesomeIcon } from '@phosphor-icons/react'
@@ -61,6 +61,7 @@ export function AllSchemes() {
   const navigate = useNavigate()
   const [tab, setTab] = useState<TabType>('open')
   const [query, setQuery] = useState('')
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
   const [selectedCats, setSelectedCats] = useState<string[]>([])
   const [selectedVolatility, setSelectedVolatility] = useState<string[]>([])
   const [selectedAMC, setSelectedAMC] = useState<string[]>([])
@@ -149,9 +150,21 @@ export function AllSchemes() {
           />
         </div>
 
-        <span className={`text-xs ${textMuted} flex-shrink-0`}>
+        <span className={`text-xs ${textMuted} flex-shrink-0 hidden sm:inline`}>
           {tab === 'sahi' ? filteredSahi.length : filteredOpen.length} funds
         </span>
+
+        {/* Mobile filter button */}
+        {tab === 'open' && (
+          <button
+            onClick={() => setFilterDrawerOpen(true)}
+            className="md:hidden flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border flex-shrink-0"
+            style={{ borderColor: lm ? '#E0E3E8' : '#3c4653', color: lm ? '#374151' : '#8390a2' }}
+          >
+            <FunnelIcon size={13} weight="fill" />
+            Filters{activeCount > 0 && ` (${activeCount})`}
+          </button>
+        )}
 
         {tab === 'open' && (
           <select
@@ -166,10 +179,15 @@ export function AllSchemes() {
 
       {/* Body */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Filter sidebar — only for open schemes */}
+        {/* Filter sidebar — desktop: always visible; mobile: drawer */}
         {tab === 'open' && (
+          <>
+          {/* Mobile drawer backdrop */}
+          {filterDrawerOpen && (
+            <div className="fixed inset-0 z-40 md:hidden bg-black/50" onClick={() => setFilterDrawerOpen(false)} />
+          )}
           <aside
-            className="w-56 flex-shrink-0 overflow-y-auto p-4"
+            className={`${filterDrawerOpen ? 'fixed inset-y-0 left-0 z-50' : 'hidden'} md:relative md:block w-56 flex-shrink-0 overflow-y-auto p-4`}
             style={{ borderRight: lm ? '1px solid #E0E3E8' : '1px solid #1e2838', background: lm ? '#FDFCFF' : '#0a0c0e' }}
           >
             <div className="flex items-center justify-between mb-4">
@@ -177,14 +195,19 @@ export function AllSchemes() {
                 <TuneIcon size={14} weight="fill" />
                 Filters
               </div>
-              {activeCount > 0 && (
-                <button
-                  onClick={() => { setSelectedCats([]); setSelectedVolatility([]); setSelectedAMC([]) }}
-                  className={`text-xs font-semibold ${accentText}`}
-                >
-                  Clear all ({activeCount})
+              <div className="flex items-center gap-2">
+                {activeCount > 0 && (
+                  <button
+                    onClick={() => { setSelectedCats([]); setSelectedVolatility([]); setSelectedAMC([]) }}
+                    className={`text-xs font-semibold ${accentText}`}
+                  >
+                    Clear ({activeCount})
+                  </button>
+                )}
+                <button onClick={() => setFilterDrawerOpen(false)} className="md:hidden" style={{ color: lm ? '#6B7280' : '#8390a2' }}>
+                  <XIcon size={16} weight="bold" />
                 </button>
-              )}
+              </div>
             </div>
 
             <FilterSection title="Category">
@@ -238,13 +261,14 @@ export function AllSchemes() {
               ))}
             </FilterSection>
           </aside>
+          </>
         )}
 
         {/* Fund list */}
         <div className="flex-1 overflow-y-auto p-4">
           {tab === 'sahi' ? (
             /* Sahi Funds grid */
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {filteredSahi.map((fund, idx) => (
                 <div
                   key={fund.id}

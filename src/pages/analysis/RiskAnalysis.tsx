@@ -68,15 +68,17 @@ function Riskometer({ label, lm }: { label: string; lm: boolean }) {
           const a1 = ((180 + ((i + 1) / 3) * 180) * Math.PI) / 180
           const x1 = cx + r * Math.cos(a0), y1 = cy + r * Math.sin(a0)
           const x2 = cx + r * Math.cos(a1), y2 = cy + r * Math.sin(a1)
+          const isActive = i === idx
+          const isLit = i < idx
           return (
             <path
               key={i}
               d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
               fill="none"
-              stroke={i <= idx ? seg.color : (lm ? '#E0E3E8' : '#1e2838')}
-              strokeWidth={14}
+              stroke={isActive ? seg.color : isLit ? seg.color : (lm ? '#E0E3E8' : '#1e2838')}
+              strokeWidth={isActive ? 18 : 12}
               strokeLinecap="butt"
-              opacity={i <= idx ? 1 : 0.4}
+              opacity={isActive ? 1 : isLit ? 0.55 : 0.3}
             />
           )
         })}

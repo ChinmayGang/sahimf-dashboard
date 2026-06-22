@@ -216,8 +216,8 @@ select.appearance-none {
 }
 [data-theme="light"] input::placeholder { color: #A1A1AA !important; }
 
-/* Range slider track */
-[data-theme="light"] input[type="range"] { background-color: transparent !important; }
+/* Range slider track — exclude .rebalance-slider which uses an inline gradient */
+[data-theme="light"] input[type="range"]:not(.rebalance-slider) { background-color: transparent !important; }
 
 /* Scrollbars within light panel */
 [data-theme="light"] ::-webkit-scrollbar-track { background: #F4F4F5; }

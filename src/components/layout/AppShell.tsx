@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
+import { BottomNav } from './BottomNav'
 import { useUIStore } from '../../stores/uiStore'
 
 function LegalFooter({ lm }: { lm: boolean }) {
@@ -31,18 +32,23 @@ export function AppShell() {
 
   return (
     <div className="flex h-screen overflow-hidden" style={{ background: lightMode ? '#ffffff' : '#0A0A0A' }}>
-      <Sidebar />
+      {/* Sidebar — hidden on mobile, visible md+ */}
+      <div className="hidden md:block flex-shrink-0">
+        <Sidebar />
+      </div>
       <div
         className="flex flex-col flex-1 overflow-hidden"
         style={{ background: lightMode ? '#ffffff' : '#0A0A0A' }}
         data-theme={lightMode ? 'light' : 'dark'}
       >
         <Topbar />
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto pb-16 md:pb-0">
           <Outlet />
           <LegalFooter lm={lightMode} />
         </main>
       </div>
+      {/* Bottom nav — mobile only */}
+      <BottomNav />
     </div>
   )
 }

@@ -158,7 +158,7 @@ export function OverlapLens() {
   // â"€â"€ New investor state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
   if (investCount === 0) {
     return (
-      <div className="p-6 max-w-7xl mx-auto" style={{ background: bg }}>
+      <div className="p-6 max-w-7xl mx-auto">
         <div className="flex items-center gap-3 mb-8">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <BlurOnIcon size={20} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
@@ -190,7 +190,7 @@ export function OverlapLens() {
               )}
             </div>
           </div>
-          <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm" style={{ background: lm ? 'rgba(237,233,254,0.82)' : 'rgba(10,12,14,0.6)' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-md" style={{ background: lm ? 'rgba(237,233,254,0.92)' : 'rgba(20,23,28,0.88)' }}>
             <BlurOnIcon size={32} color={lm ? '#4f46e5' : '#d6fd70'} weight="fill" />
             <h3 className="font-bold text-lg mt-3 mb-1" style={{ color: lm ? '#111827' : '#ffffff' }}>Upload your portfolio to unlock</h3>
             <p className="text-sm mb-5 text-center max-w-xs" style={{ color: lm ? '#374151' : 'rgba(255,255,255,0.6)' }}>See exactly which funds overlap and what sectors you're overweight in</p>
@@ -224,7 +224,7 @@ export function OverlapLens() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-5" style={{ background: bg }}>
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
 
       {/* Header */}
       <div className="flex items-start justify-between">
@@ -317,7 +317,8 @@ export function OverlapLens() {
         )}
       </div>
 
-      {/* Tabs */}
+      {/* Tabs — horizontal scroll on mobile */}
+      <div className="overflow-x-auto -mx-1 px-1">
       <div className="flex gap-1 p-1 rounded-xl w-fit" style={{ background: lm ? '#F3F4F6' : '#14171c', border: `1px solid ${divider}` }}>
         {TABS.map(t => (
           <button
@@ -333,6 +334,7 @@ export function OverlapLens() {
             {t.label}
           </button>
         ))}
+      </div>
       </div>
 
       {selectedIds.length < 2 ? (

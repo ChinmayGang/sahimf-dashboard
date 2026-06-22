@@ -271,10 +271,10 @@ export function FundComparison() {
           </div>
         ))}
         {selectedIds.length < 4 && (
-          <div className="relative">
+          <div className={`relative ${selectedIds.length >= 2 ? 'hidden md:block' : ''}`}>
             <button
               onClick={() => setShowPicker(!showPicker)}
-              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8]' : 'bg-[#14171c] border-[#1e2838]'} border border-dashed rounded-xl px-3 py-2 text-sm ${textMuted} hover:border-[#4f46e5] hover:text-[#4f46e5] transition-all`}
+              className={`flex items-center gap-1.5 ${lm ? 'bg-white border-[#E0E3E8] hover:bg-white' : 'bg-[#14171c] border-[#1e2838] hover:bg-[#14171c]'} border border-dashed rounded-xl px-3 py-2 text-sm ${textMuted} hover:border-[#4f46e5] hover:text-[#4f46e5] transition-[border-color,color]`}
             >
               <AddIcon size={16} weight="fill" /> Add Fund
             </button>
@@ -299,8 +299,9 @@ export function FundComparison() {
         )}
       </div>
 
-      {/* Tab bar */}
-      <div className={`flex gap-1 p-1 rounded-xl ${lm ? 'bg-[#F3F4F6]' : 'bg-[#0a0c0e]'}`}>
+      {/* Tab bar — scrollable on mobile */}
+      <div className="overflow-x-auto -mx-1 px-1">
+      <div className={`flex gap-1 p-1 rounded-xl w-max md:w-full ${lm ? 'bg-[#F3F4F6]' : 'bg-[#0a0c0e]'}`}>
         {TABS.map(tab => {
           const icons: Record<TabKey, React.ReactNode> = {
             overview: <CompareArrowsIcon size={12} weight="fill" />,
@@ -321,6 +322,7 @@ export function FundComparison() {
             </button>
           )
         })}
+      </div>
       </div>
 
       {/* Sahi Comparison — PRO only */}
@@ -378,7 +380,7 @@ export function FundComparison() {
           </div>
 
           {/* Metrics table */}
-          <div className={`${card} rounded-2xl overflow-hidden`}>
+          <div className={`${card} rounded-2xl overflow-x-auto`}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Metric</div>
               {selectedFunds.map((f, idx) => (
@@ -447,7 +449,7 @@ export function FundComparison() {
 
       {/* â"€â"€ FUND MANAGER TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'manager' && (
-        <div className={`${card} rounded-2xl overflow-hidden`}>
+        <div className={`${card} rounded-2xl overflow-x-auto`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
             <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Manager</div>
             {selectedFunds.map((f, idx) => (
@@ -509,7 +511,7 @@ export function FundComparison() {
       {/* â"€â"€ PORTFOLIO DETAILS TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'portfolio' && (
         <PlanGate requiredTier="pro" label="Portfolio Details — Sahi PRO">
-          <div className={`${card} rounded-2xl overflow-hidden`}>
+          <div className={`${card} rounded-2xl overflow-x-auto`}>
             <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
               <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Portfolio Metric</div>
               {selectedFunds.map((f, idx) => (
@@ -615,7 +617,7 @@ export function FundComparison() {
             const totalTop10 = top10.reduce((s, h) => s + Math.max(h.weight, 0), 0)
 
             return (
-              <div key={f.id} className={`${card} rounded-2xl overflow-hidden`}>
+              <div key={f.id} className={`${card} rounded-2xl overflow-x-auto`}>
                 <div className={`px-5 py-3 border-b ${dividerColor} flex items-center justify-between`}>
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full" style={{ background: COLORS[idx] }} />
@@ -655,7 +657,7 @@ export function FundComparison() {
 
       {/* â"€â"€ FUND INFO TAB â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
       {activeTab === 'fundinfo' && (
-        <div className={`${card} rounded-2xl overflow-hidden`}>
+        <div className={`${card} rounded-2xl overflow-x-auto`}>
           <div className={`border-b ${dividerColor}`} style={{ display: 'grid', gridTemplateColumns: cols }}>
             <div className={`px-5 py-3 text-[11px] font-semibold ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'} uppercase tracking-wider`}>Fund Information</div>
             {selectedFunds.map((f, idx) => (

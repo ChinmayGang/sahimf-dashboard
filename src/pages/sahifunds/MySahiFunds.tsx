@@ -108,7 +108,7 @@ export function MySahiFunds() {
       </div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {[
           { label: 'Total Invested', value: formatINR(mockInvested.reduce((a, b) => a + b, 0)) },
           { label: 'Current Value', value: formatINR(mockCurrent.reduce((a, b) => a + b, 0)), green: true },
@@ -122,7 +122,7 @@ export function MySahiFunds() {
       </div>
 
       {/* Fund cards row */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {myFunds.map((fund, idx) => (
           <button
             key={fund.id}

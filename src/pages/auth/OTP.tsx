@@ -135,7 +135,7 @@ export function OTP() {
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex flex-col bg-white" style={{ margin: '10px 10px 10px 0', borderRadius: '20px', overflow: 'hidden' }}>
+      <div className="flex-1 flex flex-col bg-white" style={{ margin: '10px', borderRadius: '20px', overflow: 'hidden' }}>
         {/* Topbar */}
         <div className="flex items-center justify-between px-8 py-5 flex-shrink-0">
           <span />

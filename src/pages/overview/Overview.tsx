@@ -222,7 +222,7 @@ function InvestmentCard({ inv, lm }: { inv: UserInvestment; lm: boolean }) {
           {isPositive ? '+' : ''}{inv.gainLossPercent.toFixed(1)}%
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-3 mb-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
         <div>
           <p className={`text-[10px] ${lm ? 'text-[#6B7280]' : 'text-[#64748b]'}`}>Invested</p>
           <p className={`text-sm font-semibold ${lm ? 'text-[#374151]' : 'text-[#d1d5db]'}`}>{formatINR(inv.investedAmount)}</p>

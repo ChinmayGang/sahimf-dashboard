@@ -4,6 +4,7 @@ import { PlanBadge } from '../ui/PlanBadge'
 import { useAuthStore } from '../../stores/authStore'
 import { useUIStore } from '../../stores/uiStore'
 import { format } from 'date-fns'
+import sahiLogoWhite from '../../assets/logo/sahi_logo-white.svg'
 
 export function Topbar() {
   const user = useAuthStore((s) => s.user)
@@ -19,10 +20,16 @@ export function Topbar() {
 
   return (
     <header
-      className="h-14 flex items-center justify-between px-6 flex-shrink-0 border-b transition-colors"
+      className="h-14 flex items-center justify-between px-4 md:px-6 flex-shrink-0 border-b transition-colors"
       style={{ background: bg, borderBottomColor: border }}
     >
-      <div className="flex items-center gap-3">
+      {/* Mobile: logo only */}
+      <div className="flex md:hidden items-center">
+        <img src={sahiLogoWhite} alt="SahiMF" className="h-6" style={{ filter: lightMode ? 'invert(1) brightness(0)' : 'none' }} />
+      </div>
+
+      {/* Desktop: greeting + date */}
+      <div className="hidden md:flex items-center gap-3">
         <div>
           <span className="text-sm font-semibold transition-colors" style={{ color: textPrimary }}>
             Hi, {user?.name?.split(' ')[0]}
@@ -39,9 +46,9 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2">
-        {/* Sync CAS */}
+        {/* Sync CAS — desktop only */}
         <button
-          className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all"
+          className="hidden md:flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all"
           style={{ color: textSecondary, borderColor: btnBorder }}
           onMouseEnter={(e) => { e.currentTarget.style.background = btnHoverBg }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
@@ -61,9 +68,9 @@ export function Topbar() {
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#4f46e5]" />
         </button>
 
-        {/* Language toggle */}
+        {/* Language toggle — desktop only */}
         <div
-          className="flex items-center gap-1 rounded-lg overflow-hidden border"
+          className="hidden md:flex items-center gap-1 rounded-lg overflow-hidden border"
           style={{ borderColor: btnBorder }}
         >
           <button

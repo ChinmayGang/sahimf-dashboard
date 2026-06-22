@@ -162,7 +162,8 @@ export function Calculator() {
         </div>
       </div>
 
-      {/* Segmented control */}
+      {/* Segmented control — horizontal scroll on mobile */}
+      <div className="overflow-x-auto -mx-1 px-1">
       <div className={`inline-flex gap-1 rounded-xl p-1 ${lm ? 'bg-[#F3F4F6] border border-[#E0E3E8]' : 'bg-[#14171c] border border-[#1e2838]'}`}>
         {TABS.map(t => (
           <button
@@ -177,10 +178,11 @@ export function Calculator() {
           </button>
         ))}
       </div>
+      </div>
 
-      <div className="grid grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {/* Inputs */}
-        <div className={`col-span-2 ${card} rounded-xl p-5 space-y-5`}>
+        <div className={`col-span-1 md:col-span-2 ${card} rounded-xl p-5 space-y-5`}>
           {tab === 'sip' && (
             <Slider label="Monthly SIP Amount" value={monthly} min={500} max={100000} step={500} onChange={setMonthly} fmt={v => `₹${v.toLocaleString('en-IN')}`} loFmt="₹500" hiFmt="₹1 L" lm={lm} />
           )}
@@ -224,7 +226,7 @@ export function Calculator() {
         </div>
 
         {/* Chart */}
-        <div className="col-span-3 space-y-4">
+        <div className="col-span-1 md:col-span-3 space-y-4">
           <div className={`${card} rounded-xl p-5`}>
             <div className="flex items-center justify-between mb-4">
               <h2 className={`text-sm font-semibold ${text}`}>{tab === 'swp' ? 'Balance Over Time' : 'Growth Projection'}</h2>

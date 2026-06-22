@@ -78,7 +78,7 @@ export function Pricing() {
         </div>
 
         {/* Plan cards */}
-        <div className="grid grid-cols-3 gap-5 mb-14 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-14 items-stretch">
           {/* Free — light card. Structure mirrors PremiumPlanCard 1:1 (flex-col gap-4:
               header block → divider → features → CTA) so titles, prices, the breaker
               line and CTAs line up across all three columns (R2-2). */}
@@ -149,8 +149,9 @@ export function Pricing() {
           />
         </div>
 
-        {/* Feature comparison table */}
-        <div className="bg-white rounded-2xl border border-[#E0E3E8] overflow-hidden mb-10">
+        {/* Feature comparison table — horizontal scroll on mobile */}
+        <div className="overflow-x-auto mb-10">
+        <div className="bg-white rounded-2xl border border-[#E0E3E8] overflow-hidden min-w-[520px]">
           <div className="grid grid-cols-4 border-b border-[#E0E3E8]">
             <div className="p-4 col-span-1">
               <p className="text-xs font-bold text-[#111827] uppercase tracking-wider">Features</p>
@@ -176,6 +177,7 @@ export function Pricing() {
               ))}
             </div>
           ))}
+        </div>
         </div>
 
         {/* Footer note */}

@@ -92,7 +92,7 @@ export function Portfolios() {
       </div>
 
       {/* Summary bar */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <div className={`${card} rounded-xl p-4`}>
           <p className={`text-xs ${textSub} mb-1`}>Total Invested</p>
           <p className={`text-xl font-semibold ${text}`}>{formatINR(totalInvested)}</p>
@@ -167,7 +167,7 @@ export function Portfolios() {
 
                 <div className={`mt-5 pt-4 border-t ${lm ? 'border-[#E0E3E8]' : 'border-[#1e2838]'}`}>
                   {/* Stats row */}
-                  <div className="grid grid-cols-4 gap-4 mb-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                     <div>
                       <p className={`text-xs ${textSub} mb-1`}>Invested</p>
                       <p className={`text-sm font-semibold ${text}`}>{formatINR(p.totalInvested)}</p>

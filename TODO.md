@@ -1,6 +1,6 @@
 # SahiMF — Product To-Do & Batch Plan
 
-> Last updated: 2026-06-21  
+> Last updated: 2026-06-22  
 > 9 batches in dependency order. Each batch can be handed to Claude Code as a single session prompt.
 
 ---
@@ -100,7 +100,7 @@
 
 ## Batch 8 — Mobile Responsive
 
-- [ ] **B8-1** `AppShell` Mobile breakpoint (`< 768px`): side navigation replaced by a **bottom navigation bar** with 5 tabs:
+- [x] **B8-1** `AppShell` Mobile breakpoint (`< 768px`): side navigation replaced by a **bottom navigation bar** with 5 tabs:
   1. **Overview** — House icon, links to `/mutual-funds/overview`
   2. **My Portfolio** — BriefcaseMetal icon, links to `/mutual-funds/portfolios`
   3. **Explore** — MagnifyingGlass icon, **center tab, visually highlighted** (lime `#d6fd70` bg pill or elevated button), links to `/mutual-funds/explore`
@@ -108,17 +108,17 @@
   5. **Profile** — UserCircle icon, links directly to `/settings`
   
   Sidebar is hidden entirely on mobile (`hidden md:flex`). Topbar becomes compact: logo only + dark-mode toggle. Bottom bar is always-dark (`#0a0c0e` bg) regardless of light/dark mode, matching current sidebar style. Active tab uses lime accent (`#d6fd70`) for icon + label.
-- [ ] **B8-2** `Overview` Mobile: stack all cards vertically. Area chart full width. Stat cards 2-col grid. Market indices ticker stays horizontal scroll.
-- [ ] **B8-3** `ExploreFunds` Mobile: hero banner reduced to 140px height. Accordion sidebar collapses into a horizontal scroll pill row above the fund grid. Fund grid: 1-col on mobile.
-- [ ] **B8-4** `AllSchemes` Mobile: filter sidebar hidden behind a "Filters" drawer button (Phosphor `Funnel` icon). Fund table: collapse to card list (hide 3Y/5Y columns, show only NAV + 1Y + Risk).
-- [ ] **B8-5** `Portfolios` + `MySahiFunds` Mobile: cards 1-col. Hide chart comparison widget on mobile. Show XIRR + gain prominently.
-- [ ] **B8-6** `OverlapLens` Mobile: matrix view replaced by worst-pairs ranked list (matrix is unreadable on small screens). Sector bar chart horizontal scrolls.
-- [ ] **B8-7** `FundComparison` Mobile: show max 2 funds side-by-side. "Add fund" button disabled at 2 on mobile. Horizontal scroll on metrics table.
-- [ ] **B8-8** `SchemeDetail` + `MFScorecard` Mobile: single column layout. Rank cards stack vertically. Scorecard expanded row becomes a bottom sheet / drawer.
-- [ ] **B8-9** `Calculator` + `SIPWhatIf` Mobile: inputs stacked above chart. Tab switcher horizontally scrolls.
-- [ ] **B8-10** `Goals` + `Baskets` Mobile: goal grid 1-col. Basket scroll cards wrap to 1-col.
-- [ ] **B8-11** `Auth pages` (Login, OTP, CreateProfile) Mobile: already somewhat responsive, but audit padding, font sizes, and OTP input box sizes at 375px width.
-- [ ] **B8-12** `/pricing` page Mobile: PlanCards stack vertically. Feature comparison table horizontally scrolls or collapses to accordion per plan.
+- [x] **B8-2** `Overview` Mobile: stack all cards vertically. Area chart full width. Stat cards 2-col grid. Market indices ticker stays horizontal scroll.
+- [x] **B8-3** `ExploreFunds` Mobile: hero banner reduced to 140px height. Accordion sidebar collapses into a horizontal scroll pill row above the fund grid. Fund grid: 1-col on mobile.
+- [x] **B8-4** `AllSchemes` Mobile: filter sidebar hidden behind a "Filters" drawer button (Phosphor `Funnel` icon). Fund table: collapse to card list (hide 3Y/5Y columns, show only NAV + 1Y + Risk).
+- [x] **B8-5** `Portfolios` + `MySahiFunds` Mobile: cards 1-col. Hide chart comparison widget on mobile. Show XIRR + gain prominently.
+- [x] **B8-6** `OverlapLens` Mobile: matrix view replaced by worst-pairs ranked list (matrix is unreadable on small screens). Sector bar chart horizontal scrolls.
+- [x] **B8-7** `FundComparison` Mobile: show max 2 funds side-by-side. "Add fund" button disabled at 2 on mobile. Horizontal scroll on metrics table.
+- [x] **B8-8** `SchemeDetail` + `MFScorecard` Mobile: single column layout. Rank cards stack vertically. Scorecard expanded row becomes a bottom sheet / drawer.
+- [x] **B8-9** `Calculator` + `SIPWhatIf` Mobile: inputs stacked above chart. Tab switcher horizontally scrolls.
+- [x] **B8-10** `Goals` + `Baskets` Mobile: goal grid 1-col. Basket scroll cards wrap to 1-col.
+- [x] **B8-11** `Auth pages` (Login, OTP, CreateProfile) Mobile: already somewhat responsive, but audit padding, font sizes, and OTP input box sizes at 375px width.
+- [x] **B8-12** `/pricing` page Mobile: PlanCards stack vertically. Feature comparison table horizontally scrolls or collapses to accordion per plan.
 
 ---
 
@@ -303,17 +303,17 @@
 
 *Covers new requirements: point 5 (blur/gate bugs), point 6 (container), point 7 (icon style), point 11 (neon button hover).*
 
-- [ ] **BF-1** `Aryan — overlap blur card still black` Investigate why Aryan's OverlapLens blur card appears black/dark even after PlanGate lavender fix. Possibilities: (a) OverlapLens uses an inline overlay not going through `<PlanGate>`; (b) dark-mode class leaking. Log in as Aryan (free user) and inspect the exact overlay element. Fix so overlay is lavender in light mode, translucent dark in dark mode — matches PlanGate behavior.
+- [x] **BF-1** `Aryan — overlap blur card still black` Investigate why Aryan's OverlapLens blur card appears black/dark even after PlanGate lavender fix. Possibilities: (a) OverlapLens uses an inline overlay not going through `<PlanGate>`; (b) dark-mode class leaking. Log in as Aryan (free user) and inspect the exact overlay element. Fix so overlay is lavender in light mode, translucent dark in dark mode — matches PlanGate behavior.
 
-- [ ] **BF-2** `Fund Comparison — Sahi Research visible to free users` The Sahi Research/Comparison panel in FundComparison tabs should be **PRO-gated** for free users — currently free users can see full content. Wrap in `<PlanGate requiredTier="pro">`. Verify with Aryan (free) — should see blur gate. Verify with Rohit (PRO) — should see content.
+- [x] **BF-2** `Fund Comparison — Sahi Research visible to free users` The Sahi Research/Comparison panel in FundComparison tabs should be **PRO-gated** for free users — currently free users can see full content. Wrap in `<PlanGate requiredTier="pro">`. Verify with Aryan (free) — should see blur gate. Verify with Rohit (PRO) — should see content.
 
-- [ ] **BF-3** `Add Fund / Add More Funds button neon hover` The "Add more funds" / "Add Fund" button in FundComparison (and any similar button elsewhere) currently turns neon lime on hover, making text invisible. Fix: `hover:border-[#4f46e5] hover:text-[#4f46e5] hover:bg-transparent` — no lime/neon background on hover. Audit all fund-picker "Add" buttons.
+- [x] **BF-3** `Add Fund / Add More Funds button neon hover` The "Add more funds" / "Add Fund" button in FundComparison (and any similar button elsewhere) currently turns neon lime on hover, making text invisible. Fix: `hover:border-[#4f46e5] hover:text-[#4f46e5] hover:bg-transparent` — no lime/neon background on hover. Audit all fund-picker "Add" buttons.
 
-- [ ] **BF-4** `Container size consistency` Enforce `max-w-7xl mx-auto` on all inner page content areas. When switching tabs within a page (e.g., FundComparison Overview / Fund Analysis / Holdings / Manager tabs), the outer container width must not change. Use `min-h` or a fixed-width wrapper so tab switching doesn't cause layout jump.
+- [x] **BF-4** `Container size consistency` Enforce `max-w-7xl mx-auto` on all inner page content areas. When switching tabs within a page (e.g., FundComparison Overview / Fund Analysis / Holdings / Manager tabs), the outer container width must not change. Use `min-h` or a fixed-width wrapper so tab switching doesn't cause layout jump.
 
 - [ ] **BF-5** `MF Scorecard — redesign as originally specified` B5-4 was marked done but user confirms it's still not designed correctly. Re-examine original spec and rebuild: 6-dimension sub-score bars, RadarChart spider (Recharts), top holdings, analyst verdict, SEBI audit trail, "Deep-Analyze Fund" CTA. Must match the original Scorecard spec completely.
 
-- [ ] **BF-6** `MarketCap rebalance simulator — drag handle` The rebalance allocation drag slider in MarketCapAllocation has an invisible/uninteractable thumb. Fix: add a visible pill thumb (`h-5 w-5 rounded-full bg-[#4f46e5] border-2 border-white shadow-md`), ensure the range input is positioned correctly and draggable. Test at Low/Mid/Flex allocation modes.
+- [x] **BF-6** `MarketCap rebalance simulator — drag handle` The rebalance allocation drag slider in MarketCapAllocation has an invisible/uninteractable thumb. Fix: add a visible pill thumb (`h-5 w-5 rounded-full bg-[#4f46e5] border-2 border-white shadow-md`), ensure the range input is positioned correctly and draggable. Test at Low/Mid/Flex allocation modes.
 
 - [ ] **BF-7** `Calculator — pending items` Audit the original Calculator spec items from earlier batches. Any items not yet implemented (e.g., SWP calculator interactivity, STP calculator, goal-linked SIP calculator) must be completed. List and implement.
 
@@ -371,6 +371,31 @@
 - [x] **MFScorecard.tsx** — Full rewrite of expanded row (`ScorecardRow` component): Sahi Sabh-scales dim bars (left), RadarChart 6-axis spider with Recharts (center), top holdings weight bars (right), full-width analysis + SEBI Audit-Trail + "Deep-Analyze Fund" CTA. Category filter pills active state uses `text-[#ffffff]` (not `text-white`) to avoid index.css override.
 - [x] **MarketCapAllocation.tsx** — Rebalance simulator: removed `appearance-none` (was hiding the slider track). Added `h-2`. Sliders now render with browser native track + colored thumb via `accentColor`. Added Sahi research note card above sliders (purple tint in light, dark-purple in dark) with 50/30/20 composition rationale.
 - [x] **index.css footgun documented** — `[data-theme="light"] .text-white { color: #18181B !important }` in `src/index.css:231` overrides white text on dark bg. Workaround: use `text-[#ffffff]` (arbitrary value). Task #11: harden this selector to be more surgical (still pending).
+
+## Done (Session 4 — June 2026)
+
+### Batch 11 — Bug Fixes
+- [x] **BF-6** Rebalance slider track visible in light mode — CSS selector fix (`input[type="range"]:not(.rebalance-slider)` to exclude `.rebalance-slider`)
+- [x] **BF-3** Add Fund button neon hover fixed — `hover:border-[#4f46e5] hover:text-[#4f46e5] transition-[border-color,color]`
+- [x] **BF-4 / BF-1** OverlapLens overlay opacity raised (`backdrop-blur-md` + `rgba(237,233,254,0.92)`); container inline bg style removed
+- [x] **BF-2** PlanGate blur stronger (`blur-md` + `backdrop-blur-[6px]`)
+- [x] **RiskAnalysis** Active arc highlighted — `strokeWidth: 18`, full opacity; inactive arcs at 0.55 / 0.3
+
+### Batch 8 — Mobile Responsive (all 12 items)
+- [x] **B8-1** BottomNav component (5 tabs, Tools upward sheet); Sidebar `hidden md:block`; main `pb-16 md:pb-0`; Topbar mobile-only logo header
+- [x] **B8-2** Overview stat grid `grid-cols-2 sm:grid-cols-3`
+- [x] **B8-3** ExploreFunds hero `clamp(140px,20vw,190px)`; sidebar `hidden md:block`; mobile section pills row; `grid-cols-1 sm:grid-cols-3` best-for-portfolio
+- [x] **B8-4** AllSchemes mobile filter drawer (Funnel icon + fixed aside + backdrop)
+- [x] **B8-5** Portfolios + MySahiFunds — summary `grid-cols-2 sm:grid-cols-3`, fund cards `grid-cols-1 sm:grid-cols-2`
+- [x] **B8-6** OverlapLens tab bar `overflow-x-auto`; matrix already `overflow-auto`
+- [x] **B8-7** FundComparison — Add Fund hidden on mobile when ≥2; tab bar `overflow-x-auto`; all comparison cards `overflow-x-auto`
+- [x] **B8-8** SchemeDetail single-col responsive grids; MFScorecard table `overflow-x-auto` + `min-w-[680px]`
+- [x] **B8-9** Calculator tab switcher `overflow-x-auto`; grid `grid-cols-1 md:grid-cols-5`
+- [x] **B8-10** Goals `grid-cols-2 md:grid-cols-4` already OK; Baskets `grid-cols-1 sm:grid-cols-2 md:grid-cols-3`
+- [x] **B8-11** Login + OTP right panel margin fix (`margin: 10px` all sides for mobile)
+- [x] **B8-12** Pricing cards `grid-cols-1 sm:grid-cols-3`; feature table `overflow-x-auto min-w-[520px]`
+
+---
 
 ## Done (Session 3 — June 2026)
 

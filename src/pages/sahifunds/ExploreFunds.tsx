@@ -149,7 +149,7 @@ export function ExploreFunds() {
             backgroundImage: `url(${heroImg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
-            minHeight: 190,
+            minHeight: 'clamp(140px, 20vw, 190px)',
           }}
         >
           <div className="relative px-7 pt-6 pb-5">
@@ -205,9 +205,9 @@ export function ExploreFunds() {
 
       {/* ── Main body ── */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Left accordion sidebar */}
+        {/* Left accordion sidebar — hidden on mobile */}
         <aside
-          className="w-60 flex-shrink-0 overflow-y-auto p-3 space-y-0.5"
+          className="hidden md:block w-60 flex-shrink-0 overflow-y-auto p-3 space-y-0.5"
           style={{ borderRight: `1px solid ${sidebarBorder}`, background: sidebarBg }}
         >
           {SECTIONS.map((sec) => (
@@ -241,6 +241,22 @@ export function ExploreFunds() {
 
         {/* Right: fund cards */}
         <div className="flex-1 overflow-y-auto p-4">
+          {/* Mobile section pills — visible only on small screens */}
+          <div className="flex md:hidden gap-2 overflow-x-auto pb-2 mb-3 -mx-1 px-1 scrollbar-none">
+            {SECTIONS.map((sec) => (
+              <button
+                key={sec.id}
+                onClick={() => setActiveSection(sec.id)}
+                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border"
+                style={activeSection === sec.id
+                  ? { background: lm ? '#4f46e5' : '#d6fd70', color: lm ? '#fff' : '#000', borderColor: 'transparent' }
+                  : { background: 'transparent', color: lm ? '#6B7280' : '#8390a2', borderColor: lm ? '#E0E3E8' : '#1e2838' }}
+              >
+                {sec.icon}
+                {sec.label}
+              </button>
+            ))}
+          </div>
           {/* Best for your portfolio — gap analysis */}
           {bestForPortfolio.length > 0 && (
             <div className="mb-5 rounded-2xl p-4" style={{ background: lm ? 'linear-gradient(135deg,#f5f3ff,#eef2ff)' : 'linear-gradient(135deg,rgba(79,70,229,0.08),rgba(99,102,241,0.04))', border: lm ? '1px solid #c7d2fe' : '1px solid rgba(79,70,229,0.2)' }}>
@@ -252,7 +268,7 @@ export function ExploreFunds() {
               <p className="text-xs mb-3" style={{ color: lm ? '#6366f1' : '#a5b4fc' }}>
                 Your portfolio is missing these categories — adding them may reduce concentration risk.
               </p>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 {bestForPortfolio.map(({ category, fund }) => (
                   <div
                     key={category}

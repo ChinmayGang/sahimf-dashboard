@@ -34,9 +34,9 @@ export function PlanGate({ requiredTier, children, label, compact, feature, feat
     <>
       {/* w-full ensures the gate fills its grid/flex parent; rounded-2xl clips children to match card radius */}
       <div className="relative w-full rounded-2xl overflow-hidden" style={{ minHeight: defaultMinH }}>
-        <div className="pointer-events-none select-none blur-sm w-full h-full">{children}</div>
+        <div className="pointer-events-none select-none blur-md w-full h-full">{children}</div>
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center backdrop-blur-[3px] rounded-2xl ${lm ? 'bg-[#ede9fe]/70' : 'bg-black/45'}`}
+          className={`absolute inset-0 flex flex-col items-center justify-center backdrop-blur-[6px] rounded-2xl ${lm ? 'bg-[#ede9fe]/75' : 'bg-black/55'}`}
         >
           {compact ? (
             <button

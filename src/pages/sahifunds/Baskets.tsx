@@ -252,7 +252,7 @@ export function Baskets() {
       {trackedBaskets.length > 0 && (
         <div>
           <p className={`text-sm font-semibold ${text} mb-3`}>Your Active Goals</p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {trackedBaskets.map((b, idx) => {
               const progress = idx === 0 ? 34 : 67
               const targetCorpus = idx === 0 ? 4500000 : 25000000
@@ -300,7 +300,7 @@ export function Baskets() {
       {/* Basket grid */}
       <div>
         <p className={`text-sm font-semibold ${text} mb-3`}>All Baskets</p>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {BASKETS.map(basket => {
             const isLocked = basket.tier === 'pro' && !isPro
             return (

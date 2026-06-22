@@ -320,7 +320,7 @@ export function SchemeDetail() {
       </div>
 
       {/* Fund Analysis rank cards — inspired by smallcase/tickertape */}
-      <div className="grid grid-cols-3 gap-3 mt-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
         {[
           {
             label: 'Returns',
@@ -421,9 +421,9 @@ export function SchemeDetail() {
       </div>
 
       {tab === 'overview' && (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Left column */}
-          <div className="col-span-2 space-y-4">
+          <div className="col-span-1 md:col-span-2 space-y-4">
             {/* Performance chart */}
             <div className={`${card} rounded-xl p-5`}>
               <div className="flex items-center justify-between mb-4">
@@ -837,8 +837,8 @@ export function SchemeDetail() {
         const annualAvg = (totalPaid / (dividends.length / 4)).toFixed(2)
         const yieldPct = ((totalPaid / dividends[0].nav) * 100 / 3).toFixed(2)
         return (
-          <div className="grid grid-cols-3 gap-5">
-            <div className={`col-span-2 ${card} rounded-xl overflow-hidden`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className={`col-span-1 md:col-span-2 ${card} rounded-xl overflow-hidden`}>
               <div className="px-5 py-4 flex items-center justify-between border-b" style={{ borderColor: lm ? '#E0E3E8' : '#1e2838' }}>
                 <div className="flex items-center gap-2">
                   <CoinsIcon size={15} color={lm ? '#6366f1' : '#d6fd70'} weight="fill" />
@@ -897,8 +897,8 @@ export function SchemeDetail() {
       })()}
 
       {tab === 'constituents' && (
-        <div className="grid grid-cols-3 gap-5">
-          <div className={`col-span-2 ${card} rounded-xl p-5`}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className={`col-span-1 md:col-span-2 ${card} rounded-xl p-5`}>
             <h3 className={`text-sm font-semibold ${text} mb-4`}>Constituents & Weights</h3>
             {fund.constituents ? (
               <div className="space-y-3">
