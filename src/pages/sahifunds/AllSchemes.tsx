@@ -323,7 +323,8 @@ export function AllSchemes() {
             filteredOpen.length === 0 ? (
               <div className={`flex items-center justify-center h-48 text-sm ${textMuted}`}>No funds match your filters</div>
             ) : (
-              <div className="space-y-0">
+              <div className="overflow-x-auto">
+              <div style={{ minWidth: 580 }}>
                 {/* Flush stacked listing — 0 gap, no radius, no L/R border; full blue border + lift on hover (R2-5) */}
                 {/* Table header */}
                 <div
@@ -377,6 +378,7 @@ export function AllSchemes() {
                     </div>
                   </div>
                 ))}
+              </div>
               </div>
             )
           )}

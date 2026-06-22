@@ -89,18 +89,18 @@ export function SahiFundDetail() {
 
       {/* Header */}
       <div className={`${card} rounded-2xl p-6`}>
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
               <h1 className={`text-xl font-bold ${text}`}>{fund.name}</h1>
-              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : lm ? 'bg-[#4f46e5]/10 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
+              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full flex-shrink-0 ${fund.accessTier === 'pro' ? 'bg-[#4f46e5]/20 text-[#4f46e5]' : lm ? 'bg-[#4f46e5]/10 text-[#4f46e5]' : 'bg-[#d6fd70]/10 text-[#d6fd70]'}`}>
                 {fund.accessTier === 'pro' ? 'PRO' : 'FREE'}
               </span>
               <VolatilityBadge level={fund.volatility} />
             </div>
             <p className={`text-sm ${textSub} max-w-2xl`}>{fund.description}</p>
           </div>
-          <button className="bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 ml-4">
+          <button className="bg-[#d6fd70] hover:bg-[#b8d94a] text-black text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 self-start">
             Invest Now
           </button>
         </div>
