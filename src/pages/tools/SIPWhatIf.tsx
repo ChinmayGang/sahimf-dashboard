@@ -88,7 +88,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left: controls */}
         <div className={`${card} rounded-xl p-5 space-y-5`}>
           {/* Monthly SIP + Duration — hidden when driven by the SIP Calculator above (R2-4) */}
@@ -212,7 +212,8 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
           </div>
 
           {/* Fund ranking table */}
-          <div className={`${card} rounded-xl overflow-hidden`}>
+          <div className={`${card} rounded-xl overflow-x-auto`}>
+          <div style={{ minWidth: 560 }}>
             <div className={`grid grid-cols-[24px_1fr_80px_90px_90px_90px] gap-3 px-4 py-2.5 border-b`} style={{ borderColor: divider }}>
               {['#', 'Fund', 'Category', 'Rate', 'Final Corpus', 'vs Nifty'].map(h => (
                 <span key={h} className={`text-[10px] font-bold uppercase tracking-wider ${lm ? 'text-[#111827]' : 'text-[#cbd5e1]'}`}>{h}</span>
@@ -244,6 +245,7 @@ export function SIPWhatIf({ embedded = false, monthly: monthlyProp, years: years
                 </div>
               )
             })}
+          </div>
 
             {/* PRO gate overlay */}
             {!isPro && (

@@ -317,7 +317,7 @@ export function MFScorecard() {
 
       {/* Score table with partial reveal */}
       <div className={`${card} rounded-2xl overflow-x-auto`}>
-        <div style={{ minWidth: 680 }}>
+        <div style={{ minWidth: 820 }}>
         {/* Header */}
         <div className={`grid grid-cols-[40px_1fr_80px_90px_90px_80px_80px_60px_60px] gap-3 px-5 py-3 border-b ${dividerColor}`}>
           {['#', 'Fund', 'Category', 'Returns', 'Consistency', 'Risk', 'Cost', 'Grade', 'Score'].map((h) => (

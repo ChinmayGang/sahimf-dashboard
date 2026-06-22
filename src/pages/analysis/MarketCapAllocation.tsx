@@ -140,7 +140,7 @@ export function MarketCapAllocation() {
     <div className="p-6 max-w-7xl mx-auto space-y-6">
 
       {/* Page Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${lm ? 'bg-[#4f46e5]/10' : 'bg-[#d6fd70]/10'}`}>
             <ChartPieSlice size={20} weight="fill" color={lm ? '#6366f1' : '#d6fd70'} />
@@ -153,7 +153,7 @@ export function MarketCapAllocation() {
             <p className={`text-xs ${textSub}`}>Portfolio market cap mix vs recommended — drift analysis &amp; rebalancing signals</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2">
           {[
             { label: 'Your Large Cap', value: `${portfolioMix.large}%` },
             { label: 'Your Mid Cap', value: `${portfolioMix.mid}%` },
