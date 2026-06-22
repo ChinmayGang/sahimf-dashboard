@@ -235,7 +235,7 @@ Requires Node.js 18+. No environment variables needed — all data is mocked. Th
 - [ ] Portfolio health score (A/B/C grade)
 - [ ] CAS import — CAMS / KFintech statement parsing
 - [ ] Live NAV data — AMFI open API integration
-- [ ] Mobile-responsive layout
+- [x] Mobile-responsive layout (Batch 8 complete + Session 5 audit)
 
 ---
 

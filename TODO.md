@@ -408,3 +408,21 @@
 - [x] **Dark mode — MFScorecard "Sahi Sabh-scales" label** — Hardcoded `text-[#111827]` → `${text}` for dark mode.
 - [x] **Encoding recovery (OverlapLens)** — PowerShell `Set-Content` corrupted UTF-8 em dashes to `â€"` (CP1252 re-encoding). Recovered via `git checkout HEAD~1 -- OverlapLens.tsx`, then re-applied edits using the Edit tool only. **Rule: NEVER use PowerShell for file text edits — always use the Edit tool.**
 - [x] **RiskAnalysis scatter chart hover** — SVG `<title>` tooltip was unreliable (browser native, requires hover delay). Replaced with React `useState`-based custom tooltip: `onMouseEnter/onMouseMove/onMouseLeave` on each `<g>` bubble group, renders a `position:fixed` tooltip div showing fund name, allocation %, XIRR, and volatility. Verified working in preview.
+
+---
+
+## Done (Session 5 — June 2026)
+
+### Mobile Responsive Audit — Continued
+
+- [x] **SahiFundDetail hero header** — `flex items-start justify-between` → `flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3`. Title div: `flex-1 min-w-0`. Badge row: `flex flex-wrap items-center gap-2`. "Invest Now" button: `flex-shrink-0 self-start`. Prevents fund name squeezing to 3 lines alongside button on mobile.
+- [x] **AllSchemes table scroll** — Replaced `<div className="space-y-0">` with `overflow-x-auto` wrapper + `<div style={{ minWidth: 580 }}>` so fund name column stays visible on narrow screens.
+- [x] **AllSchemes mobile header redesign** — Extracted `togglePill` JSX variable. Mobile (`sm:hidden`): Row 1 = centered toggle only; Row 2 = full-width search input + filter icon with active-count badge. Desktop (`hidden sm:flex`): original breadcrumb + toggle + search + count + filters + sort. Breadcrumb removed from mobile view.
+- [x] **MarketCapAllocation header** — `flex items-center justify-between gap-4` → `flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3`. Pills div: `flex-wrap gap-2`. Prevents title wrapping to 3 lines.
+- [x] **MFScorecard minWidth fix** — `minWidth: 680` → `minWidth: 820`. Root cause: fixed grid cols (rank 40px + name 1fr + score 80px + returns 80px + risk 80px + cost 80px + action 80px + gaps) summed to ~676px leaving only 4px for the `1fr` fund name column — text invisible. 820px gives the name column ~144px.
+- [x] **MFScorecard header stack + chip overflow** — Header: `flex items-center justify-between gap-4` → `flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3`. Pills: `flex-shrink-0 flex gap-2` → `flex flex-wrap gap-2`. Title row: `flex flex-wrap items-center gap-2`. Chip labels like "Sectoral - Energy & Power" were cut off on left edge of narrow screens.
+- [x] **MFScorecard category filter → mobile select** — Mobile (`sm:hidden`): two side-by-side `<select>` dropdowns (Category + Sort by). Desktop (`hidden sm:flex`): original pill chip row. Long category labels no longer overflow on small screens.
+- [x] **SIPWhatIf grid** — `grid-cols-3 gap-5` → `grid-cols-1 lg:grid-cols-3 gap-5`. Category sidebar (125px wide) was rendering on mobile causing overflow. On mobile now stacks vertically.
+- [x] **SIPWhatIf fund ranking table scroll** — Card wrapper: `overflow-hidden` → `overflow-x-auto`. Added `<div style={{ minWidth: 560 }}>` around table content. Table columns no longer collapse on narrow screens.
+- [x] **SIPWhatIf category list → mobile select** — Mobile (`lg:hidden`): `<select>` dropdown replacing the vertical pill buttons. Desktop (`hidden lg:flex`): original vertical pill list. 125px sidebar category list caused layout overflow on phones.
+- [x] **RiskAnalysis header stack** — `flex items-center justify-between gap-4` → `flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3`. Inner title row: `flex flex-wrap items-center gap-2`. Pills div: `flex flex-wrap gap-2`. Title no longer wraps to 3 lines on mobile.
