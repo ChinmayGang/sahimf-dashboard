@@ -636,7 +636,7 @@ export function Overview() {
                       Full Portfolio <ArrowForwardIcon size={13} weight="bold" />
                     </button>
                     <button
-                      onClick={() => navigate('/mutual-funds/overlap')}
+                      onClick={() => navigate('/mutual-funds/overlap-v2')}
                       className="flex items-center gap-1.5 bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/30 border border-white/40 transition-colors"
                     >
                       Overlap Analysis <ArrowForwardIcon size={13} weight="bold" />
