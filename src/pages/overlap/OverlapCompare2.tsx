@@ -319,7 +319,7 @@ export function OverlapCompare2() {
           </div>
           <OverviewRow label="Category" valA={fa.subCategory} valB={fb.subCategory} />
           <OverviewRow label="AMC" valA={fa.amcName.split(' ')[0]} valB={fb.amcName.split(' ')[0]} />
-          <OverviewRow label="AUM" valA={`₹${(fa.fundSize / 100).toFixed(0)}Cr`} valB={`₹${(fb.fundSize / 100).toFixed(0)}Cr`} />
+          <OverviewRow label="AUM" valA={`₹${fa.fundSize.toLocaleString('en-IN')} Cr`} valB={`₹${fb.fundSize.toLocaleString('en-IN')} Cr`} />
           <OverviewRow label="NAV" valA={`₹${fa.nav}`} valB={`₹${fb.nav}`} />
           <OverviewRow label="Since" valA={fa.launchedOn.slice(0,4)} valB={fb.launchedOn.slice(0,4)} />
           <OverviewRow label="Min SIP" valA={`₹${fa.minSIP}`} valB={`₹${fb.minSIP}`} />
