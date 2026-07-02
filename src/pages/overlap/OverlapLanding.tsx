@@ -225,9 +225,11 @@ export function OverlapLanding() {
                   </div>
                   <div className="text-right flex-shrink-0">
                     <p className="text-xs font-bold" style={{ color: '#16a34a' }}>
-                      {f.returns['5Y']}%
+                      {f.returns['5Y'] != null ? `${f.returns['5Y']}%` : f.returns['3Y'] != null ? `${f.returns['3Y']}%` : 'N/A'}
                     </p>
-                    <p className="text-[10px]" style={{ color: TEXT_SUB }}>5Y CAGR</p>
+                    <p className="text-[10px]" style={{ color: TEXT_SUB }}>
+                      {f.returns['5Y'] != null ? '5Y CAGR' : f.returns['3Y'] != null ? '3Y CAGR' : '—'}
+                    </p>
                   </div>
                 </button>
               )

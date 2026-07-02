@@ -11,6 +11,11 @@ export const SECTOR_WEIGHTS: Record<string, Record<string, number>> = {
   f008: { Banking: 24, IT: 16, 'Consumer Staples': 9, Healthcare: 17, Auto: 14, Energy: 0, Specialty: 8, Others: 12 },
   f009: { Banking: 30, IT: 16, 'Consumer Staples': 13, Healthcare: 10, Auto: 9, Energy: 11, Infra: 4, Others: 7 },
   f010: { Banking: 33, IT: 20, 'Consumer Staples': 11, Healthcare: 7, Auto: 7, Energy: 10, Infra: 5, Others: 7 },
+  // International / special funds — domestic sector weights near zero
+  f011: { IT: 92, Others: 8 },                                                                      // Edelweiss US Tech — all US IT
+  f012: { Banking: 26, IT: 18, Auto: 14, Healthcare: 13, 'Consumer Staples': 8, Others: 21 },     // Motilal Large & Mid
+  f013: { 'Gold & Silver': 100 },                                                                   // Motilal Gold & Silver FoF — commodity
+  f014: { Banking: 22, IT: 16, 'Consumer Staples': 12, Healthcare: 8, Energy: 10, Others: 32 },   // Edelweiss EM — diversified EM
 }
 
 export const NIFTY_WEIGHTS: Record<string, number> = {
@@ -37,6 +42,23 @@ const RAW_PAIRS: [string, string, number][] = [
   ['f007','f008', 20], ['f007','f009', 26], ['f007','f010', 28],
   ['f008','f009', 30], ['f008','f010', 34],
   ['f009','f010', 40],
+  // f011 (Edelweiss US Tech FoF) — low domestic overlap, moderate with f002 PPFAS (intl), f014 (same AMC)
+  ['f001','f011',  2], ['f002','f011',  8], ['f003','f011',  1], ['f004','f011',  3],
+  ['f005','f011',  2], ['f006','f011',  1], ['f007','f011',  3], ['f008','f011',  2],
+  ['f009','f011',  2], ['f010','f011',  3],
+  // f012 (Motilal Large & Mid) — banking/IT overlap with domestic large cap funds
+  ['f001','f012', 22], ['f002','f012', 10], ['f003','f012',  3], ['f004','f012', 28],
+  ['f005','f012', 18], ['f006','f012',  5], ['f007','f012', 24], ['f008','f012', 26],
+  ['f009','f012', 24], ['f010','f012', 30], ['f011','f012',  4],
+  // f013 (Motilal Gold & Silver FoF) — commodity, 0 equity overlap with everything
+  ['f001','f013',  0], ['f002','f013',  0], ['f003','f013',  0], ['f004','f013',  0],
+  ['f005','f013',  0], ['f006','f013',  0], ['f007','f013',  0], ['f008','f013',  0],
+  ['f009','f013',  0], ['f010','f013',  0], ['f011','f013',  0], ['f012','f013',  0],
+  // f014 (Edelweiss EM Offshore) — low domestic overlap, same AMC as f011
+  ['f001','f014',  4], ['f002','f014', 10], ['f003','f014',  2], ['f004','f014',  4],
+  ['f005','f014',  3], ['f006','f014',  2], ['f007','f014',  4], ['f008','f014',  5],
+  ['f009','f014',  3], ['f010','f014',  4], ['f011','f014', 12], ['f012','f014',  5],
+  ['f013','f014',  0],
 ]
 
 export const OVERLAP_PAIRS: Record<string, Record<string, number>> = {}
@@ -159,6 +181,8 @@ export const AMC_PRESETS: FundPreset[] = [
   { label: 'Axis Mutual Fund',         ids: ['f004'] },
   { label: 'ICICI Prudential MF',      ids: ['f010'] },
   { label: 'DSP Mutual Fund',          ids: ['f003'] },
+  { label: 'Edelweiss Mutual Fund',    ids: ['f011', 'f014'] },
+  { label: 'Motilal Oswal MF',         ids: ['f012', 'f013'] },
 ]
 
 export function getOverlap(a: string, b: string): number {
