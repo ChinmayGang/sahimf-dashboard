@@ -72,7 +72,9 @@ const GREEN      = '#22c55e'
 // Fund color palette for dot markers
 const FUND_COLORS = ['#4f46e5', '#0891b2', '#16a34a', '#ea580c', '#db2777']
 
-function shortName(name: string) { return name.split(' ').slice(0, 3).join(' ') }
+function shortName(name: string) {
+  return name.replace(/\s*[-–]\s*Direct Plan.*$/i, '').split(' ').slice(0, 4).join(' ')
+}
 
 function pairSeverity(v: number) {
   if (v >= 30) return { label: 'Very High', color: RED,   bg: '#fee2e2', textColor: '#b91c1c' }

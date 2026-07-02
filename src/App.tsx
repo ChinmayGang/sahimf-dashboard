@@ -14,6 +14,9 @@ import { SahiFundDetail } from './pages/sahifunds/SahiFundDetail'
 import { MySahiFunds } from './pages/sahifunds/MySahiFunds'
 import { OverlapLens } from './pages/analysis/OverlapLens'
 import { OverlapMobile } from './pages/analysis/OverlapMobile'
+import { OverlapLanding } from './pages/overlap/OverlapLanding'
+import { OverlapMatrix } from './pages/overlap/OverlapMatrix'
+import { OverlapCompare2 } from './pages/overlap/OverlapCompare2'
 import { FundComparison } from './pages/analysis/FundComparison'
 import { MarketCapAllocation } from './pages/analysis/MarketCapAllocation'
 import { RiskAnalysis } from './pages/analysis/RiskAnalysis'
@@ -72,7 +75,10 @@ export default function App() {
             <Route path="mutual-funds/sahi-funds/:id" element={<SahiFundDetail />} />
             <Route path="mutual-funds/my-sahi-funds" element={<MySahiFunds />} />
             <Route path="mutual-funds/overlap" element={<OverlapLens />} />
-            <Route path="mutual-funds/overlap-v2" element={<OverlapMobile />} />
+            <Route path="mutual-funds/overlap-v2" element={<OverlapLanding />} />
+            <Route path="mutual-funds/overlap-v2/matrix" element={<OverlapMatrix />} />
+            <Route path="mutual-funds/overlap-v2/compare/:fundA/:fundB" element={<OverlapCompare2 />} />
+            <Route path="mutual-funds/overlap-v2/legacy" element={<OverlapMobile />} />
             <Route path="mutual-funds/compare" element={<FundComparison />} />
             <Route path="mutual-funds/market-cap" element={<MarketCapAllocation />} />
             <Route path="mutual-funds/risk" element={<RiskAnalysis />} />
